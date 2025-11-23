@@ -11,7 +11,7 @@ import java.awt.Color;
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 60000; // In miliseconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 60; // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(156,183,133);   // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(128,161,98);     //  | when reading from the variable file
@@ -21,7 +21,7 @@ public class GUI_Window extends javax.swing.JFrame {
     
     // HOLDING VARIABLES: =================================================
     int awayFromScreenCounter = 0;    // Keeps count from 0- AWAY_FROM_SCREEN_TIME
-    JPanel settings_again = null;     // Holds the settings panel for foward refrence
+    JPanel progress_again = null;     // Holds the settings panel for foward refrence
     JTextField keyboardTarget = null; // Holds where we are typing into 
     String customName = "";
     // ====================================================================
@@ -32,15 +32,29 @@ public class GUI_Window extends javax.swing.JFrame {
     public GUI_Window() {
         initComponents();
         
-        // Loading and Painting 
+        // Loading information from files
         loadVariables();           // Loading in the variables from files
         loadHabits();              // Loading habits from files
-        paintColors();             // Paint all the panels to the colors that we have set
         
-        // Other one time code:
-        settings_again = settings; // Saving the settings again into another location because of foward refrence in timer
-        s_currentSaved.setText(customName.isEmpty() ? "Not Set" : customName); 
-        h_welcomeMessage.setText(customName.isEmpty() ? "Welcome back!" : "Welcome, " + customName);
+        // Main Frame Code:
+        keyboard.getParent().setLayout(null);  // Setting the layout to null, so that we can use the set location without issues
+        
+        // Settings Panel Code:
+        progress_again = progress; // Saving the progress again into another location because of foward refrence in timer
+        s_customName.setText(customName.isEmpty() ? "Not Set" : customName);                        // Setting the custom name
+        h_welcomeMessage.setText(customName.isEmpty() ? "Welcome back!" : "Welcome, " + customName);  // Setting the custom name
+        s_awayFromScreen.setText(Integer.toString(AWAY_FROM_SCREEN_TIME/60) + " Minute(s)");          // Setting the away from screen time
+        s_awayFromScreenInput.setModel(new SpinnerNumberModel(1, 1, 9999, 1));                        // Setting up the spinner so it can have max and mins
+        ((JSpinner.DefaultEditor) s_awayFromScreenInput.getEditor()).getTextField().setHorizontalAlignment(JTextField.CENTER); // Centering the text in input
+        
+        
+        // Keyboard Panel Code:
+        keyboard.getParent().setComponentZOrder(keyboard,0);  // Moving up the keyboard because it needs to be on top of everything
+        keyboard.setLocation(0,0);                            // Moving keyboard to safe space
+        keyboard.setVisible(false);                           // Hiding keyboard
+        
+        // Painting the program
+        paintColors();         
         
         // Switching to start in home frame
         switchFrame(home);         // Switching to the starting frame (home)
@@ -50,6 +64,48 @@ public class GUI_Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        settings = new javax.swing.JPanel();
+        s_topPanel = new javax.swing.JPanel();
+        s_settingsTitle = new javax.swing.JLabel();
+        s_backButton = new javax.swing.JButton();
+        s_colorsPanel = new javax.swing.JPanel();
+        s_colorsTitle = new javax.swing.JLabel();
+        s_primaryColorButton = new javax.swing.JButton();
+        s_primaryColor = new javax.swing.JPanel();
+        s_secondaryColor = new javax.swing.JPanel();
+        s_secondaryColorButton = new javax.swing.JButton();
+        s_textColorButton = new javax.swing.JButton();
+        s_textColor = new javax.swing.JPanel();
+        s_buttonColorButton = new javax.swing.JButton();
+        s_buttonColor = new javax.swing.JPanel();
+        s_customNamePanel = new javax.swing.JPanel();
+        s_customNameTitle = new javax.swing.JLabel();
+        s_customNameButton = new javax.swing.JButton();
+        s_customNameTitle2 = new javax.swing.JLabel();
+        s_customName = new javax.swing.JLabel();
+        s_customNameInput = new javax.swing.JTextField();
+        s_saveCustomNameButton = new javax.swing.JButton();
+        s_awayFromScreenPanel = new javax.swing.JPanel();
+        s_awayFromScreenTitle = new javax.swing.JLabel();
+        s_awayFromScreenTitle2 = new javax.swing.JLabel();
+        s_awayFromScreen = new javax.swing.JLabel();
+        s_awayFromScreenInput = new javax.swing.JSpinner();
+        s_awayFromScreenButton = new javax.swing.JButton();
+        s_connectionPanel = new javax.swing.JPanel();
+        home = new javax.swing.JPanel();
+        h_topPanel = new javax.swing.JPanel();
+        h_welcomeMessage = new javax.swing.JLabel();
+        h_dateTitle = new javax.swing.JLabel();
+        h_date = new javax.swing.JLabel();
+        h_settingsButton = new javax.swing.JButton();
+        h_bottomPanel = new javax.swing.JPanel();
+        h_addButton = new javax.swing.JButton();
+        h_editButton = new javax.swing.JButton();
+        h_progressButton = new javax.swing.JButton();
+        progress = new javax.swing.JPanel();
+        p_topPanel = new javax.swing.JPanel();
+        p_progressTitle = new javax.swing.JLabel();
+        p_backButton = new javax.swing.JButton();
         keyboard = new javax.swing.JPanel();
         key1 = new javax.swing.JButton();
         key2 = new javax.swing.JButton();
@@ -78,47 +134,404 @@ public class GUI_Window extends javax.swing.JFrame {
         key25 = new javax.swing.JButton();
         key26 = new javax.swing.JButton();
         key27 = new javax.swing.JButton();
-        settings = new javax.swing.JPanel();
-        s_topPanel = new javax.swing.JPanel();
-        s_settingsTitle = new javax.swing.JLabel();
-        s_backButton = new javax.swing.JButton();
-        s_colorsPanel = new javax.swing.JPanel();
-        s_colorsTitle = new javax.swing.JLabel();
-        s_primaryColorButton = new javax.swing.JButton();
-        s_primaryColor = new javax.swing.JPanel();
-        s_secondaryColor = new javax.swing.JPanel();
-        s_secondaryColorButton = new javax.swing.JButton();
-        s_textColorButton = new javax.swing.JButton();
-        s_textColor = new javax.swing.JPanel();
-        s_buttonColorButton = new javax.swing.JButton();
-        s_buttonColor = new javax.swing.JPanel();
-        s_customNamePanel = new javax.swing.JPanel();
-        s_customNameTitle = new javax.swing.JLabel();
-        s_customNameButton = new javax.swing.JButton();
-        s_currentSavedTitle = new javax.swing.JLabel();
-        s_currentSaved = new javax.swing.JLabel();
-        s_customNameInput = new javax.swing.JTextField();
-        s_saveCustomNameButton = new javax.swing.JButton();
-        home = new javax.swing.JPanel();
-        h_topPanel = new javax.swing.JPanel();
-        h_welcomeMessage = new javax.swing.JLabel();
-        h_dateTitle = new javax.swing.JLabel();
-        h_date = new javax.swing.JLabel();
-        h_settingsButton = new javax.swing.JButton();
-        h_bottomPanel = new javax.swing.JPanel();
-        h_addButton = new javax.swing.JButton();
-        h_editButton = new javax.swing.JButton();
-        h_progressButton = new javax.swing.JButton();
-        progress = new javax.swing.JPanel();
-        p_topPanel = new javax.swing.JPanel();
-        p_progressTitle = new javax.swing.JLabel();
-        p_backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("HabitPanel");
         setMaximumSize(new java.awt.Dimension(1040, 600));
         setMinimumSize(new java.awt.Dimension(1040, 600));
+        setResizable(false);
         setSize(new java.awt.Dimension(1040, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        settings.setBackground(new java.awt.Color(204, 204, 204));
+        settings.setMaximumSize(new java.awt.Dimension(1040, 600));
+        settings.setMinimumSize(new java.awt.Dimension(1040, 600));
+        settings.setName(""); // NOI18N
+        settings.setPreferredSize(new java.awt.Dimension(1040, 600));
+        settings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        s_topPanel.setBackground(new java.awt.Color(156, 183, 133));
+        s_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        s_settingsTitle.setBackground(new java.awt.Color(128, 161, 98));
+        s_settingsTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        s_settingsTitle.setForeground(java.awt.Color.white);
+        s_settingsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_settingsTitle.setText("Settings");
+        s_topPanel.add(s_settingsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 780, 40));
+
+        s_backButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_backButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_backButton.setForeground(java.awt.Color.white);
+        s_backButton.setText("Back");
+        s_backButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_backButtonMouseClicked(evt);
+            }
+        });
+        s_topPanel.add(s_backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
+
+        settings.add(s_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
+
+        s_colorsPanel.setBackground(new java.awt.Color(156, 183, 133));
+        s_colorsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_colorsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        s_colorsTitle.setBackground(new java.awt.Color(156, 183, 133));
+        s_colorsTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_colorsTitle.setForeground(java.awt.Color.white);
+        s_colorsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_colorsTitle.setText("Colors:");
+        s_colorsPanel.add(s_colorsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, -1));
+
+        s_primaryColorButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_primaryColorButton.setForeground(java.awt.Color.white);
+        s_primaryColorButton.setText("Primary Color");
+        s_primaryColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_primaryColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_changeColorButtonClicked(evt);
+            }
+        });
+        s_colorsPanel.add(s_primaryColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, 30));
+
+        s_primaryColor.setBackground(java.awt.Color.white);
+        s_primaryColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout s_primaryColorLayout = new javax.swing.GroupLayout(s_primaryColor);
+        s_primaryColor.setLayout(s_primaryColorLayout);
+        s_primaryColorLayout.setHorizontalGroup(
+            s_primaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+        s_primaryColorLayout.setVerticalGroup(
+            s_primaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        s_colorsPanel.add(s_primaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 50, 30));
+
+        s_secondaryColor.setBackground(java.awt.Color.white);
+        s_secondaryColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout s_secondaryColorLayout = new javax.swing.GroupLayout(s_secondaryColor);
+        s_secondaryColor.setLayout(s_secondaryColorLayout);
+        s_secondaryColorLayout.setHorizontalGroup(
+            s_secondaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+        s_secondaryColorLayout.setVerticalGroup(
+            s_secondaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        s_colorsPanel.add(s_secondaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 50, 30));
+
+        s_secondaryColorButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_secondaryColorButton.setForeground(java.awt.Color.white);
+        s_secondaryColorButton.setText("Secondary Color");
+        s_secondaryColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_secondaryColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_changeColorButtonClicked(evt);
+            }
+        });
+        s_colorsPanel.add(s_secondaryColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 30));
+
+        s_textColorButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_textColorButton.setForeground(java.awt.Color.white);
+        s_textColorButton.setText("Text Color");
+        s_textColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_textColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_changeColorButtonClicked(evt);
+            }
+        });
+        s_colorsPanel.add(s_textColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 270, 30));
+
+        s_textColor.setBackground(java.awt.Color.white);
+        s_textColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout s_textColorLayout = new javax.swing.GroupLayout(s_textColor);
+        s_textColor.setLayout(s_textColorLayout);
+        s_textColorLayout.setHorizontalGroup(
+            s_textColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+        s_textColorLayout.setVerticalGroup(
+            s_textColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        s_colorsPanel.add(s_textColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 50, 30));
+
+        s_buttonColorButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_buttonColorButton.setForeground(java.awt.Color.white);
+        s_buttonColorButton.setText("Button Color");
+        s_buttonColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_buttonColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_changeColorButtonClicked(evt);
+            }
+        });
+        s_colorsPanel.add(s_buttonColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 270, 30));
+
+        s_buttonColor.setBackground(java.awt.Color.white);
+        s_buttonColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        javax.swing.GroupLayout s_buttonColorLayout = new javax.swing.GroupLayout(s_buttonColor);
+        s_buttonColor.setLayout(s_buttonColorLayout);
+        s_buttonColorLayout.setHorizontalGroup(
+            s_buttonColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 48, Short.MAX_VALUE)
+        );
+        s_buttonColorLayout.setVerticalGroup(
+            s_buttonColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 28, Short.MAX_VALUE)
+        );
+
+        s_colorsPanel.add(s_buttonColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 50, 30));
+
+        settings.add(s_colorsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 380, 220));
+
+        s_customNamePanel.setBackground(new java.awt.Color(156, 183, 133));
+        s_customNamePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_customNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        s_customNameTitle.setBackground(new java.awt.Color(156, 183, 133));
+        s_customNameTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_customNameTitle.setForeground(java.awt.Color.white);
+        s_customNameTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_customNameTitle.setText("Set Up Custom Name:");
+        s_customNamePanel.add(s_customNameTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, -1));
+
+        s_customNameButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_customNameButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        s_customNameButton.setForeground(java.awt.Color.white);
+        s_customNameButton.setText("Change Name");
+        s_customNameButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_customNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_customNameButtonMouseClicked(evt);
+            }
+        });
+        s_customNamePanel.add(s_customNameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 530, 40));
+
+        s_customNameTitle2.setBackground(new java.awt.Color(156, 183, 133));
+        s_customNameTitle2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_customNameTitle2.setForeground(java.awt.Color.white);
+        s_customNameTitle2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_customNameTitle2.setText("Current Saved:");
+        s_customNamePanel.add(s_customNameTitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 260, 30));
+
+        s_customName.setBackground(new java.awt.Color(156, 183, 133));
+        s_customName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_customName.setForeground(java.awt.Color.white);
+        s_customNamePanel.add(s_customName, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 260, 30));
+
+        settings.add(s_customNamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 80, 580, 140));
+
+        s_customNameInput.setBackground(new java.awt.Color(156, 183, 133));
+        s_customNameInput.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        s_customNameInput.setForeground(java.awt.Color.white);
+        s_customNameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        s_customNameInput.setText("customnamehere");
+        settings.add(s_customNameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 520, 61));
+
+        s_saveCustomNameButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_saveCustomNameButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        s_saveCustomNameButton.setForeground(java.awt.Color.white);
+        s_saveCustomNameButton.setText("Save Custom Name");
+        s_saveCustomNameButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_saveCustomNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_saveCustomNameButtonMouseClicked(evt);
+            }
+        });
+        settings.add(s_saveCustomNameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 730, 40));
+
+        s_awayFromScreenPanel.setBackground(new java.awt.Color(156, 183, 133));
+        s_awayFromScreenPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_awayFromScreenPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        s_awayFromScreenTitle.setBackground(new java.awt.Color(156, 183, 133));
+        s_awayFromScreenTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_awayFromScreenTitle.setForeground(java.awt.Color.white);
+        s_awayFromScreenTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreenTitle.setText("Away From Screen Timeout");
+        s_awayFromScreenPanel.add(s_awayFromScreenTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, -1));
+
+        s_awayFromScreenTitle2.setBackground(new java.awt.Color(156, 183, 133));
+        s_awayFromScreenTitle2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_awayFromScreenTitle2.setForeground(java.awt.Color.white);
+        s_awayFromScreenTitle2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreenTitle2.setText("Current Saved:");
+        s_awayFromScreenPanel.add(s_awayFromScreenTitle2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 60, 140, -1));
+
+        s_awayFromScreen.setBackground(new java.awt.Color(156, 183, 133));
+        s_awayFromScreen.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_awayFromScreen.setForeground(java.awt.Color.white);
+        s_awayFromScreen.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreen.setText("1 Minute");
+        s_awayFromScreenPanel.add(s_awayFromScreen, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 60, 140, -1));
+
+        s_awayFromScreenInput.setEditor(new javax.swing.JSpinner.NumberEditor(s_awayFromScreenInput, ""));
+        s_awayFromScreenInput.setOpaque(true);
+        s_awayFromScreenPanel.add(s_awayFromScreenInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 300, 40));
+
+        s_awayFromScreenButton.setBackground(new java.awt.Color(128, 161, 98));
+        s_awayFromScreenButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        s_awayFromScreenButton.setForeground(java.awt.Color.white);
+        s_awayFromScreenButton.setText("Update Time");
+        s_awayFromScreenButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        s_awayFromScreenButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                s_awayFromScreenButtonMouseClicked(evt);
+            }
+        });
+        s_awayFromScreenPanel.add(s_awayFromScreenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, 340, 30));
+
+        settings.add(s_awayFromScreenPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 340, 380, 220));
+
+        s_connectionPanel.setBackground(new java.awt.Color(156, 183, 133));
+        s_connectionPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout s_connectionPanelLayout = new javax.swing.GroupLayout(s_connectionPanel);
+        s_connectionPanel.setLayout(s_connectionPanelLayout);
+        s_connectionPanelLayout.setHorizontalGroup(
+            s_connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 574, Short.MAX_VALUE)
+        );
+        s_connectionPanelLayout.setVerticalGroup(
+            s_connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 294, Short.MAX_VALUE)
+        );
+
+        settings.add(s_connectionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 580, 300));
+
+        getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
+
+        home.setBackground(new java.awt.Color(204, 204, 204));
+        home.setMaximumSize(new java.awt.Dimension(1040, 600));
+        home.setMinimumSize(new java.awt.Dimension(1040, 600));
+        home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_topPanel.setBackground(new java.awt.Color(156, 183, 133));
+        h_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_welcomeMessage.setBackground(new java.awt.Color(128, 161, 98));
+        h_welcomeMessage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        h_welcomeMessage.setForeground(java.awt.Color.white);
+        h_welcomeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_welcomeMessage.setText("Welcome Back!");
+        h_topPanel.add(h_welcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 470, 40));
+
+        h_dateTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        h_dateTitle.setForeground(java.awt.Color.white);
+        h_dateTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_dateTitle.setText("Date:");
+        h_topPanel.add(h_dateTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 5, 100, 40));
+
+        h_date.setBackground(new java.awt.Color(156, 183, 133));
+        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        h_date.setForeground(java.awt.Color.white);
+        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_date.setText("Saturday, Nov 22, 2025");
+        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        h_topPanel.add(h_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 6, 300, 40));
+
+        h_settingsButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_settingsButton.setForeground(java.awt.Color.white);
+        h_settingsButton.setText("Settings");
+        h_settingsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_settingsButtonMouseClicked(evt);
+            }
+        });
+        h_topPanel.add(h_settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
+
+        home.add(h_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
+
+        h_bottomPanel.setBackground(new java.awt.Color(156, 183, 133));
+        h_bottomPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_bottomPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_addButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_addButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_addButton.setForeground(java.awt.Color.white);
+        h_addButton.setText("+ Add New");
+        h_addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_addButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 320, 36));
+
+        h_editButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_editButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_editButton.setForeground(java.awt.Color.white);
+        h_editButton.setText("Edit History");
+        h_editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_editButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 8, 320, 36));
+
+        h_progressButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_progressButton.setForeground(java.awt.Color.white);
+        h_progressButton.setText("View Progress");
+        h_progressButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_progressButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_progressButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 8, 320, 36));
+
+        home.add(h_bottomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1040, 50));
+
+        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
+
+        progress.setBackground(new java.awt.Color(204, 204, 204));
+        progress.setMaximumSize(new java.awt.Dimension(1040, 600));
+        progress.setMinimumSize(new java.awt.Dimension(1040, 600));
+        progress.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        p_topPanel.setBackground(new java.awt.Color(156, 183, 133));
+        p_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        p_progressTitle.setBackground(new java.awt.Color(128, 161, 98));
+        p_progressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        p_progressTitle.setForeground(java.awt.Color.white);
+        p_progressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_progressTitle.setText("Progress Center");
+        p_topPanel.add(p_progressTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 780, 40));
+
+        p_backButton.setBackground(new java.awt.Color(128, 161, 98));
+        p_backButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        p_backButton.setForeground(java.awt.Color.white);
+        p_backButton.setText("Back");
+        p_backButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_backButtonMouseClicked(evt);
+            }
+        });
+        p_topPanel.add(p_backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
+
+        progress.add(p_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
+
+        getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         keyboard.setBackground(new java.awt.Color(156, 183, 133));
         keyboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -422,337 +835,7 @@ public class GUI_Window extends javax.swing.JFrame {
         });
         keyboard.add(key27, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 100, 60));
 
-        getContentPane().add(keyboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 290, 730, 230));
-
-        settings.setBackground(new java.awt.Color(204, 204, 204));
-        settings.setMaximumSize(new java.awt.Dimension(1040, 600));
-        settings.setMinimumSize(new java.awt.Dimension(1040, 600));
-        settings.setName(""); // NOI18N
-        settings.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        s_topPanel.setBackground(new java.awt.Color(156, 183, 133));
-        s_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        s_settingsTitle.setBackground(new java.awt.Color(128, 161, 98));
-        s_settingsTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        s_settingsTitle.setForeground(java.awt.Color.white);
-        s_settingsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_settingsTitle.setText("Settings");
-        s_topPanel.add(s_settingsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 780, 40));
-
-        s_backButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_backButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        s_backButton.setForeground(java.awt.Color.white);
-        s_backButton.setText("Back");
-        s_backButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_backButtonMouseClicked(evt);
-            }
-        });
-        s_topPanel.add(s_backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
-
-        settings.add(s_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
-
-        s_colorsPanel.setBackground(new java.awt.Color(156, 183, 133));
-        s_colorsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_colorsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        s_colorsTitle.setBackground(new java.awt.Color(156, 183, 133));
-        s_colorsTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        s_colorsTitle.setForeground(java.awt.Color.white);
-        s_colorsTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_colorsTitle.setText("Colors:");
-        s_colorsPanel.add(s_colorsTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 360, -1));
-
-        s_primaryColorButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_primaryColorButton.setForeground(java.awt.Color.white);
-        s_primaryColorButton.setText("Primary Color");
-        s_primaryColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_primaryColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_changeColorButtonClicked(evt);
-            }
-        });
-        s_colorsPanel.add(s_primaryColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 270, 30));
-
-        s_primaryColor.setBackground(java.awt.Color.white);
-        s_primaryColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout s_primaryColorLayout = new javax.swing.GroupLayout(s_primaryColor);
-        s_primaryColor.setLayout(s_primaryColorLayout);
-        s_primaryColorLayout.setHorizontalGroup(
-            s_primaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-        s_primaryColorLayout.setVerticalGroup(
-            s_primaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
-        );
-
-        s_colorsPanel.add(s_primaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 50, 50, 30));
-
-        s_secondaryColor.setBackground(java.awt.Color.white);
-        s_secondaryColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout s_secondaryColorLayout = new javax.swing.GroupLayout(s_secondaryColor);
-        s_secondaryColor.setLayout(s_secondaryColorLayout);
-        s_secondaryColorLayout.setHorizontalGroup(
-            s_secondaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-        s_secondaryColorLayout.setVerticalGroup(
-            s_secondaryColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
-        );
-
-        s_colorsPanel.add(s_secondaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 90, 50, 30));
-
-        s_secondaryColorButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_secondaryColorButton.setForeground(java.awt.Color.white);
-        s_secondaryColorButton.setText("Secondary Color");
-        s_secondaryColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_secondaryColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_changeColorButtonClicked(evt);
-            }
-        });
-        s_colorsPanel.add(s_secondaryColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 30));
-
-        s_textColorButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_textColorButton.setForeground(java.awt.Color.white);
-        s_textColorButton.setText("Text Color");
-        s_textColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_textColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_changeColorButtonClicked(evt);
-            }
-        });
-        s_colorsPanel.add(s_textColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, 270, 30));
-
-        s_textColor.setBackground(java.awt.Color.white);
-        s_textColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout s_textColorLayout = new javax.swing.GroupLayout(s_textColor);
-        s_textColor.setLayout(s_textColorLayout);
-        s_textColorLayout.setHorizontalGroup(
-            s_textColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-        s_textColorLayout.setVerticalGroup(
-            s_textColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
-        );
-
-        s_colorsPanel.add(s_textColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 50, 30));
-
-        s_buttonColorButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_buttonColorButton.setForeground(java.awt.Color.white);
-        s_buttonColorButton.setText("Button Color");
-        s_buttonColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_buttonColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_changeColorButtonClicked(evt);
-            }
-        });
-        s_colorsPanel.add(s_buttonColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 270, 30));
-
-        s_buttonColor.setBackground(java.awt.Color.white);
-        s_buttonColor.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        javax.swing.GroupLayout s_buttonColorLayout = new javax.swing.GroupLayout(s_buttonColor);
-        s_buttonColor.setLayout(s_buttonColorLayout);
-        s_buttonColorLayout.setHorizontalGroup(
-            s_buttonColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 48, Short.MAX_VALUE)
-        );
-        s_buttonColorLayout.setVerticalGroup(
-            s_buttonColorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 28, Short.MAX_VALUE)
-        );
-
-        s_colorsPanel.add(s_buttonColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 50, 30));
-
-        settings.add(s_colorsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 380, 220));
-
-        s_customNamePanel.setBackground(new java.awt.Color(156, 183, 133));
-        s_customNamePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_customNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        s_customNameTitle.setBackground(new java.awt.Color(156, 183, 133));
-        s_customNameTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        s_customNameTitle.setForeground(java.awt.Color.white);
-        s_customNameTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_customNameTitle.setText("Set Up Custom Name:");
-        s_customNamePanel.add(s_customNameTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 560, -1));
-
-        s_customNameButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_customNameButton.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        s_customNameButton.setForeground(java.awt.Color.white);
-        s_customNameButton.setText("Change Name");
-        s_customNameButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_customNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_customNameButtonMouseClicked(evt);
-            }
-        });
-        s_customNamePanel.add(s_customNameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 530, 40));
-
-        s_currentSavedTitle.setBackground(new java.awt.Color(156, 183, 133));
-        s_currentSavedTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        s_currentSavedTitle.setForeground(java.awt.Color.white);
-        s_currentSavedTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_currentSavedTitle.setText("Current Saved:");
-        s_customNamePanel.add(s_currentSavedTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 50, 260, 30));
-
-        s_currentSaved.setBackground(new java.awt.Color(156, 183, 133));
-        s_currentSaved.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        s_currentSaved.setForeground(java.awt.Color.white);
-        s_customNamePanel.add(s_currentSaved, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 50, 260, 30));
-
-        settings.add(s_customNamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 70, 580, 140));
-
-        s_customNameInput.setBackground(new java.awt.Color(156, 183, 133));
-        s_customNameInput.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        s_customNameInput.setForeground(java.awt.Color.white);
-        s_customNameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        s_customNameInput.setText("customnamehere");
-        settings.add(s_customNameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 520, 61));
-
-        s_saveCustomNameButton.setBackground(new java.awt.Color(128, 161, 98));
-        s_saveCustomNameButton.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        s_saveCustomNameButton.setForeground(java.awt.Color.white);
-        s_saveCustomNameButton.setText("Save Custom Name");
-        s_saveCustomNameButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_saveCustomNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                s_saveCustomNameButtonMouseClicked(evt);
-            }
-        });
-        settings.add(s_saveCustomNameButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 530, 730, 40));
-
-        getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
-
-        home.setBackground(new java.awt.Color(204, 204, 204));
-        home.setMaximumSize(new java.awt.Dimension(1040, 600));
-        home.setMinimumSize(new java.awt.Dimension(1040, 600));
-        home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_topPanel.setBackground(new java.awt.Color(156, 183, 133));
-        h_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_welcomeMessage.setBackground(new java.awt.Color(128, 161, 98));
-        h_welcomeMessage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        h_welcomeMessage.setForeground(java.awt.Color.white);
-        h_welcomeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_welcomeMessage.setText("Welcome Back!");
-        h_topPanel.add(h_welcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 470, 40));
-
-        h_dateTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        h_dateTitle.setForeground(java.awt.Color.white);
-        h_dateTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_dateTitle.setText("Date:");
-        h_topPanel.add(h_dateTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 5, 100, 40));
-
-        h_date.setBackground(new java.awt.Color(156, 183, 133));
-        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        h_date.setForeground(java.awt.Color.white);
-        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_date.setText("Saturday, Nov 22, 2025");
-        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        h_topPanel.add(h_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 6, 300, 40));
-
-        h_settingsButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_settingsButton.setForeground(java.awt.Color.white);
-        h_settingsButton.setText("Settings");
-        h_settingsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_settingsButtonMouseClicked(evt);
-            }
-        });
-        h_topPanel.add(h_settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
-
-        home.add(h_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
-
-        h_bottomPanel.setBackground(new java.awt.Color(156, 183, 133));
-        h_bottomPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_bottomPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_addButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_addButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_addButton.setForeground(java.awt.Color.white);
-        h_addButton.setText("+ Add New");
-        h_addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_addButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_addButtonMouseClicked(evt);
-            }
-        });
-        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 320, 36));
-
-        h_editButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_editButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_editButton.setForeground(java.awt.Color.white);
-        h_editButton.setText("Edit History");
-        h_editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_editButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_editButtonMouseClicked(evt);
-            }
-        });
-        h_bottomPanel.add(h_editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 8, 320, 36));
-
-        h_progressButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_progressButton.setForeground(java.awt.Color.white);
-        h_progressButton.setText("View Progress");
-        h_progressButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_progressButtonMouseClicked(evt);
-            }
-        });
-        h_bottomPanel.add(h_progressButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 8, 320, 36));
-
-        home.add(h_bottomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1040, 50));
-
-        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
-
-        progress.setBackground(new java.awt.Color(204, 204, 204));
-        progress.setMaximumSize(new java.awt.Dimension(1040, 600));
-        progress.setMinimumSize(new java.awt.Dimension(1040, 600));
-        progress.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        p_topPanel.setBackground(new java.awt.Color(156, 183, 133));
-        p_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        p_progressTitle.setBackground(new java.awt.Color(128, 161, 98));
-        p_progressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        p_progressTitle.setForeground(java.awt.Color.white);
-        p_progressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_progressTitle.setText("Progress Center");
-        p_topPanel.add(p_progressTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 780, 40));
-
-        p_backButton.setBackground(new java.awt.Color(128, 161, 98));
-        p_backButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        p_backButton.setForeground(java.awt.Color.white);
-        p_backButton.setText("Back");
-        p_backButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_backButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_backButtonMouseClicked(evt);
-            }
-        });
-        p_topPanel.add(p_backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
-
-        progress.add(p_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
-
-        getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
+        getContentPane().add(keyboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 730, 230));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -775,17 +858,19 @@ public class GUI_Window extends javax.swing.JFrame {
             awayFromScreen.start();    // Starting the timer again if we went to home screen
         }
         else if(target == settings){
-            s_colorsPanel.setVisible(true);       // Showing the color panel
-            s_customNamePanel.setVisible(true);   // Showing the custom name panel
-            s_customNameInput.setVisible(false);  // Hiding the edit custom name panel
-        s_saveCustomNameButton.setVisible(false); // Hiding the save name button
+            s_customNameInput.setVisible(false);      // Hiding the edit custom name panel
+            s_saveCustomNameButton.setVisible(false); // Hiding the save name button
+            s_colorsPanel.setVisible(true);           // Showing the color panel
+            s_customNamePanel.setVisible(true);       // Showing the custom name panel
+            s_awayFromScreenPanel.setVisible(true);   // Showing the away from screen panel
+            s_connectionPanel.setVisible(true);       // Showing the connection panel
         }
         else if(target == progress){
             
         }
         
         
-        // Showing target frame
+        // Showing target frame after everything has been set
         target.setVisible(true);
     }
     // =================================================================================================================================
@@ -795,7 +880,7 @@ public class GUI_Window extends javax.swing.JFrame {
         awayFromScreenCounter++;           // Increase counter
         if(awayFromScreenCounter >= AWAY_FROM_SCREEN_TIME){  // IF: checking if we reached the max time
             ((Timer)e.getSource()).stop(); // Stop Timer
-            switchFrame(settings_again);   // Take back to progress
+            switchFrame(progress_again);   // Take back to progress
             awayFromScreenCounter = 0;     // Reset counter
             // ---------------------------------------------------------------->  Make brightness lower [ADD LATER]
         }
@@ -814,7 +899,8 @@ public class GUI_Window extends javax.swing.JFrame {
     
     // LOADS HABITS FROM FILES
     private void loadHabits(){
-        
+        // load habits and add them into the list 
+        // save if we have some quantity habits to see if we need to upate view
     }
     
     // PAINTS ALL THE PANELS
@@ -825,7 +911,7 @@ public class GUI_Window extends javax.swing.JFrame {
             // HOME SCREEN:
             h_topPanel, h_bottomPanel,
             // SETTINGS SCREEN:
-            s_topPanel, s_colorsPanel, s_customNamePanel,
+            s_topPanel, s_colorsPanel, s_customNamePanel, s_awayFromScreenPanel,
             // PROGRESS SCREEN:
             p_topPanel,
             // KEYBOARD:
@@ -845,7 +931,7 @@ public class GUI_Window extends javax.swing.JFrame {
             h_settingsButton, h_addButton, h_editButton, h_progressButton,
             // SETTINGS SCREEN:
             s_backButton, s_primaryColorButton, s_secondaryColorButton, s_buttonColorButton, s_textColorButton, s_customNameButton,
-            s_saveCustomNameButton,
+            s_saveCustomNameButton, s_awayFromScreenButton,
             // PROGRESS SCREEN:
             p_backButton,
             // KEYBOARD:
@@ -858,10 +944,12 @@ public class GUI_Window extends javax.swing.JFrame {
             // HOME SCREEN:
             h_welcomeMessage, h_dateTitle, h_date,
             // SETTINGS SCREEN:
-            s_settingsTitle, s_colorsTitle, s_customNameTitle, s_currentSavedTitle, s_currentSaved,
+            s_settingsTitle, s_colorsTitle, s_customNameTitle, s_customNameTitle2, s_customName, s_awayFromScreenTitle, 
+            s_awayFromScreenTitle2, s_awayFromScreen,
             // PROGRESS SCREEN:
             p_progressTitle,
         };
+       
         
         // PAINTING ALL TO THEIR COLORS
         for(JPanel curr : primaryColored){
@@ -889,6 +977,10 @@ public class GUI_Window extends javax.swing.JFrame {
         s_customNameInput.setBackground(PRIMARY_COLOR);
         s_customNameInput.setForeground(TEXT_COLOR);
         
+        // Painting away from screentime input
+        JFormattedTextField txt = ((JSpinner.DefaultEditor) s_awayFromScreenInput.getEditor()).getTextField();
+        txt.setBackground(PRIMARY_COLOR);
+        txt.setForeground(TEXT_COLOR);
         
     }
     // =================================================================================================================================
@@ -966,11 +1058,15 @@ public class GUI_Window extends javax.swing.JFrame {
         keyboardTarget = s_customNameInput;    // Setting up target for the keyboard
         s_customNameInput.setText(customName); // Setting the input to the current name
         
-        s_colorsPanel.setVisible(false);       // Hiding the colors panel
-        s_customNamePanel.setVisible(false);   // Hiding the custom name panel
-        s_saveCustomNameButton.setVisible(true); // Showing the save name button
-        s_customNameInput.setVisible(true);    // Showing the custom name input
-        keyboard.setVisible(true);             // Showing the keyboard
+        keyboard.setLocation(140,290); // Move keyboard to location
+        
+        s_colorsPanel.setVisible(false);          // Hiding the colors panel
+        s_customNamePanel.setVisible(false);      // Hiding the custom name panel
+        s_awayFromScreenPanel.setVisible(false);  // Hiding the away from screen panel
+        s_connectionPanel.setVisible(false);      // Hiding the connection panel
+        s_saveCustomNameButton.setVisible(true);  // Showing the save name button
+        s_customNameInput.setVisible(true);       // Showing the custom name input
+        keyboard.setVisible(true);                // Showing the keyboard
     }//GEN-LAST:event_s_customNameButtonMouseClicked
 
     private void s_saveCustomNameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_s_saveCustomNameButtonMouseClicked
@@ -982,11 +1078,22 @@ public class GUI_Window extends javax.swing.JFrame {
         }
 
         // Setting the settings page with new name if its not empty AND the home page welcome message as well
-        s_currentSaved.setText(customName.isEmpty() ? "Not Set" : customName);
+        s_customName.setText(customName.isEmpty() ? "Not Set" : customName);
         h_welcomeMessage.setText(customName.isEmpty() ? "Welcome back!" : "Welcome, " + customName);
 
         switchFrame(settings);                    // Switching to settings which resets everything
     }//GEN-LAST:event_s_saveCustomNameButtonMouseClicked
+
+    private void s_awayFromScreenButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_s_awayFromScreenButtonMouseClicked
+    // If the value is set to 0 or less, we wont accept it
+    int newValue = ((Integer) s_awayFromScreenInput.getValue());
+    if(newValue <= 0)
+        return;
+    
+    // Saving value and updating the visual showing the current saved
+    AWAY_FROM_SCREEN_TIME = newValue * 60;
+    s_awayFromScreen.setText(Integer.toString(AWAY_FROM_SCREEN_TIME/60) + " Minute(s)");
+    }//GEN-LAST:event_s_awayFromScreenButtonMouseClicked
 
     
     
@@ -1024,6 +1131,8 @@ public class GUI_Window extends javax.swing.JFrame {
         
         keyboardTarget.setText(current);                     // Set the target text to the edited text now
     }//GEN-LAST:event_keyboardKeyClicked
+
+
 
 
 
@@ -1100,17 +1209,24 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel p_progressTitle;
     private javax.swing.JPanel p_topPanel;
     private javax.swing.JPanel progress;
+    private javax.swing.JLabel s_awayFromScreen;
+    private javax.swing.JButton s_awayFromScreenButton;
+    private javax.swing.JSpinner s_awayFromScreenInput;
+    private javax.swing.JPanel s_awayFromScreenPanel;
+    private javax.swing.JLabel s_awayFromScreenTitle;
+    private javax.swing.JLabel s_awayFromScreenTitle2;
     private javax.swing.JButton s_backButton;
     private javax.swing.JPanel s_buttonColor;
     private javax.swing.JButton s_buttonColorButton;
     private javax.swing.JPanel s_colorsPanel;
     private javax.swing.JLabel s_colorsTitle;
-    private javax.swing.JLabel s_currentSaved;
-    private javax.swing.JLabel s_currentSavedTitle;
+    private javax.swing.JPanel s_connectionPanel;
+    private javax.swing.JLabel s_customName;
     private javax.swing.JButton s_customNameButton;
     private javax.swing.JTextField s_customNameInput;
     private javax.swing.JPanel s_customNamePanel;
     private javax.swing.JLabel s_customNameTitle;
+    private javax.swing.JLabel s_customNameTitle2;
     private javax.swing.JPanel s_primaryColor;
     private javax.swing.JButton s_primaryColorButton;
     private javax.swing.JButton s_saveCustomNameButton;
