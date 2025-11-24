@@ -9,9 +9,17 @@ class Day{
 
 public class Habit_yesno {
     // Variables
-    private String habitName;
-    private ArrayList<Day> calendar = new ArrayList<>();
-    
+    private String habitName;                            // the file will also be named this habit name so it must be unique
+    private ArrayList<Day> calendar = new ArrayList<>(); // Holds all the days
     
     // Constructor
+    
+    // Save to File
+    private void saveToFile(){
+        
+    }
+    // Load from File
+    private void loadFromFile(){
+        
+    }
 }

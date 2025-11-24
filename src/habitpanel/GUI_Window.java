@@ -64,6 +64,18 @@ public class GUI_Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        home = new javax.swing.JPanel();
+        h_topPanel = new javax.swing.JPanel();
+        h_welcomeMessage = new javax.swing.JLabel();
+        h_dateTitle = new javax.swing.JLabel();
+        h_date = new javax.swing.JLabel();
+        h_settingsButton = new javax.swing.JButton();
+        h_bottomPanel = new javax.swing.JPanel();
+        h_addButton = new javax.swing.JButton();
+        h_editButton = new javax.swing.JButton();
+        h_progressButton = new javax.swing.JButton();
+        h_scrollPane = new javax.swing.JScrollPane();
+        h_habitPanel = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
         s_topPanel = new javax.swing.JPanel();
         s_settingsTitle = new javax.swing.JLabel();
@@ -92,16 +104,6 @@ public class GUI_Window extends javax.swing.JFrame {
         s_awayFromScreenInput = new javax.swing.JSpinner();
         s_awayFromScreenButton = new javax.swing.JButton();
         s_connectionPanel = new javax.swing.JPanel();
-        home = new javax.swing.JPanel();
-        h_topPanel = new javax.swing.JPanel();
-        h_welcomeMessage = new javax.swing.JLabel();
-        h_dateTitle = new javax.swing.JLabel();
-        h_date = new javax.swing.JLabel();
-        h_settingsButton = new javax.swing.JButton();
-        h_bottomPanel = new javax.swing.JPanel();
-        h_addButton = new javax.swing.JButton();
-        h_editButton = new javax.swing.JButton();
-        h_progressButton = new javax.swing.JButton();
         progress = new javax.swing.JPanel();
         p_topPanel = new javax.swing.JPanel();
         p_progressTitle = new javax.swing.JLabel();
@@ -142,6 +144,102 @@ public class GUI_Window extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(1040, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        home.setBackground(new java.awt.Color(204, 204, 204));
+        home.setMaximumSize(new java.awt.Dimension(1040, 600));
+        home.setMinimumSize(new java.awt.Dimension(1040, 600));
+        home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_topPanel.setBackground(new java.awt.Color(156, 183, 133));
+        h_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_welcomeMessage.setBackground(new java.awt.Color(128, 161, 98));
+        h_welcomeMessage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        h_welcomeMessage.setForeground(java.awt.Color.white);
+        h_welcomeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_welcomeMessage.setText("Welcome Back!");
+        h_topPanel.add(h_welcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 470, 40));
+
+        h_dateTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        h_dateTitle.setForeground(java.awt.Color.white);
+        h_dateTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_dateTitle.setText("Date:");
+        h_topPanel.add(h_dateTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 5, 100, 40));
+
+        h_date.setBackground(new java.awt.Color(156, 183, 133));
+        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        h_date.setForeground(java.awt.Color.white);
+        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_date.setText("Saturday, Nov 22, 2025");
+        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        h_topPanel.add(h_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 6, 300, 40));
+
+        h_settingsButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_settingsButton.setForeground(java.awt.Color.white);
+        h_settingsButton.setText("Settings");
+        h_settingsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_settingsButtonMouseClicked(evt);
+            }
+        });
+        h_topPanel.add(h_settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
+
+        home.add(h_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
+
+        h_bottomPanel.setBackground(new java.awt.Color(156, 183, 133));
+        h_bottomPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_bottomPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_addButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_addButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_addButton.setForeground(java.awt.Color.white);
+        h_addButton.setText("+ Add New");
+        h_addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_addButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 320, 36));
+
+        h_editButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_editButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_editButton.setForeground(java.awt.Color.white);
+        h_editButton.setText("Edit History");
+        h_editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_editButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 8, 320, 36));
+
+        h_progressButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_progressButton.setForeground(java.awt.Color.white);
+        h_progressButton.setText("View Progress");
+        h_progressButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_progressButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_progressButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 8, 320, 36));
+
+        home.add(h_bottomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1040, 50));
+
+        h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
+
+        h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
+        h_habitPanel.setLayout(new java.awt.GridLayout(0, 4, 10, 10));
+        h_scrollPane.setViewportView(h_habitPanel);
+
+        home.add(h_scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1000, 460));
+
+        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         settings.setBackground(new java.awt.Color(204, 204, 204));
         settings.setMaximumSize(new java.awt.Dimension(1040, 600));
@@ -412,94 +510,6 @@ public class GUI_Window extends javax.swing.JFrame {
         settings.add(s_connectionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 260, 580, 300));
 
         getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
-
-        home.setBackground(new java.awt.Color(204, 204, 204));
-        home.setMaximumSize(new java.awt.Dimension(1040, 600));
-        home.setMinimumSize(new java.awt.Dimension(1040, 600));
-        home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_topPanel.setBackground(new java.awt.Color(156, 183, 133));
-        h_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_welcomeMessage.setBackground(new java.awt.Color(128, 161, 98));
-        h_welcomeMessage.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        h_welcomeMessage.setForeground(java.awt.Color.white);
-        h_welcomeMessage.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_welcomeMessage.setText("Welcome Back!");
-        h_topPanel.add(h_welcomeMessage, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 5, 470, 40));
-
-        h_dateTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        h_dateTitle.setForeground(java.awt.Color.white);
-        h_dateTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_dateTitle.setText("Date:");
-        h_topPanel.add(h_dateTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 5, 100, 40));
-
-        h_date.setBackground(new java.awt.Color(156, 183, 133));
-        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        h_date.setForeground(java.awt.Color.white);
-        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_date.setText("Saturday, Nov 22, 2025");
-        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        h_topPanel.add(h_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 6, 300, 40));
-
-        h_settingsButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_settingsButton.setForeground(java.awt.Color.white);
-        h_settingsButton.setText("Settings");
-        h_settingsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_settingsButtonMouseClicked(evt);
-            }
-        });
-        h_topPanel.add(h_settingsButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 8, 110, 36));
-
-        home.add(h_topPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 50));
-
-        h_bottomPanel.setBackground(new java.awt.Color(156, 183, 133));
-        h_bottomPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_bottomPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_addButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_addButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_addButton.setForeground(java.awt.Color.white);
-        h_addButton.setText("+ Add New");
-        h_addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_addButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_addButtonMouseClicked(evt);
-            }
-        });
-        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 320, 36));
-
-        h_editButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_editButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_editButton.setForeground(java.awt.Color.white);
-        h_editButton.setText("Edit History");
-        h_editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_editButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_editButtonMouseClicked(evt);
-            }
-        });
-        h_bottomPanel.add(h_editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 8, 320, 36));
-
-        h_progressButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_progressButton.setForeground(java.awt.Color.white);
-        h_progressButton.setText("View Progress");
-        h_progressButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_progressButtonMouseClicked(evt);
-            }
-        });
-        h_bottomPanel.add(h_progressButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 8, 320, 36));
-
-        home.add(h_bottomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1040, 50));
-
-        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         progress.setBackground(new java.awt.Color(204, 204, 204));
         progress.setMaximumSize(new java.awt.Dimension(1040, 600));
@@ -901,6 +911,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private void loadHabits(){
         // load habits and add them into the list 
         // save if we have some quantity habits to see if we need to upate view
+        h_habitPanel.add(new HabitCard("Drink Water"));
     }
     
     // PAINTS ALL THE PANELS
@@ -1172,7 +1183,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel h_date;
     private javax.swing.JLabel h_dateTitle;
     private javax.swing.JButton h_editButton;
+    private javax.swing.JPanel h_habitPanel;
     private javax.swing.JButton h_progressButton;
+    private javax.swing.JScrollPane h_scrollPane;
     private javax.swing.JButton h_settingsButton;
     private javax.swing.JPanel h_topPanel;
     private javax.swing.JLabel h_welcomeMessage;
