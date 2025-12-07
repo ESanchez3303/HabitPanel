@@ -74,6 +74,7 @@ public class GUI_Window extends javax.swing.JFrame {
         h_addButton = new javax.swing.JButton();
         h_editButton = new javax.swing.JButton();
         h_progressButton = new javax.swing.JButton();
+        h_removeButton = new javax.swing.JButton();
         h_scrollPane = new javax.swing.JScrollPane();
         h_habitPanel = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
@@ -196,14 +197,15 @@ public class GUI_Window extends javax.swing.JFrame {
         h_addButton.setBackground(new java.awt.Color(128, 161, 98));
         h_addButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         h_addButton.setForeground(java.awt.Color.white);
-        h_addButton.setText("+ Add New");
+        h_addButton.setText("+ Add ");
+        h_addButton.setToolTipText("");
         h_addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         h_addButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 h_addButtonMouseClicked(evt);
             }
         });
-        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 320, 36));
+        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 155, 36));
 
         h_editButton.setBackground(new java.awt.Color(128, 161, 98));
         h_editButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -229,12 +231,34 @@ public class GUI_Window extends javax.swing.JFrame {
         });
         h_bottomPanel.add(h_progressButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 8, 320, 36));
 
+        h_removeButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_removeButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_removeButton.setForeground(java.awt.Color.white);
+        h_removeButton.setText("- Remove");
+        h_removeButton.setToolTipText("");
+        h_removeButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_removeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_removeButtonMouseClicked(evt);
+            }
+        });
+        h_bottomPanel.add(h_removeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 8, 160, 36));
+
         home.add(h_bottomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1040, 50));
 
         h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
+        h_scrollPane.setBorder(null);
+        h_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        h_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        h_scrollPane.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        h_scrollPane.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        h_scrollPane.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
-        h_habitPanel.setLayout(new java.awt.GridLayout(0, 4, 10, 10));
+        h_habitPanel.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        h_habitPanel.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        h_habitPanel.setPreferredSize(new java.awt.Dimension(1000, 1000));
+        h_habitPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 20));
         h_scrollPane.setViewportView(h_habitPanel);
 
         home.add(h_scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1000, 460));
@@ -911,7 +935,19 @@ public class GUI_Window extends javax.swing.JFrame {
     private void loadHabits(){
         // load habits and add them into the list 
         // save if we have some quantity habits to see if we need to upate view
-        h_habitPanel.add(new HabitCard("Drink Water"));
+        Color temp = new Color(156,183,133);
+        Color temp1 = new Color(153,153,255);
+        Color temp2 = new Color(0,204,255);
+        h_habitPanel.add(new HabitCard_YesNo("Dont eat big", temp, false));
+        h_habitPanel.add(new HabitCard_quantity("Drink Water", temp2, 0));
+        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo("Wake up at 7am", temp, false));
+        h_habitPanel.add(new HabitCard_YesNo("Take out trash", temp, false));
+        h_habitPanel.add(new HabitCard_YesNo("LAST ONE", temp1, false));
+        
     }
     
     // PAINTS ALL THE PANELS
@@ -1011,6 +1047,10 @@ public class GUI_Window extends javax.swing.JFrame {
         // show the add habit panel
     }//GEN-LAST:event_h_addButtonMouseClicked
 
+    private void h_removeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_removeButtonMouseClicked
+        // Show the remove habit procedure
+    }//GEN-LAST:event_h_removeButtonMouseClicked
+
     private void h_editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_editButtonMouseClicked
         // show the edit history panel
     }//GEN-LAST:event_h_editButtonMouseClicked
@@ -1064,7 +1104,6 @@ public class GUI_Window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_s_changeColorButtonClicked
 
-    
     private void s_customNameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_s_customNameButtonMouseClicked
         keyboardTarget = s_customNameInput;    // Setting up target for the keyboard
         s_customNameInput.setText(customName); // Setting the input to the current name
@@ -1149,6 +1188,8 @@ public class GUI_Window extends javax.swing.JFrame {
 
 
 
+
+
     
 
     
@@ -1185,6 +1226,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton h_editButton;
     private javax.swing.JPanel h_habitPanel;
     private javax.swing.JButton h_progressButton;
+    private javax.swing.JButton h_removeButton;
     private javax.swing.JScrollPane h_scrollPane;
     private javax.swing.JButton h_settingsButton;
     private javax.swing.JPanel h_topPanel;

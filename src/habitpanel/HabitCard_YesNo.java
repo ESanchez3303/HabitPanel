@@ -1,0 +1,242 @@
+
+package habitpanel;
+import java.awt.*;
+import javax.swing.Timer;
+import javax.swing.border.LineBorder;
+
+class RoundedBorder extends LineBorder {
+    public RoundedBorder(Color color, int thickness, int radius) {
+        super(color, thickness, true);
+        this.arc = radius;
+    }
+
+    private int arc;
+
+    @Override
+    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        int r = arc;
+        int t = thickness;
+
+        g2.setColor(lineColor);
+        g2.setStroke(new BasicStroke(t));
+        g2.drawRoundRect(x + t/2, y + t/2, width - t, height - t, r, r);
+
+        g2.dispose();
+    }
+}
+ 
+// ===================================================================================================
+// ===================================================================================================
+// ===================================================================================================
+// ============================== HABIT CARD YES/NO CLASS BELOW ======================================
+// ===================================================================================================
+// ===================================================================================================
+// ===================================================================================================
+
+
+
+public class HabitCard_YesNo extends javax.swing.JPanel {
+
+    // Overriding the paint so that we only paint inside the border
+    @Override
+    protected void paintComponent(Graphics g) {
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+        // Paint rounded background using the panel's background color
+        g2.setColor(getBackground());
+        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+
+        g2.dispose();
+
+        super.paintComponent(g);
+    }
+    
+    // Private Variables: ================================================================================
+    private final int MAX_LENGTH = 17;
+    private final int COMPLETE_COVER_STEP = 10;
+    // ===================================================================================================
+    
+    //  CONSTRUCTOR:       ===============================================================================
+    public HabitCard_YesNo(String habitNameInput, Color habitColor, boolean completed) {
+        initComponents();
+        
+        // Double checking that name is not too long
+        if(habitNameInput.length() > MAX_LENGTH){
+            habitName.setText("ERROR: TOO LONG");
+            return;
+        }
+        
+        
+        // Setting up the card itself (border and color)
+        this.setBorder(new RoundedBorder(Color.BLACK, 1, 20));
+        this.setOpaque(false);
+        this.setBackground(habitColor); // Color that user chose for this habit
+        
+        
+        // Setting up habit name
+        habitName.setText(habitNameInput);
+        
+        
+        // Setting up complete cover
+        completeCoverHabitName.setText(habitNameInput); // Setting the habit name for the cover too
+        
+        // Setting up the complete boolean
+        if(completed)
+            completeCover.setLocation(0,0);   // Move to the top to show
+        else
+            completeCover.setLocation(0,200); // Move to the bottom to hide
+                
+               
+        
+        
+        
+        // Repainting Everything
+        this.repaint();
+    }
+    
+    // ===================================================================================================
+    
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        completeCover = new javax.swing.JPanel();
+        completeCoverText = new javax.swing.JLabel();
+        completeCoverHabitName = new javax.swing.JLabel();
+        habitName = new javax.swing.JLabel();
+        pressToMarkText = new javax.swing.JLabel();
+
+        setBackground(new java.awt.Color(204, 204, 204));
+        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        setMaximumSize(new java.awt.Dimension(200, 200));
+        setMinimumSize(new java.awt.Dimension(200, 200));
+        setPreferredSize(new java.awt.Dimension(200, 200));
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                habitNameMouseClicked(evt);
+            }
+        });
+        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        completeCover.setBackground(new java.awt.Color(0, 153, 0));
+        completeCover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        completeCover.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                habitNameMouseClicked(evt);
+            }
+        });
+        completeCover.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        completeCoverText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        completeCoverText.setForeground(new java.awt.Color(51, 255, 51));
+        completeCoverText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        completeCoverText.setText("COMPLETE!");
+        completeCover.add(completeCoverText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 70));
+
+        completeCoverHabitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        completeCoverHabitName.setForeground(java.awt.Color.white);
+        completeCoverHabitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        completeCoverHabitName.setText("kkkkkkkkkkkkkkkkk");
+        completeCover.add(completeCoverHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 90, 190, 80));
+
+        add(completeCover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 200));
+
+        habitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        habitName.setForeground(java.awt.Color.black);
+        habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        habitName.setText("kkkkkkkkkkkkkkkkk");
+        habitName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                habitNameMouseClicked(evt);
+            }
+        });
+        add(habitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 10, 190, 110));
+
+        pressToMarkText.setBackground(new java.awt.Color(153, 153, 255));
+        pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        pressToMarkText.setForeground(new java.awt.Color(51, 51, 51));
+        pressToMarkText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        pressToMarkText.setText("Press To Mark Completed");
+        pressToMarkText.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                habitNameMouseClicked(evt);
+            }
+        });
+        add(pressToMarkText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 160, 90));
+    }// </editor-fold>//GEN-END:initComponents
+
+    private void habitNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_habitNameMouseClicked
+        if(completeCover.getY() == 0){
+            completeCoverAnimation("not completed");
+        }
+        else if(completeCover.getY() == 200){
+            completeCoverAnimation("completed");
+        }
+        
+        pressToMarkText.repaint();
+    }//GEN-LAST:event_habitNameMouseClicked
+    // ===================================================================================================
+    
+    
+    // ANIMATIONS: ========================================================================================
+    private void completeCoverAnimation(String state){
+        Timer animation = null;
+        if(state.equals("completed")){ // Currently is not completed -> show animation to make complete
+            animation = new Timer(20,e->{
+                completeCover.setLocation(0,completeCover.getY() - COMPLETE_COVER_STEP);
+                if(completeCover.getY() <= 0){
+                    ((Timer)e.getSource()).stop();  // Stopping timer
+                    completeCover.setLocation(0,0); // Just in case, we are hard setting it to correct location
+                }
+            });
+        }
+        else if(state.equals("not completed")){ // Currently is completed -> show animation to make not completed
+            animation = new Timer(20,e->{
+                completeCover.setLocation(0,completeCover.getY() + COMPLETE_COVER_STEP);
+                if(completeCover.getY() >= 200){
+                    ((Timer)e.getSource()).stop();    // Stopping timer
+                    completeCover.setLocation(0,200); // Just in case, we are hard setting it to correct location
+                }
+            });
+        }
+        
+        if(animation != null)
+            animation.start();
+    }
+    
+    
+    // ===================================================================================================
+    
+    // Public Functions : ============================================================================
+    // Getting is Complete bool
+    public boolean isComplete(){
+        return (completeCover.getY() == 0);
+    }
+    
+    // Geting Name
+    public String getName(){
+        return habitName.getText();
+    }
+    
+    // ===================================================================================================
+    
+    
+    
+    
+    
+    
+
+    
+    
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel completeCover;
+    private javax.swing.JLabel completeCoverHabitName;
+    private javax.swing.JLabel completeCoverText;
+    private javax.swing.JLabel habitName;
+    private javax.swing.JLabel pressToMarkText;
+    // End of variables declaration//GEN-END:variables
+}
