@@ -1,6 +1,6 @@
 package habitpanel;
 import javax.swing.*;
-import java.awt.Color;
+import java.awt.*;
 // NOTE TO SELF: 1040 x 600 is the screen size
 
 
@@ -41,17 +41,20 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Settings Panel Code:
         progress_again = progress; // Saving the progress again into another location because of foward refrence in timer
-        s_customName.setText(customName.isEmpty() ? "Not Set" : customName);                        // Setting the custom name
+        s_customName.setText(customName.isEmpty() ? "Not Set" : customName);                          // Setting the custom name
         h_welcomeMessage.setText(customName.isEmpty() ? "Welcome back!" : "Welcome, " + customName);  // Setting the custom name
         s_awayFromScreen.setText(Integer.toString(AWAY_FROM_SCREEN_TIME/60) + " Minute(s)");          // Setting the away from screen time
         s_awayFromScreenInput.setModel(new SpinnerNumberModel(1, 1, 9999, 1));                        // Setting up the spinner so it can have max and mins
         ((JSpinner.DefaultEditor) s_awayFromScreenInput.getEditor()).getTextField().setHorizontalAlignment(JTextField.CENTER); // Centering the text in input
         
-        
         // Keyboard Panel Code:
         keyboard.getParent().setComponentZOrder(keyboard,0);  // Moving up the keyboard because it needs to be on top of everything
         keyboard.setLocation(0,0);                            // Moving keyboard to safe space
         keyboard.setVisible(false);                           // Hiding keyboard
+        
+        // Setting up home page z order (moving up the add and edit panels because during production we will be moving them around)
+        home.setComponentZOrder(h_addHabitPanel, 0);
+        home.setComponentZOrder(h_editHabitPanel, 0);
         
         // Painting the program
         paintColors();         
@@ -65,16 +68,22 @@ public class GUI_Window extends javax.swing.JFrame {
     private void initComponents() {
 
         home = new javax.swing.JPanel();
+        h_addHabitPanel = new javax.swing.JPanel();
+        h_addHabitTitle = new javax.swing.JLabel();
+        h_editHabitPanel = new javax.swing.JPanel();
+        h_editHabitTitle = new javax.swing.JLabel();
+        h_scrollUpButton = new javax.swing.JButton();
+        h_scrollDownButton = new javax.swing.JButton();
         h_topPanel = new javax.swing.JPanel();
         h_welcomeMessage = new javax.swing.JLabel();
         h_dateTitle = new javax.swing.JLabel();
         h_date = new javax.swing.JLabel();
         h_settingsButton = new javax.swing.JButton();
         h_bottomPanel = new javax.swing.JPanel();
-        h_addButton = new javax.swing.JButton();
-        h_editButton = new javax.swing.JButton();
+        h_addHabitButton = new javax.swing.JButton();
+        h_editHistoryButton = new javax.swing.JButton();
         h_progressButton = new javax.swing.JButton();
-        h_removeButton = new javax.swing.JButton();
+        h_editHabitButton = new javax.swing.JButton();
         h_scrollPane = new javax.swing.JScrollPane();
         h_habitPanel = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
@@ -151,6 +160,62 @@ public class GUI_Window extends javax.swing.JFrame {
         home.setMinimumSize(new java.awt.Dimension(1040, 600));
         home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        h_addHabitPanel.setBackground(new java.awt.Color(181, 181, 181));
+        h_addHabitPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_addHabitPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_addHabitTitle.setBackground(new java.awt.Color(156, 183, 133));
+        h_addHabitTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        h_addHabitTitle.setForeground(java.awt.Color.white);
+        h_addHabitTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_addHabitTitle.setText("Add New Habit");
+        h_addHabitTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_addHabitTitle.setOpaque(true);
+        h_addHabitPanel.add(h_addHabitTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1000, 50));
+
+        home.add(h_addHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 55, 1030, 490));
+
+        h_editHabitPanel.setBackground(new java.awt.Color(181, 181, 181));
+        h_editHabitPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_editHabitPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        h_editHabitTitle.setBackground(new java.awt.Color(156, 183, 133));
+        h_editHabitTitle.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        h_editHabitTitle.setForeground(java.awt.Color.white);
+        h_editHabitTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_editHabitTitle.setText("Edit Habit");
+        h_editHabitTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_editHabitTitle.setOpaque(true);
+        h_editHabitPanel.add(h_editHabitTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1000, 50));
+
+        home.add(h_editHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 55, 1030, 490));
+
+        h_scrollUpButton.setBackground(new java.awt.Color(169, 198, 144));
+        h_scrollUpButton.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        h_scrollUpButton.setForeground(java.awt.Color.white);
+        h_scrollUpButton.setText("Scroll Up");
+        h_scrollUpButton.setToolTipText("");
+        h_scrollUpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        h_scrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_scrollButtonMouseClicked(evt);
+            }
+        });
+        home.add(h_scrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 55, 600, 25));
+
+        h_scrollDownButton.setBackground(new java.awt.Color(169, 198, 144));
+        h_scrollDownButton.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        h_scrollDownButton.setForeground(java.awt.Color.white);
+        h_scrollDownButton.setText("Scroll Down");
+        h_scrollDownButton.setToolTipText("");
+        h_scrollDownButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
+        h_scrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                h_scrollButtonMouseClicked(evt);
+            }
+        });
+        home.add(h_scrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 520, 600, 25));
+
         h_topPanel.setBackground(new java.awt.Color(156, 183, 133));
         h_topPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         h_topPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -194,30 +259,30 @@ public class GUI_Window extends javax.swing.JFrame {
         h_bottomPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         h_bottomPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        h_addButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_addButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_addButton.setForeground(java.awt.Color.white);
-        h_addButton.setText("+ Add ");
-        h_addButton.setToolTipText("");
-        h_addButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_addButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        h_addHabitButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_addHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_addHabitButton.setForeground(java.awt.Color.white);
+        h_addHabitButton.setText("+ Add Habit");
+        h_addHabitButton.setToolTipText("");
+        h_addHabitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_addHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_addButtonMouseClicked(evt);
+                h_addHabitButtonMouseClicked(evt);
             }
         });
-        h_bottomPanel.add(h_addButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 155, 36));
+        h_bottomPanel.add(h_addHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 8, 155, 36));
 
-        h_editButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_editButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_editButton.setForeground(java.awt.Color.white);
-        h_editButton.setText("Edit History");
-        h_editButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_editButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        h_editHistoryButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_editHistoryButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_editHistoryButton.setForeground(java.awt.Color.white);
+        h_editHistoryButton.setText("Edit History");
+        h_editHistoryButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_editHistoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_editButtonMouseClicked(evt);
+                h_editHistoryButtonMouseClicked(evt);
             }
         });
-        h_bottomPanel.add(h_editButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 8, 320, 36));
+        h_bottomPanel.add(h_editHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 8, 320, 36));
 
         h_progressButton.setBackground(new java.awt.Color(128, 161, 98));
         h_progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -231,18 +296,18 @@ public class GUI_Window extends javax.swing.JFrame {
         });
         h_bottomPanel.add(h_progressButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 8, 320, 36));
 
-        h_removeButton.setBackground(new java.awt.Color(128, 161, 98));
-        h_removeButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        h_removeButton.setForeground(java.awt.Color.white);
-        h_removeButton.setText("- Remove");
-        h_removeButton.setToolTipText("");
-        h_removeButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_removeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        h_editHabitButton.setBackground(new java.awt.Color(128, 161, 98));
+        h_editHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        h_editHabitButton.setForeground(java.awt.Color.white);
+        h_editHabitButton.setText("Edit Habit");
+        h_editHabitButton.setToolTipText("");
+        h_editHabitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_editHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_removeButtonMouseClicked(evt);
+                h_editHabitButtonMouseClicked(evt);
             }
         });
-        h_bottomPanel.add(h_removeButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 8, 160, 36));
+        h_bottomPanel.add(h_editHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 8, 160, 36));
 
         home.add(h_bottomPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 550, 1040, 50));
 
@@ -258,10 +323,10 @@ public class GUI_Window extends javax.swing.JFrame {
         h_habitPanel.setMaximumSize(new java.awt.Dimension(1000, 1000));
         h_habitPanel.setMinimumSize(new java.awt.Dimension(1000, 1000));
         h_habitPanel.setPreferredSize(new java.awt.Dimension(1000, 1000));
-        h_habitPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 20));
+        h_habitPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 40, 10));
         h_scrollPane.setViewportView(h_habitPanel);
 
-        home.add(h_scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 1000, 460));
+        home.add(h_scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 85, 1000, 430));
 
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
@@ -882,6 +947,7 @@ public class GUI_Window extends javax.swing.JFrame {
         progress.setVisible(false);
         keyboard.setVisible(false);
         
+        
         // Stoping timer to reset since we are moving screens
         awayFromScreenCounter = 0;     // Reseting counter
         if(awayFromScreen.isRunning()) // Stopping timer if its running
@@ -889,6 +955,12 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Frames specific instructions for setting up
         if(target == home){
+            h_addHabitPanel.setVisible(false);       // Hiding the add habit panel until user enters there 
+            h_editHabitPanel.setVisible(false);      // Hiding the edit habit panel until user enters there 
+            h_addHabitButton.setText("+ Add Habit"); // Reset button text
+            h_editHabitButton.setText("Edit Habit"); // Reset button text
+            h_scrollUpButton.setVisible(true);       // Show the scroll button again
+            h_scrollDownButton.setVisible(true);     // Show the scroll button again
             awayFromScreen.start();    // Starting the timer again if we went to home screen
         }
         else if(target == settings){
@@ -910,7 +982,7 @@ public class GUI_Window extends javax.swing.JFrame {
     // =================================================================================================================================
 
     // AWAY FROM SCREEN TIMER: =========================================================================================================
-    Timer awayFromScreen = new Timer(1000, e->{
+    private Timer awayFromScreen = new Timer(1000, e->{
         awayFromScreenCounter++;           // Increase counter
         if(awayFromScreenCounter >= AWAY_FROM_SCREEN_TIME){  // IF: checking if we reached the max time
             ((Timer)e.getSource()).stop(); // Stop Timer
@@ -919,6 +991,10 @@ public class GUI_Window extends javax.swing.JFrame {
             // ---------------------------------------------------------------->  Make brightness lower [ADD LATER]
         }
     });
+    
+    public void resetAway(){
+        awayFromScreenCounter = 0; // This should alone "reset" the timer to start from the beginning of the counting
+    }
     // =================================================================================================================================
     
   
@@ -938,16 +1014,19 @@ public class GUI_Window extends javax.swing.JFrame {
         Color temp = new Color(156,183,133);
         Color temp1 = new Color(153,153,255);
         Color temp2 = new Color(0,204,255);
-        h_habitPanel.add(new HabitCard_YesNo("Dont eat big", temp, false));
-        h_habitPanel.add(new HabitCard_quantity("Drink Water", temp2, 0));
-        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
-        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
-        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
-        h_habitPanel.add(new HabitCard_YesNo("Run 3 Miles", temp1, false));
-        h_habitPanel.add(new HabitCard_YesNo("Wake up at 7am", temp, false));
-        h_habitPanel.add(new HabitCard_YesNo("Take out trash", temp, false));
-        h_habitPanel.add(new HabitCard_YesNo("LAST ONE", temp1, false));
+        h_habitPanel.add(new HabitCard_quantity(this, "Drink Water", temp2, 5, 2));
+        h_habitPanel.add(new HabitCard_quantity(this, "Drink Milk", temp2, 10, 1));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Dont eat big", temp, true));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Run 3 Miles", temp1, false));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Wake up at 7am", temp, false));
+        h_habitPanel.add(new HabitCard_YesNo(this, "Take out trash", temp, false));
+        h_habitPanel.add(new HabitCard_YesNo(this, "LAST ONE", temp1, false));
         
+        // Updating the viewport for the scroll pane after adding the habits
+        updateScrollPaneSize();
     }
     
     // PAINTS ALL THE PANELS
@@ -975,7 +1054,7 @@ public class GUI_Window extends javax.swing.JFrame {
         };
         JButton buttonColored[] = {
             // HOME SCREEN:
-            h_settingsButton, h_addButton, h_editButton, h_progressButton,
+            h_settingsButton, h_addHabitButton, h_editHistoryButton, h_progressButton,
             // SETTINGS SCREEN:
             s_backButton, s_primaryColorButton, s_secondaryColorButton, s_buttonColorButton, s_textColorButton, s_customNameButton,
             s_saveCustomNameButton, s_awayFromScreenButton,
@@ -1043,22 +1122,84 @@ public class GUI_Window extends javax.swing.JFrame {
         switchFrame(settings); // Swtich to the settings frame
     }//GEN-LAST:event_h_settingsButtonMouseClicked
 
-    private void h_addButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_addButtonMouseClicked
-        // show the add habit panel
-    }//GEN-LAST:event_h_addButtonMouseClicked
+    private void h_addHabitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_addHabitButtonMouseClicked
+        if(h_addHabitPanel.isVisible()){                 // If the habit panel is currently visible
+            h_addHabitButton.setText("+ Add Habit");     // Reset the text
+            h_addHabitPanel.setVisible(false);           // Hide the panel
+        }else{
+            h_editHabitPanel.setVisible(false);          // Hiding edit habit in case 
+            h_editHabitButton.setText("Edit Habtit");    // Reseting the text just in case
+            h_addHabitPanel.setVisible(true);            // Showing the add habit panel
+            h_addHabitButton.setText("Close Add Panel"); // Setting the text to close this panel
+        }
+        
+        // If any panel is visbile, hide the buttons, otherwise show them 
+        if(h_addHabitPanel.isVisible() || h_editHabitPanel.isVisible()){
+            h_scrollUpButton.setVisible(false);           // Hide buttons so that they do not show up when hover
+            h_scrollDownButton.setVisible(false);         // Hide buttons so that they do not show up when hover
+        }
+        else{
+            h_scrollUpButton.setVisible(true);           // Show buttons again
+            h_scrollDownButton.setVisible(true);         // Show buttons again
+        }
+    }//GEN-LAST:event_h_addHabitButtonMouseClicked
 
-    private void h_removeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_removeButtonMouseClicked
-        // Show the remove habit procedure
-    }//GEN-LAST:event_h_removeButtonMouseClicked
+    private void h_editHabitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_editHabitButtonMouseClicked
+        if(h_editHabitPanel.isVisible()){                  // If edit panel is currently visible
+            h_editHabitButton.setText("Edit Habit");       // Reset the text
+            h_editHabitPanel.setVisible(false);            // Hide the panel
+        }else{
+            h_addHabitPanel.setVisible(false);             // Hiding edit habit in case 
+            h_addHabitButton.setText("+ Add Habit");       // Resetting the text just in case
+            h_editHabitPanel.setVisible(true);             // Showing the add habit panel
+            h_editHabitButton.setText("Close Edit Panel"); // Setting the text to close this panle
+        }
+        
+        // If any panel is visbile, hide the buttons, otherwise show them 
+        if(h_addHabitPanel.isVisible() || h_editHabitPanel.isVisible()){
+            h_scrollUpButton.setVisible(false);           // Hide buttons so that they do not show up when hover
+            h_scrollDownButton.setVisible(false);         // Hide buttons so that they do not show up when hover
+        }
+        else{
+            h_scrollUpButton.setVisible(true);           // Show buttons again
+            h_scrollDownButton.setVisible(true);         // Show buttons again
+        }
+    }//GEN-LAST:event_h_editHabitButtonMouseClicked
 
-    private void h_editButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_editButtonMouseClicked
+    private void h_editHistoryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_editHistoryButtonMouseClicked
         // show the edit history panel
-    }//GEN-LAST:event_h_editButtonMouseClicked
+    }//GEN-LAST:event_h_editHistoryButtonMouseClicked
 
     private void h_progressButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_progressButtonMouseClicked
         switchFrame(progress); // Swtich to the progress frame
     }//GEN-LAST:event_h_progressButtonMouseClicked
 
+    private void h_scrollButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_scrollButtonMouseClicked
+        JButton buttonClicked = (JButton) evt.getSource();
+        if(buttonClicked == null) return; // Just in case return this case
+        
+        // Getting value of the current scroll position
+        JScrollBar vBar = h_scrollPane.getVerticalScrollBar();
+        
+        // Scrolling up or down depending on which button was clicked
+        if(buttonClicked == h_scrollUpButton)
+            vBar.setValue(vBar.getValue() - 210);   // scroll up 200 + 20 px (card size + gap size)
+        else if(buttonClicked == h_scrollDownButton)
+            vBar.setValue(vBar.getValue() + 210);   // scroll down 200 + 20 px (card size + gap size)
+        
+    }//GEN-LAST:event_h_scrollButtonMouseClicked
+
+    
+    private void updateScrollPaneSize(){
+        int count = h_habitPanel.getComponentCount();   // number of habit cards
+        int rows = (int)Math.ceil(count / 4.0);         // Each row has 4 cards
+        int contentHeight = rows * (200 + 10) + 10;     // Setting the content height using card height and gap in between
+
+        int contentWidth = h_habitPanel.getWidth();
+        h_habitPanel.setPreferredSize(new Dimension(contentWidth, contentHeight));
+        h_habitPanel.revalidate();
+        h_habitPanel.repaint();
+    }
     
     // =================================================================================================================================
     // ================== [ ADD SCREEN FUNCTIONS ] =====================================================================================
@@ -1190,6 +1331,8 @@ public class GUI_Window extends javax.swing.JFrame {
 
 
 
+
+
     
 
     
@@ -1219,15 +1362,21 @@ public class GUI_Window extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton h_addButton;
+    private javax.swing.JButton h_addHabitButton;
+    private javax.swing.JPanel h_addHabitPanel;
+    private javax.swing.JLabel h_addHabitTitle;
     private javax.swing.JPanel h_bottomPanel;
     private javax.swing.JLabel h_date;
     private javax.swing.JLabel h_dateTitle;
-    private javax.swing.JButton h_editButton;
+    private javax.swing.JButton h_editHabitButton;
+    private javax.swing.JPanel h_editHabitPanel;
+    private javax.swing.JLabel h_editHabitTitle;
+    private javax.swing.JButton h_editHistoryButton;
     private javax.swing.JPanel h_habitPanel;
     private javax.swing.JButton h_progressButton;
-    private javax.swing.JButton h_removeButton;
+    private javax.swing.JButton h_scrollDownButton;
     private javax.swing.JScrollPane h_scrollPane;
+    private javax.swing.JButton h_scrollUpButton;
     private javax.swing.JButton h_settingsButton;
     private javax.swing.JPanel h_topPanel;
     private javax.swing.JLabel h_welcomeMessage;

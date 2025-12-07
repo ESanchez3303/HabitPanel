@@ -1,75 +1,5 @@
 package habitpanel;
-
 import java.awt.*;
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-
-
-class RoundedBorder extends LineBorder {
-    public RoundedBorder(Color color, int thickness, int radius) {
-        super(color, thickness, true);
-        this.arc = radius;
-    }
-
-    private int arc;
-
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        int r = arc;
-        int t = thickness;
-
-        g2.setColor(lineColor);
-        g2.setStroke(new BasicStroke(t));
-        g2.drawRoundRect(x + t/2, y + t/2, width - t, height - t, r, r);
-
-        g2.dispose();
-    }
-}
-
-
-class RoundButton extends JButton {
-    private int diameter;
-
-    public RoundButton(String text, int diameter) {
-        super(text);
-        this.diameter = diameter;
-        setOpaque(false);
-        setContentAreaFilled(false);
-        setFocusPainted(false);
-        setBorder(new RoundedBorder(Color.BLACK, 1, diameter));
-    }
-
-    @Override
-    protected void paintComponent(Graphics g) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        // Paint circular background
-        g2.setColor(getBackground());
-        g2.fillOval(0, 0, getWidth(), getHeight());
-
-        g2.dispose();
-        super.paintComponent(g);
-    }
-
-    @Override
-    public Dimension getPreferredSize() {
-        return new Dimension(diameter, diameter);
-    }
-}
- 
-// ===================================================================================================
-// ===================================================================================================
-// ===================================================================================================
-// ============================= HABIT CARD QUANTITY CLASS BELOW =====================================
-// ===================================================================================================
-// ===================================================================================================
-// ===================================================================================================
-
-
 
 public class HabitCard_quantity extends javax.swing.JPanel {
 
@@ -92,11 +22,16 @@ public class HabitCard_quantity extends javax.swing.JPanel {
     // Private Variables: ================================================================================
     private final int MAX_LENGTH = 17;
     private int quantity = 0; // This is what this card takes care of (not a boolean)
+    private int increment = 0;
+    private GUI_Window mainGUI = null;
     // ===================================================================================================
     
     
-    public HabitCard_quantity(String habitNameInput, Color habitColor, int quantity) {
+    public HabitCard_quantity(GUI_Window guiInput, String habitNameInput, Color habitColor, int quantityInput, int incrementInput) {
         initComponents();
+        
+        // Saving the parent gui to use its methods later
+        mainGUI = guiInput;
         
         // Double checking that name is not too long
         if(habitNameInput.length() > MAX_LENGTH){
@@ -132,7 +67,9 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         add(plusButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 125, 50, 50)); // Re-adding the button
         
         // Setting the quantiy
-        quantityText.setText(Integer.toString(quantity));
+        quantityText.setText(Integer.toString(quantityInput));
+        quantity = quantityInput;
+        increment = incrementInput;
         
         // Repainting Everything
         this.repaint();
@@ -186,13 +123,16 @@ public class HabitCard_quantity extends javax.swing.JPanel {
     // CLICKS OF THE BUTTONS: =======================================================================
     
     private void minusClicked() {
-        if (quantity > 0) 
-            quantity--;
-        quantityText.setText(String.valueOf(quantity));
+        mainGUI.resetAway(); // Resetting the away from screen timer
+        quantity -= increment; // Decrementing the quantity by saved increment
+        if(quantity < 0)       // Bounding to never go negative
+            quantity = 0; 
+        quantityText.setText(String.valueOf(quantity)); // Showing new value
     }
 
     private void plusClicked() {
-        quantity++;
+        mainGUI.resetAway();  // Reseting the away from screen timer
+        quantity += increment;
         quantityText.setText(String.valueOf(quantity));
     }
     
@@ -213,15 +153,21 @@ public class HabitCard_quantity extends javax.swing.JPanel {
     // ===================================================================================================
     
     // Public Functions : ============================================================================
-    // Getting is Complete bool
+    // Getting is quantity
     public int getQuantity(){
         return quantity;
     }
     
+    // Getting increment
+    public int getIncrement(){
+        return increment;
+    }
+    
     // Geting Name
-    public String getName(){
+    public String getHabitName(){
         return habitName.getText();
     }
+    
     
     // ===================================================================================================
 

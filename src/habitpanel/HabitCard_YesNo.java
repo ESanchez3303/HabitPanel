@@ -2,41 +2,8 @@
 package habitpanel;
 import java.awt.*;
 import javax.swing.Timer;
-import javax.swing.border.LineBorder;
 
-class RoundedBorder extends LineBorder {
-    public RoundedBorder(Color color, int thickness, int radius) {
-        super(color, thickness, true);
-        this.arc = radius;
-    }
-
-    private int arc;
-
-    @Override
-    public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        int r = arc;
-        int t = thickness;
-
-        g2.setColor(lineColor);
-        g2.setStroke(new BasicStroke(t));
-        g2.drawRoundRect(x + t/2, y + t/2, width - t, height - t, r, r);
-
-        g2.dispose();
-    }
-}
  
-// ===================================================================================================
-// ===================================================================================================
-// ===================================================================================================
-// ============================== HABIT CARD YES/NO CLASS BELOW ======================================
-// ===================================================================================================
-// ===================================================================================================
-// ===================================================================================================
-
-
 
 public class HabitCard_YesNo extends javax.swing.JPanel {
 
@@ -58,11 +25,16 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     // Private Variables: ================================================================================
     private final int MAX_LENGTH = 17;
     private final int COMPLETE_COVER_STEP = 10;
+    private boolean isComplete = false;
+    private GUI_Window mainGUI = null;
     // ===================================================================================================
     
     //  CONSTRUCTOR:       ===============================================================================
-    public HabitCard_YesNo(String habitNameInput, Color habitColor, boolean completed) {
+    public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColor, boolean completed) {
         initComponents();
+        
+        // Setting the parent gui so that we can use its methods later
+        mainGUI = guiInput;
         
         // Double checking that name is not too long
         if(habitNameInput.length() > MAX_LENGTH){
@@ -89,14 +61,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             completeCover.setLocation(0,0);   // Move to the top to show
         else
             completeCover.setLocation(0,200); // Move to the bottom to hide
-                
-               
-        
+        isComplete = completed;        
         
         
         // Repainting Everything
         this.repaint();
     }
+
     
     // ===================================================================================================
     
@@ -120,7 +91,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 habitNameMouseClicked(evt);
             }
         });
-        setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setLayout(null);
 
         completeCover.setBackground(new java.awt.Color(0, 153, 0));
         completeCover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -143,7 +114,8 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         completeCoverHabitName.setText("kkkkkkkkkkkkkkkkk");
         completeCover.add(completeCoverHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 90, 190, 80));
 
-        add(completeCover, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 200, 200, 200));
+        add(completeCover);
+        completeCover.setBounds(0, 200, 200, 200);
 
         habitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         habitName.setForeground(java.awt.Color.black);
@@ -154,7 +126,8 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 habitNameMouseClicked(evt);
             }
         });
-        add(habitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 10, 190, 110));
+        add(habitName);
+        habitName.setBounds(5, 10, 190, 110);
 
         pressToMarkText.setBackground(new java.awt.Color(153, 153, 255));
         pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
@@ -166,15 +139,20 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 habitNameMouseClicked(evt);
             }
         });
-        add(pressToMarkText, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 160, 90));
+        add(pressToMarkText);
+        pressToMarkText.setBounds(20, 90, 160, 90);
     }// </editor-fold>//GEN-END:initComponents
 
     private void habitNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_habitNameMouseClicked
         if(completeCover.getY() == 0){
+            mainGUI.resetAway();
             completeCoverAnimation("not completed");
+            isComplete = false;
         }
         else if(completeCover.getY() == 200){
+            mainGUI.resetAway();
             completeCoverAnimation("completed");
+            isComplete = true;
         }
         
         pressToMarkText.repaint();
@@ -214,19 +192,15 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     // Public Functions : ============================================================================
     // Getting is Complete bool
     public boolean isComplete(){
-        return (completeCover.getY() == 0);
+        return isComplete;
     }
     
     // Geting Name
-    public String getName(){
+    public String getHabitName(){
         return habitName.getText();
     }
     
     // ===================================================================================================
-    
-    
-    
-    
     
     
 
