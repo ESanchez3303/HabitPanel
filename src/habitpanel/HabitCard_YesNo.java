@@ -54,15 +54,14 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         
         
         // Setting up complete cover
-        completeCoverHabitName.setText(habitNameInput); // Setting the habit name for the cover too
-        
-        // Setting up the complete boolean
-        if(completed)
+        if(completed){
             completeCover.setLocation(0,0);   // Move to the top to show
-        else
+            habitName.setForeground(Color.WHITE);
+        }else{
             completeCover.setLocation(0,200); // Move to the bottom to hide
+            habitName.setForeground(Color.BLACK);
+        }
         isComplete = completed;        
-        
         
         // Repainting Everything
         this.repaint();
@@ -75,10 +74,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        habitName = new javax.swing.JLabel();
         completeCover = new javax.swing.JPanel();
         completeCoverText = new javax.swing.JLabel();
-        completeCoverHabitName = new javax.swing.JLabel();
-        habitName = new javax.swing.JLabel();
         pressToMarkText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(204, 204, 204));
@@ -93,6 +91,18 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         });
         setLayout(null);
 
+        habitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        habitName.setForeground(java.awt.Color.black);
+        habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        habitName.setText("kkkkkkkkkkkkkkkkk");
+        habitName.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                habitNameMouseClicked(evt);
+            }
+        });
+        add(habitName);
+        habitName.setBounds(5, 10, 190, 110);
+
         completeCover.setBackground(new java.awt.Color(0, 153, 0));
         completeCover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         completeCover.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -106,32 +116,14 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         completeCoverText.setForeground(new java.awt.Color(51, 255, 51));
         completeCoverText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         completeCoverText.setText("COMPLETE!");
-        completeCover.add(completeCoverText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 200, 70));
-
-        completeCoverHabitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        completeCoverHabitName.setForeground(java.awt.Color.white);
-        completeCoverHabitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        completeCoverHabitName.setText("kkkkkkkkkkkkkkkkk");
-        completeCover.add(completeCoverHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 90, 190, 80));
+        completeCover.add(completeCoverText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
 
         add(completeCover);
-        completeCover.setBounds(0, 200, 200, 200);
-
-        habitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        habitName.setForeground(java.awt.Color.black);
-        habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        habitName.setText("kkkkkkkkkkkkkkkkk");
-        habitName.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                habitNameMouseClicked(evt);
-            }
-        });
-        add(habitName);
-        habitName.setBounds(5, 10, 190, 110);
+        completeCover.setBounds(0, 0, 200, 200);
 
         pressToMarkText.setBackground(new java.awt.Color(153, 153, 255));
         pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
-        pressToMarkText.setForeground(new java.awt.Color(51, 51, 51));
+        pressToMarkText.setForeground(java.awt.Color.black);
         pressToMarkText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pressToMarkText.setText("Press To Mark Completed");
         pressToMarkText.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -166,6 +158,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         if(state.equals("completed")){ // Currently is not completed -> show animation to make complete
             animation = new Timer(20,e->{
                 completeCover.setLocation(0,completeCover.getY() - COMPLETE_COVER_STEP);
+                
+                // Changing color of habit name when we pass it
+                if(completeCover.getY() <= (habitName.getY()+50) && habitName.getForeground() != Color.WHITE){
+                    habitName.setForeground(Color.WHITE);
+                }
+                
+                // Catch when we reach there 
                 if(completeCover.getY() <= 0){
                     ((Timer)e.getSource()).stop();  // Stopping timer
                     completeCover.setLocation(0,0); // Just in case, we are hard setting it to correct location
@@ -175,6 +174,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         else if(state.equals("not completed")){ // Currently is completed -> show animation to make not completed
             animation = new Timer(20,e->{
                 completeCover.setLocation(0,completeCover.getY() + COMPLETE_COVER_STEP);
+                
+                // Chaning color of habit name when we pass it
+                if(completeCover.getY() >= (habitName.getY()+50) && habitName.getForeground() != Color.BLACK){
+                    habitName.setForeground(Color.BLACK);
+                }
+                
+                // Catch when we reach there 
                 if(completeCover.getY() >= 200){
                     ((Timer)e.getSource()).stop();    // Stopping timer
                     completeCover.setLocation(0,200); // Just in case, we are hard setting it to correct location
@@ -208,7 +214,6 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel completeCover;
-    private javax.swing.JLabel completeCoverHabitName;
     private javax.swing.JLabel completeCoverText;
     private javax.swing.JLabel habitName;
     private javax.swing.JLabel pressToMarkText;
