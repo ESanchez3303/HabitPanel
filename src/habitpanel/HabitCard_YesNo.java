@@ -1,6 +1,7 @@
 
 package habitpanel;
 import java.awt.*;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
  
@@ -27,14 +28,19 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private final int COMPLETE_COVER_STEP = 10;
     private boolean isComplete = false;
     private GUI_Window mainGUI = null;
+    private String week = "0000000";
     // ===================================================================================================
     
     //  CONSTRUCTOR:       ===============================================================================
-    public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColor, boolean completed) {
+    public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColor, boolean completed, String weekInput) {
         initComponents();
         
         // Setting the parent gui so that we can use its methods later
         mainGUI = guiInput;
+        
+        // Setting up the week
+        week = weekInput;
+        setWeekText();
         
         // Double checking that name is not too long
         if(habitNameInput.length() > MAX_LENGTH){
@@ -57,9 +63,11 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         if(completed){
             completeCover.setLocation(0,0);   // Move to the top to show
             habitName.setForeground(Color.WHITE);
+            weekText.setForeground(Color.WHITE);
         }else{
             completeCover.setLocation(0,200); // Move to the bottom to hide
             habitName.setForeground(Color.BLACK);
+            weekText.setForeground(Color.BLACK);
         }
         isComplete = completed;        
         
@@ -75,6 +83,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private void initComponents() {
 
         habitName = new javax.swing.JLabel();
+        weekText = new javax.swing.JLabel();
         completeCover = new javax.swing.JPanel();
         completeCoverText = new javax.swing.JLabel();
         pressToMarkText = new javax.swing.JLabel();
@@ -103,6 +112,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         add(habitName);
         habitName.setBounds(5, 10, 190, 110);
 
+        weekText.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        weekText.setForeground(java.awt.Color.black);
+        weekText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        weekText.setText("M / T / W / Th / F / S / Su");
+        add(weekText);
+        weekText.setBounds(0, 175, 200, 20);
+
         completeCover.setBackground(new java.awt.Color(0, 153, 0));
         completeCover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         completeCover.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -119,7 +135,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         completeCover.add(completeCoverText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
 
         add(completeCover);
-        completeCover.setBounds(0, 0, 200, 200);
+        completeCover.setBounds(0, 200, 200, 200);
 
         pressToMarkText.setBackground(new java.awt.Color(153, 153, 255));
         pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
@@ -149,6 +165,28 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         
         pressToMarkText.repaint();
     }//GEN-LAST:event_habitNameMouseClicked
+    
+    private void setWeekText(){
+        StringBuilder newWeekString = new StringBuilder();
+        String[] weekDays = {"M", "T", "W", "Th", "F", "S", "Su"};
+
+        for (int i = 0; i < week.length(); i++) {
+            if (week.charAt(i) == '1') {
+                newWeekString.append(weekDays[i]).append("/");
+            }
+        }
+
+        // Remove trailing slash if there is one
+        if (newWeekString.length() > 0 && newWeekString.charAt(newWeekString.length() - 1) == '/') {
+            newWeekString.deleteCharAt(newWeekString.length() - 1);
+        }
+
+        if(newWeekString.length() == 0)
+            weekText.setText("ERROR: STRING L=0");
+        else
+            weekText.setText(newWeekString.toString());
+    }
+
     // ===================================================================================================
     
     
@@ -162,6 +200,11 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 // Changing color of habit name when we pass it
                 if(completeCover.getY() <= (habitName.getY()+50) && habitName.getForeground() != Color.WHITE){
                     habitName.setForeground(Color.WHITE);
+                }
+                
+                // Chaning color of week schedule when we pass it
+                if(completeCover.getY() <= weekText.getY() && weekText.getBackground() != Color.WHITE){
+                    weekText.setForeground(Color.WHITE);;
                 }
                 
                 // Catch when we reach there 
@@ -178,6 +221,11 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 // Chaning color of habit name when we pass it
                 if(completeCover.getY() >= (habitName.getY()+50) && habitName.getForeground() != Color.BLACK){
                     habitName.setForeground(Color.BLACK);
+                }
+                
+                // Chaning color of week schedule when we pass it
+                if(completeCover.getY() >= weekText.getY() && weekText.getBackground() != Color.BLACK){
+                    weekText.setForeground(Color.BLACK);;
                 }
                 
                 // Catch when we reach there 
@@ -206,6 +254,27 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         return habitName.getText();
     }
     
+    public String getWeek(){
+        return week;
+    }
+    
+    public boolean isForToday(String day){
+        if(day.equals("Monday"))    return (week.charAt(0) == '1');
+        if(day.equals("Tuesday"))   return (week.charAt(1) == '1');
+        if(day.equals("Wednesday")) return (week.charAt(2) == '1');
+        if(day.equals("Thursday"))  return (week.charAt(3) == '1');
+        if(day.equals("Friday"))    return (week.charAt(4) == '1');
+        if(day.equals("Saturday"))  return (week.charAt(5) == '1');
+        if(day.equals("Sunday"))    return (week.charAt(6) == '1');
+        
+        JOptionPane.showMessageDialog(mainGUI, "ERROR: " + habitName + " was not able to generate in isForToday() function.");
+        return true;
+    }
+    
+    
+    public void setComplete(boolean state){
+        isComplete = state;
+    }
     // ===================================================================================================
     
     
@@ -217,5 +286,6 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private javax.swing.JLabel completeCoverText;
     private javax.swing.JLabel habitName;
     private javax.swing.JLabel pressToMarkText;
+    private javax.swing.JLabel weekText;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,9 @@
 package habitpanel;
 import java.awt.*;
+import javax.swing.JOptionPane;
 import javax.swing.Timer;
 
-public class HabitCard_quantity extends javax.swing.JPanel {
+public class HabitCard_Quantity extends javax.swing.JPanel {
 
     // Overriding the paint so that we only paint inside the border
     @Override
@@ -29,10 +30,12 @@ public class HabitCard_quantity extends javax.swing.JPanel {
     private final int COMPLETE_COVER_STEP = 10;
     private Color habitColor = null;
     private Color plusMinusCompleteCover = new Color(51,255,51);
+    private String week = "0000000";
     // ===================================================================================================
     
     
-    public HabitCard_quantity(GUI_Window guiInput, String habitNameInput, Color habitColorInput, double quantityInput, double goalInput, double incrementInput) {
+    public HabitCard_Quantity(GUI_Window guiInput, String habitNameInput, Color habitColorInput, 
+        double quantityInput, double goalInput, double incrementInput, String weekInput) {
         initComponents();
         
         // Saving the parent gui to use its methods later
@@ -49,7 +52,8 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         quantity = quantityInput;
         goal = goalInput;
         increment = incrementInput;
-        
+        week = weekInput;
+        setWeekText();
         
         // Setting text displays
         quantityText.setText(Double.toString(quantityInput));
@@ -70,10 +74,13 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         plusButton = new RoundButton("+", 50);  // Adding dynamic button using round features
         minusButton = new RoundButton("-", 50); // Adding dynamic button using round features
 
-        plusButton.setBackground(darkenColor(habitColor));  // Setting the background of the button using the given habitColor
-        minusButton.setBackground(darkenColor(habitColor)); // Setting the background of the button using the given habitColor
+        plusButton.setBackground(darkenColor(habitColorInput));  // Setting the background of the button using the given habitColor
+        minusButton.setBackground(darkenColor(habitColorInput)); // Setting the background of the button using the given habitColor
         plusButton.setForeground(Color.BLACK);               // Setting the text color of the button
         minusButton.setForeground(Color.BLACK);              // Setting the text color of the button
+        
+        plusButton.setOpaque(false);
+        minusButton.setOpaque(false);
         
         minusButton.addActionListener(e->minusClicked());    // Adding listeners for button click
         plusButton.addActionListener(e->plusClicked());      // Adding listeners for button click
@@ -92,6 +99,7 @@ public class HabitCard_quantity extends javax.swing.JPanel {
             goalText.setForeground(Color.WHITE);
             plusButton.setBackground(plusMinusCompleteCover);
             minusButton.setBackground(plusMinusCompleteCover);
+            weekText.setForeground(Color.WHITE);
         }
         else{
             completeCover.setLocation(0,200);
@@ -99,8 +107,9 @@ public class HabitCard_quantity extends javax.swing.JPanel {
             goalText.setForeground(Color.BLACK);
             plusButton.setBackground(darkenColor(habitColor));
             minusButton.setBackground(darkenColor(habitColor));
+            weekText.setForeground(Color.BLACK);
         }
-        this.setComponentZOrder(completeCover, 5);
+        this.setComponentZOrder(completeCover, 6);
         
         // Repainting Everything
         this.repaint();
@@ -117,6 +126,7 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         goalText = new javax.swing.JLabel();
         completeCover = new javax.swing.JPanel();
         completeCoverText = new javax.swing.JLabel();
+        weekText = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(200, 200));
         setMinimumSize(new java.awt.Dimension(200, 200));
@@ -174,6 +184,13 @@ public class HabitCard_quantity extends javax.swing.JPanel {
 
         add(completeCover);
         completeCover.setBounds(0, 200, 200, 200);
+
+        weekText.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        weekText.setForeground(java.awt.Color.black);
+        weekText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        weekText.setText("M / T / W / Th / F / S / Su");
+        add(weekText);
+        weekText.setBounds(0, 175, 200, 20);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -187,8 +204,9 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         
         mainGUI.resetAway(); // Resetting the away from screen timer
         quantity -= increment;
-        if(quantity < 0)       // Bounding to never go negative
-            quantity = 0; 
+        quantity = Math.round(quantity * 10.0) / 10.0;
+        if(quantity < 0.0)       // Bounding to never go negative
+            quantity = 0.0; 
         quantityText.setText(String.valueOf(quantity)); // Showing new value
         
         // Checking if this value puts under the goal
@@ -204,12 +222,35 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         
         mainGUI.resetAway();  // Reseting the away from screen timer
         quantity += increment;
+        quantity = Math.round(quantity * 10.0) / 10.0;
         quantityText.setText(String.valueOf(quantity));
         
         // Checking if this value puts over or equal to goal
         if(quantity >= goal && completeCover.getY() != 0){
             moveCompleteCover("completed");
         }
+    }
+    
+    
+    private void setWeekText(){
+        StringBuilder newWeekString = new StringBuilder();
+        String[] weekDays = {"M", "T", "W", "Th", "F", "S", "Su"};
+
+        for (int i = 0; i < week.length(); i++) {
+            if (week.charAt(i) == '1') {
+                newWeekString.append(weekDays[i]).append("/");
+            }
+        }
+
+        // Remove trailing slash if there is one
+        if (newWeekString.length() > 0 && newWeekString.charAt(newWeekString.length() - 1) == '/') {
+            newWeekString.deleteCharAt(newWeekString.length() - 1);
+        }
+
+        if(newWeekString.length() == 0)
+            weekText.setText("ERROR: STRING L=0");
+        else
+            weekText.setText(newWeekString.toString());
     }
     
     // ===================================================================================================
@@ -253,6 +294,11 @@ public class HabitCard_quantity extends javax.swing.JPanel {
                     goalText.setForeground(Color.WHITE);
                 }
                 
+                // Chaning color of week schedule when we pass it
+                if(completeCover.getY() <= weekText.getY() && weekText.getBackground() != Color.WHITE){
+                    weekText.setForeground(Color.WHITE);;
+                }
+                
                 
                 // Catching when to stop
                 if(completeCover.getY() <= 0){
@@ -284,6 +330,11 @@ public class HabitCard_quantity extends javax.swing.JPanel {
                 // Changing the color of the goal text
                 if(completeCover.getY() >= (goalText.getY()) && goalText.getForeground() != Color.BLACK){
                     goalText.setForeground(Color.BLACK);
+                }
+                
+                // Chaning color of week schedule when we pass it
+                if(completeCover.getY() >= weekText.getY() && weekText.getBackground() != Color.BLACK){
+                    weekText.setForeground(Color.BLACK);;
                 }
                 
                 
@@ -319,6 +370,29 @@ public class HabitCard_quantity extends javax.swing.JPanel {
         return habitName.getText();
     }
     
+    public String getWeek(){
+        return week;
+    }
+    
+    public void setQuantity(double quantityInput){
+        quantity = quantityInput;
+        minusClicked();
+    }
+    
+    public boolean isForToday(String day){
+        if(day.equals("Monday"))    return (week.charAt(0) == '1');
+        if(day.equals("Tuesday"))   return (week.charAt(1) == '1');
+        if(day.equals("Wednesday")) return (week.charAt(2) == '1');
+        if(day.equals("Thursday"))  return (week.charAt(3) == '1');
+        if(day.equals("Friday"))    return (week.charAt(4) == '1');
+        if(day.equals("Saturday"))  return (week.charAt(5) == '1');
+        if(day.equals("Sunday"))    return (week.charAt(6) == '1');
+        
+        JOptionPane.showMessageDialog(mainGUI, "ERROR: " + habitName + " was not able to generate in isForToday() function.");
+        return true;
+    }
+   
+    
     
     // ===================================================================================================
 
@@ -330,5 +404,6 @@ public class HabitCard_quantity extends javax.swing.JPanel {
     private javax.swing.JButton minusButton;
     private javax.swing.JButton plusButton;
     private javax.swing.JLabel quantityText;
+    private javax.swing.JLabel weekText;
     // End of variables declaration//GEN-END:variables
 }
