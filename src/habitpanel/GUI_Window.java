@@ -1749,6 +1749,16 @@ public class GUI_Window extends javax.swing.JFrame {
         }
         
         // MISC. PAINTING CALLS : ==============================================================================
+        // NAVIGATION PANEL: Making the "cover" for the buttons when selected the secondary color but brighter
+            
+        n_homeCover.setBackground(lightenColor(SECONDARY_COLOR));
+        n_settingsCover.setBackground(lightenColor(SECONDARY_COLOR));
+        n_addCover.setBackground(lightenColor(SECONDARY_COLOR));
+        n_editHabitCover.setBackground(lightenColor(SECONDARY_COLOR));
+        n_editHistoryCover.setBackground(lightenColor(SECONDARY_COLOR));
+        n_progressCover.setBackground(lightenColor(SECONDARY_COLOR));
+        
+        
         // HOME: Painting the backgrounds of the navigation buttons to the same primary color INSTEAD of the button color
         settingsButton.setBackground(PRIMARY_COLOR);
         addHabitButton.setBackground(PRIMARY_COLOR);
@@ -2423,13 +2433,18 @@ public class GUI_Window extends javax.swing.JFrame {
         flashTimer.start();
     }
     
-    private Color darkenColor(Color color) {
-        double factor = 0.85; // USE THIS FACTOR 0=darker | 1=lighter
-        
-        int r = Math.max((int)(color.getRed() * factor), 0);
-        int g = Math.max((int)(color.getGreen() * factor), 0);
-        int b = Math.max((int)(color.getBlue() * factor), 0);
-        
+    private Color lightenColor(Color color) {
+        double factor = 0.45; // 0 = no change, 1 = fully white (lighter)
+
+        int r = (int)(color.getRed()   + (255 - color.getRed())   * factor);
+        int g = (int)(color.getGreen() + (255 - color.getGreen()) * factor);
+        int b = (int)(color.getBlue()  + (255 - color.getBlue())  * factor);
+
+        // ensure stays in valid range
+        r = Math.min(r, 255);
+        g = Math.min(g, 255);
+        b = Math.min(b, 255);
+
         return new Color(r, g, b);
     }
     // =================================================================================================================================
