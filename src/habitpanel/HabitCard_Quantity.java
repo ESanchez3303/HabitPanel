@@ -5,19 +5,77 @@ import javax.swing.Timer;
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
 
-    // Overriding the paint so that we only paint inside the border
+    // Overriding the painting
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // keep children visible
+
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Paint rounded background using the panel's background color
-        g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+        int size = Math.min(getWidth(), getHeight());
+        int outerDiameter = size; // padding
+        int innerDiameter = outerDiameter - brimThickness; // thickness of brim
+
+        int outerX = (getWidth() - outerDiameter) / 2;
+        int outerY = (getHeight() - outerDiameter) / 2;
+
+        // ------------------------------
+        // OUTER RING (Brim)
+        // ------------------------------
+        g2.setColor(ringBackColor);  // ring color
+        g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
+
+        // ------------------------------
+        // PROGRESS ARC (clockwise fill)
+        // ------------------------------
+        
+        // Assinging to either goal completed or a percentage of the goal
+        double progress = (quantity>=goal ? 100 : (quantity/goal)*100); 
+        
+        g2.setStroke(new BasicStroke(14f));
+        g2.setColor(greenColor);
+
+        g2.drawArc(
+            outerX + 7,
+            outerY + 7,
+            outerDiameter - 14,
+            outerDiameter - 14,
+            90,
+            - (int)(progress * 3.6)
+        );
+        
+        if(quantity > goal){
+            double savedQuantity = quantity;
+            Color savedColor = greenColor;
+            double savedProgress;
+            
+            while(savedQuantity > 0 && savedQuantity > goal){
+                savedQuantity -= goal;                // Subtracting the amount left
+                savedColor = increaseBrimColor(savedColor); // Darkening even more the color
+                savedProgress = (savedQuantity>goal ? 100 : (savedQuantity/goal)*100); // Making new progress bar
+                g2.setColor(savedColor);              // Changing the brush color
+                g2.drawArc(                           // Drawing arc
+                    outerX + 7,
+                    outerY + 7,
+                    outerDiameter - 14,
+                    outerDiameter - 14,
+                    90,
+                    - (int)(savedProgress * 3.6)
+                );
+            }
+        }
+
+        // ------------------------------
+        // INNER CIRCLE 
+        // ------------------------------
+        int innerX = (getWidth() - innerDiameter) / 2;
+        int innerY = (getHeight() - innerDiameter) / 2;
+
+        g2.setColor(insidePanel.getBackground());
+        g2.fillOval(innerX, innerY, innerDiameter, innerDiameter);
 
         g2.dispose();
-
-        super.paintComponent(g);
     }
     
     
@@ -27,10 +85,11 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     private double goal = 0;
     private double increment = 0;
     private GUI_Window mainGUI = null;
-    private final int COMPLETE_COVER_STEP = 10;
     private Color habitColor = null;
-    private Color plusMinusCompleteCover = new Color(51,255,51);
     private String week = "0000000";
+    private Color ringBackColor = new Color(102,102,102);
+    private Color greenColor = new Color(181,230,29);
+    private int brimThickness = 20; 
     // ===================================================================================================
     
     
@@ -38,8 +97,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         double quantityInput, double goalInput, double incrementInput, String weekInput) {
         initComponents();
         
-        // Saving the parent gui to use its methods later
-        mainGUI = guiInput;
+        
         
         // Double checking that name is not too long
         if(habitNameInput.length() > MAX_LENGTH){
@@ -48,36 +106,43 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         }
         
         // Setting up the variables:
+        mainGUI = guiInput;
         habitColor = habitColorInput;
         quantity = quantityInput;
         goal = goalInput;
         increment = incrementInput;
         week = weekInput;
-        setWeekText();
+        habitName.setText(habitNameInput); // Setting the habit name
         
         // Setting text displays
         quantityText.setText(Double.toString(quantityInput));
         goalText.setText("Goal: " + goal);
         
-        // Setting up the card itself (this panel)
-        this.setBorder(new RoundedBorder(Color.BLACK, 1, 20));
+        // Setting up "this" : ---------------------------------------------
         this.setOpaque(false);
-        this.setBackground(habitColor); // Color that user chose for this habit
+        this.setBorder(new RoundedBorder(Color.BLACK, 1, 200));
+        // ----------------------------------------------------------------
         
-        // Setting up habit name
-        habitName.setText(habitNameInput); // Setting the habit name
         
-        // Setting up buttons
-        remove(minusButton);    // Removing temp GUI buttons
-        remove(plusButton);     // Removing temp GUI buttons
+        // Setting up "insidePanel" : -------------------------------------
+        insidePanel.setOpaque(false);
+        insidePanel.setBackground(habitColor);
+        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 180));
+        // ----------------------------------------------------------------
+        
+        
+        
+        // Setting up buttons : ---------------------------------------------------------------------------------------------------
+        insidePanel.remove(minusButton);    // Removing temp GUI buttons
+        insidePanel.remove(plusButton);     // Removing temp GUI buttons
         
         plusButton = new RoundButton("+", 50);  // Adding dynamic button using round features
         minusButton = new RoundButton("-", 50); // Adding dynamic button using round features
 
         plusButton.setBackground(darkenColor(habitColorInput));  // Setting the background of the button using the given habitColor
         minusButton.setBackground(darkenColor(habitColorInput)); // Setting the background of the button using the given habitColor
-        plusButton.setForeground(Color.BLACK);               // Setting the text color of the button
-        minusButton.setForeground(Color.BLACK);              // Setting the text color of the button
+        plusButton.setForeground(Color.BLACK);                   // Setting the text color of the button
+        minusButton.setForeground(Color.BLACK);                  // Setting the text color of the button
         
         plusButton.setOpaque(false);
         minusButton.setOpaque(false);
@@ -85,31 +150,22 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         minusButton.addActionListener(e->minusClicked());    // Adding listeners for button click
         plusButton.addActionListener(e->plusClicked());      // Adding listeners for button click
         
-        minusButton.setBounds(10, 125, 50, 50);
-        plusButton.setBounds(140, 125, 50, 50);
+        minusButton.setBounds(25, 122, 35, 35);
+        plusButton.setBounds(120, 122, 35, 35);
         
+        insidePanel.add(minusButton);  // Adding back once we are finished
+        insidePanel.add(plusButton);   // Adding back once we are finished
+        
+        // --------------------------------------------------------------------------------------------------------------------------
 
-        add(minusButton);
-        add(plusButton);
         
-        // Setting up the cover panel
+        // Setting up complete goal state (actually the color around depends on goal and quantity which we already set soooo. wow that was easier lmao)
         if(quantity >= goal){
-            completeCover.setLocation(0,0);
-            habitName.setForeground(Color.WHITE);
-            goalText.setForeground(Color.WHITE);
-            plusButton.setBackground(plusMinusCompleteCover);
-            minusButton.setBackground(plusMinusCompleteCover);
-            weekText.setForeground(Color.WHITE);
+            completeText.setVisible(true);
         }
         else{
-            completeCover.setLocation(0,200);
-            habitName.setForeground(Color.BLACK);
-            goalText.setForeground(Color.BLACK);
-            plusButton.setBackground(darkenColor(habitColor));
-            minusButton.setBackground(darkenColor(habitColor));
-            weekText.setForeground(Color.BLACK);
+            completeText.setVisible(false);
         }
-        this.setComponentZOrder(completeCover, 6);
         
         // Repainting Everything
         this.repaint();
@@ -119,14 +175,13 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        insidePanel = new javax.swing.JPanel();
         minusButton = new javax.swing.JButton();
         plusButton = new javax.swing.JButton();
-        habitName = new javax.swing.JLabel();
         quantityText = new javax.swing.JLabel();
         goalText = new javax.swing.JLabel();
-        completeCover = new javax.swing.JPanel();
-        completeCoverText = new javax.swing.JLabel();
-        weekText = new javax.swing.JLabel();
+        habitName = new javax.swing.JLabel();
+        completeText = new javax.swing.JLabel();
 
         setMaximumSize(new java.awt.Dimension(200, 200));
         setMinimumSize(new java.awt.Dimension(200, 200));
@@ -134,63 +189,55 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(200, 200));
         setLayout(null);
 
+        insidePanel.setBackground(new java.awt.Color(153, 255, 153));
+        insidePanel.setLayout(null);
+
         minusButton.setBackground(new java.awt.Color(153, 153, 153));
         minusButton.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         minusButton.setForeground(java.awt.Color.white);
         minusButton.setText("-");
         minusButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        add(minusButton);
-        minusButton.setBounds(5, 125, 50, 50);
+        insidePanel.add(minusButton);
+        minusButton.setBounds(25, 122, 35, 35);
 
         plusButton.setBackground(new java.awt.Color(153, 153, 153));
         plusButton.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         plusButton.setForeground(java.awt.Color.white);
         plusButton.setText("+");
         plusButton.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
-        add(plusButton);
-        plusButton.setBounds(145, 125, 50, 50);
-
-        habitName.setBackground(new java.awt.Color(0, 204, 255));
-        habitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        habitName.setForeground(java.awt.Color.black);
-        habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        habitName.setText("kkkkkkkkkkkkkkkkk");
-        add(habitName);
-        habitName.setBounds(5, 10, 190, 110);
+        insidePanel.add(plusButton);
+        plusButton.setBounds(120, 122, 35, 35);
 
         quantityText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         quantityText.setForeground(java.awt.Color.black);
         quantityText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         quantityText.setText("99999");
-        add(quantityText);
-        quantityText.setBounds(60, 120, 80, 60);
+        insidePanel.add(quantityText);
+        quantityText.setBounds(60, 115, 60, 50);
 
+        goalText.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         goalText.setForeground(java.awt.Color.black);
         goalText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         goalText.setText("Goal:");
-        add(goalText);
-        goalText.setBounds(50, 100, 100, 16);
+        insidePanel.add(goalText);
+        goalText.setBounds(0, 100, 180, 16);
 
-        completeCover.setBackground(new java.awt.Color(0, 153, 0));
-        completeCover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        completeCover.setPreferredSize(new java.awt.Dimension(200, 200));
-        completeCover.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        habitName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
+        habitName.setForeground(java.awt.Color.black);
+        habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        habitName.setText("kkkkkkkkkkkkkkkkk");
+        insidePanel.add(habitName);
+        habitName.setBounds(0, 70, 180, 30);
 
-        completeCoverText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        completeCoverText.setForeground(new java.awt.Color(51, 255, 51));
-        completeCoverText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        completeCoverText.setText("COMPLETE!");
-        completeCover.add(completeCoverText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
+        add(insidePanel);
+        insidePanel.setBounds(10, 10, 180, 180);
 
-        add(completeCover);
-        completeCover.setBounds(0, 200, 200, 200);
-
-        weekText.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        weekText.setForeground(java.awt.Color.black);
-        weekText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        weekText.setText("M / T / W / Th / F / S / Su");
-        add(weekText);
-        weekText.setBounds(0, 175, 200, 20);
+        completeText.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        completeText.setForeground(new java.awt.Color(181, 230, 29));
+        completeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        completeText.setText("COMPLETE");
+        add(completeText);
+        completeText.setBounds(25, 40, 150, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     
@@ -198,59 +245,41 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     // CLICKS OF THE BUTTONS: =======================================================================
     
     private void minusClicked() {
-        // Making sure we dont click while we are in animation
-        if(completeCover.getY() != 200 && completeCover.getY() != 0)
-            return;
+        // Resetting the away from screen timer
+        mainGUI.resetAway(); 
         
-        mainGUI.resetAway(); // Resetting the away from screen timer
+        // Incremening the quantity and showing value
         quantity -= increment;
-        quantity = Math.round(quantity * 10.0) / 10.0;
-        if(quantity < 0.0)       // Bounding to never go negative
+        quantity = Math.round(quantity * 10.0) / 10.0;  // Rounding to show nice numbers when working with doubles
+        if(quantity < 0.0)                              // Bounding to never go negative
             quantity = 0.0; 
         quantityText.setText(String.valueOf(quantity)); // Showing new value
         
-        // Checking if this value puts under the goal
-        if(quantity < goal && completeCover.getY() != 200){
-            moveCompleteCover("not completed");
-        }
+        
+        // Checking if this puts quantity under goal to take away completion 
+        if(quantity<goal)
+            completeText.setVisible(false);
+        
+        // This does the repainting of the brim
+        this.repaint();
     }
 
     private void plusClicked() {
-        // Making sure we dont click while we are in animation
-        if(completeCover.getY() != 200 && completeCover.getY() != 0)
-            return;
+        // Resetting the away from screen timer
+        mainGUI.resetAway();  
         
-        mainGUI.resetAway();  // Reseting the away from screen timer
+        // Incremening the quantity and showing value
         quantity += increment;
-        quantity = Math.round(quantity * 10.0) / 10.0;
-        quantityText.setText(String.valueOf(quantity));
+        quantity = Math.round(quantity * 10.0) / 10.0;  // Rounding to show nice numbers when working with doubles
+        quantityText.setText(String.valueOf(quantity)); // Show new value
         
-        // Checking if this value puts over or equal to goal
-        if(quantity >= goal && completeCover.getY() != 0){
-            moveCompleteCover("completed");
-        }
-    }
-    
-    
-    private void setWeekText(){
-        StringBuilder newWeekString = new StringBuilder();
-        String[] weekDays = {"M", "T", "W", "Th", "F", "S", "Su"};
-
-        for (int i = 0; i < week.length(); i++) {
-            if (week.charAt(i) == '1') {
-                newWeekString.append(weekDays[i]).append("/");
-            }
-        }
-
-        // Remove trailing slash if there is one
-        if (newWeekString.length() > 0 && newWeekString.charAt(newWeekString.length() - 1) == '/') {
-            newWeekString.deleteCharAt(newWeekString.length() - 1);
-        }
-
-        if(newWeekString.length() == 0)
-            weekText.setText("ERROR: STRING L=0");
-        else
-            weekText.setText(newWeekString.toString());
+        // Checking if this puts quantity over goal to give completion message
+        if(quantity>=goal)
+            completeText.setVisible(true);
+        
+        
+        // This does the repainting of the brim
+        this.repaint();
     }
     
     // ===================================================================================================
@@ -258,7 +287,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     
     // Helper Functions: =============================================================================
     private Color darkenColor(Color color) {
-        double factor = 0.8; // USE THIS FACTOR 0=darker | 1=lighter
+        double factor = 0.7; // USE THIS FACTOR 0=darker | 1=lighter
         
         int r = Math.max((int)(color.getRed() * factor), 0);
         int g = Math.max((int)(color.getGreen() * factor), 0);
@@ -267,89 +296,15 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return new Color(r, g, b);
     }
     
-    public void moveCompleteCover(String state){
-        Timer animation = null;
-        if(state.equals("completed")){ // Currently is not completed -> show animation to make complete
-            animation = new Timer(20,e->{
-                completeCover.setLocation(0,completeCover.getY() - COMPLETE_COVER_STEP);
-                
-                // Changing color of habit name when we pass it
-                if(completeCover.getY() <= (habitName.getY()+50) && habitName.getForeground() != Color.WHITE){
-                    habitName.setForeground(Color.WHITE);
-                }
-                
-                // Changing color of the quantityText when we pass it
-                if(completeCover.getY() <= (quantityText.getY()+10) && quantityText.getForeground() != Color.WHITE){
-                    quantityText.setForeground(Color.WHITE);
-                }
-                
-                // Changing color of the buttons when we pass it
-                if(completeCover.getY() <= (plusButton.getY()-10) && completeCover.getBackground() != plusMinusCompleteCover){
-                    plusButton.setBackground(plusMinusCompleteCover);
-                    minusButton.setBackground(plusMinusCompleteCover);
-                }
-                
-                // Changing the color of the goal text
-                if(completeCover.getY() <= (goalText.getY()) && goalText.getForeground() != Color.WHITE){
-                    goalText.setForeground(Color.WHITE);
-                }
-                
-                // Chaning color of week schedule when we pass it
-                if(completeCover.getY() <= weekText.getY() && weekText.getBackground() != Color.WHITE){
-                    weekText.setForeground(Color.WHITE);;
-                }
-                
-                
-                // Catching when to stop
-                if(completeCover.getY() <= 0){
-                    ((Timer)e.getSource()).stop();       // Stopping timer
-                    completeCover.setLocation(0,0);      // Just in case, we are hard setting it to correct location
-                }
-            });
-        }
-        else if(state.equals("not completed")){ // Currently is completed -> show animation to make not completed
-            animation = new Timer(20,e->{
-                completeCover.setLocation(0,completeCover.getY() + COMPLETE_COVER_STEP);
-                
-                // Chaning color of habit name when we pass it
-                if(completeCover.getY() >= (habitName.getY()+50) && habitName.getForeground() != Color.BLACK){
-                    habitName.setForeground(Color.BLACK);
-                }
-                
-                // Changing color of the quantityText when we pass it
-                if(completeCover.getY() >= (quantityText.getY()) && quantityText.getForeground() != Color.BLACK){
-                    quantityText.setForeground(Color.BLACK);
-                }
-                
-                // Changing color of the buttons when we pass it
-                if(completeCover.getY() >= (plusButton.getY()) && completeCover.getBackground() != darkenColor(habitColor)){
-                    plusButton.setBackground(darkenColor(habitColor));
-                    minusButton.setBackground(darkenColor(habitColor));
-                }
-                
-                // Changing the color of the goal text
-                if(completeCover.getY() >= (goalText.getY()) && goalText.getForeground() != Color.BLACK){
-                    goalText.setForeground(Color.BLACK);
-                }
-                
-                // Chaning color of week schedule when we pass it
-                if(completeCover.getY() >= weekText.getY() && weekText.getBackground() != Color.BLACK){
-                    weekText.setForeground(Color.BLACK);;
-                }
-                
-                
-                // Catching when to stop
-                if(completeCover.getY() >= 200){
-                    ((Timer)e.getSource()).stop();        // Stopping timer
-                    completeCover.setLocation(0,200);     // Just in case, we are hard setting it to correct location
-                }
-            });
-        }
-        
-        if(animation != null)
-            animation.start();
-    }
     
+    private Color increaseBrimColor(Color color) {
+        
+        int r = Math.min((int)(color.getRed() + 40), 255);
+        int g = Math.max((int) (color.getGreen() - 40), 0);
+        int b = Math.max((int)(color.getBlue() - 20), 0);
+        
+        return new Color(r, g, b);
+    }
     
     
     // ===================================================================================================
@@ -397,13 +352,12 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     // ===================================================================================================
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel completeCover;
-    private javax.swing.JLabel completeCoverText;
+    private javax.swing.JLabel completeText;
     private javax.swing.JLabel goalText;
     private javax.swing.JLabel habitName;
+    private javax.swing.JPanel insidePanel;
     private javax.swing.JButton minusButton;
     private javax.swing.JButton plusButton;
     private javax.swing.JLabel quantityText;
-    private javax.swing.JLabel weekText;
     // End of variables declaration//GEN-END:variables
 }

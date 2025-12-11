@@ -7,10 +7,6 @@ import java.time.format.DateTimeFormatter;
 // NOTE TO SELF: 1040 x 600 is the screen size
 
 
-
-
-
-
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
@@ -24,10 +20,9 @@ public class GUI_Window extends javax.swing.JFrame {
     
     // HOLDING VARIABLES: =================================================
     int awayFromScreenCounter = 0;    // Keeps count from 0- AWAY_FROM_SCREEN_TIME
-    JPanel progress_again = null;     // Holds the settings panel for foward refrence
+    JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
     JTextField keyboardTarget = null; // Holds where we are typing into 
     String customName = "";           // Holds the custom name if there is any
-    boolean isAway = false;           // Holds when the screen is currently away to single click back into home
     boolean awayIsOn = true;          // User can set this up through the settings to turn it off 
     ButtonGroup h_addHabitIncrementButtonGroup = null;
     
@@ -51,7 +46,7 @@ public class GUI_Window extends javax.swing.JFrame {
         this.setLayout(null);  // Setting the layout to null, so that we can use the set location without issues
         
         // Settings Panel Code:
-        progress_again = progress; // Saving the progress again into another location because of foward refrence in timer
+        screenSaver_again = screenSaver; // Saving the progress again into another location because of foward refrence in timer
         s_customName.setText(customName.isEmpty() ? "Not Set" : customName);                          // Setting the custom name
         h_welcomeMessage.setText(customName.isEmpty() ? "Welcome back!" : "Welcome, " + customName);  // Setting the custom name
         s_awayFromScreen.setText(Integer.toString(AWAY_FROM_SCREEN_TIME/60) + " Minute(s)");          // Setting the away from screen time
@@ -83,6 +78,7 @@ public class GUI_Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        screenSaver = new javax.swing.JPanel();
         keyboard = new javax.swing.JPanel();
         key1 = new javax.swing.JButton();
         key2 = new javax.swing.JButton();
@@ -221,6 +217,26 @@ public class GUI_Window extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(1040, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        screenSaver.setBackground(java.awt.Color.black);
+        screenSaver.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                screenSaverMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout screenSaverLayout = new javax.swing.GroupLayout(screenSaver);
+        screenSaver.setLayout(screenSaverLayout);
+        screenSaverLayout.setHorizontalGroup(
+            screenSaverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 1040, Short.MAX_VALUE)
+        );
+        screenSaverLayout.setVerticalGroup(
+            screenSaverLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 600, Short.MAX_VALUE)
+        );
+
+        getContentPane().add(screenSaver, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         keyboard.setBackground(new java.awt.Color(156, 183, 133));
         keyboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -606,11 +622,6 @@ public class GUI_Window extends javax.swing.JFrame {
         progress.setBackground(new java.awt.Color(204, 204, 204));
         progress.setMaximumSize(new java.awt.Dimension(1040, 600));
         progress.setMinimumSize(new java.awt.Dimension(1040, 600));
-        progress.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                awayAndClicked(evt);
-            }
-        });
         progress.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         p_progressTitle.setBackground(new java.awt.Color(156, 183, 133));
@@ -620,11 +631,6 @@ public class GUI_Window extends javax.swing.JFrame {
         p_progressTitle.setText("Progress Center");
         p_progressTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         p_progressTitle.setOpaque(true);
-        p_progressTitle.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                awayAndClicked(evt);
-            }
-        });
         progress.add(p_progressTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
 
         getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 970, 550));
@@ -898,11 +904,6 @@ public class GUI_Window extends javax.swing.JFrame {
         editHistory.setBackground(new java.awt.Color(204, 204, 204));
         editHistory.setMaximumSize(new java.awt.Dimension(1040, 600));
         editHistory.setMinimumSize(new java.awt.Dimension(1040, 600));
-        editHistory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editHistoryawayAndClicked(evt);
-            }
-        });
         editHistory.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         eHist_title.setBackground(new java.awt.Color(156, 183, 133));
@@ -912,11 +913,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eHist_title.setText("Edit Past Entries");
         eHist_title.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         eHist_title.setOpaque(true);
-        eHist_title.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eHist_titleawayAndClicked(evt);
-            }
-        });
         editHistory.add(eHist_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
 
         getContentPane().add(editHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 50, 970, 550));
@@ -1501,10 +1497,13 @@ public class GUI_Window extends javax.swing.JFrame {
         // SWITCH FRAME FUNCTION: ==========================================================================================================
     private void switchFrame(JPanel target){
         // Hidding all other frames (and keyboard)
+        keyboard.setVisible(false);
+        screenSaver.setVisible(false);
+        
+        
         home.setVisible(false);
         settings.setVisible(false);
         progress.setVisible(false);
-        keyboard.setVisible(false);
         addHabit.setVisible(false);
         editHabit.setVisible(false);
         editHistory.setVisible(false);
@@ -1516,9 +1515,10 @@ public class GUI_Window extends javax.swing.JFrame {
         n_editHistoryCover.setVisible(false);
         n_progressCover.setVisible(false);
         
+        navigationPanel.setVisible(true);
+        
         // Stoping timer to reset since we are moving screens
         awayFromScreenCounter = 0;     // Reseting counter
-        isAway = false;                // If we switched frames, then user just used the panel
         if(awayFromScreen.isRunning()) // Stopping timer if its running
             awayFromScreen.stop();
         
@@ -1566,6 +1566,9 @@ public class GUI_Window extends javax.swing.JFrame {
         else if(target == editHistory){
             n_editHistoryCover.setVisible(true);
         }
+        else if(target == screenSaver){
+            navigationPanel.setVisible(false);
+        }
         
         // Showing target frame after everything has been set
         target.setVisible(true);
@@ -1577,9 +1580,8 @@ public class GUI_Window extends javax.swing.JFrame {
         awayFromScreenCounter++;           // Increase counter
         if(awayFromScreenCounter >= AWAY_FROM_SCREEN_TIME){  // IF: checking if we reached the max time
             ((Timer)e.getSource()).stop(); // Stop Timer
-            switchFrame(progress_again);   // Take back to progress
+            switchFrame(screenSaver_again);   // Take back to progress
             awayFromScreenCounter = 0;     // Reset counter
-            isAway = true;                 // Setting up the isAway to true so clicks can send back into menu
             // ---------------------------------------------------------------->  Make brightness lower [ADD LATER]
         }
     });
@@ -1587,14 +1589,6 @@ public class GUI_Window extends javax.swing.JFrame {
     public void resetAway(){
         awayFromScreenCounter = 0; // This should alone "reset" the timer to start from the beginning of the counting
     }
-
-    // HELPER FUNCTION (SEND EVERYTHING FROM PROGRESS HERE) ============================================================================
-    private void awayAndClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_awayAndClicked
-        if(isAway){
-            isAway = false;
-            switchFrame(home);
-        }
-    }//GEN-LAST:event_awayAndClicked
 
     
 
@@ -2375,15 +2369,13 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     
-    
+    // =================================================================================================================================
+    // ================== [ SCREEN SAVER FUNCTIONS ] ===================================================================================
+    // =================================================================================================================================
 
-    private void eHist_titleawayAndClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eHist_titleawayAndClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_eHist_titleawayAndClicked
-
-    private void editHistoryawayAndClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editHistoryawayAndClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_editHistoryawayAndClicked
+    private void screenSaverMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_screenSaverMouseClicked
+        switchFrame(home);
+    }//GEN-LAST:event_screenSaverMouseClicked
 
     
     
@@ -2611,6 +2603,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton s_textColorButton;
     private javax.swing.JLabel s_title;
     private javax.swing.JButton s_turnOffAwayFromScreenButton;
+    private javax.swing.JPanel screenSaver;
     private javax.swing.JPanel settings;
     private javax.swing.JButton settingsButton;
     private javax.swing.JPanel topPanel;

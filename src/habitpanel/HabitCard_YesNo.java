@@ -2,45 +2,85 @@
 package habitpanel;
 import java.awt.*;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
  
 
 public class HabitCard_YesNo extends javax.swing.JPanel {
 
-    // Overriding the paint so that we only paint inside the border
+    // Overriding the painting 
     @Override
     protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // keep children visible
+
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // Paint rounded background using the panel's background color
-        g2.setColor(getBackground());
-        g2.fillRoundRect(0, 0, getWidth(), getHeight(), 20, 20);
+        int size = Math.min(getWidth(), getHeight());
+        int outerDiameter = size; // padding
+        int innerDiameter = outerDiameter - brimThickness; // thickness of brim
+
+        int outerX = (getWidth() - outerDiameter) / 2;
+        int outerY = (getHeight() - outerDiameter) / 2;
+
+        // ------------------------------
+        // OUTER RING (Brim)
+        // ------------------------------
+        g2.setColor(ringBackColor);  // ring color
+        g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
+
+        // ------------------------------
+        // PROGRESS ARC (clockwise fill)
+        // ------------------------------
+        // USE THIS FOR THE QUANTITY LATER: int progress = 75; //  0–100 percent
+        int progress = (isComplete ? 100 : 0);
+        g2.setStroke(new BasicStroke(14f));
+        g2.setColor(greenColor);
+
+        g2.drawArc(
+            outerX + 7,
+            outerY + 7,
+            outerDiameter - 14,
+            outerDiameter - 14,
+            90,
+            - (int)(progress * 3.6)
+        );
+
+        // ------------------------------
+        // INNER CIRCLE 
+        // ------------------------------
+        int innerX = (getWidth() - innerDiameter) / 2;
+        int innerY = (getHeight() - innerDiameter) / 2;
+
+        g2.setColor(insidePanel.getBackground());
+        g2.fillOval(innerX, innerY, innerDiameter, innerDiameter);
 
         g2.dispose();
-
-        super.paintComponent(g);
     }
     
     // Private Variables: ================================================================================
     private final int MAX_LENGTH = 17;
-    private final int COMPLETE_COVER_STEP = 10;
     private boolean isComplete = false;
     private GUI_Window mainGUI = null;
     private String week = "0000000";
+    private Color habitColor = null;
+    private Color ringBackColor = new Color(102,102,102);
+    private Color greenColor = new Color(181,230,29);
+    private int brimThickness = 20; 
     // ===================================================================================================
     
     //  CONSTRUCTOR:       ===============================================================================
-    public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColor, boolean completed, String weekInput) {
+    public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColorInput, boolean completed, String weekInput) {
         initComponents();
         
         // Setting the parent gui so that we can use its methods later
         mainGUI = guiInput;
+        habitColor = habitColorInput;
         
         // Setting up the week
         week = weekInput;
-        setWeekText();
+        
+        //Setting up habit name
+        habitName.setText(habitNameInput);
         
         // Double checking that name is not too long
         if(habitNameInput.length() > MAX_LENGTH){
@@ -48,30 +88,33 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             return;
         }
         
-        
         // Setting up the card itself (border and color)
-        this.setBorder(new RoundedBorder(Color.BLACK, 1, 20));
+        this.setBorder(new RoundedBorder(Color.BLACK, 1, 200));
         this.setOpaque(false);
-        this.setBackground(habitColor); // Color that user chose for this habit
+        
+        // Setting up inside panel
+        insidePanel.setOpaque(false);
+        insidePanel.setBackground(habitColor);
+        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 180));
         
         
-        // Setting up habit name
-        habitName.setText(habitNameInput);
         
-        
-        // Setting up complete cover
+        // Setting up brim using given COMPLETED state
         if(completed){
-            completeCover.setLocation(0,0);   // Move to the top to show
-            habitName.setForeground(Color.WHITE);
-            weekText.setForeground(Color.WHITE);
+            pressToMarkText.setVisible(false);
+            checkmarkImage.setVisible(true);
+            completeText.setVisible(true);
+            
         }else{
-            completeCover.setLocation(0,200); // Move to the bottom to hide
-            habitName.setForeground(Color.BLACK);
-            weekText.setForeground(Color.BLACK);
+            pressToMarkText.setVisible(true);
+            checkmarkImage.setVisible(false);
+            completeText.setVisible(false);
         }
         isComplete = completed;        
         
-        // Repainting Everything
+      
+        
+        // Repainting Everything (specifically for calling the paintComponent overrided above)
         this.repaint();
     }
 
@@ -82,13 +125,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        insidePanel = new javax.swing.JPanel();
         habitName = new javax.swing.JLabel();
-        weekText = new javax.swing.JLabel();
-        completeCover = new javax.swing.JPanel();
-        completeCoverText = new javax.swing.JLabel();
         pressToMarkText = new javax.swing.JLabel();
+        checkmarkImage = new javax.swing.JLabel();
+        completeText = new javax.swing.JLabel();
 
-        setBackground(new java.awt.Color(204, 204, 204));
+        setBackground(new java.awt.Color(102, 102, 102));
         setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(200, 200));
         setMinimumSize(new java.awt.Dimension(200, 200));
@@ -100,7 +143,15 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         });
         setLayout(null);
 
-        habitName.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        insidePanel.setBackground(new java.awt.Color(153, 255, 153));
+        insidePanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                habitNameMouseClicked(evt);
+            }
+        });
+        insidePanel.setLayout(null);
+
+        habitName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         habitName.setForeground(java.awt.Color.black);
         habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         habitName.setText("kkkkkkkkkkkkkkkkk");
@@ -109,33 +160,8 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 habitNameMouseClicked(evt);
             }
         });
-        add(habitName);
-        habitName.setBounds(5, 10, 190, 110);
-
-        weekText.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        weekText.setForeground(java.awt.Color.black);
-        weekText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        weekText.setText("M / T / W / Th / F / S / Su");
-        add(weekText);
-        weekText.setBounds(0, 175, 200, 20);
-
-        completeCover.setBackground(new java.awt.Color(0, 153, 0));
-        completeCover.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        completeCover.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                habitNameMouseClicked(evt);
-            }
-        });
-        completeCover.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        completeCoverText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        completeCoverText.setForeground(new java.awt.Color(51, 255, 51));
-        completeCoverText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        completeCoverText.setText("COMPLETE!");
-        completeCover.add(completeCoverText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 200, 50));
-
-        add(completeCover);
-        completeCover.setBounds(0, 200, 200, 200);
+        insidePanel.add(habitName);
+        habitName.setBounds(0, 70, 180, 30);
 
         pressToMarkText.setBackground(new java.awt.Color(153, 153, 255));
         pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
@@ -147,98 +173,61 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
                 habitNameMouseClicked(evt);
             }
         });
-        add(pressToMarkText);
-        pressToMarkText.setBounds(20, 90, 160, 90);
+        insidePanel.add(pressToMarkText);
+        pressToMarkText.setBounds(0, 105, 180, 20);
+
+        add(insidePanel);
+        insidePanel.setBounds(10, 10, 180, 180);
+
+        checkmarkImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/checkmarkIcon.png"))); // NOI18N
+        add(checkmarkImage);
+        checkmarkImage.setBounds(70, 120, 60, 60);
+
+        completeText.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        completeText.setForeground(new java.awt.Color(181, 230, 29));
+        completeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        completeText.setText("COMPLETE");
+        add(completeText);
+        completeText.setBounds(25, 40, 150, 30);
     }// </editor-fold>//GEN-END:initComponents
 
     private void habitNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_habitNameMouseClicked
-        if(completeCover.getY() == 0){
+        // Current state is "COMPLTED" -> moving to "NOT COMPLETED"
+        if(!pressToMarkText.isVisible()){
+            // Reseting the away timer
             mainGUI.resetAway();
-            completeCoverAnimation("not completed");
+            
+            // Chaning visuasl
+            pressToMarkText.setVisible(true);
+            checkmarkImage.setVisible(false);
+            completeText.setVisible(false);
+            
+            // Changing variables
             isComplete = false;
         }
-        else if(completeCover.getY() == 200){
+        
+        // Current state is "NOT COMPLETED" -> moving to "COMPLETED"
+        else{
+            // Resting the away timer
             mainGUI.resetAway();
-            completeCoverAnimation("completed");
+            
+            // Changing visuals
+            pressToMarkText.setVisible(false);
+            checkmarkImage.setVisible(true);
+            completeText.setVisible(true);
+            
+            // Changing variables
             isComplete = true;
         }
         
-        pressToMarkText.repaint();
+        // Repaiting the whole panel which should call the paintComponent, i hopeeeee
+        this.repaint();
     }//GEN-LAST:event_habitNameMouseClicked
     
-    private void setWeekText(){
-        StringBuilder newWeekString = new StringBuilder();
-        String[] weekDays = {"M", "T", "W", "Th", "F", "S", "Su"};
-
-        for (int i = 0; i < week.length(); i++) {
-            if (week.charAt(i) == '1') {
-                newWeekString.append(weekDays[i]).append("/");
-            }
-        }
-
-        // Remove trailing slash if there is one
-        if (newWeekString.length() > 0 && newWeekString.charAt(newWeekString.length() - 1) == '/') {
-            newWeekString.deleteCharAt(newWeekString.length() - 1);
-        }
-
-        if(newWeekString.length() == 0)
-            weekText.setText("ERROR: STRING L=0");
-        else
-            weekText.setText(newWeekString.toString());
-    }
 
     // ===================================================================================================
     
     
-    // ANIMATIONS: ========================================================================================
-    private void completeCoverAnimation(String state){
-        Timer animation = null;
-        if(state.equals("completed")){ // Currently is not completed -> show animation to make complete
-            animation = new Timer(20,e->{
-                completeCover.setLocation(0,completeCover.getY() - COMPLETE_COVER_STEP);
-                
-                // Changing color of habit name when we pass it
-                if(completeCover.getY() <= (habitName.getY()+50) && habitName.getForeground() != Color.WHITE){
-                    habitName.setForeground(Color.WHITE);
-                }
-                
-                // Chaning color of week schedule when we pass it
-                if(completeCover.getY() <= weekText.getY() && weekText.getBackground() != Color.WHITE){
-                    weekText.setForeground(Color.WHITE);;
-                }
-                
-                // Catch when we reach there 
-                if(completeCover.getY() <= 0){
-                    ((Timer)e.getSource()).stop();  // Stopping timer
-                    completeCover.setLocation(0,0); // Just in case, we are hard setting it to correct location
-                }
-            });
-        }
-        else if(state.equals("not completed")){ // Currently is completed -> show animation to make not completed
-            animation = new Timer(20,e->{
-                completeCover.setLocation(0,completeCover.getY() + COMPLETE_COVER_STEP);
-                
-                // Chaning color of habit name when we pass it
-                if(completeCover.getY() >= (habitName.getY()+50) && habitName.getForeground() != Color.BLACK){
-                    habitName.setForeground(Color.BLACK);
-                }
-                
-                // Chaning color of week schedule when we pass it
-                if(completeCover.getY() >= weekText.getY() && weekText.getBackground() != Color.BLACK){
-                    weekText.setForeground(Color.BLACK);;
-                }
-                
-                // Catch when we reach there 
-                if(completeCover.getY() >= 200){
-                    ((Timer)e.getSource()).stop();    // Stopping timer
-                    completeCover.setLocation(0,200); // Just in case, we are hard setting it to correct location
-                }
-            });
-        }
-        
-        if(animation != null)
-            animation.start();
-    }
     
     
     // ===================================================================================================
@@ -282,10 +271,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPanel completeCover;
-    private javax.swing.JLabel completeCoverText;
+    private javax.swing.JLabel checkmarkImage;
+    private javax.swing.JLabel completeText;
     private javax.swing.JLabel habitName;
+    private javax.swing.JPanel insidePanel;
     private javax.swing.JLabel pressToMarkText;
-    private javax.swing.JLabel weekText;
     // End of variables declaration//GEN-END:variables
 }
