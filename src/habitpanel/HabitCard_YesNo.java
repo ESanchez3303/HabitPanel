@@ -195,7 +195,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // Current state is "COMPLTED" -> moving to "NOT COMPLETED"
         if(!pressToMarkText.isVisible()){
             // Reseting the away timer
-            mainGUI.resetAway();
+            mainGUI.reseAwaytAway();
             
             // Chaning visuasl
             pressToMarkText.setVisible(true);
@@ -209,7 +209,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // Current state is "NOT COMPLETED" -> moving to "COMPLETED"
         else{
             // Resting the away timer
-            mainGUI.resetAway();
+            mainGUI.reseAwaytAway();
             
             // Changing visuals
             pressToMarkText.setVisible(false);

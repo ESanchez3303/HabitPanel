@@ -32,9 +32,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         
         // Assinging to either goal completed or a percentage of the goal
         double progress = (quantity>=goal ? 100 : (quantity/goal)*100); 
+        Color brimPaintingColor = progressToGreen(progress);
         
         g2.setStroke(new BasicStroke(14f));
-        g2.setColor(greenColor);
+        g2.setColor(brimPaintingColor);
 
         g2.drawArc(
             outerX + 7,
@@ -52,7 +53,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
             
             while(savedQuantity > 0 && savedQuantity > goal){
                 savedQuantity -= goal;                // Subtracting the amount left
-                savedColor = increaseBrimColor(savedColor); // Darkening even more the color
+                savedColor = increaseGreenColor(savedColor); // Darkening even more the color
                 savedProgress = (savedQuantity>goal ? 100 : (savedQuantity/goal)*100); // Making new progress bar
                 g2.setColor(savedColor);              // Changing the brush color
                 g2.drawArc(                           // Drawing arc
@@ -189,7 +190,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(200, 200));
         setLayout(null);
 
-        insidePanel.setBackground(new java.awt.Color(153, 255, 153));
+        insidePanel.setBackground(new java.awt.Color(255, 255, 0));
         insidePanel.setLayout(null);
 
         minusButton.setBackground(new java.awt.Color(153, 153, 153));
@@ -246,7 +247,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     
     private void minusClicked() {
         // Resetting the away from screen timer
-        mainGUI.resetAway(); 
+        mainGUI.reseAwaytAway(); 
         
         // Incremening the quantity and showing value
         quantity -= increment;
@@ -266,7 +267,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
 
     private void plusClicked() {
         // Resetting the away from screen timer
-        mainGUI.resetAway();  
+        mainGUI.reseAwaytAway();  
         
         // Incremening the quantity and showing value
         quantity += increment;
@@ -297,12 +298,39 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     }
     
     
-    private Color increaseBrimColor(Color color) {
-        
-        int r = Math.min((int)(color.getRed() + 40), 255);
-        int g = Math.max((int) (color.getGreen() - 40), 0);
-        int b = Math.max((int)(color.getBlue() - 20), 0);
-        
+    private Color increaseGreenColor(Color color) {
+        float[] hsb = Color.RGBtoHSB(
+                color.getRed(),
+                color.getGreen(),
+                color.getBlue(),
+                null
+        );
+
+        hsb[0] = Math.min(hsb[0] + 0.20f, 0.66f);  // shift hue
+        hsb[1] = Math.min(hsb[1] + 0.00f, 1f);     // saturation
+        hsb[2] = Math.max(hsb[2] - 0.01f, 0.20f);  // brightness
+
+        return Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
+    }
+    
+    private static int clamp(int val, int min, int max) {
+        return Math.max(min, Math.min(max, val));
+    }
+
+    private Color progressToGreen(double progress) {
+        // Changing and clamping to 0-1
+        progress = Math.max(0.0, Math.min(1.0, progress/100));
+
+        // Linear math to make look good through all progress
+        int r = (int) Math.round(255 + progress * (greenColor.getRed()   - 255));
+        int g = (int) Math.round(51  + progress * (greenColor.getGreen() - 51));
+        int b = (int) Math.round(51  + progress * (greenColor.getBlue()  - 51));
+
+        // Clamp to valid 0-255 range 
+        r = Math.max(0, Math.min(255, r));
+        g = Math.max(0, Math.min(255, g));
+        b = Math.max(0, Math.min(255, b));
+
         return new Color(r, g, b);
     }
     
