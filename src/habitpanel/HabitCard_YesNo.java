@@ -64,7 +64,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private String week = "0000000";
     private Color habitColor = null;
     private Color ringBackColor = new Color(102,102,102);
-    private Color greenColor = new Color(181,230,29);
+    private Color greenColor = new Color(20,255,20);
     private int brimThickness = 20; 
     // ===================================================================================================
     

@@ -6,6 +6,8 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import javax.swing.border.BevelBorder;
 import javax.swing.border.SoftBevelBorder;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 // NOTE TO SELF: 1040 x 600 is the screen size
 
@@ -124,12 +126,12 @@ public class GUI_Window extends javax.swing.JFrame {
     // ====================================================================
     
     // CHANGING VARIABLES: =================================================
-    JTextField keyboardTarget = null; // Holds where we are typing into 
-    JPanel screenSaver_again = null;  // Holds the settings panel for foward refrence
-    Screensaver screensaver = new Screensaver(); 
+    JTextField keyboardTarget = null;    // Holds where we are typing into 
+    JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
+    Screensaver screensaver = new Screensaver();  // Holds the instance of the object that manages the screensaver
     String savedScreensaver = "skyline"; // Holds the users chosen screensaver -> starting with skyline for now
-    int awayFromScreenCounter = 0;    // Keeps count from 0- AWAY_FROM_SCREEN_TIME
-    boolean awayIsOn = true;          // User can set this up through the settings to turn it off 
+    int awayFromScreenCounter = 0;       // Keeps count from 0- AWAY_FROM_SCREEN_TIME
+    boolean awayIsOn = true;             // User can set this up through the settings to turn it off 
     // ====================================================================
             
     
@@ -170,8 +172,25 @@ public class GUI_Window extends javax.swing.JFrame {
         h_addHabitIncrementButtonGroup.add(ah_IncrementPointFive);
         h_addHabitIncrementButtonGroup.add(ah_IncrementOne);
         
+        
         // Setting up the screensaver
         screensaver.setUp(screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3); 
+        
+        // Setting up the scroll buttons in the home panel (removing, making new object, adding, setting z level to 0)
+        home.remove(h_scrollUpPanel);
+        home.remove(h_scrollDownPanel);
+        h_scrollUpPanel = new ScrollCornerButton(ScrollCornerButton.Type.UP);
+        h_scrollDownPanel = new ScrollCornerButton(ScrollCornerButton.Type.DOWN);
+        h_scrollUpPanel.addMouseListener(new MouseAdapter() {                                  // Connecting the function since we removed 
+            @Override public void mouseClicked(MouseEvent e) {scrollButtonClicked(e);}
+        });  
+        h_scrollDownPanel.addMouseListener(new MouseAdapter() {                               // Connecting the function since we removed 
+            @Override public void mouseClicked(MouseEvent e) {scrollButtonClicked(e);}
+        });
+        home.add(h_scrollUpPanel);
+        home.add(h_scrollDownPanel);
+        home.setComponentZOrder(h_scrollUpPanel, 0);
+        home.setComponentZOrder(h_scrollDownPanel, 0);
         
         
         // Painting the program
@@ -199,6 +218,12 @@ public class GUI_Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        home = new javax.swing.JPanel();
+        h_scrollUpPanel = new javax.swing.JPanel();
+        h_scrollDownPanel = new javax.swing.JPanel();
+        h_scrollPane = new javax.swing.JScrollPane();
+        h_habitPanel = new javax.swing.JPanel();
+        h_date = new javax.swing.JLabel();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
         addHabit = new javax.swing.JPanel();
@@ -252,12 +277,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eHist_title = new javax.swing.JLabel();
         progress = new javax.swing.JPanel();
         p_progressTitle = new javax.swing.JLabel();
-        home = new javax.swing.JPanel();
-        h_scrollUpButton = new javax.swing.JButton();
-        h_scrollDownButton = new javax.swing.JButton();
-        h_scrollPane = new javax.swing.JScrollPane();
-        h_habitPanel = new javax.swing.JPanel();
-        h_date = new javax.swing.JLabel();
         settings = new javax.swing.JPanel();
         s_title = new javax.swing.JLabel();
         s_colorsPanel = new javax.swing.JPanel();
@@ -334,6 +353,84 @@ public class GUI_Window extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(1040, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        home.setBackground(new java.awt.Color(204, 204, 204));
+        home.setMaximumSize(new java.awt.Dimension(1040, 600));
+        home.setMinimumSize(new java.awt.Dimension(1040, 600));
+        home.setLayout(null);
+
+        h_scrollUpPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout h_scrollUpPanelLayout = new javax.swing.GroupLayout(h_scrollUpPanel);
+        h_scrollUpPanel.setLayout(h_scrollUpPanelLayout);
+        h_scrollUpPanelLayout.setHorizontalGroup(
+            h_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        h_scrollUpPanelLayout.setVerticalGroup(
+            h_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 265, Short.MAX_VALUE)
+        );
+
+        home.add(h_scrollUpPanel);
+        h_scrollUpPanel.setBounds(860, 55, 100, 265);
+
+        h_scrollDownPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout h_scrollDownPanelLayout = new javax.swing.GroupLayout(h_scrollDownPanel);
+        h_scrollDownPanel.setLayout(h_scrollDownPanelLayout);
+        h_scrollDownPanelLayout.setHorizontalGroup(
+            h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 100, Short.MAX_VALUE)
+        );
+        h_scrollDownPanelLayout.setVerticalGroup(
+            h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 265, Short.MAX_VALUE)
+        );
+
+        home.add(h_scrollDownPanel);
+        h_scrollDownPanel.setBounds(860, 330, 100, 265);
+
+        h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
+        h_scrollPane.setBorder(null);
+        h_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        h_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        h_scrollPane.setMaximumSize(new java.awt.Dimension(1000, 1000));
+        h_scrollPane.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        h_scrollPane.setPreferredSize(new java.awt.Dimension(1000, 1000));
+
+        h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
+        h_habitPanel.setMaximumSize(new java.awt.Dimension(99999, 999999));
+        h_habitPanel.setMinimumSize(new java.awt.Dimension(0, 440));
+        h_habitPanel.setName(""); // NOI18N
+        h_habitPanel.setPreferredSize(new java.awt.Dimension(900, 440));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10);
+        flowLayout1.setAlignOnBaseline(true);
+        h_habitPanel.setLayout(flowLayout1);
+        h_scrollPane.setViewportView(h_habitPanel);
+
+        home.add(h_scrollPane);
+        h_scrollPane.setBounds(23, 110, 900, 430);
+
+        h_date.setBackground(new java.awt.Color(156, 183, 133));
+        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        h_date.setForeground(java.awt.Color.white);
+        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_date.setText("Saturday, Nov 22, 2025");
+        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_date.setOpaque(true);
+        home.add(h_date);
+        h_date.setBounds(10, 10, 950, 40);
+
+        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         editHabit.setBackground(new java.awt.Color(181, 181, 181));
         editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -753,68 +850,6 @@ public class GUI_Window extends javax.swing.JFrame {
 
         getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
-        home.setBackground(new java.awt.Color(204, 204, 204));
-        home.setMaximumSize(new java.awt.Dimension(1040, 600));
-        home.setMinimumSize(new java.awt.Dimension(1040, 600));
-        home.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        h_scrollUpButton.setBackground(new java.awt.Color(181, 181, 181));
-        h_scrollUpButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        h_scrollUpButton.setForeground(java.awt.Color.white);
-        h_scrollUpButton.setText("Up");
-        h_scrollUpButton.setToolTipText("");
-        h_scrollUpButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        h_scrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_scrollButtonMouseClicked(evt);
-            }
-        });
-        home.add(h_scrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 60, 740, 40));
-
-        h_scrollDownButton.setBackground(new java.awt.Color(181, 181, 181));
-        h_scrollDownButton.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        h_scrollDownButton.setForeground(java.awt.Color.white);
-        h_scrollDownButton.setText("Down");
-        h_scrollDownButton.setToolTipText("");
-        h_scrollDownButton.setBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED));
-        h_scrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                h_scrollButtonMouseClicked(evt);
-            }
-        });
-        home.add(h_scrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 550, 740, 40));
-
-        h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
-        h_scrollPane.setBorder(null);
-        h_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        h_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        h_scrollPane.setMaximumSize(new java.awt.Dimension(1000, 1000));
-        h_scrollPane.setMinimumSize(new java.awt.Dimension(1000, 1000));
-        h_scrollPane.setPreferredSize(new java.awt.Dimension(1000, 1000));
-
-        h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
-        h_habitPanel.setMaximumSize(new java.awt.Dimension(900, 1000));
-        h_habitPanel.setMinimumSize(new java.awt.Dimension(900, 1000));
-        h_habitPanel.setName(""); // NOI18N
-        h_habitPanel.setPreferredSize(new java.awt.Dimension(900, 1000));
-        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10);
-        flowLayout1.setAlignOnBaseline(true);
-        h_habitPanel.setLayout(flowLayout1);
-        h_scrollPane.setViewportView(h_habitPanel);
-
-        home.add(h_scrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 900, 430));
-
-        h_date.setBackground(new java.awt.Color(156, 183, 133));
-        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        h_date.setForeground(java.awt.Color.white);
-        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_date.setText("Saturday, Nov 22, 2025");
-        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        h_date.setOpaque(true);
-        home.add(h_date, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 40));
-
-        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
         settings.setBackground(new java.awt.Color(204, 204, 204));
         settings.setMaximumSize(new java.awt.Dimension(1040, 600));
         settings.setMinimumSize(new java.awt.Dimension(1040, 600));
@@ -1031,13 +1066,15 @@ public class GUI_Window extends javax.swing.JFrame {
         getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         keyboard.setBackground(new java.awt.Color(156, 183, 133));
-        keyboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        keyboard.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         keyboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         key1.setBackground(new java.awt.Color(128, 161, 98));
         key1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key1.setForeground(java.awt.Color.white);
         key1.setText("Q");
+        key1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key1.setFocusPainted(false);
         key1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1049,6 +1086,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key2.setForeground(java.awt.Color.white);
         key2.setText("W");
+        key2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key2.setFocusPainted(false);
         key2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1060,6 +1099,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key3.setForeground(java.awt.Color.white);
         key3.setText("E");
+        key3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key3.setFocusPainted(false);
         key3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1071,6 +1112,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key4.setForeground(java.awt.Color.white);
         key4.setText("R");
+        key4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key4.setFocusPainted(false);
         key4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1082,6 +1125,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key5.setForeground(java.awt.Color.white);
         key5.setText("T");
+        key5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key5.setFocusPainted(false);
         key5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1093,6 +1138,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key6.setForeground(java.awt.Color.white);
         key6.setText("Y");
+        key6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key6.setFocusPainted(false);
         key6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1104,6 +1151,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key7.setForeground(java.awt.Color.white);
         key7.setText("U");
+        key7.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key7.setFocusPainted(false);
         key7.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1115,6 +1164,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key8.setForeground(java.awt.Color.white);
         key8.setText("I");
+        key8.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key8.setFocusPainted(false);
         key8.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1126,6 +1177,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key9.setForeground(java.awt.Color.white);
         key9.setText("O");
+        key9.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key9.setFocusPainted(false);
         key9.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1137,6 +1190,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key10.setForeground(java.awt.Color.white);
         key10.setText("P");
+        key10.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key10.setFocusPainted(false);
         key10.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1148,6 +1203,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key11.setForeground(java.awt.Color.white);
         key11.setText("A");
+        key11.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key11.setFocusPainted(false);
         key11.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1159,6 +1216,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key12.setForeground(java.awt.Color.white);
         key12.setText("S");
+        key12.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key12.setFocusPainted(false);
         key12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1170,6 +1229,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key13.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key13.setForeground(java.awt.Color.white);
         key13.setText("D");
+        key13.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key13.setFocusPainted(false);
         key13.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1181,6 +1242,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key14.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key14.setForeground(java.awt.Color.white);
         key14.setText("F");
+        key14.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key14.setFocusPainted(false);
         key14.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1192,6 +1255,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key15.setForeground(java.awt.Color.white);
         key15.setText("G");
+        key15.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key15.setFocusPainted(false);
         key15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1203,6 +1268,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key16.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key16.setForeground(java.awt.Color.white);
         key16.setText("H");
+        key16.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key16.setFocusPainted(false);
         key16.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1214,6 +1281,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key17.setForeground(java.awt.Color.white);
         key17.setText("J");
+        key17.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key17.setFocusPainted(false);
         key17.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1225,6 +1294,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key18.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key18.setForeground(java.awt.Color.white);
         key18.setText("K");
+        key18.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key18.setFocusPainted(false);
         key18.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1236,6 +1307,8 @@ public class GUI_Window extends javax.swing.JFrame {
         key19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key19.setForeground(java.awt.Color.white);
         key19.setText("L");
+        key19.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key19.setFocusPainted(false);
         key19.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
@@ -1247,90 +1320,106 @@ public class GUI_Window extends javax.swing.JFrame {
         key20.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key20.setForeground(java.awt.Color.white);
         key20.setText("Z");
+        key20.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key20.setFocusPainted(false);
         key20.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key20, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 60, 60));
+        keyboard.add(key20, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 150, 60, 60));
 
         key21.setBackground(new java.awt.Color(128, 161, 98));
         key21.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key21.setForeground(java.awt.Color.white);
         key21.setText("X");
         key21.setToolTipText("");
+        key21.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key21.setFocusPainted(false);
         key21.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key21, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 60, 60));
+        keyboard.add(key21, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 150, 60, 60));
 
         key22.setBackground(new java.awt.Color(128, 161, 98));
         key22.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key22.setForeground(java.awt.Color.white);
         key22.setText("C");
+        key22.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key22.setFocusPainted(false);
         key22.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 60, 60));
+        keyboard.add(key22, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 150, 60, 60));
 
         key23.setBackground(new java.awt.Color(128, 161, 98));
         key23.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key23.setForeground(java.awt.Color.white);
         key23.setText("V");
+        key23.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key23.setFocusPainted(false);
         key23.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 60, 60));
+        keyboard.add(key23, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 150, 60, 60));
 
         key24.setBackground(new java.awt.Color(128, 161, 98));
         key24.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key24.setForeground(java.awt.Color.white);
         key24.setText("B");
+        key24.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key24.setFocusPainted(false);
         key24.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key24, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 60, 60));
+        keyboard.add(key24, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 150, 60, 60));
 
         key25.setBackground(new java.awt.Color(128, 161, 98));
         key25.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key25.setForeground(java.awt.Color.white);
         key25.setText("N");
+        key25.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key25.setFocusPainted(false);
         key25.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 60, 60));
+        keyboard.add(key25, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 150, 60, 60));
 
         key26.setBackground(new java.awt.Color(128, 161, 98));
         key26.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key26.setForeground(java.awt.Color.white);
         key26.setText("M");
+        key26.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key26.setFocusPainted(false);
         key26.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key26, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 60, 60));
+        keyboard.add(key26, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 150, 60, 60));
 
         key27.setBackground(new java.awt.Color(128, 161, 98));
         key27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         key27.setForeground(java.awt.Color.white);
         key27.setText("<-");
+        key27.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        key27.setFocusPainted(false);
         key27.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key27, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 100, 60));
+        keyboard.add(key27, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 150, 100, 60));
 
         getContentPane().add(keyboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -300, 730, 220));
 
@@ -1626,13 +1715,14 @@ public class GUI_Window extends javax.swing.JFrame {
             if(awayIsOn)                         // Only turn on timer if this is on
                 awayFromScreen.start();          // Starting the timer again if we went to home screen
             h_scrollPane.getVerticalScrollBar().setValue(0); // Moving the scroll value to zero
+            scrollButtonClicked(null);                       // Simulating that the scroll up was clicked so it gets grayed out
             if(h_habitPanel.getComponentCount() > 8){
-                h_scrollUpButton.setVisible(true);   // Show the scroll button again IF we need it 
-                h_scrollDownButton.setVisible(true); // Show the scroll button again IF we need it 
+                h_scrollUpPanel.setVisible(true);   // Show the scroll button again IF we need it 
+                h_scrollDownPanel.setVisible(true); // Show the scroll button again IF we need it 
             }
             else{
-                h_scrollUpButton.setVisible(false);   // Hide the scroll button when we dont need it 
-                h_scrollDownButton.setVisible(false); // Hide the scroll button when we dont need it 
+                h_scrollUpPanel.setVisible(false);   // Hide the scroll button when we dont need it 
+                h_scrollDownPanel.setVisible(false); // Hide the scroll button when we dont need it  
             }
         }
         else if(target == settings){
@@ -1756,7 +1846,7 @@ public class GUI_Window extends javax.swing.JFrame {
         // load habits and add them into the list 
         // save if we have some quantity habits to see if we need to upate view
         Color temp1 = new Color(153,153,255);
-        Color temp2 = new Color(0,204,255);
+        Color temp2 = new Color(100,204,255);
         String week = "1111111";
         
         // We should only add them to array in here and then later using the refresh screen for the home, we should check the week
@@ -1877,7 +1967,6 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // MISC. PAINTING CALLS : ==============================================================================
         // NAVIGATION PANEL: Making the "cover" for the buttons when selected the secondary color but brighter
-            
         n_homeCover.setBackground(TEXT_COLOR);
         n_settingsCover.setBackground(TEXT_COLOR);
         n_addCover.setBackground(TEXT_COLOR);
@@ -1893,11 +1982,12 @@ public class GUI_Window extends javax.swing.JFrame {
         editHistoryButton.setBackground(PRIMARY_COLOR);
         progressButton.setBackground(PRIMARY_COLOR);
         
-        // HOME: Painting the scroll buttons 
-        h_scrollUpButton.setBackground(PRIMARY_COLOR);
-        h_scrollDownButton.setBackground(PRIMARY_COLOR);
-        h_scrollUpButton.setForeground(TEXT_COLOR);
-        h_scrollDownButton.setForeground(TEXT_COLOR);
+        // HOME: Painting the scroll buttons/panels
+        h_scrollUpPanel.setBackground(PRIMARY_COLOR);
+        h_scrollUpPanel.setForeground(Color.RED);
+        h_scrollDownPanel.setBackground(PRIMARY_COLOR);
+        h_scrollDownPanel.setForeground(TEXT_COLOR);
+        
         
         // ADD: Painting the input for the name of the new habit
         h_addHabitName.setBackground(PRIMARY_COLOR);
@@ -1966,40 +2056,50 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     
-    
-    
-    
     // =================================================================================================================================
     // ================== [ HOME SCREEN FUNCTIONS ] ====================================================================================
     // =================================================================================================================================
+    private void scrollButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_scrollButtonClicked
+        
+        // Making sure button was not null, if it was sent from switchframe, this step will be skipped and we will simply paint as follows in the next section
+        if(evt != null){        
+            JPanel buttonClicked = (JPanel) evt.getSource();
+
+            // Setting the increment to +220 or -220
+            int increment = ((buttonClicked == h_scrollDownPanel) ? 220 : -220);
+
+            // Moving the scroll pane by that much that we found
+            h_scrollPane.getVerticalScrollBar().setValue(h_scrollPane.getVerticalScrollBar().getValue() + increment);
+        }
+        
+        
+        // Getting state of both colors
+        int scrollValue = h_scrollPane.getVerticalScrollBar().getValue();
+        Color upButtonColor = (scrollValue <= 0 ? Color.GRAY : PRIMARY_COLOR);
+        Color downButtonColor = (scrollValue >= (h_scrollPane.getVerticalScrollBar().getMaximum() - h_scrollPane.getVerticalScrollBar().getVisibleAmount()) ? Color.GRAY : PRIMARY_COLOR);
+        
+        // Paintings both buttons
+        h_scrollUpPanel.setBackground(upButtonColor);
+        h_scrollDownPanel.setBackground(downButtonColor);
+        
+        // Repainting the panel in case there are glitches
+        h_scrollPane.repaint();
+        h_scrollUpPanel.repaint();
+        h_scrollDownPanel.repaint();
+        
+    }//GEN-LAST:event_scrollButtonClicked
     
-    
-    private void h_scrollButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_h_scrollButtonMouseClicked
-        JButton buttonClicked = (JButton) evt.getSource();
-        if(buttonClicked == null) return; // Just in case return this case
-        
-        // Getting value of the current scroll position
-        JScrollBar vBar = h_scrollPane.getVerticalScrollBar();
-        
-        // Scrolling up or down depending on which button was clicked
-        if(buttonClicked == h_scrollUpButton)
-            vBar.setValue(vBar.getValue() - 220);   // scroll up 200 + 20 px (card size + gap size x 2[for up and down gaps])
-        else if(buttonClicked == h_scrollDownButton)
-            vBar.setValue(vBar.getValue() + 220);   // scroll down 200 + 20 px (card size + gap size)
-        
-    }//GEN-LAST:event_h_scrollButtonMouseClicked
     
     private void updateScrollPaneSize(){
         int count = h_habitPanel.getComponentCount();   // number of habit cards
         int rows = (int)Math.ceil(count / 4.0);         // Each row has 4 cards
-        int contentHeight = rows * (200 + 10) + 10;     // Setting the content height using card height and gap in between
+        int contentHeight = 10 + (rows * (200 + 10));   // Setting the content height using card height and gap in between
 
         int contentWidth = h_habitPanel.getWidth();
         h_habitPanel.setPreferredSize(new Dimension(contentWidth, contentHeight));
         h_habitPanel.revalidate();
         h_habitPanel.repaint();
     }
-    
     
     private void refreshHomeData(){
         // Setting up the date 
@@ -2464,6 +2564,8 @@ public class GUI_Window extends javax.swing.JFrame {
         switchFrame(home);
     }//GEN-LAST:event_screensaverPanelMouseClicked
 
+
+
     
     
     
@@ -2619,9 +2721,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JTextField h_addHabitName;
     private javax.swing.JLabel h_date;
     private javax.swing.JPanel h_habitPanel;
-    private javax.swing.JButton h_scrollDownButton;
+    private javax.swing.JPanel h_scrollDownPanel;
     private javax.swing.JScrollPane h_scrollPane;
-    private javax.swing.JButton h_scrollUpButton;
+    private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
     private javax.swing.JButton homeButton;
     private javax.swing.JButton key1;

@@ -1,7 +1,6 @@
 package habitpanel;
 import java.awt.*;
 import javax.swing.JOptionPane;
-import javax.swing.Timer;
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
 
@@ -89,7 +88,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     private Color habitColor = null;
     private String week = "0000000";
     private Color ringBackColor = new Color(102,102,102);
-    private Color greenColor = new Color(181,230,29);
+    private Color greenColor = new Color(20,255,20);
     private int brimThickness = 20; 
     // ===================================================================================================
     
