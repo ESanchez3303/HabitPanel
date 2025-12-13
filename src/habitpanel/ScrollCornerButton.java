@@ -31,13 +31,13 @@ public class ScrollCornerButton extends JPanel {
         directionText.setHorizontalAlignment(SwingConstants.CENTER);
         
         if(type == Type.UP){
-            setBounds(860, 55, 100, 265);
+            setBounds(860, 30, 100, 265);
             directionText.setBounds(getWidth()-textBoxW,0,textBoxW, textBoxH);
             directionText.setFont(textFont);
             directionText.setText("▲"); 
         }
         else{
-            setBounds(860, 330, 100, 265);
+            setBounds(860, 310, 100, 265);
             directionText.setBounds(getWidth()-textBoxW,getHeight()-textBoxH,textBoxW, textBoxH);
             directionText.setFont(textFont);
             directionText.setText("▼");

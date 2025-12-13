@@ -377,7 +377,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         home.add(h_scrollUpPanel);
-        h_scrollUpPanel.setBounds(860, 55, 100, 265);
+        h_scrollUpPanel.setBounds(860, 30, 100, 265);
 
         h_scrollDownPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -397,7 +397,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         home.add(h_scrollDownPanel);
-        h_scrollDownPanel.setBounds(860, 330, 100, 265);
+        h_scrollDownPanel.setBounds(860, 310, 100, 265);
 
         h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
         h_scrollPane.setBorder(null);
@@ -418,17 +418,16 @@ public class GUI_Window extends javax.swing.JFrame {
         h_scrollPane.setViewportView(h_habitPanel);
 
         home.add(h_scrollPane);
-        h_scrollPane.setBounds(23, 110, 900, 430);
+        h_scrollPane.setBounds(30, 90, 900, 430);
 
-        h_date.setBackground(new java.awt.Color(156, 183, 133));
-        h_date.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        h_date.setForeground(java.awt.Color.white);
+        h_date.setBackground(new java.awt.Color(204, 204, 204));
+        h_date.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        h_date.setForeground(new java.awt.Color(156, 183, 133));
         h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         h_date.setText("Saturday, Nov 22, 2025");
-        h_date.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         h_date.setOpaque(true);
         home.add(h_date);
-        h_date.setBounds(10, 10, 950, 40);
+        h_date.setBounds(-40, 10, 500, 45);
 
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
@@ -1921,7 +1920,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         JLabel textColored[] = {
             // HOME SCREEN:
-            h_date, 
+            
             // SETTINGS SCREEN:
             s_title, s_colorsTitle, s_awayFromScreenTitle, 
             s_awayFromScreenTitle2, s_awayFromScreen, s_title,
@@ -1987,6 +1986,10 @@ public class GUI_Window extends javax.swing.JFrame {
         h_scrollUpPanel.setForeground(Color.RED);
         h_scrollDownPanel.setBackground(PRIMARY_COLOR);
         h_scrollDownPanel.setForeground(TEXT_COLOR);
+        
+        // HOME (TESTING) : Painting the date
+        h_date.setBackground(SECONDARY_COLOR);
+        h_date.setForeground(PRIMARY_COLOR);
         
         
         // ADD: Painting the input for the name of the new habit
