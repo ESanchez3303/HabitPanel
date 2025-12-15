@@ -102,9 +102,6 @@ public class ScrollCornerButton extends JPanel {
             g2.draw(new Arc2D.Double(mx-mh-mh, -mh, 2*mh, 2*mh, 270, 90, Arc2D.OPEN));   // top left arc
             g2.draw(new Arc2D.Double(0, mh, 2*sr, 2*sr, 180, -90, Arc2D.OPEN)); // mid left arc
             
-            
-            
-            
             g2.drawLine(0, h, 0, mh+sr);  // left side vertical
             g2.drawLine(sr, mh, mx-mh, mh); // left side top horz
             g2.drawLine(mx, 0, mx+mw, 0); // middle top horz
@@ -126,10 +123,6 @@ public class ScrollCornerButton extends JPanel {
             g2.drawLine(w-ew-sr, h-sr-sr-1, ew+sr, h-sr-sr-1); // long bottom section
             g2.drawLine(ew,h-sr, ew, h); // left edge right side 
             g2.drawLine(0, h-1, ew, h-1); // left edge bottom side
-            
-            
-            g2.setColor(Color.RED);
-            
         }
         
         // If the scroll button is the bottom, then draw it like this 
@@ -160,26 +153,32 @@ public class ScrollCornerButton extends JPanel {
             
             // --- DRAW BORDER EXCEPT TOP EDGE ---
             g2.setStroke(new BasicStroke(1));
-            g2.setColor(Color.BLACK);
             
-            g2.draw(new Arc2D.Double(0, h-mh-sr-sr, 2*sr, 2*sr, 180, 90, Arc2D.OPEN));
-            g2.draw(new Arc2D.Double(mx-mh-mh, h-mh, 2*mh, 2*mh, 90, -90, Arc2D.OPEN));
-            g2.draw(new Arc2D.Double(mx+mw, h-mh, 2*mh, 2*mh, 180, -90, Arc2D.OPEN));
-            g2.draw(new Arc2D.Double(w-sr-sr, h-mh-sr-sr, 2*sr, 2*sr, 270, 90, Arc2D.OPEN));
-            g2.draw(new Arc2D.Double(w-ew-sr-sr, 0, 2*sr, 2*sr, 0, -90, Arc2D.OPEN));
-            g2.draw(new Arc2D.Double(ew, 0, 2*sr, 2*sr, 270, -90, Arc2D.OPEN));
+            // Top Side Sections for 3d effect
+            g2.setColor(Color.WHITE);
+            g2.draw(new Arc2D.Double(0, h-mh-sr-sr, 2*sr, 2*sr, 180, 90, Arc2D.OPEN));  // middle left arc
+            g2.draw(new Arc2D.Double(mx-mh-mh, h-mh, 2*mh, 2*mh, 90, -90, Arc2D.OPEN)); // bottom left arc
+            g2.draw(new Arc2D.Double(w-ew-sr-sr, 0, 2*sr, 2*sr, 0, -90, Arc2D.OPEN)); // top right arc
             
-            g2.drawLine(0, 0, 0, h-mh-sr);
-            g2.drawLine(ew+2, h-mh, mx-mh, h-mh);
-            g2.drawLine(mx,h-1,mx+mw,h-1);
-            g2.drawLine(mx+mw+mh,h-mh,w-ew-2,h-mh);
-            g2.drawLine(w-1,h-mh-sr+2,w-1,0);
-            g2.drawLine(w-1,0,w-ew,0);
-            g2.drawLine(w-ew,0,w-ew,sr);
-            g2.drawLine(w-ew-sr,sr+sr,ew+sr,sr+sr);
-            g2.drawLine(ew,sr,ew,0);
-            g2.drawLine(ew,0,0,0);
             
+            g2.drawLine(0, 0, 0, h-mh-sr); // left side vertical
+            g2.drawLine(w-1,0,w-ew,0); // right edge top horz
+            g2.drawLine(w-ew,0,w-ew,sr); // right edge left side horz
+            g2.drawLine(w-ew-sr,sr+sr,ew+sr,sr+sr); // long top side
+            g2.drawLine(ew,0,0,0); // left edge top side horz
+            
+            
+            // Bottom Side Sections for 3d effect
+            g2.setColor(Color.DARK_GRAY);
+            g2.draw(new Arc2D.Double(w-sr-sr, h-mh-sr-sr, 2*sr, 2*sr, 270, 90, Arc2D.OPEN)); // middle right arc
+            g2.draw(new Arc2D.Double(mx+mw, h-mh, 2*mh, 2*mh, 180, -90, Arc2D.OPEN)); // bottom right arc
+            g2.draw(new Arc2D.Double(ew, 0, 2*sr, 2*sr, 270, -90, Arc2D.OPEN)); // top left arc
+            
+            g2.drawLine(ew+2, h-mh, mx-mh, h-mh); // bottom left side horz
+            g2.drawLine(mx,h-1,mx+mw,h-1); // full bottom horz
+            g2.drawLine(mx+mw+mh,h-mh,w-ew-2,h-mh); // bottom right side horz
+            g2.drawLine(w-1,h-mh-sr+2,w-1,0); // right side vertical
+            g2.drawLine(ew,sr,ew,0); // left edge right side vertical
         }
         
 

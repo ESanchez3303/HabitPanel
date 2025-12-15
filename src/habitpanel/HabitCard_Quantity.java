@@ -1,5 +1,6 @@
 package habitpanel;
 import java.awt.*;
+import java.awt.geom.Arc2D;
 import javax.swing.JOptionPane;
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
@@ -75,6 +76,8 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         g2.setColor(insidePanel.getBackground());
         g2.fillOval(innerX, innerY, innerDiameter, innerDiameter);
 
+        
+        
         g2.dispose();
     }
     
@@ -312,9 +315,6 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return Color.getHSBColor(hsb[0], hsb[1], hsb[2]);
     }
     
-    private static int clamp(int val, int min, int max) {
-        return Math.max(min, Math.min(max, val));
-    }
 
     private Color progressToGreen(double progress) {
         // Changing and clamping to 0-1
