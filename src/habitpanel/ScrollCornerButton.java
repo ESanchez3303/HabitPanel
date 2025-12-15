@@ -14,10 +14,13 @@ import java.awt.geom.Arc2D;
 
 
 public class ScrollCornerButton extends JPanel {
-    private final int cutOutLenght = 80;
+    private final int middleHeigth= 30;
+    private final int middleWidth = 250;
+    private final int middleXLocation = 350;
+    private final int sideArcRadius = 15;
+    private final int edgeWidth = 10;
     private final int textBoxW = 50;
     private final int textBoxH = 45;
-    private final int tailLength = 160;
     private final Font textFont = new Font("Segoe UI", Font.BOLD, 30);
     
     public enum Type { UP, DOWN }
@@ -29,17 +32,16 @@ public class ScrollCornerButton extends JPanel {
         setLayout(null);
         JLabel directionText = new JLabel();
         directionText.setHorizontalAlignment(SwingConstants.CENTER);
+        directionText.setFont(textFont);
         
         if(type == Type.UP){
-            setBounds(860, 30, 100, 265);
-            directionText.setBounds(getWidth()-textBoxW,0,textBoxW, textBoxH);
-            directionText.setFont(textFont);
+            setBounds(10 ,45, 950, 90);
+            directionText.setBounds(getWidth()/2-textBoxW/2,0,textBoxW, textBoxH);
             directionText.setText("▲"); 
         }
         else{
-            setBounds(860, 310, 100, 265);
-            directionText.setBounds(getWidth()-textBoxW,getHeight()-textBoxH,textBoxW, textBoxH);
-            directionText.setFont(textFont);
+            setBounds(10, 500, 950, 90);
+            directionText.setBounds(getWidth()/2-textBoxW/2, getHeight()-textBoxH, textBoxW, textBoxH);
             directionText.setText("▼");
         }
         
@@ -51,11 +53,16 @@ public class ScrollCornerButton extends JPanel {
         super.paintComponent(g);
         int w = getWidth();
         int h = getHeight();
-        int c = cutOutLenght;
+        int mw = middleWidth;
+        int mh = middleHeigth;
+        int mx = middleXLocation;
+        int sr = sideArcRadius;
+        int ew = edgeWidth;
+        
 
         
         // Avoid weird values when the panel is too small
-        if (c <= 0 || w <= 0 || h <= 0) 
+        if (mw <= 0 || mx <= 0 || mh <= 0 || w <= 0 || h <= 0) 
             return;
 
         Graphics2D g2 = (Graphics2D) g.create();
@@ -65,14 +72,22 @@ public class ScrollCornerButton extends JPanel {
         // If the scroll button is one on top, then draw it like this
         if (type == Type.UP) {
             // --- FILL SHAPE ---
-            shape.moveTo(0,0); // STARTING: Top left 
-            shape.lineTo(w,0); // Top left -> top right
-            shape.lineTo(w,h); // Top right -> bottom right
-            shape.lineTo(c,h); // Bottom right -> bottom left of lower edge
-            shape.lineTo(c, h-tailLength); // Bottom left of lower edge -> starting curve bottom right section
-            shape.append(new Arc2D.Double(-c, h-tailLength-c, 2*c, 2*c, 0, 90, Arc2D.OPEN), true); // starting curve bottom right section -> ending curve upper left section
-            shape.lineTo(0, 0); // Ending curve upper left section -> top left
-            
+            shape.moveTo(0, h);              // START: bottom left corner
+            shape.lineTo(0, mh);             // TO: upper left corner
+            shape.append(new Arc2D.Double(0, shape.getCurrentPoint().getY(), 2*sr, 2*sr, 180, -90, Arc2D.OPEN), true); // Upper left corner arc
+            shape.lineTo(mx-mh, mh);         // TO: middle bottom left BEFORE arc
+            shape.append(new Arc2D.Double(mx-mh-mh, -mh, 2*mh, 2*mh, 270, 90, Arc2D.OPEN), true);  // TO: middle top left AFTER arc (only to middle point)    
+            shape.lineTo(mx+mw, 0);          // TO: middle top right BEFORE arc
+            shape.append(new Arc2D.Double(mx+mw, -mh, 2*mh, 2*mh, 180, 90, Arc2D.OPEN), true);     // TO: middle bottom right AFTER arc
+            shape.lineTo(w-sr, mh);             // TO: upper right corner
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX()-sr, shape.getCurrentPoint().getY(), 2*sr, 2*sr, 90, -90, Arc2D.OPEN), true);     // upper right arc
+            shape.lineTo(w, h);              // TO: lower right corner
+            shape.lineTo(w-ew, h);           // TO: lower right edge-left corner BEFORE arc
+            shape.append(new Arc2D.Double(w-ew-(2*sr), h-(2*sr), 2*sr, 2*sr, 0, 90, Arc2D.OPEN), true); // lower section inside right arc
+            shape.lineTo(ew+sr, shape.getCurrentPoint().getY());   // TO: lower left section BEFORE arc  
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX()-(sr), shape.getCurrentPoint().getY(), 2*sr, 2*sr, 90, 90, Arc2D.OPEN), true);// lower section inside left arc
+            shape.lineTo(shape.getCurrentPoint().getX(), h);
+            shape.lineTo(0, h);              // TO: bottom left corner
             
             g2.setColor(getBackground());
             g2.fill(shape);
@@ -80,30 +95,64 @@ public class ScrollCornerButton extends JPanel {
             
             // --- DRAW BORDER ---
             g2.setStroke(new BasicStroke(1));
-            g2.setColor(Color.BLACK);
             
-            g2.drawLine(0, 0, w, 0);                   // Top border
-            g2.drawLine(c, h, c, h - tailLength);      // Left side before arc
-            g2.draw(new Arc2D.Double(-c, h-tailLength-c, 2*c, 2*c, 0, 90, Arc2D.OPEN)); // Draw the arc edge
-            g2.drawLine(0, h-tailLength-c, 0, 0);      // Left side after arc
             
-            // Glitch fix: these for some reason needs 2px
-            g2.setStroke(new BasicStroke(2));
-            g2.drawLine(w, 0, w, h);      // Right border
-            g2.drawLine(w, h, c, h);      // Bottom small edge
+            // Top Side Sections for 3d effect
+            g2.setColor(Color.WHITE);
+            g2.draw(new Arc2D.Double(mx-mh-mh, -mh, 2*mh, 2*mh, 270, 90, Arc2D.OPEN));   // top left arc
+            g2.draw(new Arc2D.Double(0, mh, 2*sr, 2*sr, 180, -90, Arc2D.OPEN)); // mid left arc
+            
+            
+            
+            
+            g2.drawLine(0, h, 0, mh+sr);  // left side vertical
+            g2.drawLine(sr, mh, mx-mh, mh); // left side top horz
+            g2.drawLine(mx, 0, mx+mw, 0); // middle top horz
+            g2.drawLine(mx+mw+mh, mh, w-sr, mh); // right side top horz
+            g2.drawLine(w-ew, h-1, w-ew, h-sr); // right side left horz
+            
+            
+            
+            
+            // Bottom Side Sections for 3d effect
+            g2.setColor(Color.DARK_GRAY);
+            g2.draw(new Arc2D.Double(mx+mw, -mh, 2*mh, 2*mh, 180, 90, Arc2D.OPEN)); // top right arc
+            g2.draw(new Arc2D.Double(w-ew-(2*sr), h-(2*sr)-1, 2*sr, 2*sr, 0, 90, Arc2D.OPEN)); // bottom right arc
+            g2.draw(new Arc2D.Double(w-sr*2, mh, 2*sr, 2*sr, 90, -90, Arc2D.OPEN)); // mid right arc
+            g2.draw(new Arc2D.Double(ew, h-sr-sr-1, 2*sr, 2*sr, 90, 90, Arc2D.OPEN)); // bottom left arc
+            
+            g2.drawLine(w-1, mh+sr-2, w-1, h); // right side vertical
+            g2.drawLine(w-1, h-1, w-ew, h-1); // right side edge horz
+            g2.drawLine(w-ew-sr, h-sr-sr-1, ew+sr, h-sr-sr-1); // long bottom section
+            g2.drawLine(ew,h-sr, ew, h); // left edge right side 
+            g2.drawLine(0, h-1, ew, h-1); // left edge bottom side
+            
+            
+            g2.setColor(Color.RED);
             
         }
         
         // If the scroll button is the bottom, then draw it like this 
         else {
+            
             // --- FILL SHAPE ---
-            shape.moveTo(0, h);           // START: :ower left
-            shape.lineTo(0, tailLength+c);// TO top of left small edge
-            shape.append(new Arc2D.Double(-c, tailLength-c, 2*c, 2*c, 270, 90, Arc2D.OPEN), true);  // arc
-            shape.lineTo(c, 0);           // TO top of left larger edge
-            shape.lineTo(w,0);            // TO top right
-            shape.lineTo(w, h);           // TO bottom right
-            shape.lineTo(0,h);            // TO bottom left
+            shape.moveTo(0, 0); // START: upper let corner
+            shape.lineTo(0, h-mh-sr); // TO: bottom left before arc
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX(), shape.getCurrentPoint().getY()-sr, 2*sr, 2*sr, 180, 90, Arc2D.OPEN), true);
+            shape.lineTo(mx-mh, h-mh); // TO: middle section from left side before arc
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX()-mh, shape.getCurrentPoint().getY(), 2*mh, 2*mh, 90, -90, Arc2D.OPEN), true);
+            shape.lineTo(mx+mw,h);
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX(), shape.getCurrentPoint().getY()-mh, 2*mh, 2*mh, 180, -90, Arc2D.OPEN), true);
+            shape.lineTo(w-sr,h-mh);
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX()-sr, shape.getCurrentPoint().getY()-sr-sr, 2*sr, 2*sr, 270, 90, Arc2D.OPEN), true);
+            shape.lineTo(w,0);
+            shape.lineTo(w-ew,0);
+            shape.lineTo(w-ew,sr);
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX()-sr-sr, shape.getCurrentPoint().getY()-sr, 2*sr, 2*sr, 0, -90, Arc2D.OPEN), true);
+            shape.lineTo(ew+sr,sr+sr);
+            shape.append(new Arc2D.Double(shape.getCurrentPoint().getX()-sr, shape.getCurrentPoint().getY()-sr-sr, 2*sr, 2*sr, 270, -90, Arc2D.OPEN), true);
+            shape.lineTo(ew,0);
+            shape.lineTo(0,0);
             
             g2.setColor(getBackground());
             g2.fill(shape);
@@ -112,17 +161,24 @@ public class ScrollCornerButton extends JPanel {
             // --- DRAW BORDER EXCEPT TOP EDGE ---
             g2.setStroke(new BasicStroke(1));
             g2.setColor(Color.BLACK);
-
-            g2.drawLine(0,h,0,tailLength+c);  // Left small edge
-            g2.draw(new Arc2D.Double(-c, tailLength-c, 2*c, 2*c, 270, 90, Arc2D.OPEN)); // Draw the arc edge
-            g2.drawLine(c, tailLength, c, 0); // Left longer edge
-            g2.drawLine(c, 0, w, 0);          // Top line
             
+            g2.draw(new Arc2D.Double(0, h-mh-sr-sr, 2*sr, 2*sr, 180, 90, Arc2D.OPEN));
+            g2.draw(new Arc2D.Double(mx-mh-mh, h-mh, 2*mh, 2*mh, 90, -90, Arc2D.OPEN));
+            g2.draw(new Arc2D.Double(mx+mw, h-mh, 2*mh, 2*mh, 180, -90, Arc2D.OPEN));
+            g2.draw(new Arc2D.Double(w-sr-sr, h-mh-sr-sr, 2*sr, 2*sr, 270, 90, Arc2D.OPEN));
+            g2.draw(new Arc2D.Double(w-ew-sr-sr, 0, 2*sr, 2*sr, 0, -90, Arc2D.OPEN));
+            g2.draw(new Arc2D.Double(ew, 0, 2*sr, 2*sr, 270, -90, Arc2D.OPEN));
             
-           // Glitch fix: these for some reason needs 2px
-            g2.setStroke(new BasicStroke(2)); 
-            g2.drawLine(w, 0, w, h); // Right side 
-            g2.drawLine(w, h, 0, h); // Bottom Side
+            g2.drawLine(0, 0, 0, h-mh-sr);
+            g2.drawLine(ew+2, h-mh, mx-mh, h-mh);
+            g2.drawLine(mx,h-1,mx+mw,h-1);
+            g2.drawLine(mx+mw+mh,h-mh,w-ew-2,h-mh);
+            g2.drawLine(w-1,h-mh-sr+2,w-1,0);
+            g2.drawLine(w-1,0,w-ew,0);
+            g2.drawLine(w-ew,0,w-ew,sr);
+            g2.drawLine(w-ew-sr,sr+sr,ew+sr,sr+sr);
+            g2.drawLine(ew,sr,ew,0);
+            g2.drawLine(ew,0,0,0);
             
         }
         

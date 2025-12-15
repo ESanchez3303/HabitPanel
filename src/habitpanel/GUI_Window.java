@@ -117,7 +117,7 @@ class Screensaver {
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 60; // In seconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 9000; // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(156,183,133);   // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(128,161,98);     //  | when reading from the variable file
@@ -220,6 +220,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
         home = new javax.swing.JPanel();
         h_scrollUpPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         h_scrollDownPanel = new javax.swing.JPanel();
         h_scrollPane = new javax.swing.JScrollPane();
         h_habitPanel = new javax.swing.JPanel();
@@ -364,20 +365,25 @@ public class GUI_Window extends javax.swing.JFrame {
                 scrollButtonClicked(evt);
             }
         });
+        h_scrollUpPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        javax.swing.GroupLayout h_scrollUpPanelLayout = new javax.swing.GroupLayout(h_scrollUpPanel);
-        h_scrollUpPanel.setLayout(h_scrollUpPanelLayout);
-        h_scrollUpPanelLayout.setHorizontalGroup(
-            h_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+        jPanel1.setBackground(new java.awt.Color(204, 255, 102));
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
-        h_scrollUpPanelLayout.setVerticalGroup(
-            h_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        h_scrollUpPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 250, 40));
 
         home.add(h_scrollUpPanel);
-        h_scrollUpPanel.setBounds(860, 30, 100, 265);
+        h_scrollUpPanel.setBounds(10, 45, 950, 90);
 
         h_scrollDownPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -389,15 +395,15 @@ public class GUI_Window extends javax.swing.JFrame {
         h_scrollDownPanel.setLayout(h_scrollDownPanelLayout);
         h_scrollDownPanelLayout.setHorizontalGroup(
             h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
+            .addGap(0, 950, Short.MAX_VALUE)
         );
         h_scrollDownPanelLayout.setVerticalGroup(
             h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 265, Short.MAX_VALUE)
+            .addGap(0, 90, Short.MAX_VALUE)
         );
 
         home.add(h_scrollDownPanel);
-        h_scrollDownPanel.setBounds(860, 310, 100, 265);
+        h_scrollDownPanel.setBounds(10, 500, 950, 90);
 
         h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
         h_scrollPane.setBorder(null);
@@ -418,16 +424,17 @@ public class GUI_Window extends javax.swing.JFrame {
         h_scrollPane.setViewportView(h_habitPanel);
 
         home.add(h_scrollPane);
-        h_scrollPane.setBounds(30, 90, 900, 430);
+        h_scrollPane.setBounds(35, 103, 900, 430);
 
         h_date.setBackground(new java.awt.Color(204, 204, 204));
-        h_date.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        h_date.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         h_date.setForeground(new java.awt.Color(156, 183, 133));
         h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         h_date.setText("Saturday, Nov 22, 2025");
+        h_date.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         h_date.setOpaque(true);
         home.add(h_date);
-        h_date.setBounds(-40, 10, 500, 45);
+        h_date.setBounds(0, 0, 970, 35);
 
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
@@ -1988,8 +1995,8 @@ public class GUI_Window extends javax.swing.JFrame {
         h_scrollDownPanel.setForeground(TEXT_COLOR);
         
         // HOME (TESTING) : Painting the date
-        h_date.setBackground(SECONDARY_COLOR);
-        h_date.setForeground(PRIMARY_COLOR);
+        h_date.setBackground(PRIMARY_COLOR);
+        h_date.setForeground(TEXT_COLOR);
         
         
         // ADD: Painting the input for the name of the new habit
@@ -2091,7 +2098,6 @@ public class GUI_Window extends javax.swing.JFrame {
         h_scrollDownPanel.repaint();
         
     }//GEN-LAST:event_scrollButtonClicked
-    
     
     private void updateScrollPaneSize(){
         int count = h_habitPanel.getComponentCount();   // number of habit cards
@@ -2729,6 +2735,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
     private javax.swing.JButton homeButton;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton key1;
     private javax.swing.JButton key10;
     private javax.swing.JButton key11;
