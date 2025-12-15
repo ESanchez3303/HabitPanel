@@ -220,7 +220,6 @@ public class GUI_Window extends javax.swing.JFrame {
 
         home = new javax.swing.JPanel();
         h_scrollUpPanel = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
         h_scrollDownPanel = new javax.swing.JPanel();
         h_scrollPane = new javax.swing.JScrollPane();
         h_habitPanel = new javax.swing.JPanel();
@@ -366,22 +365,6 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         h_scrollUpPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(204, 255, 102));
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        h_scrollUpPanel.add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 0, 250, 40));
-
         home.add(h_scrollUpPanel);
         h_scrollUpPanel.setBounds(10, 45, 950, 90);
 
@@ -1990,7 +1973,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // HOME: Painting the scroll buttons/panels
         h_scrollUpPanel.setBackground(PRIMARY_COLOR);
-        h_scrollUpPanel.setForeground(Color.RED);
+        h_scrollUpPanel.setForeground(TEXT_COLOR);
         h_scrollDownPanel.setBackground(PRIMARY_COLOR);
         h_scrollDownPanel.setForeground(TEXT_COLOR);
         
@@ -2735,7 +2718,6 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
     private javax.swing.JButton homeButton;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton key1;
     private javax.swing.JButton key10;
     private javax.swing.JButton key11;

@@ -6,9 +6,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Path2D;
 import java.awt.Color;
-import javax.swing.JLabel;
-import javax.swing.SwingConstants;
-import java.awt.Font;
 import java.awt.geom.Arc2D;
 
 
@@ -17,35 +14,24 @@ public class ScrollCornerButton extends JPanel {
     private final int middleHeigth= 30;
     private final int middleWidth = 250;
     private final int middleXLocation = 350;
-    private final int sideArcRadius = 15;
+    private final int sideArcRadius = 20;
     private final int edgeWidth = 10;
-    private final int textBoxW = 50;
-    private final int textBoxH = 45;
-    private final Font textFont = new Font("Segoe UI", Font.BOLD, 30);
+    private final int arrowWidth = 70;
+    private final int arrowHeight = 20;
+    private final int arrowSpacing = 10;
     
     public enum Type { UP, DOWN }
     private final Type type;
     
     public ScrollCornerButton(Type typeInput) {
-        setOpaque(false); 
         type = typeInput;
+        setOpaque(false); 
         setLayout(null);
-        JLabel directionText = new JLabel();
-        directionText.setHorizontalAlignment(SwingConstants.CENTER);
-        directionText.setFont(textFont);
         
-        if(type == Type.UP){
+        if(type == Type.UP)
             setBounds(10 ,45, 950, 90);
-            directionText.setBounds(getWidth()/2-textBoxW/2,0,textBoxW, textBoxH);
-            directionText.setText("▲"); 
-        }
-        else{
+        else
             setBounds(10, 500, 950, 90);
-            directionText.setBounds(getWidth()/2-textBoxW/2, getHeight()-textBoxH, textBoxW, textBoxH);
-            directionText.setText("▼");
-        }
-        
-        add(directionText);
     }
 
     @Override
@@ -58,6 +44,10 @@ public class ScrollCornerButton extends JPanel {
         int mx = middleXLocation;
         int sr = sideArcRadius;
         int ew = edgeWidth;
+        int aw = arrowWidth;
+        int as = arrowSpacing;
+        int ah = arrowHeight;
+        int middle = w/2;
         
 
         
@@ -123,6 +113,24 @@ public class ScrollCornerButton extends JPanel {
             g2.drawLine(w-ew-sr, h-sr-sr-1, ew+sr, h-sr-sr-1); // long bottom section
             g2.drawLine(ew,h-sr, ew, h); // left edge right side 
             g2.drawLine(0, h-1, ew, h-1); // left edge bottom side
+            
+            
+            
+            // --- DRAW ARROW SHAPE ---
+            shape.reset();
+            shape.moveTo(middle,as);
+            shape.lineTo(middle+aw/2, as+ah);
+            shape.lineTo(middle-aw/2, as + ah);
+            shape.lineTo(middle, as);
+            g2.setColor(getForeground());
+            g2.fill(shape);
+            
+            // --- DRAW ARROW BORDER --- 
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(1));
+            g2.drawLine(middle, as, middle+aw/2, as+ah);
+            g2.drawLine(middle+aw/2, as+ah, middle-aw/2 , as+ah);
+            g2.drawLine(middle-aw/2, as+ah, middle, as);
         }
         
         // If the scroll button is the bottom, then draw it like this 
@@ -179,6 +187,25 @@ public class ScrollCornerButton extends JPanel {
             g2.drawLine(mx+mw+mh,h-mh,w-ew-2,h-mh); // bottom right side horz
             g2.drawLine(w-1,h-mh-sr+2,w-1,0); // right side vertical
             g2.drawLine(ew,sr,ew,0); // left edge right side vertical
+            
+            
+            // --- DRAW ARROW SHAPE ---
+            shape.reset();
+            shape.moveTo(middle,h-as);
+            shape.lineTo(middle+aw/2, h-as-ah);
+            shape.lineTo(middle-aw/2, h-as-ah);
+            shape.lineTo(middle, h-as);
+            g2.setColor(getForeground());
+            g2.fill(shape);
+            
+            // --- DRAW ARROW BORDER --- 
+            g2.setColor(Color.BLACK);
+            g2.setStroke(new BasicStroke(1));
+            g2.drawLine(middle, h-as, middle+aw/2, h-as-ah);
+            g2.drawLine(middle+aw/2, h-as-ah, middle-aw/2, h-as-ah);
+            g2.drawLine(middle-aw/2, h-as-ah, middle, h-as);
+            
+            
         }
         
 
