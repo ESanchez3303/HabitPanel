@@ -193,6 +193,7 @@ public class GUI_Window extends javax.swing.JFrame {
         home.setComponentZOrder(h_scrollDownPanel, 0);
         
         
+        
         // Painting the program
         paintColors();         
         
@@ -388,12 +389,13 @@ public class GUI_Window extends javax.swing.JFrame {
         home.add(h_scrollDownPanel);
         h_scrollDownPanel.setBounds(10, 500, 950, 90);
 
-        h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
+        h_scrollPane.setBackground(java.awt.Color.red);
         h_scrollPane.setBorder(null);
         h_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         h_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
         h_scrollPane.setMaximumSize(new java.awt.Dimension(1000, 1000));
         h_scrollPane.setMinimumSize(new java.awt.Dimension(1000, 1000));
+        h_scrollPane.setOpaque(false);
         h_scrollPane.setPreferredSize(new java.awt.Dimension(1000, 1000));
 
         h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
@@ -1876,7 +1878,7 @@ public class GUI_Window extends javax.swing.JFrame {
         };
         JPanel secondaryColored[] = {
             // HOME SCREEN:
-            home, h_habitPanel,
+            home, 
             // SETTINGS SCREEN:
             settings, 
             // PROGRESS SCREEN:
@@ -1980,6 +1982,10 @@ public class GUI_Window extends javax.swing.JFrame {
         // HOME (TESTING) : Painting the date
         h_date.setBackground(PRIMARY_COLOR);
         h_date.setForeground(TEXT_COLOR);
+        
+        // HOME: Painting the habit panel a little bit darker to improve 3d effect
+        h_habitPanel.setBackground(SECONDARY_COLOR);
+        
         
         
         // ADD: Painting the input for the name of the new habit
@@ -2618,6 +2624,16 @@ public class GUI_Window extends javax.swing.JFrame {
         g = Math.min(g, 255);
         b = Math.min(b, 255);
 
+        return new Color(r, g, b);
+    }
+    
+    private Color darkenColor(Color color) {
+        double factor = 0.9; // USE THIS FACTOR 0=darker | 1=lighter
+        
+        int r = Math.max((int)(color.getRed() * factor), 0);
+        int g = Math.max((int)(color.getGreen() * factor), 0);
+        int b = Math.max((int)(color.getBlue() * factor), 0);
+        
         return new Color(r, g, b);
     }
     // =================================================================================================================================

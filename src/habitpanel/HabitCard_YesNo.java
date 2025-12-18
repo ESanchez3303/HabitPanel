@@ -6,56 +6,6 @@ import javax.swing.JOptionPane;
  
 
 public class HabitCard_YesNo extends javax.swing.JPanel {
-
-    // Overriding the painting 
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g); // keep children visible
-
-        Graphics2D g2 = (Graphics2D) g.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
-        int size = Math.min(getWidth(), getHeight());
-        int outerDiameter = size; // padding
-        int innerDiameter = outerDiameter - brimThickness; // thickness of brim
-
-        int outerX = (getWidth() - outerDiameter) / 2;
-        int outerY = (getHeight() - outerDiameter) / 2;
-
-        // ------------------------------
-        // OUTER RING (Brim)
-        // ------------------------------
-        g2.setColor(ringBackColor);  // ring color
-        g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
-
-        // ------------------------------
-        // PROGRESS ARC (clockwise fill)
-        // ------------------------------
-        // USE THIS FOR THE QUANTITY LATER: int progress = 75; //  0–100 percent
-        int progress = (isComplete ? 100 : 0);
-        g2.setStroke(new BasicStroke(14f));
-        g2.setColor(greenColor);
-
-        g2.drawArc(
-            outerX + 7,
-            outerY + 7,
-            outerDiameter - 14,
-            outerDiameter - 14,
-            90,
-            - (int)(progress * 3.6)
-        );
-
-        // ------------------------------
-        // INNER CIRCLE 
-        // ------------------------------
-        int innerX = (getWidth() - innerDiameter) / 2;
-        int innerY = (getHeight() - innerDiameter) / 2;
-
-        g2.setColor(insidePanel.getBackground());
-        g2.fillOval(innerX, innerY, innerDiameter, innerDiameter);
-
-        g2.dispose();
-    }
     
     // Private Variables: ================================================================================
     private final int MAX_LENGTH = 17;
@@ -63,10 +13,76 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private GUI_Window mainGUI = null;
     private String week = "0000000";
     private Color habitColor = null;
-    private Color ringBackColor = new Color(102,102,102);
+    private Color ringBackColor = new Color(120,120,120);
+    private Color shadowColor = new Color(70,70,70);
     private Color greenColor = new Color(20,255,20);
-    private int brimThickness = 20; 
+    private int progessThickness = 10; 
+    private int effectThickness = 10;
     // ===================================================================================================
+
+    
+    // Overriding the painting 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g); // keep children visible
+        
+        
+        Graphics2D g2 = (Graphics2D) g.create();
+        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        
+        int newWidth = getWidth() - effectThickness;
+        int newHeight = getHeight() - effectThickness;
+        
+
+        int size = Math.min(newWidth, newHeight);
+        int outerDiameter = size; 
+        int innerDiameter = outerDiameter - progessThickness*2; // thickness of brim
+        int outerX = effectThickness/2;
+        int outerY = getWidth() - outerDiameter - effectThickness;
+        
+        // ------------------------------
+        // 3D EFFECT
+        // ------------------------------
+        g2.setColor(shadowColor);
+        g2.fillOval(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter);
+        g2.setColor(Color.BLACK);
+        g2.drawArc(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter, 0,360);
+        
+        
+        // ------------------------------
+        // OUTER RING BACKGROUND COLOR
+        // ------------------------------
+        g2.setColor(ringBackColor);  // ring color
+        g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
+        
+        
+        // ------------------------------
+        // PROGRESS ARC (clockwise fill)
+        // ------------------------------
+        
+        g2.setStroke(new BasicStroke(progessThickness));
+        g2.setColor(greenColor);
+
+        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (isComplete ? 360 : 0));
+        
+        
+        // ------------------------------
+        // INNER CIRCLE COLOR BACKGROUND
+        // ------------------------------
+        g2.setColor(insidePanel.getBackground());
+        g2.fillOval((effectThickness/2) + progessThickness, progessThickness, innerDiameter, innerDiameter);
+        
+        // ------------------------------
+        // OUTER RING CIRCLE (BORDER)
+        // ------------------------------
+        g2.setStroke(new BasicStroke(1));
+        g2.setColor(Color.BLACK);
+        g2.drawArc(outerX, outerY, outerDiameter, outerDiameter, 90, 360);
+        
+        g2.dispose();
+    }
+    
     
     //  CONSTRUCTOR:       ===============================================================================
     public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColorInput, boolean completed, String weekInput) {
@@ -89,13 +105,12 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         }
         
         // Setting up the card itself (border and color)
-        this.setBorder(new RoundedBorder(Color.BLACK, 1, 200));
         this.setOpaque(false);
         
         // Setting up inside panel
         insidePanel.setOpaque(false);
         insidePanel.setBackground(habitColor);
-        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 180));
+        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 170));
         
         
         
@@ -132,7 +147,6 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         completeText = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(102, 102, 102));
-        setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         setMaximumSize(new java.awt.Dimension(200, 200));
         setMinimumSize(new java.awt.Dimension(200, 200));
         setPreferredSize(new java.awt.Dimension(200, 200));
@@ -161,10 +175,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             }
         });
         insidePanel.add(habitName);
-        habitName.setBounds(0, 70, 180, 30);
+        habitName.setBounds(0, 60, 170, 30);
 
         pressToMarkText.setBackground(new java.awt.Color(153, 153, 255));
-        pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 12)); // NOI18N
+        pressToMarkText.setFont(new java.awt.Font("Segoe UI", 3, 10)); // NOI18N
         pressToMarkText.setForeground(java.awt.Color.black);
         pressToMarkText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         pressToMarkText.setText("Press To Mark Completed");
@@ -174,14 +188,14 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             }
         });
         insidePanel.add(pressToMarkText);
-        pressToMarkText.setBounds(0, 105, 180, 20);
+        pressToMarkText.setBounds(0, 95, 170, 20);
 
         add(insidePanel);
-        insidePanel.setBounds(10, 10, 180, 180);
+        insidePanel.setBounds(15, 10, 170, 170);
 
         checkmarkImage.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/checkmarkIcon.png"))); // NOI18N
         add(checkmarkImage);
-        checkmarkImage.setBounds(70, 120, 60, 60);
+        checkmarkImage.setBounds(70, 110, 60, 60);
 
         completeText.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         completeText.setForeground(new java.awt.Color(181, 230, 29));

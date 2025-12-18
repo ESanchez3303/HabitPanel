@@ -122,7 +122,10 @@ public class ScrollCornerButton extends JPanel {
             shape.lineTo(middle+aw/2, as+ah);
             shape.lineTo(middle-aw/2, as + ah);
             shape.lineTo(middle, as);
-            g2.setColor(getForeground());
+            if(getBackground()==Color.GRAY)
+                g2.setColor(Color.DARK_GRAY);// If the button is "disabled" then we can draw the arrow greyed out
+            else
+                g2.setColor(getForeground());
             g2.fill(shape);
             
             // --- DRAW ARROW BORDER --- 
@@ -182,9 +185,9 @@ public class ScrollCornerButton extends JPanel {
             g2.draw(new Arc2D.Double(mx+mw, h-mh, 2*mh, 2*mh, 180, -90, Arc2D.OPEN)); // bottom right arc
             g2.draw(new Arc2D.Double(ew, 0, 2*sr, 2*sr, 270, -90, Arc2D.OPEN)); // top left arc
             
-            g2.drawLine(ew+2, h-mh, mx-mh, h-mh); // bottom left side horz
+            g2.drawLine(ew+10, h-mh, mx-mh, h-mh); // bottom left side horz
             g2.drawLine(mx,h-1,mx+mw,h-1); // full bottom horz
-            g2.drawLine(mx+mw+mh,h-mh,w-ew-2,h-mh); // bottom right side horz
+            g2.drawLine(mx+mw+mh,h-mh,w-ew-10,h-mh); // bottom right side horz
             g2.drawLine(w-1,h-mh-sr+2,w-1,0); // right side vertical
             g2.drawLine(ew,sr,ew,0); // left edge right side vertical
             
@@ -195,7 +198,10 @@ public class ScrollCornerButton extends JPanel {
             shape.lineTo(middle+aw/2, h-as-ah);
             shape.lineTo(middle-aw/2, h-as-ah);
             shape.lineTo(middle, h-as);
-            g2.setColor(getForeground());
+            if(getBackground()==Color.GRAY)      // If the button is "disabled" then we can draw the arrow greyed out
+                g2.setColor(Color.DARK_GRAY);
+            else
+                g2.setColor(getForeground());
             g2.fill(shape);
             
             // --- DRAW ARROW BORDER --- 

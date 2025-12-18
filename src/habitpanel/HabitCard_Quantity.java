@@ -1,50 +1,70 @@
 package habitpanel;
 import java.awt.*;
-import java.awt.geom.Arc2D;
 import javax.swing.JOptionPane;
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
-
+    // Private Variables: ================================================================================
+    private final int MAX_LENGTH = 17;
+    private double quantity = 0; // This is what this card takes care of (not a boolean)
+    private double goal = 0;
+    private double increment = 0;
+    private GUI_Window mainGUI = null;
+    private Color habitColor = null;
+    private String week = "0000000";
+    private Color ringBackColor = new Color(102,102,102);
+    private Color shadowColor = new Color(70,70,70);
+    private Color greenColor = new Color(20,255,20);
+    private int progessThickness = 10; 
+    private int effectThickness = 10;
+    // ===================================================================================================
+    
+    
     // Overriding the painting
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // keep children visible
-
+        
+        
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        
+        
+        int newWidth = getWidth() - effectThickness;
+        int newHeight = getHeight() - effectThickness;
+        
 
-        int size = Math.min(getWidth(), getHeight());
-        int outerDiameter = size; // padding
-        int innerDiameter = outerDiameter - brimThickness; // thickness of brim
-
-        int outerX = (getWidth() - outerDiameter) / 2;
-        int outerY = (getHeight() - outerDiameter) / 2;
-
+        int size = Math.min(newWidth, newHeight);
+        int outerDiameter = size; 
+        int innerDiameter = outerDiameter - progessThickness*2; // thickness of brim
+        int outerX = effectThickness/2;
+        int outerY = getWidth() - outerDiameter - effectThickness;
+        
         // ------------------------------
-        // OUTER RING (Brim)
+        // 3D EFFECT
+        // ------------------------------
+        g2.setColor(shadowColor);
+        g2.fillOval(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter);
+        g2.setColor(Color.BLACK);
+        g2.drawArc(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter, 0,360);
+        
+        
+        // ------------------------------
+        // OUTER RING BACKGROUND COLOR
         // ------------------------------
         g2.setColor(ringBackColor);  // ring color
         g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
-
+        
+        
         // ------------------------------
         // PROGRESS ARC (clockwise fill)
         // ------------------------------
-        
-        // Assinging to either goal completed or a percentage of the goal
         double progress = (quantity>=goal ? 100 : (quantity/goal)*100); 
         Color brimPaintingColor = progressToGreen(progress);
         
-        g2.setStroke(new BasicStroke(14f));
+        g2.setStroke(new BasicStroke(progessThickness));
         g2.setColor(brimPaintingColor);
 
-        g2.drawArc(
-            outerX + 7,
-            outerY + 7,
-            outerDiameter - 14,
-            outerDiameter - 14,
-            90,
-            - (int)(progress * 3.6)
-        );
+        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (int)(progress * 3.6));
         
         if(quantity > goal){
             double savedQuantity = quantity;
@@ -57,43 +77,33 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
                 savedProgress = (savedQuantity>goal ? 100 : (savedQuantity/goal)*100); // Making new progress bar
                 g2.setColor(savedColor);              // Changing the brush color
                 g2.drawArc(                           // Drawing arc
-                    outerX + 7,
-                    outerY + 7,
-                    outerDiameter - 14,
-                    outerDiameter - 14,
+                    outerX+progessThickness/2,
+                    outerY+progessThickness/2,
+                    outerDiameter-progessThickness,
+                    outerDiameter-progessThickness,
                     90,
                     - (int)(savedProgress * 3.6)
                 );
             }
         }
 
-        // ------------------------------
-        // INNER CIRCLE 
-        // ------------------------------
-        int innerX = (getWidth() - innerDiameter) / 2;
-        int innerY = (getHeight() - innerDiameter) / 2;
-
-        g2.setColor(insidePanel.getBackground());
-        g2.fillOval(innerX, innerY, innerDiameter, innerDiameter);
-
         
+        
+        // ------------------------------
+        // INNER CIRCLE COLOR BACKGROUND
+        // ------------------------------
+        g2.setColor(insidePanel.getBackground());
+        g2.fillOval((effectThickness/2) + progessThickness, progessThickness, innerDiameter, innerDiameter);
+        
+        // ------------------------------
+        // OUTER RING CIRCLE (BORDER)
+        // ------------------------------
+        g2.setStroke(new BasicStroke(1));
+        g2.setColor(Color.BLACK);
+        g2.drawArc(outerX, outerY, outerDiameter, outerDiameter, 90, 360);
         
         g2.dispose();
     }
-    
-    
-    // Private Variables: ================================================================================
-    private final int MAX_LENGTH = 17;
-    private double quantity = 0; // This is what this card takes care of (not a boolean)
-    private double goal = 0;
-    private double increment = 0;
-    private GUI_Window mainGUI = null;
-    private Color habitColor = null;
-    private String week = "0000000";
-    private Color ringBackColor = new Color(102,102,102);
-    private Color greenColor = new Color(20,255,20);
-    private int brimThickness = 20; 
-    // ===================================================================================================
     
     
     public HabitCard_Quantity(GUI_Window guiInput, String habitNameInput, Color habitColorInput, 
@@ -123,14 +133,13 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         
         // Setting up "this" : ---------------------------------------------
         this.setOpaque(false);
-        this.setBorder(new RoundedBorder(Color.BLACK, 1, 200));
         // ----------------------------------------------------------------
         
         
         // Setting up "insidePanel" : -------------------------------------
         insidePanel.setOpaque(false);
         insidePanel.setBackground(habitColor);
-        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 180));
+        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 170));
         // ----------------------------------------------------------------
         
         
@@ -153,8 +162,8 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         minusButton.addActionListener(e->minusClicked());    // Adding listeners for button click
         plusButton.addActionListener(e->plusClicked());      // Adding listeners for button click
         
-        minusButton.setBounds(25, 122, 35, 35);
-        plusButton.setBounds(120, 122, 35, 35);
+        minusButton.setBounds(20, 110, 35, 35);
+        plusButton.setBounds(115, 110, 35, 35);
         
         insidePanel.add(minusButton);  // Adding back once we are finished
         insidePanel.add(plusButton);   // Adding back once we are finished
@@ -201,7 +210,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         minusButton.setText("-");
         minusButton.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         insidePanel.add(minusButton);
-        minusButton.setBounds(25, 122, 35, 35);
+        minusButton.setBounds(20, 110, 35, 35);
 
         plusButton.setBackground(new java.awt.Color(153, 153, 153));
         plusButton.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
@@ -209,31 +218,31 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         plusButton.setText("+");
         plusButton.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.TOP));
         insidePanel.add(plusButton);
-        plusButton.setBounds(120, 122, 35, 35);
+        plusButton.setBounds(115, 110, 35, 35);
 
         quantityText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         quantityText.setForeground(java.awt.Color.black);
         quantityText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         quantityText.setText("99999");
         insidePanel.add(quantityText);
-        quantityText.setBounds(60, 115, 60, 50);
+        quantityText.setBounds(55, 100, 60, 50);
 
         goalText.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         goalText.setForeground(java.awt.Color.black);
         goalText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         goalText.setText("Goal:");
         insidePanel.add(goalText);
-        goalText.setBounds(0, 100, 180, 16);
+        goalText.setBounds(0, 90, 170, 16);
 
         habitName.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         habitName.setForeground(java.awt.Color.black);
         habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         habitName.setText("kkkkkkkkkkkkkkkkk");
         insidePanel.add(habitName);
-        habitName.setBounds(0, 70, 180, 30);
+        habitName.setBounds(0, 60, 170, 30);
 
         add(insidePanel);
-        insidePanel.setBounds(10, 10, 180, 180);
+        insidePanel.setBounds(15, 10, 170, 170);
 
         completeText.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         completeText.setForeground(new java.awt.Color(181, 230, 29));
