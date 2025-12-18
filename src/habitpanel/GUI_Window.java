@@ -1838,20 +1838,26 @@ public class GUI_Window extends javax.swing.JFrame {
         // save if we have some quantity habits to see if we need to upate view
         Color temp1 = new Color(153,153,255);
         Color temp2 = new Color(100,204,255);
+        Color temp3 = new Color(90,50,30);
+        Color temp4 = new Color(30,204,204);
+        Color temp5 = new Color(50,90,255);
+        Color temp6 = new Color(100,153,255);
+        Color temp7 = new Color(20,204,255);
+        Color temp8 = new Color(20,50,200);
         String week = "1111111";
         
         // We should only add them to array in here and then later using the refresh screen for the home, we should check the week
-        allQuantityCards.add(new HabitCard_Quantity(this, "Drink Water", temp2, 0, 8, 1, week));
+        allQuantityCards.add(new HabitCard_Quantity(this, "Drink Water", temp1, 0, 8, 1, week));
         allQuantityCards.add(new HabitCard_Quantity(this, "Drink Milk", temp2, 0, 3, 0.5, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Dont eat big", temp1, true,week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Run 3 Miles", temp1, false,week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Seomthing", temp1, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Again", temp1, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Againfds", temp1, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Againfsd", temp1, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Agains", temp1, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Agaisdfn", temp1, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "asd", temp1, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Dont eat big", temp2, true,week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Run 3 Miles", temp3, false,week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Seomthing", temp3, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Again", temp5, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Againfds", temp6, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Againfsd", temp7, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Agains", temp8, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "Agaisdfn", temp8, false, week));
+        allYesNoCards.add(new HabitCard_YesNo(this, "asd", temp8, false, week));
         
         
         // Refreshing happens later in constructor when we call switchFrame(home);
