@@ -1,6 +1,7 @@
 package habitpanel;
 import java.awt.*;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
     // Private Variables: ================================================================================
@@ -16,6 +17,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     private Color greenColor = new Color(20,255,20);
     private int progessThickness = 10; 
     private int effectThickness = 10;
+    private int pressOffset = 0;          // current visual offset
+    private int targetPressOffset = 0;    // where we want to go
+    private final int MAX_PRESS = effectThickness-1;
     // ===================================================================================================
     
     
@@ -52,7 +56,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         // OUTER RING BACKGROUND COLOR
         // ------------------------------
         g2.setColor(ringBackColor);  // ring color
-        g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
+        g2.fillOval(outerX, outerY+pressOffset, outerDiameter, outerDiameter);
         
         
         // ------------------------------
@@ -64,7 +68,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         g2.setStroke(new BasicStroke(progessThickness));
         g2.setColor(brimPaintingColor);
 
-        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (int)(progress * 3.6));
+        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2+pressOffset, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (int)(progress * 3.6));
         
         if(quantity > goal){
             double savedQuantity = quantity;
@@ -78,7 +82,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
                 g2.setColor(savedColor);              // Changing the brush color
                 g2.drawArc(                           // Drawing arc
                     outerX+progessThickness/2,
-                    outerY+progessThickness/2,
+                    outerY+progessThickness/2+pressOffset,
                     outerDiameter-progessThickness,
                     outerDiameter-progessThickness,
                     90,
@@ -93,14 +97,16 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         // INNER CIRCLE COLOR BACKGROUND
         // ------------------------------
         g2.setColor(insidePanel.getBackground());
-        g2.fillOval((effectThickness/2) + progessThickness, progessThickness, innerDiameter, innerDiameter);
+        g2.fillOval((effectThickness/2) + progessThickness, progessThickness+pressOffset, innerDiameter, innerDiameter);
+        
+        
         
         // ------------------------------
         // OUTER RING CIRCLE (BORDER)
         // ------------------------------
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.BLACK);
-        g2.drawArc(outerX, outerY, outerDiameter, outerDiameter, 90, 360);
+        g2.drawArc(outerX, outerY+pressOffset, outerDiameter, outerDiameter, 90, 360);
         
         g2.dispose();
     }
@@ -139,7 +145,6 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         // Setting up "insidePanel" : -------------------------------------
         insidePanel.setOpaque(false);
         insidePanel.setBackground(habitColor);
-        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 170));
         // ----------------------------------------------------------------
         
         
@@ -269,8 +274,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         
         
         // Checking if this puts quantity under goal to take away completion 
-        if(quantity<goal)
+        if(quantity<goal){
             completeText.setVisible(false);
+            animatePress(false);
+        }
         
         // This does the repainting of the brim
         this.repaint();
@@ -286,15 +293,58 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         quantityText.setText(String.valueOf(quantity)); // Show new value
         
         // Checking if this puts quantity over goal to give completion message
-        if(quantity>=goal)
+        if(quantity>=goal){
             completeText.setVisible(true);
-        
+            animatePress(true);
+        }
         
         // This does the repainting of the brim
         this.repaint();
     }
     
     // ===================================================================================================
+    
+    
+    
+    
+    
+    private Timer pressTimer;
+    private void animatePress(boolean pressIn) {
+        targetPressOffset = pressIn ? MAX_PRESS : 0;
+
+        if (pressTimer != null && pressTimer.isRunning()) 
+            return;
+
+        pressTimer = new Timer(10, e -> {
+            if (pressOffset < targetPressOffset){
+                habitName.setLocation(habitName.getX(),habitName.getY()+1);
+                completeText.setLocation(completeText.getX(), completeText.getY()+1);
+                minusButton.setLocation(minusButton.getX(), minusButton.getY()+1);
+                plusButton.setLocation(plusButton.getX(), plusButton.getY()+1);
+                quantityText.setLocation(quantityText.getX(), quantityText.getY()+1);
+                goalText.setLocation(goalText.getX(), goalText.getY()+1);
+                pressOffset++;
+            }
+            else if (pressOffset > targetPressOffset) {
+                habitName.setLocation(habitName.getX(),habitName.getY()-1);
+                completeText.setLocation(completeText.getX(), completeText.getY()-1);
+                minusButton.setLocation(minusButton.getX(), minusButton.getY()-1);
+                plusButton.setLocation(plusButton.getX(), plusButton.getY()-1);
+                quantityText.setLocation(quantityText.getX(), quantityText.getY()-1);
+                goalText.setLocation(goalText.getX(), goalText.getY()-1);
+                pressOffset--;
+            }
+            else 
+                ((Timer) e.getSource()).stop();
+            repaint();
+        });
+        
+        pressTimer.start();
+    }
+    
+    
+    
+    
     
     
     // Helper Functions: =============================================================================

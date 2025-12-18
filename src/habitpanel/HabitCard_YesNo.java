@@ -2,6 +2,7 @@
 package habitpanel;
 import java.awt.*;
 import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
  
 
@@ -18,6 +19,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private Color greenColor = new Color(20,255,20);
     private int progessThickness = 10; 
     private int effectThickness = 10;
+    private int pressOffset = 0;          // current visual offset
+    private int targetPressOffset = 0;    // where we want to go
+    private final int MAX_PRESS = effectThickness-1;
     // ===================================================================================================
 
     
@@ -25,16 +29,12 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g); // keep children visible
-        
-        
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         
         
         int newWidth = getWidth() - effectThickness;
         int newHeight = getHeight() - effectThickness;
-        
-
         int size = Math.min(newWidth, newHeight);
         int outerDiameter = size; 
         int innerDiameter = outerDiameter - progessThickness*2; // thickness of brim
@@ -51,10 +51,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         
         
         // ------------------------------
-        // OUTER RING BACKGROUND COLOR
+        // INNER RING FILL COLOR
         // ------------------------------
         g2.setColor(ringBackColor);  // ring color
-        g2.fillOval(outerX, outerY, outerDiameter, outerDiameter);
+        g2.fillOval(outerX, outerY+pressOffset, outerDiameter, outerDiameter);
         
         
         // ------------------------------
@@ -64,21 +64,22 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         g2.setStroke(new BasicStroke(progessThickness));
         g2.setColor(greenColor);
 
-        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (isComplete ? 360 : 0));
+        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2+pressOffset, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (isComplete ? 360 : 0));
         
         
         // ------------------------------
         // INNER CIRCLE COLOR BACKGROUND
         // ------------------------------
         g2.setColor(insidePanel.getBackground());
-        g2.fillOval((effectThickness/2) + progessThickness, progessThickness, innerDiameter, innerDiameter);
+        g2.fillOval((effectThickness/2) + progessThickness, progessThickness+pressOffset, innerDiameter, innerDiameter);
+        
         
         // ------------------------------
         // OUTER RING CIRCLE (BORDER)
         // ------------------------------
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.BLACK);
-        g2.drawArc(outerX, outerY, outerDiameter, outerDiameter, 90, 360);
+        g2.drawArc(outerX, outerY+pressOffset, outerDiameter, outerDiameter, 90, 360);
         
         g2.dispose();
     }
@@ -110,23 +111,19 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // Setting up inside panel
         insidePanel.setOpaque(false);
         insidePanel.setBackground(habitColor);
-        insidePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 170));
         
         
         
         // Setting up brim using given COMPLETED state
         if(completed){
-            pressToMarkText.setVisible(false);
-            checkmarkImage.setVisible(true);
-            completeText.setVisible(true);
-            
-        }else{
+            habitNameMouseClicked(null);
+        }
+        else{
             pressToMarkText.setVisible(true);
             checkmarkImage.setVisible(false);
             completeText.setVisible(false);
+            isComplete = completed;
         }
-        isComplete = completed;        
-        
       
         
         // Repainting Everything (specifically for calling the paintComponent overrided above)
@@ -208,6 +205,11 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private void habitNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_habitNameMouseClicked
         // Current state is "COMPLTED" -> moving to "NOT COMPLETED"
         if(!pressToMarkText.isVisible()){
+            // If the press timer is current running, wait until its finished
+            if(pressTimer != null && pressTimer.isRunning())
+                return;
+            animatePress(false);
+            
             // Reseting the away timer
             mainGUI.reseAwaytAway();
             
@@ -222,6 +224,11 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         
         // Current state is "NOT COMPLETED" -> moving to "COMPLETED"
         else{
+            // If the press timer is current running, wait until its finished
+            if(pressTimer != null && pressTimer.isRunning())
+                return;
+            animatePress(true);
+            
             // Resting the away timer
             mainGUI.reseAwaytAway();
             
@@ -240,6 +247,35 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     
 
     // ===================================================================================================
+    private Timer pressTimer;
+    private void animatePress(boolean pressIn) {
+        targetPressOffset = pressIn ? MAX_PRESS : 0;
+
+        if (pressTimer != null && pressTimer.isRunning()) 
+            return;
+
+        pressTimer = new Timer(10, e -> {
+            if (pressOffset < targetPressOffset){
+                habitName.setLocation(habitName.getX(),habitName.getY()+1);
+                pressToMarkText.setLocation(pressToMarkText.getX(),pressToMarkText.getY()+1);
+                checkmarkImage.setLocation(checkmarkImage.getX(), checkmarkImage.getY()+1);
+                completeText.setLocation(completeText.getX(), completeText.getY()+1);
+                pressOffset++;
+            }
+            else if (pressOffset > targetPressOffset) {
+                habitName.setLocation(habitName.getX(),habitName.getY()-1);
+                pressToMarkText.setLocation(pressToMarkText.getX(),pressToMarkText.getY()-1);
+                checkmarkImage.setLocation(checkmarkImage.getX(), checkmarkImage.getY()-1);
+                completeText.setLocation(completeText.getX(), completeText.getY()-1);
+                pressOffset--;
+            }
+            else 
+                ((Timer) e.getSource()).stop();
+            repaint();
+        });
+        
+        pressTimer.start();
+    }
     
     
     
