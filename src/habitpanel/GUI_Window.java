@@ -12,10 +12,14 @@ import java.awt.event.MouseEvent;
 // NOTE TO SELF: 1040 x 600 is the screen size
 
 class Screensaver {
+    // General Screensaver Variables
     Timer screensaverClock = null;
     private JLabel timeText = null;
     private JLabel dateText = null;
+    String savedScreensaver = "skyline";
     
+    
+    // Skyline Screensaver
     private int skylineMinLocation;
     private int skylinePanelWidth;
     private final int skylineStep = 1; //1
@@ -38,8 +42,13 @@ class Screensaver {
         skylinePanel3 = sp3;
     }
     
+    // Call this function to set up a different screensaver
+    public void setScreensaver(String input){
+        savedScreensaver = input;
+    }
+    
     // Call this function to start up the screensaver we want to use
-    public void startScreenSaver(String target){
+    public void startScreenSaver(){
         // Setting invisible panels of all screensavers to only later show the one we want to use
         stopClock();
         skylinePanel1.setVisible(false);
@@ -48,16 +57,23 @@ class Screensaver {
         timeText.setVisible(false);
         dateText.setVisible(false);
         
-        if(target.equals("none")){
-            // Do nothing, we want to show just a blank screen
-        }
-        else if(target.equals("skyline")){
+        if(savedScreensaver.equals("skyline")){
             skylinePanel1.setVisible(true);
             skylinePanel2.setVisible(true);
             skylinePanel3.setVisible(true);
             timeText.setVisible(true);
             dateText.setVisible(true);
             startSkylineClock();
+        }
+        
+        else if(savedScreensaver.equals("clock")){
+            // Show the clock
+        }
+        else if(savedScreensaver.equals("progress")){
+            // Show a summary progress
+        }
+        else if(savedScreensaver.equals("none")){
+            // Do nothing, we want to show just a blank screen
         }
     }
     
@@ -117,7 +133,7 @@ class Screensaver {
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 9000; // In seconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 3; // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(221,178,93);    // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
@@ -129,7 +145,6 @@ public class GUI_Window extends javax.swing.JFrame {
     JTextField keyboardTarget = null;    // Holds where we are typing into 
     JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
     Screensaver screensaver = new Screensaver();  // Holds the instance of the object that manages the screensaver
-    String savedScreensaver = "skyline"; // Holds the users chosen screensaver -> starting with skyline for now
     int awayFromScreenCounter = 0;       // Keeps count from 0- AWAY_FROM_SCREEN_TIME
     boolean awayIsOn = true;             // User can set this up through the settings to turn it off 
     // ====================================================================
@@ -233,6 +248,7 @@ public class GUI_Window extends javax.swing.JFrame {
         s_buttonColor = new javax.swing.JPanel();
         s_customScreensaverPanel = new javax.swing.JPanel();
         s_awayFromScreenTitle1 = new javax.swing.JLabel();
+        s_awayFromScreenSelectedText = new javax.swing.JLabel();
         s_awayFromScreenOption1 = new javax.swing.JLabel();
         s_awayFromScreenOption2 = new javax.swing.JLabel();
         s_awayFromScreenOption3 = new javax.swing.JLabel();
@@ -497,18 +513,27 @@ public class GUI_Window extends javax.swing.JFrame {
 
         s_colorsPanel.add(s_buttonColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 170, 50, 30));
 
-        settings.add(s_colorsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 380, 220));
+        settings.add(s_colorsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 380, 220));
 
         s_customScreensaverPanel.setBackground(new java.awt.Color(156, 183, 133));
         s_customScreensaverPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_customScreensaverPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        s_customScreensaverPanel.setLayout(null);
 
         s_awayFromScreenTitle1.setBackground(new java.awt.Color(156, 183, 133));
         s_awayFromScreenTitle1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         s_awayFromScreenTitle1.setForeground(java.awt.Color.white);
         s_awayFromScreenTitle1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         s_awayFromScreenTitle1.setText("   Away From Screen Options");
-        s_customScreensaverPanel.add(s_awayFromScreenTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 500, -1));
+        s_customScreensaverPanel.add(s_awayFromScreenTitle1);
+        s_awayFromScreenTitle1.setBounds(0, 10, 500, 25);
+
+        s_awayFromScreenSelectedText.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        s_awayFromScreenSelectedText.setForeground(java.awt.Color.white);
+        s_awayFromScreenSelectedText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreenSelectedText.setText("SELECTED");
+        s_awayFromScreenSelectedText.setToolTipText("");
+        s_customScreensaverPanel.add(s_awayFromScreenSelectedText);
+        s_awayFromScreenSelectedText.setBounds(20, 50, 140, 81);
 
         s_awayFromScreenOption1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/skylineIcon.png"))); // NOI18N
         s_awayFromScreenOption1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -517,15 +542,21 @@ public class GUI_Window extends javax.swing.JFrame {
                 awayFromScreenOptionClicked(evt);
             }
         });
-        s_customScreensaverPanel.add(s_awayFromScreenOption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 140, 81));
+        s_customScreensaverPanel.add(s_awayFromScreenOption1);
+        s_awayFromScreenOption1.setBounds(20, 50, 140, 81);
 
+        s_awayFromScreenOption2.setForeground(java.awt.Color.white);
+        s_awayFromScreenOption2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreenOption2.setToolTipText("");
+        s_awayFromScreenOption2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption2.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 awayFromScreenOptionClicked(evt);
             }
         });
-        s_customScreensaverPanel.add(s_awayFromScreenOption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 140, 81));
+        s_customScreensaverPanel.add(s_awayFromScreenOption2);
+        s_awayFromScreenOption2.setBounds(180, 50, 140, 81);
 
         s_awayFromScreenOption3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption3.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -533,31 +564,46 @@ public class GUI_Window extends javax.swing.JFrame {
                 awayFromScreenOptionClicked(evt);
             }
         });
-        s_customScreensaverPanel.add(s_awayFromScreenOption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 140, 81));
+        s_customScreensaverPanel.add(s_awayFromScreenOption3);
+        s_awayFromScreenOption3.setBounds(340, 50, 140, 81);
 
+        s_awayFromScreenOption4.setForeground(java.awt.Color.white);
+        s_awayFromScreenOption4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreenOption4.setText("<CLOCK>");
+        s_awayFromScreenOption4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption4.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 awayFromScreenOptionClicked(evt);
             }
         });
-        s_customScreensaverPanel.add(s_awayFromScreenOption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 140, 81));
+        s_customScreensaverPanel.add(s_awayFromScreenOption4);
+        s_awayFromScreenOption4.setBounds(20, 150, 140, 81);
 
+        s_awayFromScreenOption5.setForeground(java.awt.Color.white);
+        s_awayFromScreenOption5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        s_awayFromScreenOption5.setText("<PROGRES>");
+        s_awayFromScreenOption5.setToolTipText("");
+        s_awayFromScreenOption5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption5.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 awayFromScreenOptionClicked(evt);
             }
         });
-        s_customScreensaverPanel.add(s_awayFromScreenOption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 140, 81));
+        s_customScreensaverPanel.add(s_awayFromScreenOption5);
+        s_awayFromScreenOption5.setBounds(180, 150, 140, 81);
 
+        s_awayFromScreenOption6.setBackground(java.awt.Color.black);
         s_awayFromScreenOption6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption6.setOpaque(true);
         s_awayFromScreenOption6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 awayFromScreenOptionClicked(evt);
             }
         });
-        s_customScreensaverPanel.add(s_awayFromScreenOption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 140, 81));
+        s_customScreensaverPanel.add(s_awayFromScreenOption6);
+        s_awayFromScreenOption6.setBounds(340, 150, 140, 81);
 
         settings.add(s_customScreensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 500, 250));
 
@@ -618,7 +664,7 @@ public class GUI_Window extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        settings.add(s_connectionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 560, 220));
+        settings.add(s_connectionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 560, 220));
 
         s_turnOffAwayFromScreenButton.setBackground(new java.awt.Color(128, 161, 98));
         s_turnOffAwayFromScreenButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -1833,11 +1879,11 @@ public class GUI_Window extends javax.swing.JFrame {
     // ================== [ TIMERS ] ==================================================================================================
     // =================================================================================================================================
     private final Timer awayFromScreen = new Timer(1000, e->{
-        awayFromScreenCounter++;           // Increase counter
+        awayFromScreenCounter++;              // Increase counter
         if(awayFromScreenCounter >= AWAY_FROM_SCREEN_TIME){  // IF: checking if we reached the max time
-            ((Timer)e.getSource()).stop(); // Stop Timer
-            awayFromScreenCounter = 0;     // Reset counter
-            screensaver.startScreenSaver(savedScreensaver);
+            ((Timer)e.getSource()).stop();    // Stop Timer
+            awayFromScreenCounter = 0;        // Reset counter
+            screensaver.startScreenSaver();   // Starting the screensaver
             switchFrame(screenSaver_again);   // Take back to progress
             // ---------------------------------------------------------------->  Make brightness lower [ADD LATER]
         }
@@ -2696,7 +2742,24 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_screensaverPanelMouseClicked
 
     private void awayFromScreenOptionClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_awayFromScreenOptionClicked
+        // Moving the selected text to position of the button clicked
         JLabel buttonClicked = (JLabel) evt.getSource();
+        s_awayFromScreenSelectedText.setLocation(buttonClicked.getX(), buttonClicked.getY());
+        
+        // Setting the screensaver setting
+        if(buttonClicked == s_awayFromScreenOption1)
+            screensaver.setScreensaver("skyline");
+        /*
+        else if(buttonClicked == s_awayFromScreenOption2)
+        else if(buttonClicked == s_awayFromScreenOption3)
+        */
+        else if(buttonClicked == s_awayFromScreenOption4)
+            screensaver.setScreensaver("clock");
+        else if(buttonClicked == s_awayFromScreenOption5)
+            screensaver.setScreensaver("progress");
+        else if(buttonClicked == s_awayFromScreenOption6)
+            screensaver.setScreensaver("none");
+                                
     }//GEN-LAST:event_awayFromScreenOptionClicked
 
 
@@ -2919,6 +2982,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel s_awayFromScreenOption5;
     private javax.swing.JLabel s_awayFromScreenOption6;
     private javax.swing.JPanel s_awayFromScreenPanel;
+    private javax.swing.JLabel s_awayFromScreenSelectedText;
     private javax.swing.JLabel s_awayFromScreenTitle;
     private javax.swing.JLabel s_awayFromScreenTitle1;
     private javax.swing.JLabel s_awayFromScreenTitle2;
