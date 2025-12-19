@@ -510,23 +510,54 @@ public class GUI_Window extends javax.swing.JFrame {
         s_awayFromScreenTitle1.setText("   Away From Screen Options");
         s_customScreensaverPanel.add(s_awayFromScreenTitle1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 500, -1));
 
-        s_awayFromScreenOption1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        s_customScreensaverPanel.add(s_awayFromScreenOption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 140, 80));
+        s_awayFromScreenOption1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/skylineIcon.png"))); // NOI18N
+        s_awayFromScreenOption1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                awayFromScreenOptionClicked(evt);
+            }
+        });
+        s_customScreensaverPanel.add(s_awayFromScreenOption1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 140, 81));
 
-        s_awayFromScreenOption2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        s_customScreensaverPanel.add(s_awayFromScreenOption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 140, 80));
+        s_awayFromScreenOption2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                awayFromScreenOptionClicked(evt);
+            }
+        });
+        s_customScreensaverPanel.add(s_awayFromScreenOption2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 50, 140, 81));
 
-        s_awayFromScreenOption3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        s_customScreensaverPanel.add(s_awayFromScreenOption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 140, 80));
+        s_awayFromScreenOption3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                awayFromScreenOptionClicked(evt);
+            }
+        });
+        s_customScreensaverPanel.add(s_awayFromScreenOption3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 50, 140, 81));
 
-        s_awayFromScreenOption4.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        s_customScreensaverPanel.add(s_awayFromScreenOption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 140, 80));
+        s_awayFromScreenOption4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                awayFromScreenOptionClicked(evt);
+            }
+        });
+        s_customScreensaverPanel.add(s_awayFromScreenOption4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 140, 81));
 
-        s_awayFromScreenOption5.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        s_customScreensaverPanel.add(s_awayFromScreenOption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 140, 80));
+        s_awayFromScreenOption5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                awayFromScreenOptionClicked(evt);
+            }
+        });
+        s_customScreensaverPanel.add(s_awayFromScreenOption5, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 150, 140, 81));
 
-        s_awayFromScreenOption6.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        s_customScreensaverPanel.add(s_awayFromScreenOption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 140, 80));
+        s_awayFromScreenOption6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption6.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                awayFromScreenOptionClicked(evt);
+            }
+        });
+        s_customScreensaverPanel.add(s_awayFromScreenOption6, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 150, 140, 81));
 
         settings.add(s_customScreensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 330, 500, 250));
 
@@ -2663,6 +2694,10 @@ public class GUI_Window extends javax.swing.JFrame {
         screensaver.stopClock(); // Stopping the clock
         switchFrame(home);
     }//GEN-LAST:event_screensaverPanelMouseClicked
+
+    private void awayFromScreenOptionClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_awayFromScreenOptionClicked
+        JLabel buttonClicked = (JLabel) evt.getSource();
+    }//GEN-LAST:event_awayFromScreenOptionClicked
 
 
 
