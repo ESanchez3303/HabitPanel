@@ -274,10 +274,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         
         
         // Checking if this puts quantity under goal to take away completion 
-        if(quantity<goal){
+        if(quantity<goal)
             completeText.setVisible(false);
-            animatePress(false);
-        }
+        
+        animatePress(false); // do the animation, inside the animation it will handle if it will bounce or stay down
         
         // This does the repainting of the brim
         this.repaint();
@@ -293,10 +293,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         quantityText.setText(String.valueOf(quantity)); // Show new value
         
         // Checking if this puts quantity over goal to give completion message
-        if(quantity>=goal){
-            completeText.setVisible(true);
-            animatePress(true);
-        }
+        if(quantity>=goal)
+            completeText.setVisible(true);   
+        
+        animatePress(true); // do the animation, inside the animation it will handle if it will bounce or stay down
         
         // This does the repainting of the brim
         this.repaint();
@@ -309,12 +309,21 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     
     
     private Timer pressTimer;
-    private void animatePress(boolean pressIn) {
-        targetPressOffset = pressIn ? MAX_PRESS : 0;
-
+    private void animatePress(boolean pressedIn) {
         if (pressTimer != null && pressTimer.isRunning()) 
             return;
-
+        
+        // Do nothing if button is already pressed in, this will still do it for when the quantity is exactly the goal
+        if(pressOffset == MAX_PRESS && quantity >= goal)
+            return;
+        
+        
+        
+        if(quantity < goal)
+            targetPressOffset = MAX_PRESS/2; // If this was a pressed in and we are still under the goal, then we want to only bounce half way
+        else 
+            targetPressOffset = pressedIn ? MAX_PRESS : 0;  // If this is not a bounce, then go all the way in or out
+        
         pressTimer = new Timer(10, e -> {
             if (pressOffset < targetPressOffset){
                 habitName.setLocation(habitName.getX(),habitName.getY()+1);
@@ -323,7 +332,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
                 plusButton.setLocation(plusButton.getX(), plusButton.getY()+1);
                 quantityText.setLocation(quantityText.getX(), quantityText.getY()+1);
                 goalText.setLocation(goalText.getX(), goalText.getY()+1);
-                pressOffset++;
+                pressOffset++; // Changes the value that the repaint uses
             }
             else if (pressOffset > targetPressOffset) {
                 habitName.setLocation(habitName.getX(),habitName.getY()-1);
@@ -332,10 +341,17 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
                 plusButton.setLocation(plusButton.getX(), plusButton.getY()-1);
                 quantityText.setLocation(quantityText.getX(), quantityText.getY()-1);
                 goalText.setLocation(goalText.getX(), goalText.getY()-1);
-                pressOffset--;
+                pressOffset--; // Changes the value that the repaint uses
             }
-            else 
-                ((Timer) e.getSource()).stop();
+            else{
+                // If we are doing a bounce, then we want to flip the targetpressoffset
+                if(quantity < goal && targetPressOffset != 0){
+                    targetPressOffset = 0;
+                }
+                else
+                    ((Timer) e.getSource()).stop();
+            }
+            
             repaint();
         });
         

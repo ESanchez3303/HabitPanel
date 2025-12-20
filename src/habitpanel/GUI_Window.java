@@ -133,7 +133,7 @@ class Screensaver {
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 3; // In seconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 60; // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(221,178,93);    // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
