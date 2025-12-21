@@ -28,9 +28,13 @@ class Screensaver {
     private JLabel skylinePanel2 = null;
     private JLabel skylinePanel3 = null;
     
+    // Todays Progress Screensaver
+    private JPanel todaysProgressPanel = null;
+    
     
      // 400x70 | 400x50
-    public void setUp(JPanel backgroundInput, JLabel timeInput, JLabel dateInput, JLabel sp1, JLabel sp2, JLabel sp3){
+    public void setUp(JPanel backgroundInput, JLabel timeInput, JLabel dateInput, JLabel sp1, JLabel sp2, JLabel sp3,
+                      JPanel todaysProgressPanelInput){
         // Setting up the date and time labels
         dateText = dateInput;
         timeText = timeInput;
@@ -42,6 +46,9 @@ class Screensaver {
         skylinePanel1 = sp1;
         skylinePanel2 = sp2;
         skylinePanel3 = sp3;
+        
+        // Setting up Todays Progress Panel
+        todaysProgressPanel = todaysProgressPanelInput;
         
     }
     
@@ -63,6 +70,8 @@ class Screensaver {
         skylinePanel2.setVisible(false);
         skylinePanel3.setVisible(false);
         
+        todaysProgressPanel.setVisible(false);
+        
         
         if(savedScreensaver.equals("skyline")){
             skylinePanel1.setVisible(true);
@@ -71,6 +80,10 @@ class Screensaver {
             timeText.setVisible(true);
             dateText.setVisible(true);
             startSkylineClock();
+        }
+        
+        else if(savedScreensaver.equals("simpleBackground")){
+            // A Picture of a simple background
         }
         
         else if(savedScreensaver.equals("clock")){
@@ -82,9 +95,14 @@ class Screensaver {
             dateText.setVisible(true);
             
         }
-        else if(savedScreensaver.equals("progress")){
+        else if(savedScreensaver.equals("todayProgress")){
+           todaysProgressPanel.setVisible(true);
+        }
+        
+        else if(savedScreensaver.equals("progressPanel")){
             // Show a summary progress
         }
+        
         else if(savedScreensaver.equals("none")){
             // Do nothing, we want to show just a blank screen
         }
@@ -202,7 +220,8 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         // Setting up the screensaver
-        screensaver.setUp(screensaverPanel, screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3); 
+        screensaver.setUp(screensaverPanel, screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3,
+                          screensaverTodaysProgress); 
         
         // Setting up the scroll buttons in the home panel (removing, making new object, adding, setting z level to 0)
         home.remove(h_scrollUpPanel);
@@ -248,6 +267,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private void initComponents() {
 
         screensaverPanel = new javax.swing.JPanel();
+        screensaverTodaysProgress = new javax.swing.JPanel();
+        screensaverTodaysProgressTitle = new javax.swing.JLabel();
+        screensaverTodaysProgressDisplay = new javax.swing.JPanel();
         screensaverTimeText = new javax.swing.JLabel();
         screensaverDateText = new javax.swing.JLabel();
         skylinePanel1 = new javax.swing.JLabel();
@@ -398,6 +420,27 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         screensaverPanel.setLayout(null);
+
+        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 153, 51));
+        screensaverTodaysProgress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        screensaverTodaysProgress.setLayout(null);
+
+        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 153, 51));
+        screensaverTodaysProgressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        screensaverTodaysProgressTitle.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverTodaysProgressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverTodaysProgressTitle.setText("Left To Do Today");
+        screensaverTodaysProgressTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        screensaverTodaysProgress.add(screensaverTodaysProgressTitle);
+        screensaverTodaysProgressTitle.setBounds(20, 20, 800, 50);
+
+        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(204, 204, 204));
+        screensaverTodaysProgressDisplay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        screensaverTodaysProgress.add(screensaverTodaysProgressDisplay);
+        screensaverTodaysProgressDisplay.setBounds(20, 90, 800, 290);
+
+        screensaverPanel.add(screensaverTodaysProgress);
+        screensaverTodaysProgress.setBounds(100, 100, 840, 400);
 
         screensaverTimeText.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
         screensaverTimeText.setForeground(new java.awt.Color(255, 255, 255));
@@ -2773,16 +2816,27 @@ public class GUI_Window extends javax.swing.JFrame {
         // Setting the screensaver setting
         if(buttonClicked == s_awayFromScreenOption1)
             screensaver.setScreensaver("skyline");
+        
         else if(buttonClicked == s_awayFromScreenOption2)
             screensaver.setScreensaver("simpleBackground");
+        
         else if(buttonClicked == s_awayFromScreenOption3){
             screensaverPanel.setBackground(PRIMARY_COLOR);
             screensaver.setScreensaver("clock");
         }
-        else if(buttonClicked == s_awayFromScreenOption4)
+        
+        else if(buttonClicked == s_awayFromScreenOption4){
+            screensaverTodaysProgressTitle.setBackground(PRIMARY_COLOR);
+            screensaverTodaysProgressTitle.setForeground(TEXT_COLOR);
+            screensaverTodaysProgress.setBackground(PRIMARY_COLOR);
+            screensaverTodaysProgressDisplay.setBackground(SECONDARY_COLOR);
+            screensaverPanel.setBackground(PRIMARY_COLOR);
             screensaver.setScreensaver("todayProgress");
+        }
+
         else if(buttonClicked == s_awayFromScreenOption5)
             screensaver.setScreensaver("progressPanel");
+        
         else if(buttonClicked == s_awayFromScreenOption6){
             screensaverPanel.setBackground(Color.BLACK);
             screensaver.setScreensaver("none");
@@ -3031,6 +3085,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel screensaverDateText;
     private javax.swing.JPanel screensaverPanel;
     private javax.swing.JLabel screensaverTimeText;
+    private javax.swing.JPanel screensaverTodaysProgress;
+    private javax.swing.JPanel screensaverTodaysProgressDisplay;
+    private javax.swing.JLabel screensaverTodaysProgressTitle;
     private javax.swing.JPanel settings;
     private javax.swing.JButton settingsButton;
     private javax.swing.JLabel skylinePanel1;
