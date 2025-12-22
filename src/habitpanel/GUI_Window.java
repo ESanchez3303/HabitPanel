@@ -16,14 +16,14 @@ class Screensaver {
     Timer screensaverClock = null;
     private JLabel timeText = null;
     private JLabel dateText = null;
-    private String savedScreensaver = "skyline";
+    private int savedScreensaver = 1; // Current Screensaver: 1 -> Skyline Background 
     private JPanel background = null;
     
     // Skyline Screensaver
     private int skylineMinLocation;
     private int skylinePanelWidth;
-    private final int skylineStep = 1; //1
-    private final int skylineTick = 30; //30
+    private final int skylineStep = 1;  // 1  -> Step for the skyline movement
+    private final int skylineTick = 30; // 30 -> Speed til next step in (ms)
     private JLabel skylinePanel1 = null;
     private JLabel skylinePanel2 = null;
     private JLabel skylinePanel3 = null;
@@ -31,10 +31,13 @@ class Screensaver {
     // Todays Progress Screensaver
     private JPanel todaysProgressPanel = null;
     
+    // Fish Tank Screensaver
+    private JLabel fishTankBackground = null;
+    
     
      // 400x70 | 400x50
     public void setUp(JPanel backgroundInput, JLabel timeInput, JLabel dateInput, JLabel sp1, JLabel sp2, JLabel sp3,
-                      JPanel todaysProgressPanelInput){
+                      JPanel todaysProgressPanelInput, JLabel fishTankBackgroundInput){
         // Setting up the date and time labels
         dateText = dateInput;
         timeText = timeInput;
@@ -47,17 +50,23 @@ class Screensaver {
         skylinePanel2 = sp2;
         skylinePanel3 = sp3;
         
+        // Setting up fishtank screensaver
+        fishTankBackground = fishTankBackgroundInput;
+        
         // Setting up Todays Progress Panel
         todaysProgressPanel = todaysProgressPanelInput;
         
     }
     
     // Call this function to set up a different screensaver
-    public void setScreensaver(String input){
+    public void setScreensaver(int input){
         savedScreensaver = input;
     }
     
-    
+    // Call to find out which screensaver we are using
+    public int getScreensaver(){
+        return savedScreensaver;
+    }
     
     // Call this function to start up the screensaver we want to use
     public void startScreenSaver(){
@@ -70,41 +79,52 @@ class Screensaver {
         skylinePanel2.setVisible(false);
         skylinePanel3.setVisible(false);
         
+        fishTankBackground.setVisible(false);
+        
         todaysProgressPanel.setVisible(false);
         
         
-        if(savedScreensaver.equals("skyline")){
-            skylinePanel1.setVisible(true);
-            skylinePanel2.setVisible(true);
-            skylinePanel3.setVisible(true);
-            timeText.setVisible(true);
-            dateText.setVisible(true);
-            startSkylineClock();
-        }
-        
-        else if(savedScreensaver.equals("simpleBackground")){
-            // A Picture of a simple background
-        }
-        
-        else if(savedScreensaver.equals("clock")){
-            // Centering the time text and then centering the date text under the time text
-            timeText.setLocation(background.getWidth()/2 - timeText.getWidth()/2, background.getHeight()/2-timeText.getHeight());
-            dateText.setLocation(timeText.getX() + (timeText.getWidth() - dateText.getWidth())/2, timeText.getY() + timeText.getHeight());
+        switch (savedScreensaver) {
+            // Skyline Screensaver
+            case 1 -> {
+                skylinePanel1.setVisible(true);
+                skylinePanel2.setVisible(true);
+                skylinePanel3.setVisible(true);
+                timeText.setVisible(true);
+                dateText.setVisible(true);
+                startSkylineClock();
+            }
             
-            timeText.setVisible(true);
-            dateText.setVisible(true);
+            // Fish tank screensaver
+            case 2 -> {
+                fishTankBackground.setVisible(true);
+            }
             
-        }
-        else if(savedScreensaver.equals("todayProgress")){
-           todaysProgressPanel.setVisible(true);
-        }
-        
-        else if(savedScreensaver.equals("progressPanel")){
-            // Show a summary progress
-        }
-        
-        else if(savedScreensaver.equals("none")){
-            // Do nothing, we want to show just a blank screen
+            // Blank Black Screensaver
+            case 3 -> {
+                
+            }
+            
+            // Todays Progress Screensaver
+            case 4 -> {
+                todaysProgressPanel.setVisible(true);
+            }
+            
+            // Overall Summary Screensaver
+            case 5 -> {
+                
+            }
+            
+            // Simple Clock and Date Screensaver
+            case 6 -> {
+                // Centering the time text and then centering the date text under the time text
+                timeText.setLocation(background.getWidth()/2 - timeText.getWidth()/2, background.getHeight()/2-timeText.getHeight());
+                dateText.setLocation(timeText.getX() + (timeText.getWidth() - dateText.getWidth())/2, timeText.getY() + timeText.getHeight());
+                timeText.setVisible(true);
+                dateText.setVisible(true);
+            }
+            
+            
         }
     }
     
@@ -164,7 +184,7 @@ class Screensaver {
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 3; // In seconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 2;                 // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(221,178,93);    // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
@@ -221,7 +241,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Setting up the screensaver
         screensaver.setUp(screensaverPanel, screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3,
-                          screensaverTodaysProgress); 
+                          screensaverTodaysProgress, screensaverFishTankBackground); 
         
         // Setting up the scroll buttons in the home panel (removing, making new object, adding, setting z level to 0)
         home.remove(h_scrollUpPanel);
@@ -267,6 +287,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private void initComponents() {
 
         screensaverPanel = new javax.swing.JPanel();
+        screensaverFishTankBackground = new javax.swing.JLabel();
         screensaverTodaysProgress = new javax.swing.JPanel();
         screensaverTodaysProgressTitle = new javax.swing.JLabel();
         screensaverTodaysProgressDisplay = new javax.swing.JPanel();
@@ -421,23 +442,29 @@ public class GUI_Window extends javax.swing.JFrame {
         });
         screensaverPanel.setLayout(null);
 
-        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 153, 51));
-        screensaverTodaysProgress.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        screensaverFishTankBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverFishBackground.png"))); // NOI18N
+        screensaverFishTankBackground.setOpaque(true);
+        screensaverPanel.add(screensaverFishTankBackground);
+        screensaverFishTankBackground.setBounds(0, 0, 1040, 600);
+
+        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 204, 51));
+        screensaverTodaysProgress.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         screensaverTodaysProgress.setLayout(null);
 
-        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 153, 51));
+        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 204, 51));
         screensaverTodaysProgressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         screensaverTodaysProgressTitle.setForeground(new java.awt.Color(255, 255, 255));
         screensaverTodaysProgressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         screensaverTodaysProgressTitle.setText("Left To Do Today");
-        screensaverTodaysProgressTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        screensaverTodaysProgressTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        screensaverTodaysProgressTitle.setOpaque(true);
         screensaverTodaysProgress.add(screensaverTodaysProgressTitle);
-        screensaverTodaysProgressTitle.setBounds(20, 20, 800, 50);
+        screensaverTodaysProgressTitle.setBounds(10, 10, 820, 40);
 
-        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(204, 204, 204));
+        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(255, 204, 51));
         screensaverTodaysProgressDisplay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
         screensaverTodaysProgress.add(screensaverTodaysProgressDisplay);
-        screensaverTodaysProgressDisplay.setBounds(20, 90, 800, 290);
+        screensaverTodaysProgressDisplay.setBounds(10, 60, 820, 330);
 
         screensaverPanel.add(screensaverTodaysProgress);
         screensaverTodaysProgress.setBounds(100, 100, 840, 400);
@@ -628,7 +655,7 @@ public class GUI_Window extends javax.swing.JFrame {
         s_customScreensaverPanel.add(s_awayFromScreenSelectedText);
         s_awayFromScreenSelectedText.setBounds(20, 50, 140, 81);
 
-        s_awayFromScreenOption1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/skylineIcon.png"))); // NOI18N
+        s_awayFromScreenOption1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/skylineScreensaver.png"))); // NOI18N
         s_awayFromScreenOption1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption1.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -640,7 +667,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
         s_awayFromScreenOption2.setForeground(java.awt.Color.white);
         s_awayFromScreenOption2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_awayFromScreenOption2.setText("<SIMPLE BACKGROUND>");
+        s_awayFromScreenOption2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/fishBackgroundScreensaver.png"))); // NOI18N
         s_awayFromScreenOption2.setToolTipText("");
         s_awayFromScreenOption2.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption2.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -652,11 +679,12 @@ public class GUI_Window extends javax.swing.JFrame {
         s_customScreensaverPanel.add(s_awayFromScreenOption2);
         s_awayFromScreenOption2.setBounds(180, 50, 140, 81);
 
+        s_awayFromScreenOption3.setBackground(java.awt.Color.black);
         s_awayFromScreenOption3.setForeground(java.awt.Color.white);
         s_awayFromScreenOption3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_awayFromScreenOption3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/clockBackground.png"))); // NOI18N
         s_awayFromScreenOption3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        s_awayFromScreenOption3.setOpaque(true);
         s_awayFromScreenOption3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 awayFromScreenOptionClicked(evt);
@@ -667,7 +695,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
         s_awayFromScreenOption4.setForeground(java.awt.Color.white);
         s_awayFromScreenOption4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_awayFromScreenOption4.setText("<TODAY PROGRESS>");
+        s_awayFromScreenOption4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/todaysProgressScreensaver.jpg"))); // NOI18N
         s_awayFromScreenOption4.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption4.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption4.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -693,6 +721,7 @@ public class GUI_Window extends javax.swing.JFrame {
         s_awayFromScreenOption5.setBounds(180, 150, 140, 81);
 
         s_awayFromScreenOption6.setBackground(java.awt.Color.black);
+        s_awayFromScreenOption6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/clockScreensaver.png"))); // NOI18N
         s_awayFromScreenOption6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         s_awayFromScreenOption6.setOpaque(true);
         s_awayFromScreenOption6.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -755,7 +784,7 @@ public class GUI_Window extends javax.swing.JFrame {
         s_connectionPanel.setLayout(s_connectionPanelLayout);
         s_connectionPanelLayout.setHorizontalGroup(
             s_connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 554, Short.MAX_VALUE)
         );
         s_connectionPanelLayout.setVerticalGroup(
             s_connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1902,6 +1931,16 @@ public class GUI_Window extends javax.swing.JFrame {
                 s_awayFromScreenPanel.setVisible(false);   // Hiding when state shows that it is off
                 s_customScreensaverPanel.setVisible(true); /// Hiding wehn state shows that its off
             }
+            
+            // Moving the chosen screensaver cover to the correct panel
+            switch(screensaver.getScreensaver()){
+                case 1 -> s_awayFromScreenSelectedText.setLocation(s_awayFromScreenOption1.getX(), s_awayFromScreenOption1.getY());
+                case 2 -> s_awayFromScreenSelectedText.setLocation(s_awayFromScreenOption2.getX(), s_awayFromScreenOption2.getY());
+                case 3 -> s_awayFromScreenSelectedText.setLocation(s_awayFromScreenOption3.getX(), s_awayFromScreenOption3.getY());
+                case 4 -> s_awayFromScreenSelectedText.setLocation(s_awayFromScreenOption4.getX(), s_awayFromScreenOption4.getY());
+                case 5 -> s_awayFromScreenSelectedText.setLocation(s_awayFromScreenOption5.getX(), s_awayFromScreenOption5.getY());
+                case 6 -> s_awayFromScreenSelectedText.setLocation(s_awayFromScreenOption6.getX(), s_awayFromScreenOption6.getY());
+            }
         }
         else if(target == progress){
             progressButton.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
@@ -2198,6 +2237,26 @@ public class GUI_Window extends javax.swing.JFrame {
         JFormattedTextField txt = ((JSpinner.DefaultEditor) s_awayFromScreenInput.getEditor()).getTextField();
         txt.setBackground(PRIMARY_COLOR);
         txt.setForeground(TEXT_COLOR);
+        
+        // SCREENSAVER : If the screensavers is "Skyline" | "today progress" | "simple clock/date" ----> Then we need to repaint certain things
+        switch(screensaver.getScreensaver()){
+            case 1 -> {
+                screensaverTimeText.setForeground(TEXT_COLOR);
+                screensaverDateText.setForeground(TEXT_COLOR);
+            }
+            case 4 -> {
+                screensaverTodaysProgressTitle.setBackground(PRIMARY_COLOR);
+                screensaverTodaysProgressTitle.setForeground(TEXT_COLOR);
+                screensaverTodaysProgress.setBackground(SECONDARY_COLOR);
+                screensaverTodaysProgressDisplay.setBackground(PRIMARY_COLOR);
+                screensaverPanel.setBackground(darkenColor(PRIMARY_COLOR));
+            }
+            case 6 -> {
+                screensaverTimeText.setForeground(TEXT_COLOR);
+                screensaverDateText.setForeground(TEXT_COLOR);
+                screensaverPanel.setBackground(PRIMARY_COLOR);
+            }
+        }
         
         
         // Making sure everything gets repainted
@@ -2813,35 +2872,65 @@ public class GUI_Window extends javax.swing.JFrame {
         JLabel buttonClicked = (JLabel) evt.getSource();
         s_awayFromScreenSelectedText.setLocation(buttonClicked.getX(), buttonClicked.getY());
         
-        // Setting the screensaver setting
-        if(buttonClicked == s_awayFromScreenOption1)
-            screensaver.setScreensaver("skyline");
+        // --- SKYLINE SCREENSAVER ----------------------
+        if(buttonClicked == s_awayFromScreenOption1){
+            screensaverTimeText.setForeground(TEXT_COLOR);
+            screensaverDateText.setForeground(TEXT_COLOR);
+            screensaver.setScreensaver(1);
+        } // --------------------------------------------
+       
         
-        else if(buttonClicked == s_awayFromScreenOption2)
-            screensaver.setScreensaver("simpleBackground");
         
+        
+        // --- FISH TANK SCREENSAVER ---------------------
+        else if(buttonClicked == s_awayFromScreenOption2){
+            screensaver.setScreensaver(2);
+        } // ---------------------------------------------
+        
+        
+        
+        
+        //  --- BLANK BLACK SCREENSAVER --------------- 
         else if(buttonClicked == s_awayFromScreenOption3){
-            screensaverPanel.setBackground(PRIMARY_COLOR);
-            screensaver.setScreensaver("clock");
-        }
+            // Background 
+            screensaverPanel.setBackground(Color.BLACK);
+            screensaver.setScreensaver(3);
+        } // ----------------------------------------------
         
+        
+        
+        
+        //  --- TODAYS PROGRESS SCREENSAVER ----------------- 
         else if(buttonClicked == s_awayFromScreenOption4){
+            // Title:
             screensaverTodaysProgressTitle.setBackground(PRIMARY_COLOR);
             screensaverTodaysProgressTitle.setForeground(TEXT_COLOR);
-            screensaverTodaysProgress.setBackground(PRIMARY_COLOR);
-            screensaverTodaysProgressDisplay.setBackground(SECONDARY_COLOR);
-            screensaverPanel.setBackground(PRIMARY_COLOR);
-            screensaver.setScreensaver("todayProgress");
-        }
+            // Center Piece:
+            screensaverTodaysProgress.setBackground(SECONDARY_COLOR);
+            screensaverTodaysProgressDisplay.setBackground(PRIMARY_COLOR);
+            // Background 
+            screensaverPanel.setBackground(darkenColor(PRIMARY_COLOR));
+            screensaver.setScreensaver(4);
+        } // -------------------------------------------------
 
-        else if(buttonClicked == s_awayFromScreenOption5)
-            screensaver.setScreensaver("progressPanel");
         
+
+        //  --- OVERALL PROGRESS SCREENSAVER --------------- 
+        else if(buttonClicked == s_awayFromScreenOption5){
+            screensaver.setScreensaver(5);
+        } // -----------------------------------------------
+        
+        
+        
+        
+        //  --- SIMPLE CLOCK AND DATE SCREENSAVER --------- 
         else if(buttonClicked == s_awayFromScreenOption6){
-            screensaverPanel.setBackground(Color.BLACK);
-            screensaver.setScreensaver("none");
-        }
-                                
+            // Background 
+            screensaverPanel.setBackground(PRIMARY_COLOR);
+            screensaverTimeText.setForeground(TEXT_COLOR);
+            screensaverDateText.setForeground(TEXT_COLOR);
+            screensaver.setScreensaver(6);
+        } // ------------------------------------------- 
     }//GEN-LAST:event_awayFromScreenOptionClicked
 
 
@@ -3083,6 +3172,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel s_title;
     private javax.swing.JButton s_turnOffAwayFromScreenButton;
     private javax.swing.JLabel screensaverDateText;
+    private javax.swing.JLabel screensaverFishTankBackground;
     private javax.swing.JPanel screensaverPanel;
     private javax.swing.JLabel screensaverTimeText;
     private javax.swing.JPanel screensaverTodaysProgress;
