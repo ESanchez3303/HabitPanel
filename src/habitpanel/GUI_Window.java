@@ -299,6 +299,12 @@ public class GUI_Window extends javax.swing.JFrame {
         n_progressCover = new javax.swing.JPanel();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
+        eh_chooseHabitPanel = new javax.swing.JPanel();
+        eh_chooseHabitTitle = new javax.swing.JLabel();
+        eh_chooseHabitDisplay = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         home = new javax.swing.JPanel();
         h_scrollUpPanel = new javax.swing.JPanel();
         h_scrollDownPanel = new javax.swing.JPanel();
@@ -631,6 +637,38 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         eh_title.setOpaque(true);
         editHabit.add(eh_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
+
+        eh_chooseHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_chooseHabitPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_chooseHabitPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_chooseHabitTitle.setBackground(new java.awt.Color(204, 204, 204));
+        eh_chooseHabitTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_chooseHabitTitle.setForeground(java.awt.Color.white);
+        eh_chooseHabitTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_chooseHabitTitle.setText("Choose a Habit To Edit:");
+        eh_chooseHabitPanel.add(eh_chooseHabitTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 910, 40));
+
+        eh_chooseHabitDisplay.setBackground(new java.awt.Color(156, 183, 133));
+        eh_chooseHabitDisplay.setOpaque(false);
+        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10);
+        flowLayout2.setAlignOnBaseline(true);
+        eh_chooseHabitDisplay.setLayout(flowLayout2);
+        eh_chooseHabitPanel.add(eh_chooseHabitDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 870, 430));
+
+        editHabit.add(eh_chooseHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
+
+        jPanel2.setBackground(new java.awt.Color(255, 153, 153));
+        jPanel2.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jButton1.setText("Delete Habit");
+        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 290, 90));
+
+        jButton2.setText("Choose Color");
+        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 70));
+
+        editHabit.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 190, 700, 180));
 
         getContentPane().add(editHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
@@ -1950,8 +1988,9 @@ public class GUI_Window extends javax.swing.JFrame {
             ah_ResetButtonMouseClicked(null); // Reset the addhabit panel
         }
         else if(target == editHabit){
-//            editHabitButton.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
+//          editHabitButton.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
             n_editHabitCover.setVisible(true);
+            eh_resetPanel(null);      // Reset the edit habit panel
         }
         else if(target == editHistory){
 //            editHistoryButton.setBorder(new SoftBevelBorder(BevelBorder.RAISED));
@@ -2091,8 +2130,9 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // ADD HABIT
             ah_NamePanel, ah_SummaryPanel, ah_DaysPanel, ah_QuantityPanel,
-            // EDIT HABIT
             
+            // EDIT HABIT
+            eh_chooseHabitPanel,
         };
         JPanel secondaryColored[] = {
             // HOME SCREEN:
@@ -2938,6 +2978,49 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     
+    private void eh_resetPanel(java.awt.event.MouseEvent evt){
+        // Clearing inputs from ALL steps
+        eh_chooseHabitDisplay.removeAll(); // Removes all previous buttons from the display 
+        
+        
+        // We can let the amount of habits that we have decide how big these buttons will be:
+        // -> We want there to always be a max of 5 columns, wich means we can decide the height
+        int totalW = eh_chooseHabitDisplay.getWidth();
+        int totalH = eh_chooseHabitDisplay.getHeight();
+        int buttonW = 150; // Making these dynamic 
+        int buttonH = 100; // Making these dynamic 
+        
+        
+        
+        
+        
+        
+        // Adding the current saved habits into the eh_chooseHabitDisplay (JPanel)
+        for(HabitCard_Quantity currCard : allQuantityCards){
+            JButton newButton = new JButton();                    // Making button 
+            newButton.setPreferredSize(new Dimension(buttonW,buttonH)); // Setting the size of the button
+            newButton.setText(currCard.getHabitName());           // Setting the text of the button
+            newButton.setBackground(currCard.getColor());         // Setting the Background color (using the habit color)
+            newButton.setForeground(Color.BLACK);                 // Setting the foregroudn color (just regular black)
+            eh_chooseHabitDisplay.add(newButton);                 // Adding the new button to the display
+        }
+        for(HabitCard_YesNo currCard : allYesNoCards){
+            JButton newButton = new JButton();
+            newButton.setPreferredSize(new Dimension(buttonW,buttonH));
+            newButton.setText(currCard.getHabitName());
+            newButton.setBackground(currCard.getColor());
+            newButton.setForeground(Color.BLACK);
+            eh_chooseHabitDisplay.add(newButton);
+        }
+        
+        // Making next steps invisible
+        
+        
+        // Making first steps visible
+        eh_chooseHabitTitle.setVisible(true);
+    }
+    
+    
     
     
 
@@ -3094,6 +3177,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton editHabitButton;
     private javax.swing.JPanel editHistory;
     private javax.swing.JButton editHistoryButton;
+    private javax.swing.JPanel eh_chooseHabitDisplay;
+    private javax.swing.JPanel eh_chooseHabitPanel;
+    private javax.swing.JLabel eh_chooseHabitTitle;
     private javax.swing.JLabel eh_title;
     private javax.swing.JTextField h_addHabitName;
     private javax.swing.JLabel h_date;
@@ -3103,6 +3189,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
     private javax.swing.JButton homeButton;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JButton key1;
     private javax.swing.JButton key10;
     private javax.swing.JButton key11;

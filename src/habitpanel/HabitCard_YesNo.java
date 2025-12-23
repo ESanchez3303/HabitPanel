@@ -318,6 +318,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     public void setComplete(boolean state){
         isComplete = state;
     }
+    
+    public Color getColor(){
+        return habitColor;
+    }
     // ===================================================================================================
     
     

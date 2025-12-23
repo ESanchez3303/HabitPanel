@@ -449,7 +449,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return true;
     }
    
-    
+    public Color getColor(){
+        return habitColor;
+    }
     
     // ===================================================================================================
 
