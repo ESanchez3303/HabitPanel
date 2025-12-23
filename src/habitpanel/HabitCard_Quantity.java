@@ -16,7 +16,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     private Color shadowColor = new Color(70,70,70);
     private Color greenColor = new Color(20,255,20);
     private int progessThickness = 10; 
-    private int effectThickness = 10;
+    private int effectThickness = 10; 
     private int pressOffset = 0;          // current visual offset
     private int targetPressOffset = 0;    // where we want to go
     private final int MAX_PRESS = effectThickness-1;
@@ -104,9 +104,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         // ------------------------------
         // OUTER RING CIRCLE (BORDER)
         // ------------------------------
-        g2.setStroke(new BasicStroke(1));
-        g2.setColor(Color.BLACK);
-        g2.drawArc(outerX, outerY+pressOffset, outerDiameter, outerDiameter, 90, 360);
+        //g2.setStroke(new BasicStroke(1));
+        //g2.setColor(Color.BLACK);
+        //g2.drawArc(outerX, outerY+pressOffset, outerDiameter, outerDiameter, 90, 360);
         
         g2.dispose();
     }

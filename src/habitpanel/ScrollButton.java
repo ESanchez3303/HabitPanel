@@ -34,10 +34,10 @@ public class ScrollButton extends JPanel {
         setOpaque(false); 
         setLayout(null);
         
-        if(type == Type.UP)
-            setBounds(10 ,45, 950, 90);
+        if(type == Type.UP) //45
+            setBounds(10 ,70, 950, 90);
         else
-            setBounds(10, 500, 950, 90);
+            setBounds(10, 495, 950, 90);
     }
 
     @Override
@@ -69,13 +69,15 @@ public class ScrollButton extends JPanel {
         g2.fill(shadow);
 
         // --- BORDER ---
+        /*
         g2.setColor(Color.BLACK);
         g2.setStroke(new BasicStroke(1));
         g2.drawLine(xPadding+thickness, yPill+pressOffset, w-xPadding-thickness/2, yPill+pressOffset);
         g2.drawLine(xPadding+thickness, yPill+thickness+pressOffset, w-xPadding-thickness/2, yPill+thickness+pressOffset);
         g2.draw(new Arc2D.Double(xPadding+thickness/2, yPill+pressOffset, thickness, thickness, 90, 180, Arc2D.OPEN));
         g2.draw(new Arc2D.Double(w-xPadding-thickness, yPill+pressOffset, thickness, thickness, 270, 180, Arc2D.OPEN));
-        
+        */
+
         // --- POINTING ARROW ---
         shape.reset();
         shape.moveTo(w/2, yArrow+pressOffset);

@@ -45,26 +45,30 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // 3D EFFECT
         // ------------------------------
         g2.setColor(shadowColor);
-        g2.fillOval(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter);
+        g2.fillOval(outerX, outerY+effectThickness, outerDiameter, outerDiameter);
         g2.setColor(Color.BLACK);
-        g2.drawArc(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter, 0,360);
+        g2.drawArc(outerX, outerY+effectThickness-1, outerDiameter, outerDiameter, 0, 360);
         
         
         // ------------------------------
-        // INNER RING FILL COLOR
+        // BIG RING FILL COLOR (Color if its not green)
         // ------------------------------
         g2.setColor(ringBackColor);  // ring color
         g2.fillOval(outerX, outerY+pressOffset, outerDiameter, outerDiameter);
         
         
         // ------------------------------
-        // PROGRESS ARC (clockwise fill)
+        // GREEN RING AROUND 
         // ------------------------------
         
         g2.setStroke(new BasicStroke(progessThickness));
         g2.setColor(greenColor);
 
-        g2.drawArc(outerX+progessThickness/2, outerY+progessThickness/2+pressOffset, outerDiameter-progessThickness, outerDiameter-progessThickness, 90, - (isComplete ? 360 : 0));
+        g2.drawArc(outerX+progessThickness/2, 
+                outerY+progessThickness/2+pressOffset, 
+                outerDiameter-progessThickness, 
+                outerDiameter-progessThickness, 90, 
+                (isComplete ? 360 : 0));                 // Depending on if isComplete is true/false, we make the circle fully or to "0 degrees"
         
         
         // ------------------------------
@@ -77,9 +81,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // ------------------------------
         // OUTER RING CIRCLE (BORDER)
         // ------------------------------
-        g2.setStroke(new BasicStroke(1));
-        g2.setColor(Color.BLACK);
-        g2.drawArc(outerX, outerY+pressOffset, outerDiameter, outerDiameter, 90, 360);
+        //g2.setStroke(new BasicStroke(1));
+        //g2.setColor(Color.BLACK);
+        //g2.drawArc(outerX, outerY+pressOffset, outerDiameter, outerDiameter, 90, 360);
         
         g2.dispose();
     }
