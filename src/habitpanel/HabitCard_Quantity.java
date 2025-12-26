@@ -417,19 +417,31 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return quantity;
     }
     
-    public boolean isComplete(){
-        return quantity >= goal;
+    public double getGoal(){
+        return goal;
     }
     
+    public double getIncrement(){
+        return increment;
+    }
     
-    // Geting Name
+    public Color getHabitColor(){
+        return habitColor;
+    }
+    
     public String getHabitName(){
         return habitName.getText();
     }
     
+    
     public String getWeek(){
         return week;
     }
+    
+    public boolean isComplete(){
+        return quantity >= goal;
+    }
+    
     
     public void setQuantity(double quantityInput){
         quantity = quantityInput;
@@ -449,9 +461,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return true;
     }
    
-    public Color getColor(){
-        return habitColor;
-    }
+    
     
     // ===================================================================================================
 
