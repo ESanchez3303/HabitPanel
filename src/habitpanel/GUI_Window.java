@@ -182,7 +182,7 @@ class Screensaver {
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 60;                 // In seconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 3;                 // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(221,178,93);    // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
@@ -309,17 +309,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_title = new javax.swing.JLabel();
         eh_editHabitPanel = new javax.swing.JPanel();
         eh_editHabitText1 = new javax.swing.JLabel();
-        eh_editIncrementAndGoalPanel = new javax.swing.JPanel();
-        eh_IncrementPointOne = new javax.swing.JToggleButton();
-        eh_IncrementPointFive = new javax.swing.JToggleButton();
-        eh_IncrementOne = new javax.swing.JToggleButton();
-        eh_euantityIncrease = new javax.swing.JButton();
-        eh_editIncrementAndGoalSaveButton = new javax.swing.JButton();
-        eh_editIncrementAndGoalText1 = new javax.swing.JLabel();
-        eh_editIncrementAndGoalQuantity = new javax.swing.JLabel();
-        eh_editIncrementAndGoalText2 = new javax.swing.JLabel();
-        eh_quantityDecrease = new javax.swing.JButton();
-        eh_editIncrementAndGoalCancelButton = new javax.swing.JButton();
         eh_editHabitSummaryPanel = new javax.swing.JPanel();
         eh_editHabitText2 = new javax.swing.JLabel();
         eh_editHabitText3 = new javax.swing.JLabel();
@@ -335,6 +324,17 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editColorButton = new javax.swing.JButton();
         eh_editIncrementAndGoalButton = new javax.swing.JButton();
         eh_editDaysButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalPanel = new javax.swing.JPanel();
+        eh_IncrementPointOne = new javax.swing.JToggleButton();
+        eh_IncrementPointFive = new javax.swing.JToggleButton();
+        eh_IncrementOne = new javax.swing.JToggleButton();
+        eh_euantityIncrease = new javax.swing.JButton();
+        eh_editIncrementAndGoalSaveButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalText1 = new javax.swing.JLabel();
+        eh_editIncrementAndGoalGoal = new javax.swing.JLabel();
+        eh_editIncrementAndGoalText2 = new javax.swing.JLabel();
+        eh_quantityDecrease = new javax.swing.JButton();
+        eh_editIncrementAndGoalCancelButton = new javax.swing.JButton();
         eh_editDaysPanel = new javax.swing.JPanel();
         eh_Monday = new javax.swing.JToggleButton();
         eh_Tuesday = new javax.swing.JToggleButton();
@@ -703,95 +703,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editHabitPanel.add(eh_editHabitText1);
         eh_editHabitText1.setBounds(10, 20, 890, 40);
 
-        eh_editIncrementAndGoalPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editIncrementAndGoalPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementPointOne.setForeground(java.awt.Color.white);
-        eh_IncrementPointOne.setText("+0.1");
-        eh_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, 40));
-
-        eh_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementPointFive.setForeground(java.awt.Color.white);
-        eh_IncrementPointFive.setText("+0.5");
-        eh_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 40));
-
-        eh_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementOne.setForeground(java.awt.Color.white);
-        eh_IncrementOne.setText("+1");
-        eh_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 40));
-
-        eh_euantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
-        eh_euantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_euantityIncrease.setForeground(java.awt.Color.white);
-        eh_euantityIncrease.setText("+");
-        eh_euantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_euantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_quantityDecreasedIncreasedButtonClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_euantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 80, 60));
-
-        eh_editIncrementAndGoalSaveButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editIncrementAndGoalSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editIncrementAndGoalSaveButton.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalSaveButton.setText("Save");
-        eh_editIncrementAndGoalSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
-
-        eh_editIncrementAndGoalText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalText1.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalText1.setText("Increment:");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 400, 60));
-
-        eh_editIncrementAndGoalQuantity.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalQuantity.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalQuantity.setText("0.0");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 60));
-
-        eh_editIncrementAndGoalText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalText2.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalText2.setText("Goal:");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 400, 60));
-
-        eh_quantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
-        eh_quantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_quantityDecrease.setForeground(java.awt.Color.white);
-        eh_quantityDecrease.setText("-");
-        eh_quantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_quantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_quantityDecreasedIncreasedButtonClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_quantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 80, 60));
-
-        eh_editIncrementAndGoalCancelButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editIncrementAndGoalCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editIncrementAndGoalCancelButton.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalCancelButton.setText("Cancel/Reset");
-        eh_editIncrementAndGoalCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editIncrementAndGoalCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
-
-        eh_editHabitPanel.add(eh_editIncrementAndGoalPanel);
-        eh_editIncrementAndGoalPanel.setBounds(130, 80, 630, 380);
-
         eh_editHabitSummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editHabitSummaryPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         eh_editHabitSummaryPanel.setLayout(null);
@@ -914,6 +825,100 @@ public class GUI_Window extends javax.swing.JFrame {
 
         eh_editHabitPanel.add(eh_editHabitSummaryPanel);
         eh_editHabitSummaryPanel.setBounds(130, 80, 630, 280);
+
+        eh_editIncrementAndGoalPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editIncrementAndGoalPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementPointOne.setForeground(java.awt.Color.white);
+        eh_IncrementPointOne.setText("+0.1");
+        eh_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, 40));
+
+        eh_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementPointFive.setForeground(java.awt.Color.white);
+        eh_IncrementPointFive.setText("+0.5");
+        eh_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 40));
+
+        eh_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementOne.setForeground(java.awt.Color.white);
+        eh_IncrementOne.setText("+1");
+        eh_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 40));
+
+        eh_euantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
+        eh_euantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_euantityIncrease.setForeground(java.awt.Color.white);
+        eh_euantityIncrease.setText("+");
+        eh_euantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_euantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_quantityDecreasedIncreasedButtonClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_euantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 80, 60));
+
+        eh_editIncrementAndGoalSaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editIncrementAndGoalSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editIncrementAndGoalSaveButton.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalSaveButton.setText("Save");
+        eh_editIncrementAndGoalSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
+
+        eh_editIncrementAndGoalText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalText1.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalText1.setText("Increment:");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 400, 60));
+
+        eh_editIncrementAndGoalGoal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalGoal.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalGoal.setText("0.0");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 60));
+
+        eh_editIncrementAndGoalText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalText2.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalText2.setText("Goal:");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 400, 60));
+
+        eh_quantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
+        eh_quantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_quantityDecrease.setForeground(java.awt.Color.white);
+        eh_quantityDecrease.setText("-");
+        eh_quantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_quantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_quantityDecreasedIncreasedButtonClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_quantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 80, 60));
+
+        eh_editIncrementAndGoalCancelButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editIncrementAndGoalCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editIncrementAndGoalCancelButton.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalCancelButton.setText("Cancel/Reset");
+        eh_editIncrementAndGoalCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
+
+        eh_editHabitPanel.add(eh_editIncrementAndGoalPanel);
+        eh_editIncrementAndGoalPanel.setBounds(130, 80, 630, 380);
 
         eh_editDaysPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editDaysPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -2648,7 +2653,7 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // EDIT HABIT
             eh_title, eh_chooseHabitTitle, eh_editHabitText1, eh_editHabitText2, eh_editHabitText3, eh_editHabitText4, 
-            eh_editHabitText5, eh_editHabitText6, eh_editIncrementAndGoalText1, eh_editIncrementAndGoalText2, eh_editIncrementAndGoalQuantity,
+            eh_editHabitText5, eh_editHabitText6, eh_editIncrementAndGoalText1, eh_editIncrementAndGoalText2, eh_editIncrementAndGoalGoal,
             
             // SCREENSAVER PANEL
             screensaverTimeText, screensaverDateText,
@@ -3777,12 +3782,12 @@ public class GUI_Window extends javax.swing.JFrame {
         switch (eh_increment.getText()) {
             case "0.1" -> eh_IncrementPointOne.setSelected(true);
             case "0.5" -> eh_IncrementPointFive.setSelected(true);
-            case "1" -> eh_IncrementOne.setSelected(true);
+            case "1.0" -> eh_IncrementOne.setSelected(true);
             default -> {return;}
         }
         
         // Setting the saved quantity
-        eh_editIncrementAndGoalQuantity.setText(eh_goal.getText());
+        eh_editIncrementAndGoalGoal.setText(eh_goal.getText());
         
         eh_editIncrementAndGoalPanel.setVisible(true);
         eh_editHabitSummaryPanel.setVisible(false);
@@ -3800,8 +3805,33 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_eh_editIncrementAndGoalCancelButtonMouseClicked
 
     private void eh_quantityDecreasedIncreasedButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_quantityDecreasedIncreasedButtonClicked
+        // Grabbing data first
+        double incrementChosen = (eh_IncrementPointOne.isSelected() ? 0.1 : (eh_IncrementPointFive.isSelected() ? 0.5 : 1));
+        double currentGoal = Double.parseDouble(eh_editIncrementAndGoalGoal.getText());
         
+        // Setting to minus increment or plus increment
+        incrementChosen *= ((JButton)evt.getSource()).getText().equals("-") ? -1 : 1;
+        
+        // Incrementing 
+        currentGoal += incrementChosen;
+        currentGoal = Math.round(currentGoal * 10.0) / 10.0; // Rounding to get better numbers
+        if(currentGoal < 0) currentGoal = 0; // Making sure we dont go negative
+        
+        // Setting the text 
+        eh_editIncrementAndGoalGoal.setText(Double.toString(currentGoal));
     }//GEN-LAST:event_eh_quantityDecreasedIncreasedButtonClicked
+
+    private void eh_editIncrementAndGoalSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editIncrementAndGoalSaveButtonMouseClicked
+        eh_goal.setText(eh_editIncrementAndGoalGoal.getText());
+        eh_increment.setText(eh_IncrementPointOne.isSelected() ? "0.1" : (eh_IncrementPointFive.isSelected() ? "0.5" : "1.0"));
+        
+        // Switching back to summary panel
+        eh_editIncrementAndGoalPanel.setVisible(false);
+        eh_editHabitSummaryPanel.setVisible(true);
+        eh_deleteHabitButton.setVisible(true);
+        eh_cancelChangesButton.setVisible(true);
+        eh_saveHabitButton.setVisible(true);
+    }//GEN-LAST:event_eh_editIncrementAndGoalSaveButtonMouseClicked
 
     
    
@@ -3994,8 +4024,8 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel eh_editHabitText6;
     private javax.swing.JButton eh_editIncrementAndGoalButton;
     private javax.swing.JButton eh_editIncrementAndGoalCancelButton;
+    private javax.swing.JLabel eh_editIncrementAndGoalGoal;
     private javax.swing.JPanel eh_editIncrementAndGoalPanel;
-    private javax.swing.JLabel eh_editIncrementAndGoalQuantity;
     private javax.swing.JButton eh_editIncrementAndGoalSaveButton;
     private javax.swing.JLabel eh_editIncrementAndGoalText1;
     private javax.swing.JLabel eh_editIncrementAndGoalText2;
