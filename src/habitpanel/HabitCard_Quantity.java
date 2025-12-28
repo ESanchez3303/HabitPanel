@@ -438,6 +438,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return week;
     }
     
+    public void setWeek(String newWeek){
+        week = newWeek;
+    }
+    
     public boolean isComplete(){
         return quantity >= goal;
     }

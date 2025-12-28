@@ -301,9 +301,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_title = new javax.swing.JLabel();
         eh_editHabitPanel = new javax.swing.JPanel();
         eh_editHabitText1 = new javax.swing.JLabel();
-        eh_deleteHabitButton = new javax.swing.JButton();
-        eh_cancelChangesButton = new javax.swing.JButton();
-        eh_saveHabitButton = new javax.swing.JButton();
         eh_editHabitSummaryPanel = new javax.swing.JPanel();
         eh_editHabitText2 = new javax.swing.JLabel();
         eh_editHabitText3 = new javax.swing.JLabel();
@@ -320,10 +317,24 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editGoalButton = new javax.swing.JButton();
         eh_editIncrementButton = new javax.swing.JButton();
         eh_editDaysButton = new javax.swing.JButton();
+        eh_editDaysPanel = new javax.swing.JPanel();
+        eh_Monday = new javax.swing.JToggleButton();
+        eh_Tuesday = new javax.swing.JToggleButton();
+        eh_Wednesday = new javax.swing.JToggleButton();
+        eh_Thursday = new javax.swing.JToggleButton();
+        eh_Friday = new javax.swing.JToggleButton();
+        eh_Saturday = new javax.swing.JToggleButton();
+        eh_Sunday = new javax.swing.JToggleButton();
+        eh_editDaysSaveButton = new javax.swing.JButton();
+        eh_editDaysCancelButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
         eh_editNamePanel = new javax.swing.JPanel();
         eh_editNameCancelButton = new javax.swing.JButton();
         eh_editNameSaveButton = new javax.swing.JButton();
         eh_nameInput = new javax.swing.JTextField();
+        eh_deleteHabitButton = new javax.swing.JButton();
+        eh_cancelChangesButton = new javax.swing.JButton();
+        eh_saveHabitButton = new javax.swing.JButton();
         eh_chooseHabitPanel = new javax.swing.JPanel();
         eh_chooseHabitTitle = new javax.swing.JLabel();
         eh_scrollPane = new javax.swing.JScrollPane();
@@ -674,36 +685,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editHabitPanel.add(eh_editHabitText1);
         eh_editHabitText1.setBounds(10, 20, 890, 40);
 
-        eh_deleteHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_deleteHabitButton.setText("Delete Habit");
-        eh_deleteHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_deleteHabitButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitPanel.add(eh_deleteHabitButton);
-        eh_deleteHabitButton.setBounds(130, 390, 200, 70);
-
-        eh_cancelChangesButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_cancelChangesButton.setText("Cancel / Go Back");
-        eh_cancelChangesButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_cancelChangesButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitPanel.add(eh_cancelChangesButton);
-        eh_cancelChangesButton.setBounds(345, 390, 200, 70);
-
-        eh_saveHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_saveHabitButton.setText("Save Habit");
-        eh_saveHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_saveHabitButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitPanel.add(eh_saveHabitButton);
-        eh_saveHabitButton.setBounds(560, 390, 200, 70);
-
         eh_editHabitSummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editHabitSummaryPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         eh_editHabitSummaryPanel.setLayout(null);
@@ -816,11 +797,104 @@ public class GUI_Window extends javax.swing.JFrame {
 
         eh_editDaysButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         eh_editDaysButton.setText("Edit");
+        eh_editDaysButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editDaysButtonMouseClicked(evt);
+            }
+        });
         eh_editHabitSummaryPanel.add(eh_editDaysButton);
         eh_editDaysButton.setBounds(410, 125, 170, 30);
 
         eh_editHabitPanel.add(eh_editHabitSummaryPanel);
         eh_editHabitSummaryPanel.setBounds(130, 80, 630, 280);
+
+        eh_editDaysPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editDaysPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_Monday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Monday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Monday.setForeground(java.awt.Color.white);
+        eh_Monday.setText("Monday");
+        eh_Monday.setToolTipText("");
+        eh_Monday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Monday, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 140, 70));
+
+        eh_Tuesday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Tuesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Tuesday.setForeground(java.awt.Color.white);
+        eh_Tuesday.setText("Tuesday");
+        eh_Tuesday.setToolTipText("");
+        eh_Tuesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Tuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 140, 70));
+
+        eh_Wednesday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Wednesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Wednesday.setForeground(java.awt.Color.white);
+        eh_Wednesday.setText("Wednesday");
+        eh_Wednesday.setToolTipText("");
+        eh_Wednesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Wednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 140, 70));
+
+        eh_Thursday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Thursday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Thursday.setForeground(java.awt.Color.white);
+        eh_Thursday.setText("Thursday");
+        eh_Thursday.setToolTipText("");
+        eh_Thursday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Thursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 140, 70));
+
+        eh_Friday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Friday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Friday.setForeground(java.awt.Color.white);
+        eh_Friday.setText("Friday");
+        eh_Friday.setToolTipText("");
+        eh_Friday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Friday, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 140, 70));
+
+        eh_Saturday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Saturday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Saturday.setForeground(java.awt.Color.white);
+        eh_Saturday.setText("Saturday");
+        eh_Saturday.setToolTipText("");
+        eh_Saturday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Saturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 140, 70));
+
+        eh_Sunday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Sunday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Sunday.setForeground(java.awt.Color.white);
+        eh_Sunday.setText("Sunday");
+        eh_Sunday.setToolTipText("");
+        eh_Sunday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Sunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 140, 70));
+
+        eh_editDaysSaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editDaysSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editDaysSaveButton.setForeground(java.awt.Color.white);
+        eh_editDaysSaveButton.setText("Save");
+        eh_editDaysSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editDaysSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editDaysPanel.add(eh_editDaysSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
+
+        eh_editDaysCancelButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editDaysCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editDaysCancelButton.setForeground(java.awt.Color.white);
+        eh_editDaysCancelButton.setText("Cancel/Reset");
+        eh_editDaysCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editDaysCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editDaysPanel.add(eh_editDaysCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
+        eh_editDaysPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 570, 20));
+
+        eh_editHabitPanel.add(eh_editDaysPanel);
+        eh_editDaysPanel.setBounds(130, 80, 630, 380);
 
         eh_editNamePanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editNamePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
@@ -829,7 +903,7 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editNameCancelButton.setBackground(new java.awt.Color(156, 183, 133));
         eh_editNameCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         eh_editNameCancelButton.setForeground(java.awt.Color.white);
-        eh_editNameCancelButton.setText("Cancel");
+        eh_editNameCancelButton.setText("Cancel/Reset");
         eh_editNameCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         eh_editNameCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -859,6 +933,36 @@ public class GUI_Window extends javax.swing.JFrame {
 
         eh_editHabitPanel.add(eh_editNamePanel);
         eh_editNamePanel.setBounds(130, 80, 630, 230);
+
+        eh_deleteHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_deleteHabitButton.setText("Delete Habit");
+        eh_deleteHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_deleteHabitButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitPanel.add(eh_deleteHabitButton);
+        eh_deleteHabitButton.setBounds(130, 390, 200, 70);
+
+        eh_cancelChangesButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_cancelChangesButton.setText("Cancel / Go Back");
+        eh_cancelChangesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_cancelChangesButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitPanel.add(eh_cancelChangesButton);
+        eh_cancelChangesButton.setBounds(345, 390, 200, 70);
+
+        eh_saveHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_saveHabitButton.setText("Save Habit");
+        eh_saveHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_saveHabitButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitPanel.add(eh_saveHabitButton);
+        eh_saveHabitButton.setBounds(560, 390, 200, 70);
 
         editHabit.add(eh_editHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
 
@@ -2376,6 +2480,7 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // EDIT HABIT:
             eh_chooseHabitPanel, eh_chooseHabitDisplay, eh_editHabitPanel, eh_editHabitSummaryPanel, eh_editNamePanel,
+            eh_editDaysPanel,
         };
         JPanel secondaryColored[] = {
             // HOME SCREEN:
@@ -2412,6 +2517,7 @@ public class GUI_Window extends javax.swing.JFrame {
             // EDIT HABIT
             eh_scrollUpButton, eh_scrollDownButton, eh_editNameButton, eh_editColorButton, eh_editGoalButton, eh_editIncrementButton,
             eh_editDaysButton, eh_deleteHabitButton, eh_cancelChangesButton, eh_saveHabitButton, eh_editNameCancelButton, eh_editNameSaveButton,
+            eh_editDaysCancelButton, eh_editDaysSaveButton,
             
         };
         
@@ -2444,6 +2550,7 @@ public class GUI_Window extends javax.swing.JFrame {
         JToggleButton toggleButtonColored[] = {
             ah_Monday, ah_Tuesday, ah_Wednesday, ah_Thursday, ah_Friday, ah_Saturday, ah_Sunday,  
             ah_IncrementPointOne, ah_IncrementPointFive, ah_IncrementOne,
+            eh_Monday, eh_Tuesday, eh_Wednesday, eh_Thursday, eh_Friday, eh_Saturday, eh_Sunday,  
         };
        
         
@@ -3237,6 +3344,7 @@ public class GUI_Window extends javax.swing.JFrame {
     
     private HabitCard_Quantity targetQuantityCard = null;
     private HabitCard_YesNo targetYesNoCard = null;
+    private String savedWeek = "";
     
     private void eh_resetPanel(){
         // Resetting everything
@@ -3246,9 +3354,13 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_scrollPane.getVerticalScrollBar().setValue(0); // Resetting the scroll pane
         keyboard.setVisible(false);
         keyboard.setLocation(190,-330);
+        eh_deleteHabitButton.setVisible(true);
+        eh_cancelChangesButton.setVisible(true);
+        eh_saveHabitButton.setVisible(true);
         eh_editHabitPanel.setVisible(false);
         eh_editHabitSummaryPanel.setVisible(true);
         eh_editNamePanel.setVisible(false);
+        eh_editDaysPanel.setVisible(false);
         
         
         
@@ -3381,6 +3493,8 @@ public class GUI_Window extends javax.swing.JFrame {
         newWeekString += (weekFromCard.charAt(6) == '1' ? " Sun" : "");
         eh_days.setText(newWeekString);
         
+        savedWeek = weekFromCard;
+        
         
         
         // Switching Panels
@@ -3465,6 +3579,74 @@ public class GUI_Window extends javax.swing.JFrame {
             eh_color.setBackground(chosenColor);
         }
     }//GEN-LAST:event_eh_editColorButtonMouseClicked
+
+    private void eh_editDaysButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editDaysButtonMouseClicked
+        // Setting up the days that should be ticked, and unticking the ones that should not
+        String week;
+        if(targetQuantityCard != null)
+            week = targetQuantityCard.getWeek();
+        else 
+            week = targetYesNoCard.getWeek();
+        
+        
+        // If for some reason the week lenght is not 7, we do nothing
+        if(week.length() != 7)
+            return;
+        
+        eh_Monday.setSelected(savedWeek.charAt(0) == '1');
+        eh_Tuesday.setSelected(savedWeek.charAt(1) == '1');
+        eh_Wednesday.setSelected(savedWeek.charAt(2) == '1');
+        eh_Thursday.setSelected(savedWeek.charAt(3) == '1');
+        eh_Friday.setSelected(savedWeek.charAt(4) == '1');
+        eh_Saturday.setSelected(savedWeek.charAt(5) == '1');
+        eh_Sunday.setSelected(savedWeek.charAt(6) == '1');
+        
+        eh_editDaysPanel.setVisible(true);
+        eh_editHabitSummaryPanel.setVisible(false);
+        eh_deleteHabitButton.setVisible(false);
+        eh_cancelChangesButton.setVisible(false);
+        eh_saveHabitButton.setVisible(false);
+    }//GEN-LAST:event_eh_editDaysButtonMouseClicked
+
+    private void eh_editDaysCancelButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editDaysCancelButtonMouseClicked
+        eh_editDaysPanel.setVisible(false);
+        eh_editHabitSummaryPanel.setVisible(true);
+        eh_deleteHabitButton.setVisible(true);
+        eh_cancelChangesButton.setVisible(true);
+        eh_saveHabitButton.setVisible(true);
+    }//GEN-LAST:event_eh_editDaysCancelButtonMouseClicked
+
+    private void eh_editDaysSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editDaysSaveButtonMouseClicked
+        // Building the new week string in binary to get ready to save
+        savedWeek = "";
+        savedWeek += (eh_Monday.isSelected() ? "1" : "0");
+        savedWeek += (eh_Tuesday.isSelected() ? "1" : "0");
+        savedWeek += (eh_Wednesday.isSelected() ? "1" : "0");
+        savedWeek += (eh_Thursday.isSelected() ? "1" : "0");
+        savedWeek += (eh_Friday.isSelected() ? "1" : "0");
+        savedWeek += (eh_Saturday.isSelected() ? "1" : "0");
+        savedWeek += (eh_Sunday.isSelected() ? "1" : "0");
+        
+        // Making the string week to show in summary
+        String newWeekString = ""; 
+        newWeekString += (savedWeek.charAt(0) == '1' ? "Mon" : "");
+        newWeekString += (savedWeek.charAt(1) == '1' ? " Tue" : "");
+        newWeekString += (savedWeek.charAt(2) == '1' ? " Wed" : "");
+        newWeekString += (savedWeek.charAt(3) == '1' ? " Thu" : "");
+        newWeekString += (savedWeek.charAt(4) == '1' ? " Fri" : "");
+        newWeekString += (savedWeek.charAt(5) == '1' ? " Sat" : "");
+        newWeekString += (savedWeek.charAt(6) == '1' ? " Sun" : "");
+        eh_days.setText(newWeekString);
+        
+        
+        System.out.println("new week: " + savedWeek);
+        
+        eh_editDaysPanel.setVisible(false);
+        eh_editHabitSummaryPanel.setVisible(true);
+        eh_deleteHabitButton.setVisible(true);
+        eh_cancelChangesButton.setVisible(true);
+        eh_saveHabitButton.setVisible(true);
+    }//GEN-LAST:event_eh_editDaysSaveButtonMouseClicked
 
     
    
@@ -3625,6 +3807,13 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton editHabitButton;
     private javax.swing.JPanel editHistory;
     private javax.swing.JButton editHistoryButton;
+    private javax.swing.JToggleButton eh_Friday;
+    private javax.swing.JToggleButton eh_Monday;
+    private javax.swing.JToggleButton eh_Saturday;
+    private javax.swing.JToggleButton eh_Sunday;
+    private javax.swing.JToggleButton eh_Thursday;
+    private javax.swing.JToggleButton eh_Tuesday;
+    private javax.swing.JToggleButton eh_Wednesday;
     private javax.swing.JButton eh_cancelChangesButton;
     private javax.swing.JPanel eh_chooseHabitDisplay;
     private javax.swing.JPanel eh_chooseHabitPanel;
@@ -3634,6 +3823,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton eh_deleteHabitButton;
     private javax.swing.JButton eh_editColorButton;
     private javax.swing.JButton eh_editDaysButton;
+    private javax.swing.JButton eh_editDaysCancelButton;
+    private javax.swing.JPanel eh_editDaysPanel;
+    private javax.swing.JButton eh_editDaysSaveButton;
     private javax.swing.JButton eh_editGoalButton;
     private javax.swing.JPanel eh_editHabitPanel;
     private javax.swing.JPanel eh_editHabitSummaryPanel;
@@ -3665,6 +3857,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
     private javax.swing.JButton homeButton;
+    private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton key1;
     private javax.swing.JButton key10;
     private javax.swing.JButton key11;
