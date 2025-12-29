@@ -1,6 +1,5 @@
 package habitpanel;
 import javax.swing.JPanel;
-import java.awt.BasicStroke;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -27,17 +26,28 @@ public class ScrollButton extends JPanel {
     
     
     public enum Type { UP, DOWN }
+    public enum Panel { HOME, EDIT_HABIT }
     private final Type type;
+    private final Panel panel;
     
-    public ScrollButton(Type typeInput) {
+    public ScrollButton(Type typeInput, Panel panelInput) {
         type = typeInput;
+        panel = panelInput;
         setOpaque(false); 
         setLayout(null);
         
-        if(type == Type.UP) //45
-            setBounds(10 ,70, 950, 90);
-        else
-            setBounds(10, 495, 950, 90);
+        if(panel == Panel.HOME){
+            if(type == Type.UP)
+                setBounds(10 ,70, 950, 90);
+            else
+                setBounds(10, 495, 950, 90);
+        }
+        else if (panel == Panel.EDIT_HABIT){
+            if(type == Type.UP)
+                setBounds(40 , 10, 850, 50);
+            else
+                setBounds(30, 430, 850, 50);
+        }
     }
 
     @Override
