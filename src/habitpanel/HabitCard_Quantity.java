@@ -412,7 +412,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     // ===================================================================================================
     
     // Public Functions : ============================================================================
-    // Getting is quantity
+    
+
+    // -- GET FUNCTIONS -- 
     public double getQuantity(){
         return quantity;
     }
@@ -438,19 +440,41 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return week;
     }
     
+    // -- SET FUNCTIONS --
+    public void setHabitName(String newHabitName){
+        habitName.setText(newHabitName);
+    }
+    
+    public void setHabitColor(Color newColor){
+        habitColor = newColor;
+        insidePanel.setBackground(newColor);
+    }
+    
     public void setWeek(String newWeek){
         week = newWeek;
     }
+    
+     public void setIncrement(Double newIncrement){
+        increment = newIncrement;
+    }
+    
+    public void setGoal(Double newGoal){
+        goal = newGoal;
+    }
+    
+    public void setQuantity(double quantityInput){
+        quantity = quantityInput;
+        minusClicked();
+    }
+    
+    
     
     public boolean isComplete(){
         return quantity >= goal;
     }
     
     
-    public void setQuantity(double quantityInput){
-        quantity = quantityInput;
-        minusClicked();
-    }
+    
     
     public boolean isForToday(String day){
         if(day.equals("Monday"))    return (week.charAt(0) == '1');

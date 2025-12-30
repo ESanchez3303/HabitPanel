@@ -287,12 +287,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     // ===================================================================================================
     
     // Public Functions : ============================================================================
-    // Getting is Complete bool
+   
+    // Get Functions
     public boolean isComplete(){
         return isComplete;
     }
     
-    // Geting Name
+    
     public String getHabitName(){
         return habitName.getText();
     }
@@ -300,6 +301,34 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     public String getWeek(){
         return week;
     }
+    
+    public Color getHabitColor(){
+        return habitColor;
+    }
+    
+    // Set Functions:
+    public void setComplete(boolean state){
+        isComplete = state;
+    }
+    
+    public void setHabitName(String newName){
+        habitName.setText(newName);
+    }
+    
+    public void setHabitColor(Color newColor){
+        habitColor = newColor;
+        insidePanel.setBackground(newColor);
+    }
+    public void setWeek(String newWeek){
+        if(newWeek.length() != 7){
+            System.out.println("ERORR: When setting week, new week len is not 7");
+            return;
+        }
+        
+        week = newWeek;
+    }
+    
+   
     
     public boolean isForToday(String day){
         if(day.equals("Monday"))    return (week.charAt(0) == '1');
@@ -315,13 +344,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     }
     
     
-    public void setComplete(boolean state){
-        isComplete = state;
-    }
     
-    public Color getHabitColor(){
-        return habitColor;
-    }
+    
+    
     // ===================================================================================================
     
     

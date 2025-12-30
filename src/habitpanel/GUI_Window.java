@@ -182,7 +182,7 @@ class Screensaver {
 public class GUI_Window extends javax.swing.JFrame {
     
     // MANIPULATABLE VARIABLES: ===========================================
-    int AWAY_FROM_SCREEN_TIME = 3;                 // In seconds (1 minute)
+    int AWAY_FROM_SCREEN_TIME = 60;                 // In seconds (1 minute)
     Color PRIMARY_COLOR = new Color(221,178,93);    // =.
     Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
     Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
@@ -193,6 +193,7 @@ public class GUI_Window extends javax.swing.JFrame {
     // CHANGING VARIABLES: =================================================
     JTextField keyboardTarget = null;    // Holds where we are typing into 
     JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
+    JPanel navSelectorAgain = null;      // Holds the navigation panel for foward refrence
     Screensaver screensaver = new Screensaver();  // Holds the instance of the object that manages the screensaver
     int awayFromScreenCounter = 0;       // Keeps count from 0- AWAY_FROM_SCREEN_TIME
     boolean awayIsOn = true;             // User can set this up through the settings to turn it off 
@@ -279,6 +280,8 @@ public class GUI_Window extends javax.swing.JFrame {
         home.setComponentZOrder(h_scrollUpPanel, 0);
         home.setComponentZOrder(h_scrollDownPanel, 0);
         
+        // Setting up nav selector again for the "illegal foward refrence"
+        navSelectorAgain = navSelector;
         
         
         // Painting the program
@@ -307,21 +310,17 @@ public class GUI_Window extends javax.swing.JFrame {
     private void initComponents() {
 
         navigationPanel = new javax.swing.JPanel();
-        navSelector = new javax.swing.JPanel();
         addHabitButton = new javax.swing.JButton();
         editHistoryButton = new javax.swing.JButton();
         progressButton = new javax.swing.JButton();
         editHabitButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
         homeButton = new javax.swing.JButton();
+        navSelector = new javax.swing.JPanel();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
         eh_editHabitPanel = new javax.swing.JPanel();
         eh_editHabitText1 = new javax.swing.JLabel();
-        eh_editNamePanel = new javax.swing.JPanel();
-        eh_editNameCancelButton = new javax.swing.JButton();
-        eh_editNameSaveButton = new javax.swing.JButton();
-        eh_nameInput = new javax.swing.JTextField();
         eh_editHabitSummaryPanel = new javax.swing.JPanel();
         eh_editHabitText2 = new javax.swing.JLabel();
         eh_editHabitText3 = new javax.swing.JLabel();
@@ -337,6 +336,10 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editColorButton = new javax.swing.JButton();
         eh_editIncrementAndGoalButton = new javax.swing.JButton();
         eh_editDaysButton = new javax.swing.JButton();
+        eh_editNamePanel = new javax.swing.JPanel();
+        eh_editNameCancelButton = new javax.swing.JButton();
+        eh_editNameSaveButton = new javax.swing.JButton();
+        eh_nameInput = new javax.swing.JTextField();
         eh_bottomButtonsPanel = new javax.swing.JPanel();
         eh_cancelChangesButton = new javax.swing.JButton();
         eh_saveHabitButton = new javax.swing.JButton();
@@ -509,23 +512,6 @@ public class GUI_Window extends javax.swing.JFrame {
         navigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
         navigationPanel.setLayout(null);
 
-        navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        navSelector.setOpaque(false);
-
-        javax.swing.GroupLayout navSelectorLayout = new javax.swing.GroupLayout(navSelector);
-        navSelector.setLayout(navSelectorLayout);
-        navSelectorLayout.setHorizontalGroup(
-            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
-        );
-        navSelectorLayout.setVerticalGroup(
-            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
-        );
-
-        navigationPanel.add(navSelector);
-        navSelector.setBounds(3, 3, 63, 100);
-
         addHabitButton.setBackground(new java.awt.Color(193, 144, 69));
         addHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         addHabitButton.setForeground(java.awt.Color.white);
@@ -624,6 +610,22 @@ public class GUI_Window extends javax.swing.JFrame {
         navigationPanel.add(homeButton);
         homeButton.setBounds(0, 0, 68, 100);
 
+        navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout navSelectorLayout = new javax.swing.GroupLayout(navSelector);
+        navSelector.setLayout(navSelectorLayout);
+        navSelectorLayout.setHorizontalGroup(
+            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+        );
+        navSelectorLayout.setVerticalGroup(
+            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 96, Short.MAX_VALUE)
+        );
+
+        navigationPanel.add(navSelector);
+        navSelector.setBounds(3, 3, 63, 100);
+
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
 
         editHabit.setBackground(new java.awt.Color(181, 181, 181));
@@ -649,44 +651,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editHabitText1.setOpaque(true);
         eh_editHabitPanel.add(eh_editHabitText1);
         eh_editHabitText1.setBounds(150, 30, 630, 40);
-
-        eh_editNamePanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editNamePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editNameCancelButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editNameCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editNameCancelButton.setForeground(java.awt.Color.white);
-        eh_editNameCancelButton.setText("Cancel/Reset");
-        eh_editNameCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editNameCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editNameCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editNamePanel.add(eh_editNameCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 70));
-
-        eh_editNameSaveButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editNameSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editNameSaveButton.setForeground(java.awt.Color.white);
-        eh_editNameSaveButton.setText("Save");
-        eh_editNameSaveButton.setToolTipText("");
-        eh_editNameSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editNameSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editNameSaveButtonMouseClicked(evt);
-            }
-        });
-        eh_editNamePanel.add(eh_editNameSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 270, 70));
-
-        eh_nameInput.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_nameInput.setForeground(new java.awt.Color(255, 255, 255));
-        eh_nameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        eh_nameInput.setText("< Enter Name Section >");
-        eh_editNamePanel.add(eh_nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 440, 50));
-
-        eh_editHabitPanel.add(eh_editNamePanel);
-        eh_editNamePanel.setBounds(150, 80, 630, 230);
 
         eh_editHabitSummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editHabitSummaryPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -814,6 +778,44 @@ public class GUI_Window extends javax.swing.JFrame {
 
         eh_editHabitPanel.add(eh_editHabitSummaryPanel);
         eh_editHabitSummaryPanel.setBounds(150, 80, 630, 280);
+
+        eh_editNamePanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editNamePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editNameCancelButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editNameCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editNameCancelButton.setForeground(java.awt.Color.white);
+        eh_editNameCancelButton.setText("Cancel/Reset");
+        eh_editNameCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editNameCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editNameCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editNamePanel.add(eh_editNameCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 70));
+
+        eh_editNameSaveButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editNameSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editNameSaveButton.setForeground(java.awt.Color.white);
+        eh_editNameSaveButton.setText("Save");
+        eh_editNameSaveButton.setToolTipText("");
+        eh_editNameSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editNameSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editNameSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editNamePanel.add(eh_editNameSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 270, 70));
+
+        eh_nameInput.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_nameInput.setForeground(new java.awt.Color(255, 255, 255));
+        eh_nameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        eh_nameInput.setText("< Enter Name Section >");
+        eh_editNamePanel.add(eh_nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 440, 50));
+
+        eh_editHabitPanel.add(eh_editNamePanel);
+        eh_editNamePanel.setBounds(150, 80, 630, 230);
 
         eh_bottomButtonsPanel.setBackground(new java.awt.Color(156, 183, 133));
 
@@ -2531,7 +2533,9 @@ public class GUI_Window extends javax.swing.JFrame {
     // LOADS VARIABLES FROM FILES:
     private void loadVariables(){
         // load colors
+        
         // load custom name
+        
     }
     
     // LOADS HABITS FROM FILES
@@ -2541,7 +2545,6 @@ public class GUI_Window extends javax.swing.JFrame {
         Color temp1 = new Color(153,153,255);
         Color temp2 = new Color(100,204,255);
         Color temp3 = new Color(90,50,30);
-        Color temp4 = new Color(30,204,204);
         Color temp5 = new Color(50,90,255);
         Color temp6 = new Color(100,153,255);
         Color temp7 = new Color(20,204,255);
@@ -2573,7 +2576,6 @@ public class GUI_Window extends javax.swing.JFrame {
         // COLLECTING ALL PANELS, BUTTONS, AND LABELS
         JPanel primaryColored[] = {
             // HOME SCREEN:
-            navigationPanel,
             
             // SETTINGS SCREEN:
             s_colorsPanel, s_customScreensaverPanel, s_awayFromScreenPanel, s_connectionPanel,
@@ -2685,6 +2687,10 @@ public class GUI_Window extends javax.swing.JFrame {
         }
         
         // MISC. PAINTING CALLS : ==============================================================================
+        // NAVIGATION:  Painting the navSelectorPanel so that it can be a different color
+        navSelector.setBackground(PRIMARY_COLOR);
+        navigationPanel.setBackground(darkenColor(PRIMARY_COLOR));
+
         // HOME: Painting the backgrounds of the navigation buttons to the same primary color INSTEAD of the button color
         settingsButton.setBackground(PRIMARY_COLOR);
         addHabitButton.setBackground(PRIMARY_COLOR);
@@ -2771,6 +2777,15 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     // =================================================================================================================================
+    // ================== [ SAVING FUNCTION ] ==========================================================================================
+    // =================================================================================================================================
+    
+    private void saveHabits(){
+        
+    }
+    
+    
+    // =================================================================================================================================
     // ================== [ NAVIGATION PANEL FUNCTIONS ] ===============================================================================
     // =================================================================================================================================
     
@@ -2799,9 +2814,18 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_progressButtonMouseClicked
 
     int navTargetY = 3;
-    Timer navSelectorTimer = new Timer(20,e->{
-        // finish this section here to move the selector up and down 
-        
+    int navSelectorStep = 20; // Make sure this is divisible by 100 (the size of each icon
+    Timer navSelectorTimer = new Timer(10,e->{
+            if(navSelectorAgain.getY() < navTargetY){
+                navSelectorAgain.setLocation(navSelectorAgain.getX(),navSelectorAgain.getY()+navSelectorStep);
+            }
+            else if(navSelectorAgain.getY() > navTargetY){
+                navSelectorAgain.setLocation(navSelectorAgain.getX(),navSelectorAgain.getY()-navSelectorStep);
+            }
+            else{
+                ((Timer)e.getSource()).stop();
+            }
+
     });
     private void moveNavSelector(JButton target){
         if(navSelectorTimer.isRunning())
@@ -3754,7 +3778,19 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_eh_cancelChangesButtonMouseClicked
 
     private void eh_saveHabitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_saveHabitButtonMouseClicked
-        
+        if(targetQuantityCard != null){
+            targetQuantityCard.setHabitName(eh_name.getText());
+            targetQuantityCard.setHabitColor(eh_color.getBackground());
+            targetQuantityCard.setWeek(savedWeek); 
+            targetQuantityCard.setIncrement(Double.valueOf(eh_increment.getText()));
+            targetQuantityCard.setGoal(Double.valueOf(eh_goal.getText()));
+        }
+        else{
+            targetYesNoCard.setHabitName(eh_name.getText());
+            targetYesNoCard.setHabitColor(eh_color.getBackground());
+            targetYesNoCard.setWeek(savedWeek); 
+        }
+        eh_resetPanel();
     }//GEN-LAST:event_eh_saveHabitButtonMouseClicked
 
     private void eh_editNameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editNameButtonMouseClicked
@@ -4011,7 +4047,7 @@ public class GUI_Window extends javax.swing.JFrame {
     }
     
     private Color darkenColor(Color color) {
-        double factor = 0.9; // USE THIS FACTOR 0=darker | 1=lighter
+        double factor = 0.95; // USE THIS FACTOR 0=darker | 1=lighter
         
         int r = Math.max((int)(color.getRed() * factor), 0);
         int g = Math.max((int)(color.getGreen() * factor), 0);
