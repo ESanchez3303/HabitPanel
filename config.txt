@@ -1,6 +1,6 @@
-away_time,60
-away_screen,1
-primary,221,178,93
-secondary,204,204,204
-button,193,144,69
-text,255,255,255
+away_time,120
+away_screen,6
+primary,255,102,153
+secondary,102,255,51
+button,102,102,102
+text,153,255,0
