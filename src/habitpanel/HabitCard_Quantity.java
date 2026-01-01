@@ -327,8 +327,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         // Checking if this puts quantity over goal to give completion message
         if(quantity>=goal){
             completeText.setVisible(true);   
-            completionMap.put(LocalDate.now(), new QuantityEntry(true, quantity, goal));  // Changing the completion status in the map
         }
+        
+        // Changing the completion status in the map -> setting to complete or false depending on if complete text is visible
+        completionMap.put(LocalDate.now(), new QuantityEntry(completeText.isVisible(), quantity, goal));  
         
         animatePress(true); // do the animation, inside the animation it will handle if it will bounce or stay down
         
@@ -514,7 +516,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         week = newWeek;
     }
     
-     public void setIncrement(Double newIncrement){
+    public void setIncrement(Double newIncrement){
         increment = newIncrement;
     }
     

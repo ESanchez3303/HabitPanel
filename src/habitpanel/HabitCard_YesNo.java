@@ -228,8 +228,6 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             // Changing variables
             isComplete = false;
             
-            // Changing the completion status in the map
-            completionMap.put(LocalDate.now(), false);
         }
         
         // Current state is "NOT COMPLETED" -> moving to "COMPLETED"
@@ -249,10 +247,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             
             // Changing variables
             isComplete = true;
-            
-            // Changing the completion status in the map
-            completionMap.put(LocalDate.now(), true);
         }
+        
+        // Changing the completion status in the map
+        completionMap.put(LocalDate.now(), isComplete);
         
         // Repaiting the whole panel which should call the paintComponent, i hopeeeee
         this.repaint();

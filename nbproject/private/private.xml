@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/Emanuel/Desktop/Java/HabitPanel/src/habitpanel/GUI_Window.java</file>
-            <file>file:/C:/Users/Emanuel/Desktop/Java/HabitPanel/src/habitpanel/HabitCard_YesNo.java</file>
-            <file>file:/C:/Users/Emanuel/Desktop/Java/HabitPanel/src/habitpanel/HabitCard_Quantity.java</file>
-            <file>file:/C:/Users/Emanuel/Desktop/Java/HabitPanel/src/habitpanel/ScrollButton.java</file>
+            <file>file:/C:/Users/Emanuel/Desktop/java/HabitPanel/src/habitpanel/HabitCard_Quantity.java</file>
+            <file>file:/C:/Users/Emanuel/Desktop/java/HabitPanel/src/habitpanel/HabitCard_YesNo.java</file>
+            <file>file:/C:/Users/Emanuel/Desktop/java/HabitPanel/src/habitpanel/GUI_Window.java</file>
         </group>
     </open-files>
 </project-private>

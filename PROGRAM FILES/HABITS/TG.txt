@@ -1,6 +1,0 @@
-name=TG
-color=255,102,102
-type=yesno
-days=0011011
-
-2025-12-31=true

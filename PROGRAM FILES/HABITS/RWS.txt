@@ -1,6 +1,0 @@
-name=RWS
-color=102,102,255
-type=yesno
-days=0011011
-
-2025-12-31=false

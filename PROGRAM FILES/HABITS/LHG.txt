@@ -1,6 +1,0 @@
-name=LHG
-color=255,0,204
-type=yesno
-days=0011011
-
-2025-12-31=false

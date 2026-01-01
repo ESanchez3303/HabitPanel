@@ -1,0 +1,7 @@
+name=ES
+color=0,153,153
+type=yesno
+days=1111111
+
+2025-12-31=true
+2026-01-01=true
