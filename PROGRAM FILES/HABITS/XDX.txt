@@ -1,0 +1,6 @@
+name=XDX
+color=255,255,102
+type=yesno
+days=0011011
+
+2025-12-31=false

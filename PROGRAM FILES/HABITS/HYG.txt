@@ -1,0 +1,6 @@
+name=HYG
+color=153,0,153
+type=yesno
+days=0011011
+
+2025-12-31=false

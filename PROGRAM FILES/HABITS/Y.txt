@@ -1,0 +1,6 @@
+name=Y
+color=51,255,51
+type=yesno
+days=0111011
+
+2025-12-31=false

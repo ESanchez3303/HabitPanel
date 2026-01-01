@@ -1,0 +1,6 @@
+name=TR
+color=51,51,255
+type=yesno
+days=0111011
+
+2025-12-31=false

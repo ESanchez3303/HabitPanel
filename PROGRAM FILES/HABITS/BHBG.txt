@@ -1,0 +1,6 @@
+name=BHBG
+color=0,102,153
+type=yesno
+days=0011011
+
+2025-12-31=false

@@ -1,0 +1,6 @@
+name=WFEDR
+color=51,255,204
+type=yesno
+days=0011011
+
+2025-12-31=false
