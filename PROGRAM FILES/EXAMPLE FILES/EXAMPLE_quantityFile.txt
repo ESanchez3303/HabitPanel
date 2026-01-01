@@ -1,0 +1,14 @@
+name=something
+color=255,255,255
+days=100000
+type=quantity
+quantity=3
+increment=1
+goal=10
+
+2025-12-31=true,3.5,5.0
+2025-12-30=true,3.5,5.0
+2025-12-29=true,3.5,5.0
+2025-12-28=true,3.5,5.0
+2025-12-27=true,3.5,5.0
+// date=completed,reached,goal

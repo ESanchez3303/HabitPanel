@@ -1,0 +1,13 @@
+away_time:60
+away_screen:1
+primary:221,178,93
+secondary:204,204,204
+button:193,144,69
+text:255,255,255
+
+2025-12-31=true
+2025-12-30=true
+2025-12-29=true
+2025-12-28=true
+2025-12-27=true
+// date=completion

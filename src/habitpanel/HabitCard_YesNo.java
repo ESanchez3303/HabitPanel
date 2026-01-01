@@ -3,7 +3,9 @@ package habitpanel;
 import java.awt.*;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
-
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
  
 
 public class HabitCard_YesNo extends javax.swing.JPanel {
@@ -22,6 +24,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     private int pressOffset = 0;          // current visual offset
     private int targetPressOffset = 0;    // where we want to go
     private final int MAX_PRESS = effectThickness-1;
+    private Map<LocalDate, Boolean> completionMap = new HashMap<>();
     // ===================================================================================================
 
     
@@ -224,6 +227,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             
             // Changing variables
             isComplete = false;
+            
+            // Changing the completion status in the map
+            completionMap.put(LocalDate.now(), false);
         }
         
         // Current state is "NOT COMPLETED" -> moving to "COMPLETED"
@@ -243,6 +249,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
             
             // Changing variables
             isComplete = true;
+            
+            // Changing the completion status in the map
+            completionMap.put(LocalDate.now(), true);
         }
         
         // Repaiting the whole panel which should call the paintComponent, i hopeeeee
@@ -252,7 +261,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
 
     // ===================================================================================================
     private Timer pressTimer;
-    private void animatePress(boolean pressIn) {
+    public void animatePress(boolean pressIn) {
         targetPressOffset = pressIn ? MAX_PRESS : 0;
 
         if (pressTimer != null && pressTimer.isRunning()) 
@@ -293,7 +302,6 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         return isComplete;
     }
     
-    
     public String getHabitName(){
         return habitName.getText();
     }
@@ -306,29 +314,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         return habitColor;
     }
     
-    // Set Functions:
-    public void setComplete(boolean state){
-        isComplete = state;
+    public String getHabitColorString(){
+        return Integer.toString(habitColor.getRed()) + "," + Integer.toString(habitColor.getGreen()) + "," + Integer.toString(habitColor.getBlue());
     }
-    
-    public void setHabitName(String newName){
-        habitName.setText(newName);
-    }
-    
-    public void setHabitColor(Color newColor){
-        habitColor = newColor;
-        insidePanel.setBackground(newColor);
-    }
-    public void setWeek(String newWeek){
-        if(newWeek.length() != 7){
-            System.out.println("ERORR: When setting week, new week len is not 7");
-            return;
-        }
-        
-        week = newWeek;
-    }
-    
-   
     
     public boolean isForToday(String day){
         if(day.equals("Monday"))    return (week.charAt(0) == '1');
@@ -341,6 +329,45 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         
         JOptionPane.showMessageDialog(mainGUI, "ERROR: " + habitName + " was not able to generate in isForToday() function.");
         return true;
+    }
+    
+    public Map<LocalDate, Boolean> getCompletionMap() {
+        return completionMap;
+    }
+    
+    public boolean getCompleted(LocalDate targetDay){
+        return completionMap.get(targetDay);
+    }
+    
+    // Set Functions:
+    public void setComplete(boolean state){
+        isComplete = state;
+    }
+    
+    public void forceCompleted(){
+        habitNameMouseClicked(null);
+    }
+            
+    public void setHabitName(String newName){
+        habitName.setText(newName);
+    }
+    
+    public void setHabitColor(Color newColor){
+        habitColor = newColor;
+        insidePanel.setBackground(newColor);
+    }
+    
+    public void setWeek(String newWeek){
+        if(newWeek.length() != 7){
+            System.out.println("ERORR: When setting week, new week len is not 7");
+            return;
+        }
+        
+        week = newWeek;
+    }
+    
+    public void addDateEntry(LocalDate  date, boolean completedStatus){
+        completionMap.put(date, completedStatus);
     }
     
     

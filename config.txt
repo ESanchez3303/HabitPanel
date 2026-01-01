@@ -1,6 +1,0 @@
-away_time,120
-away_screen,6
-primary,255,102,153
-secondary,102,255,51
-button,102,102,102
-text,153,255,0

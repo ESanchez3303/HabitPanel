@@ -2,6 +2,35 @@ package habitpanel;
 import java.awt.*;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.Map;
+
+
+class QuantityEntry {
+    private boolean completed;
+    private double reached;
+    private double goal;
+
+    public QuantityEntry(boolean completed, double reached, double goal) {
+        this.completed = completed;
+        this.reached = reached;
+        this.goal = goal;
+    }
+
+    // Getters
+    public boolean getCompleted() { return completed; }
+    public double getReached() { return reached; }
+    public double getGoal() { return goal; }
+
+    // Setters (if you want to update)
+    public void setCompleted(boolean completed) { this.completed = completed; }
+    public void setReached(double reached) { this.reached = reached; }
+    public void setGoal(double goal) { this.goal = goal; }
+}
+
+
+
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
     // Private Variables: ================================================================================
@@ -20,6 +49,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     private int pressOffset = 0;          // current visual offset
     private int targetPressOffset = 0;    // where we want to go
     private final int MAX_PRESS = effectThickness-1;
+    private Map<LocalDate, QuantityEntry> completionMap = new HashMap<>();
     // ===================================================================================================
     
     
@@ -274,8 +304,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         
         
         // Checking if this puts quantity under goal to take away completion 
-        if(quantity<goal)
+        if(quantity<goal){
             completeText.setVisible(false);
+            completionMap.put(LocalDate.now(), new QuantityEntry(false, quantity, goal));  // Changing the completion status in the map
+        }
         
         animatePress(false); // do the animation, inside the animation it will handle if it will bounce or stay down
         
@@ -293,8 +325,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         quantityText.setText(String.valueOf(quantity)); // Show new value
         
         // Checking if this puts quantity over goal to give completion message
-        if(quantity>=goal)
+        if(quantity>=goal){
             completeText.setVisible(true);   
+            completionMap.put(LocalDate.now(), new QuantityEntry(true, quantity, goal));  // Changing the completion status in the map
+        }
         
         animatePress(true); // do the animation, inside the animation it will handle if it will bounce or stay down
         
@@ -415,6 +449,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     
 
     // -- GET FUNCTIONS -- 
+    public String getHabitName(){
+        return habitName.getText();
+    }
+    
     public double getQuantity(){
         return quantity;
     }
@@ -431,14 +469,36 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return habitColor;
     }
     
-    public String getHabitName(){
-        return habitName.getText();
+    public String getHabitColorString(){
+        return Integer.toString(habitColor.getRed()) + "," + Integer.toString(habitColor.getGreen()) + "," + Integer.toString(habitColor.getBlue());
     }
-    
     
     public String getWeek(){
         return week;
     }
+    
+    public boolean getCompleted(LocalDate targetDay){
+        return completionMap.get(targetDay).getCompleted();
+    }
+    
+    public boolean isForToday(String day){
+        if(day.equals("Monday"))    return (week.charAt(0) == '1');
+        if(day.equals("Tuesday"))   return (week.charAt(1) == '1');
+        if(day.equals("Wednesday")) return (week.charAt(2) == '1');
+        if(day.equals("Thursday"))  return (week.charAt(3) == '1');
+        if(day.equals("Friday"))    return (week.charAt(4) == '1');
+        if(day.equals("Saturday"))  return (week.charAt(5) == '1');
+        if(day.equals("Sunday"))    return (week.charAt(6) == '1');
+        
+        JOptionPane.showMessageDialog(mainGUI, "ERROR: " + habitName + " was not able to generate in isForToday() function.");
+        return true;
+    }
+   
+    public Map<LocalDate, QuantityEntry> getCompletionMap() {
+        return completionMap;
+    }
+    
+    
     
     // -- SET FUNCTIONS --
     public void setHabitName(String newHabitName){
@@ -467,28 +527,19 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         minusClicked();
     }
     
+    public void forceComplete(){
+        plusClicked();
+    }
     
-    
-    public boolean isComplete(){
-        return quantity >= goal;
+    public void addDateEntry(LocalDate date, boolean completedStatus, double quantityReached, double targetGoal){
+        completionMap.put(date, new QuantityEntry(completedStatus, quantityReached, targetGoal));
     }
     
     
     
     
-    public boolean isForToday(String day){
-        if(day.equals("Monday"))    return (week.charAt(0) == '1');
-        if(day.equals("Tuesday"))   return (week.charAt(1) == '1');
-        if(day.equals("Wednesday")) return (week.charAt(2) == '1');
-        if(day.equals("Thursday"))  return (week.charAt(3) == '1');
-        if(day.equals("Friday"))    return (week.charAt(4) == '1');
-        if(day.equals("Saturday"))  return (week.charAt(5) == '1');
-        if(day.equals("Sunday"))    return (week.charAt(6) == '1');
-        
-        JOptionPane.showMessageDialog(mainGUI, "ERROR: " + habitName + " was not able to generate in isForToday() function.");
-        return true;
-    }
-   
+    
+    
     
     
     // ===================================================================================================

@@ -1,6 +1,0 @@
-away_time:60
-away_screen:1
-primary:221,178,93
-secondary:204,204,204
-button:193,144,69
-text:255,255,255

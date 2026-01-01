@@ -3,18 +3,19 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileReader;
 import java.io.IOException;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.Files;
+import java.nio.file.*;
 import java.io.BufferedWriter;
 import java.io.FileWriter;
 import java.util.List;
+import java.util.Map;
 
 
 
@@ -195,6 +196,8 @@ public class GUI_Window extends javax.swing.JFrame {
     
     // FILE NAMES: ========================================================
     String configFileName = "config.txt";
+    String programFolderName = "PROGRAM FILES";
+    String habitsFolderName = "HABITS";
     
     // MANIPULATABLE VARIABLES: ===========================================
     int AWAY_FROM_SCREEN_TIME = 60;                 // In seconds (1 minute)
@@ -333,6 +336,13 @@ public class GUI_Window extends javax.swing.JFrame {
         settingsButton = new javax.swing.JButton();
         homeButton = new javax.swing.JButton();
         navSelector = new javax.swing.JPanel();
+        home = new javax.swing.JPanel();
+        h_scrollUpPanel = new javax.swing.JPanel();
+        h_scrollDownPanel = new javax.swing.JPanel();
+        h_scrollPane = new javax.swing.JScrollPane();
+        h_habitPanel = new javax.swing.JPanel();
+        h_savingFilesText = new javax.swing.JLabel();
+        h_date = new javax.swing.JLabel();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
         eh_editHabitPanel = new javax.swing.JPanel();
@@ -422,12 +432,6 @@ public class GUI_Window extends javax.swing.JFrame {
         s_awayFromScreenButton = new javax.swing.JButton();
         s_connectionPanel = new javax.swing.JPanel();
         s_turnOffAwayFromScreenButton = new javax.swing.JButton();
-        home = new javax.swing.JPanel();
-        h_scrollUpPanel = new javax.swing.JPanel();
-        h_scrollDownPanel = new javax.swing.JPanel();
-        h_scrollPane = new javax.swing.JScrollPane();
-        h_habitPanel = new javax.swing.JPanel();
-        h_date = new javax.swing.JLabel();
         addHabit = new javax.swing.JPanel();
         ah_title = new javax.swing.JLabel();
         ah_NamePanel = new javax.swing.JPanel();
@@ -642,6 +646,81 @@ public class GUI_Window extends javax.swing.JFrame {
         navSelector.setBounds(3, 3, 63, 100);
 
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
+
+        home.setBackground(new java.awt.Color(204, 204, 204));
+        home.setMaximumSize(new java.awt.Dimension(1040, 600));
+        home.setMinimumSize(new java.awt.Dimension(1040, 600));
+        home.setLayout(null);
+
+        h_scrollUpPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollButtonClicked(evt);
+            }
+        });
+        h_scrollUpPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        home.add(h_scrollUpPanel);
+        h_scrollUpPanel.setBounds(10, 60, 950, 90);
+
+        h_scrollDownPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                scrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout h_scrollDownPanelLayout = new javax.swing.GroupLayout(h_scrollDownPanel);
+        h_scrollDownPanel.setLayout(h_scrollDownPanelLayout);
+        h_scrollDownPanelLayout.setHorizontalGroup(
+            h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 950, Short.MAX_VALUE)
+        );
+        h_scrollDownPanelLayout.setVerticalGroup(
+            h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 90, Short.MAX_VALUE)
+        );
+
+        home.add(h_scrollDownPanel);
+        h_scrollDownPanel.setBounds(10, 500, 950, 90);
+
+        h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
+        h_scrollPane.setBorder(null);
+        h_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        h_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        h_scrollPane.setMaximumSize(new java.awt.Dimension(900, 430));
+        h_scrollPane.setMinimumSize(new java.awt.Dimension(900, 430));
+        h_scrollPane.setOpaque(false);
+        h_scrollPane.setPreferredSize(new java.awt.Dimension(900, 430));
+        h_scrollPane.setWheelScrollingEnabled(false);
+
+        h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
+        h_habitPanel.setMaximumSize(new java.awt.Dimension(99999, 999999));
+        h_habitPanel.setMinimumSize(new java.awt.Dimension(900, 430));
+        h_habitPanel.setName(""); // NOI18N
+        h_habitPanel.setPreferredSize(new java.awt.Dimension(900, 440));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10);
+        flowLayout1.setAlignOnBaseline(true);
+        h_habitPanel.setLayout(flowLayout1);
+        h_scrollPane.setViewportView(h_habitPanel);
+
+        home.add(h_scrollPane);
+        h_scrollPane.setBounds(35, 113, 900, 430);
+
+        h_savingFilesText.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        h_savingFilesText.setForeground(java.awt.Color.white);
+        h_savingFilesText.setText("Saving Files...");
+        home.add(h_savingFilesText);
+        h_savingFilesText.setBounds(840, 20, 120, 30);
+
+        h_date.setBackground(new java.awt.Color(193, 144, 69));
+        h_date.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        h_date.setForeground(new java.awt.Color(255, 255, 255));
+        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_date.setText("Saturday, Nov 22, 2025");
+        h_date.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        h_date.setOpaque(true);
+        home.add(h_date);
+        h_date.setBounds(10, 10, 950, 50);
+
+        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         editHabit.setBackground(new java.awt.Color(181, 181, 181));
         editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1485,75 +1564,6 @@ public class GUI_Window extends javax.swing.JFrame {
         settings.add(s_turnOffAwayFromScreenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 950, 50));
 
         getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
-        home.setBackground(new java.awt.Color(204, 204, 204));
-        home.setMaximumSize(new java.awt.Dimension(1040, 600));
-        home.setMinimumSize(new java.awt.Dimension(1040, 600));
-        home.setLayout(null);
-
-        h_scrollUpPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                scrollButtonClicked(evt);
-            }
-        });
-        h_scrollUpPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-        home.add(h_scrollUpPanel);
-        h_scrollUpPanel.setBounds(10, 60, 950, 90);
-
-        h_scrollDownPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                scrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout h_scrollDownPanelLayout = new javax.swing.GroupLayout(h_scrollDownPanel);
-        h_scrollDownPanel.setLayout(h_scrollDownPanelLayout);
-        h_scrollDownPanelLayout.setHorizontalGroup(
-            h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 950, Short.MAX_VALUE)
-        );
-        h_scrollDownPanelLayout.setVerticalGroup(
-            h_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 90, Short.MAX_VALUE)
-        );
-
-        home.add(h_scrollDownPanel);
-        h_scrollDownPanel.setBounds(10, 500, 950, 90);
-
-        h_scrollPane.setBackground(new java.awt.Color(204, 204, 204));
-        h_scrollPane.setBorder(null);
-        h_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        h_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        h_scrollPane.setMaximumSize(new java.awt.Dimension(900, 430));
-        h_scrollPane.setMinimumSize(new java.awt.Dimension(900, 430));
-        h_scrollPane.setOpaque(false);
-        h_scrollPane.setPreferredSize(new java.awt.Dimension(900, 430));
-        h_scrollPane.setWheelScrollingEnabled(false);
-
-        h_habitPanel.setBackground(new java.awt.Color(204, 204, 204));
-        h_habitPanel.setMaximumSize(new java.awt.Dimension(99999, 999999));
-        h_habitPanel.setMinimumSize(new java.awt.Dimension(900, 430));
-        h_habitPanel.setName(""); // NOI18N
-        h_habitPanel.setPreferredSize(new java.awt.Dimension(900, 440));
-        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 20, 10);
-        flowLayout1.setAlignOnBaseline(true);
-        h_habitPanel.setLayout(flowLayout1);
-        h_scrollPane.setViewportView(h_habitPanel);
-
-        home.add(h_scrollPane);
-        h_scrollPane.setBounds(35, 113, 900, 430);
-
-        h_date.setBackground(new java.awt.Color(193, 144, 69));
-        h_date.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        h_date.setForeground(new java.awt.Color(255, 255, 255));
-        h_date.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        h_date.setText("Saturday, Nov 22, 2025");
-        h_date.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        h_date.setOpaque(true);
-        home.add(h_date);
-        h_date.setBounds(10, 10, 950, 50);
-
-        getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         addHabit.setBackground(new java.awt.Color(181, 181, 181));
         addHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2425,6 +2435,7 @@ public class GUI_Window extends javax.swing.JFrame {
             
             if(awayIsOn)                         // Only turn on timer if this is on
                 awayFromScreen.start();          // Starting the timer again if we went to home screen
+            h_savingFilesText.setVisible(false);
         }
         else if(target == settings){
             moveNavSelector(settingsButton); // Moving the navSelector to the correct position
@@ -2524,6 +2535,8 @@ public class GUI_Window extends javax.swing.JFrame {
         updateDateAndTime();
     });
     
+    int saveHabitsCounter = 6;
+    // Function for time update
     public void updateDateAndTime(){
         // Grabbing date and time
         LocalDateTime now = LocalDateTime.now();
@@ -2536,6 +2549,13 @@ public class GUI_Window extends javax.swing.JFrame {
         // Updating skyline screensave date
         screensaverDateText.setText(now.format(dateFormatter));
         screensaverTimeText.setText(now.format(timeFormatter));
+        
+        // Checking if we are ready to save the habits to the disk (every 60 seconds)
+        saveHabitsCounter--;
+        if(saveHabitsCounter <= 0){
+            saveAllHabits();
+            saveHabitsCounter = 6;
+        }
     }
     
     
@@ -2545,7 +2565,7 @@ public class GUI_Window extends javax.swing.JFrame {
     // ================== [ LOADING    FUNCTIONS ] =====================================================================================
     // =================================================================================================================================
     
-    // LOADS VARIABLES FROM FILES: (helper function isNumber makes sure what is sent in is a number duh)
+    // HELPER FUNCTION : Checks if it is a number
     private boolean isNumber(String str) {
         try {
             Integer.parseInt(str);
@@ -2555,10 +2575,20 @@ public class GUI_Window extends javax.swing.JFrame {
         }
     }
     
-    
+    // LOADS VARIABLES FROM FILES: (helper function isNumber makes sure what is sent in is a number duh)
     private void loadVariables(){
-        Path filePath = Path.of(configFileName); 
-
+        Path filePath = Path.of(programFolderName, configFileName); 
+        
+        // Make path if it does not exist yet
+        try{
+            Files.createDirectories(filePath.getParent());
+        }
+        catch(IOException e) {
+            JOptionPane.showMessageDialog(this, "Could not make program files folder", "ERROR", JOptionPane.ERROR);
+            return;
+        }
+        
+        
         try (BufferedReader reader = new BufferedReader(new FileReader(filePath.toFile()))) {
             String line;
             int lineCount = 0;
@@ -2655,34 +2685,161 @@ public class GUI_Window extends javax.swing.JFrame {
     
     // LOADS HABITS FROM FILES
     private void loadHabits(){
-        // load habits and add them into the list 
-        // save if we have some quantity habits to see if we need to upate view
-        Color temp1 = new Color(153,153,255);
-        Color temp2 = new Color(100,204,255);
-        Color temp3 = new Color(90,50,30);
-        Color temp5 = new Color(50,90,255);
-        Color temp6 = new Color(100,153,255);
-        Color temp7 = new Color(20,204,255);
-        Color temp8 = new Color(20,50,200);
-        String week = "1111111";
+        // Make sure that the folder exits!!
+        File folder = new File(programFolderName + "/" + habitsFolderName);
         
-        // We should only add them to array in here and then later using the refresh screen for the home, we should check the week
-        allQuantityCards.add(new HabitCard_Quantity(this, "Drink Water", temp1, 0, 8, 1, week));
-        allQuantityCards.add(new HabitCard_Quantity(this, "Drink Milk", temp2, 0, 3, 0.5, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Dont eat big", temp2, true,week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Run 3 Miles", temp3, false,week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Seomthing", temp3, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Again", temp5, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Againfds", temp6, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Againfsd", temp7, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Agains", temp8, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Agaisdfn", temp8, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "asd", temp8, false, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "Agaifsdsdfn", temp8, true, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "asfdwsd", temp8, true, week));
-        allYesNoCards.add(new HabitCard_YesNo(this, "ffws", temp8, true, week));
+        if (!folder.exists()) {
+            if (!folder.mkdirs()) {
+                JOptionPane.showMessageDialog(this, "Failed to create folder: " + folder.getAbsolutePath(), "ERROR", JOptionPane.ERROR_MESSAGE);
+                return; 
+            }
+        }
+
+        File[] habitFiles = folder.listFiles((dir, name) -> name.endsWith(".txt")); // only .txt files
+
+        if (habitFiles == null) return;
         
-        // Refreshing happens later in constructor when we call switchFrame(home);
+
+        for (File file : habitFiles) {
+            // Making holding variables
+            String habitName = "";
+            Color habitColor = Color.GRAY;
+            String habitDays = "0000000";
+            String habitType = "";
+
+            double increment = 0;
+            double goal = 0;
+            HabitCard_Quantity loadingQuantityCard = null;
+            HabitCard_YesNo loadingYesNoCard = null;
+            
+            
+            try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
+                String line;
+                boolean readingDates = false;
+                while ((line = reader.readLine()) != null) {
+                    line = line.trim();
+                    
+                    // If the line is empty then we are going to be moving on to read the date entries, so first we have to make the actual objects
+                    if (line.isEmpty() && !readingDates) {
+                        if(habitType.equalsIgnoreCase("quantity")){
+                            loadingQuantityCard = new HabitCard_Quantity(this, habitName, habitColor, 0, goal, increment, habitDays);
+                            allQuantityCards.add(loadingQuantityCard); 
+                        }   
+                        else if(habitType.equalsIgnoreCase("yesno")){
+                            loadingYesNoCard = new HabitCard_YesNo(this, habitName, habitColor, false, habitDays);
+                            allYesNoCards.add(loadingYesNoCard); 
+                        }
+                        
+                        // Triggering flag so that next iter we can start loading in the date entries
+                        readingDates = true; // blank line separates metadata from entr
+                        continue;
+                    }
+                    
+
+                    // READING BASIC INFORMATION FIRST
+                    if (!readingDates) {
+                        String[] parts = line.split("=", 2);
+                        if (parts.length != 2) 
+                            continue;
+
+                        String key = parts[0].trim();
+                        String value = parts[1].trim();
+
+                        switch (key) {
+                            case "name" -> habitName = value;
+                            
+                            case "color" -> {
+                                try{
+                                    String[] colorParts = value.split(",",3);
+                                    habitColor = new Color(
+                                            Integer.parseInt(colorParts[0]), 
+                                            Integer.parseInt(colorParts[1]), 
+                                            Integer.parseInt(colorParts[2])
+                                    );
+                                }
+                                catch(NumberFormatException e){
+                                    habitColor = Color.GRAY;
+                                }
+                                
+                            }
+                            case "type" -> habitType = value;
+                            
+                            case "days" -> {
+                                if (value.matches("[01]{7}")) 
+                                    habitDays = value;
+                                else
+                                    habitDays = "0000000";
+                            }
+                            
+                            case "increment" -> {
+                                try { increment = Double.parseDouble(value); } 
+                                catch (NumberFormatException e) { increment = 1; }
+                            }
+                            
+                            case "goal" -> {
+                                try { goal = Double.parseDouble(value); } 
+                                catch (NumberFormatException e) { goal = 1; }
+                            }
+                        }
+
+                    } else {
+                        // Store the date entries:
+                        
+                        // If we are loading a quantity card, add the entries here
+                        if(loadingQuantityCard != null){
+                            String[] parts = line.split("=", 2);
+                            if (parts.length != 2) continue;
+                            
+                            String dateStr = parts[0].trim();
+                            String[] values = parts[1].split(",", 3);
+                            if(values.length != 3) continue;
+
+                            try {
+                                LocalDate date = LocalDate.parse(dateStr);
+                                boolean completed = Boolean.parseBoolean(values[0].trim());
+                                double quantityReached = Double.parseDouble(values[1].trim());
+                                double goalTarget = Double.parseDouble(values[2].trim());
+
+                                loadingQuantityCard.addDateEntry(date, completed, quantityReached, goalTarget);
+                            } 
+                            catch(Exception e) { 
+                                JOptionPane.showMessageDialog(this, "Error date entry: " + line, "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                        
+                        // If we are loading a yesno card, add the entires here
+                        else if(loadingYesNoCard != null){ 
+                            String[] parts = line.split("=", 2);
+                            if (parts.length != 2) continue; // Just in case
+
+                            try{
+                                LocalDate date = LocalDate.parse(parts[0]);
+                                boolean completed = Boolean.parseBoolean(parts[1]);
+                                loadingYesNoCard.addDateEntry(date, completed);
+                            }
+                            catch(Exception e) { 
+                                JOptionPane.showMessageDialog(this, "Error date entry: " + line, "ERROR", JOptionPane.ERROR_MESSAGE);
+                            }
+                        }
+                    }
+                    
+                }
+                
+                // In case there were not dates (no empty lines, which there should be but just in case) we need to still make the card
+                if(!readingDates){
+                    if (habitType.equalsIgnoreCase("quantity")) {
+                        loadingQuantityCard = new HabitCard_Quantity( this, habitName, habitColor, 0, goal, increment, habitDays);
+                        allQuantityCards.add(loadingQuantityCard);
+                    } else if(habitType.equalsIgnoreCase("yesno")){
+                        loadingYesNoCard = new HabitCard_YesNo(this, habitName, habitColor, false, habitDays);
+                        allYesNoCards.add(loadingYesNoCard);
+                    }
+                }
+                
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error reading file: " + file.getName(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }
     
     // PAINTS ALL THE PANELS
@@ -2916,11 +3073,222 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     // =================================================================================================================================
-    // ================== [ SAVING FUNCTION ] ==========================================================================================
+    // ================== [ FILE FUNCTION ] ==========================================================================================
     // =================================================================================================================================
     
-    private void saveHabits(){
+    // Creates a new quantity card file with the information from the card
+    private void createQuantityHabitFile(HabitCard_Quantity target){
+        // Making path 
+        Path filePath = Path.of(programFolderName, habitsFolderName, target.getHabitName() + ".txt");
         
+        // Creating the file and writting basic information into it
+        try {
+            Files.createDirectories(filePath.getParent());
+
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath,StandardOpenOption.CREATE_NEW)) {
+                writer.write("name=" + target.getHabitName());
+                writer.newLine();
+                
+                writer.write("color=" + target.getHabitColorString());
+                writer.newLine();
+                
+                writer.write("days=" + target.getWeek());
+                writer.newLine();
+                
+                writer.write("type=quantity");
+                writer.newLine();
+                
+                writer.write("increment="  + target.getIncrement());
+                writer.newLine();
+                
+                writer.write("goal=" + target.getGoal());
+                writer.newLine();
+                
+                // Blank line separates metadata from entries
+                writer.newLine();
+
+                // --- Write date entries ---
+                for (Map.Entry<LocalDate, QuantityEntry> entry : target.getCompletionMap().entrySet()) {
+                    LocalDate date = entry.getKey();
+                    QuantityEntry qe = entry.getValue();
+                    writer.write(date + "=" + qe.getCompleted() + "," + qe.getReached() + "," + qe.getGoal());
+                    writer.newLine();
+                }
+                
+            }
+
+        } 
+        
+        catch (FileAlreadyExistsException e) {
+            JOptionPane.showMessageDialog(this, "Habit already exists: " + target.getHabitName(), "ERROR", JOptionPane.ERROR);
+        } 
+        
+        catch (IOException e) { 
+            JOptionPane.showMessageDialog(this, "Error creating habit file: " + e.getMessage(), "ERROR", JOptionPane.ERROR);
+        }
+    }
+    
+    // Creates a new yesno card file with the information from the card
+    private void createYesNoHabitFile(HabitCard_YesNo target){
+        // Making path 
+        Path filePath = Path.of(programFolderName, habitsFolderName, target.getHabitName() + ".txt");
+
+        
+        // Creating the file and writting basic information into it
+        try {
+            Files.createDirectories(filePath.getParent());
+
+            try (BufferedWriter writer = Files.newBufferedWriter(filePath,StandardOpenOption.CREATE_NEW)) {
+                writer.write("name=" + target.getHabitName());
+                writer.newLine();
+                
+                writer.write("color=" + target.getHabitColorString());
+                writer.newLine();
+                
+                writer.write("days=" + target.getWeek());
+                writer.newLine();
+                
+                writer.write("type=yesno");
+                writer.newLine();
+                
+                // Blank line separates metadata from entries
+                writer.newLine();
+
+                // --- Write date entries ---
+                for (Map.Entry<LocalDate, Boolean> entry : target.getCompletionMap().entrySet()) {
+                    writer.write(entry.getKey() + "=" + entry.getValue());
+                    writer.newLine();
+                }
+            }
+
+        } 
+        
+        catch (FileAlreadyExistsException e) {
+            JOptionPane.showMessageDialog(this, "Habit already exists: " + target.getHabitName(), "ERROR", JOptionPane.ERROR);
+        } 
+        
+        catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error creating habit file: " + e.getMessage(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // Saving Quantity cards into file
+    private void saveQuantityHabitFile(HabitCard_Quantity target){
+        File file = new File(programFolderName + "/" + habitsFolderName + "/" + target.getHabitName() + ".txt");
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+            // --- Write metadata ---
+            writer.write("name=" + target.getHabitName());
+            writer.newLine();
+
+            Color c = target.getHabitColor();
+            writer.write("color=" + c.getRed() + "," + c.getGreen() + "," + c.getBlue());
+            writer.newLine();
+
+            writer.write("days=" + target.getWeek());
+            writer.newLine();
+
+            writer.write("increment=" + target.getIncrement());
+            writer.newLine();
+
+            writer.write("goal=" + target.getGoal());
+            writer.newLine();
+
+            // Blank line separates metadata from entries
+            writer.newLine();
+
+            // --- Write date entries ---
+            for (Map.Entry<LocalDate, QuantityEntry> entry : target.getCompletionMap().entrySet()) {
+                LocalDate date = entry.getKey();
+                QuantityEntry qe = entry.getValue();
+                writer.write(date + "=" + qe.getCompleted() + "," + qe.getReached() + "," + qe.getGoal());
+                writer.newLine();
+            }
+
+        } catch (IOException e) {
+            JOptionPane.showMessageDialog(this, "Error saving file: " + file.getName(), "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+    
+    // Saving YesNo cards into file
+    private void saveYesNoHabitFile(HabitCard_YesNo target){
+        File file = new File(programFolderName + "/" + habitsFolderName + "/" + target.getHabitName() + ".txt");
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(file))) {
+                // --- Write metadata ---
+                writer.write("name=" + target.getHabitName());
+                writer.newLine();
+
+                Color c = target.getHabitColor();
+                writer.write("color=" + c.getRed() + "," + c.getGreen() + "," + c.getBlue());
+                writer.newLine();
+
+                writer.write("type=yesno");
+                writer.newLine();
+
+                writer.write("days=" + target.getWeek());
+                writer.newLine();
+
+                // Blank line separates metadata from entries
+                writer.newLine();
+
+                // --- Write date entries ---
+                for (Map.Entry<LocalDate, Boolean> entry : target.getCompletionMap().entrySet()) {
+                    writer.write(entry.getKey() + "=" + entry.getValue());
+                    writer.newLine();
+                }
+
+            } catch (IOException e) {
+                JOptionPane.showMessageDialog(this, "Error saving file: " + file.getName(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+    }
+    
+    // Saves all habits, this is called every 60 seconds
+    private void saveAllHabits(){
+        // WHAT WE FOR SURE KNOW:
+        // -- At this time, the folders will already be made
+        // -- At this time, the habits that we have in memory will already be created as well
+        
+        h_savingFilesText.setVisible(true); // Simple visual showing that we are currently saving files
+        
+        for(HabitCard_Quantity currCard : allQuantityCards){
+            saveQuantityHabitFile(currCard);
+        }
+
+        // Save all yes/no habits
+        for(HabitCard_YesNo currCard : allYesNoCards){
+            saveYesNoHabitFile(currCard);
+        }
+        
+        h_savingFilesText.setVisible(false);
+    }
+    
+    // Takes in a name of a habit that we are going to rename and changes only the name of the file 
+    private void renameHabitFile(String oldName, String newName){
+        String oldFilePath = programFolderName + "/" + habitsFolderName + "/" + oldName + ".txt";
+        String newFilePath = programFolderName + "/" + habitsFolderName + "/" + newName + ".txt";
+
+        File oldFile = new File(oldFilePath);
+        File newFile = new File(newFilePath);
+
+        if (oldFile.exists()) {
+            boolean success = oldFile.renameTo(newFile);
+            if (!success) {
+                JOptionPane.showMessageDialog(this, "Failed to rename habit file: " + oldFile.getName(), "ERROR", JOptionPane.ERROR_MESSAGE);
+            } 
+        } 
+    }
+    
+    private void deleteHabitFile(String target){
+        String filePath = programFolderName + "/" + habitsFolderName + "/" + target + ".txt";
+        File file = new File(filePath);
+
+        if (file.exists()) {
+            boolean success = file.delete();
+            if (!success) {
+                JOptionPane.showMessageDialog(this, "Failed to delete habit file: " + target, "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
+        } 
     }
     
     // Takes in something like "away_screen" and a value of "2" and then remakes the file updating only that line (does nothing if it does not find it)
@@ -2950,7 +3318,6 @@ public class GUI_Window extends javax.swing.JFrame {
             e.printStackTrace();
         }
     }
-    
     
     
     // =================================================================================================================================
@@ -2995,6 +3362,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
 
     });
+    
     private void moveNavSelector(JButton target){
         if(navSelectorTimer.isRunning())
             navSelectorTimer.stop();
@@ -3125,14 +3493,16 @@ public class GUI_Window extends javax.swing.JFrame {
         // Now adding the instances back, this way we get a clean updated version of the lists
         // Adding first the quantity cards
         for(HabitCard_Quantity currCard : allQuantityCards){ // Looking through all quantity cards
-            if(currCard.isForToday(todaysWeekDay))           // If this card is a habit for today
+            if(currCard.isForToday(todaysWeekDay)){           // If this card is a habit for today
                 h_habitPanel.add(currCard);
+            }
         }
         
         // Adding second the yes/no cards
         for(HabitCard_YesNo currCard : allYesNoCards){ // Looking through all yesno cards
-            if(currCard.isForToday(todaysWeekDay))     // If this card is a habit for today
+            if(currCard.isForToday(todaysWeekDay)){     // If this card is a habit for today
                 h_habitPanel.add(currCard);
+            }
         }
         
         
@@ -3626,8 +3996,10 @@ public class GUI_Window extends javax.swing.JFrame {
         if(ah_SummaryQuantity.getText().equals("No")){
             HabitCard_YesNo newCard = (HabitCard_YesNo) ah_CardPanel.getComponent(0);
             if(newCard != null){
-                newCard.setComplete(false); // Resetting the card
-                allYesNoCards.add(newCard); // Adding to the array
+                newCard.setComplete(false);    // Resetting the card
+                allYesNoCards.add(newCard);    // Adding to the array
+                newCard.addDateEntry(LocalDate.now(), false); // Adding todays entry as the first entry
+                createYesNoHabitFile(newCard); // Creating file in disk
             }
             
            // Handling error JUST in case
@@ -3639,8 +4011,10 @@ public class GUI_Window extends javax.swing.JFrame {
         else{
             HabitCard_Quantity newCard = (HabitCard_Quantity) ah_CardPanel.getComponent(0);
             if(newCard != null){
-                newCard.setQuantity(0.0);      // Reseting card value before sending to array
-                allQuantityCards.add(newCard); // Adding to the array
+                newCard.setQuantity(0.0);         // Reseting card value before sending to array
+                allQuantityCards.add(newCard);    // Adding to the array
+                newCard.addDateEntry(LocalDate.now(), false, 0.0, newCard.getGoal()); // Adding todays entry as the first entry
+                createQuantityHabitFile(newCard); // Creating file in disk
             }
             
             // Handling error JUST in case
@@ -3676,6 +4050,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private HabitCard_Quantity targetQuantityCard = null;
     private HabitCard_YesNo targetYesNoCard = null;
     private String savedWeek = "";
+    private String savedName = "";
     
     
     private void makeEditHabitCard(String habitName, Color habitColor, int buttonW, int buttonH, int roundness, boolean isQuantityCard, double goal){
@@ -3790,6 +4165,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         
+        
         // Information for easier view, DO NOT CHANGE!
         int buttonW = 200; 
         int buttonH = 150; 
@@ -3821,6 +4197,14 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_scrollUpPanel.setBackground(Color.GRAY);                   // Repatining
         eh_scrollDownPanel.setBackground(count <= 8 ? Color.GRAY : darkenColor(PRIMARY_COLOR)); // Repainting
         
+        if(count > 8){
+            eh_scrollUpPanel.setVisible(true);
+            eh_scrollDownPanel.setVisible(true);
+        }
+        else{
+            eh_scrollUpPanel.setVisible(false);
+            eh_scrollDownPanel.setVisible(false);
+        }
         
         // Making first steps visible
         eh_chooseHabitPanel.setVisible(true); // Main Choosing panel can be made visible to start there
@@ -3888,6 +4272,9 @@ public class GUI_Window extends javax.swing.JFrame {
             weekFromCard = targetQuantityCard.getWeek();
             eh_editHabitSummaryPanel.setSize(630, 280);
             eh_editHabitSummaryPanel.setLocation(150, 80);
+            
+            // Saving name to check later if they are different
+            savedName = targetQuantityCard.getHabitName();
         }
         else{  // No need to do targetYesNoCard == null anymore since we made sure of that with earlier catch
             eh_name.setText(targetYesNoCard.getHabitName());
@@ -3895,6 +4282,9 @@ public class GUI_Window extends javax.swing.JFrame {
             weekFromCard = targetYesNoCard.getWeek();
             eh_editHabitSummaryPanel.setSize(630, 170);
             eh_editHabitSummaryPanel.setLocation(150, 135);
+            
+            // Saving name to check later if they are different
+            savedName = targetYesNoCard.getHabitName();
         }
         eh_editHabitSummaryPanel.getParent().repaint();
         eh_editHabitSummaryPanel.repaint();
@@ -3916,6 +4306,7 @@ public class GUI_Window extends javax.swing.JFrame {
         newWeekString += (weekFromCard.charAt(6) == '1' ? " Sun" : "");
         eh_days.setText(newWeekString);
         
+        // Saving information that we might need later in other functions
         savedWeek = weekFromCard;
         
         
@@ -3944,12 +4335,14 @@ public class GUI_Window extends javax.swing.JFrame {
 
     private void eh_deleteConfirmButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_deleteConfirmButtonMouseClicked
         // Remove the habit from the saved arrays
-        if(targetQuantityCard != null)
+        if(targetQuantityCard != null){
             allQuantityCards.remove(targetQuantityCard);
-        else
+            deleteHabitFile(targetQuantityCard.getHabitName());
+        }
+        else{
             allYesNoCards.remove(targetYesNoCard);
-        
-        // Update the list writing into disk
+            deleteHabitFile(targetYesNoCard.getHabitName());
+        }
         
         
         // Reset the Panel -> takes back to the "starting page" of the edit panel
@@ -3967,11 +4360,25 @@ public class GUI_Window extends javax.swing.JFrame {
             targetQuantityCard.setWeek(savedWeek); 
             targetQuantityCard.setIncrement(Double.valueOf(eh_increment.getText()));
             targetQuantityCard.setGoal(Double.valueOf(eh_goal.getText()));
+            
+            // Renaming file if the name changed
+            if(!savedName.equals(targetQuantityCard.getHabitName()))
+                renameHabitFile(savedName, targetQuantityCard.getHabitName());
+        
+            // Updating the file
+            saveQuantityHabitFile(targetQuantityCard);
         }
         else{
             targetYesNoCard.setHabitName(eh_name.getText());
             targetYesNoCard.setHabitColor(eh_color.getBackground());
             targetYesNoCard.setWeek(savedWeek); 
+            
+            // Renaming file if the name changed
+            if(!savedName.equals(targetYesNoCard.getHabitName()))
+                renameHabitFile(savedName, targetYesNoCard.getHabitName());
+        
+            // Updating the file
+            saveYesNoHabitFile(targetYesNoCard);
         }
         eh_resetPanel();
     }//GEN-LAST:event_eh_saveHabitButtonMouseClicked
@@ -4386,6 +4793,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JTextField h_addHabitName;
     private javax.swing.JLabel h_date;
     private javax.swing.JPanel h_habitPanel;
+    private javax.swing.JLabel h_savingFilesText;
     private javax.swing.JPanel h_scrollDownPanel;
     private javax.swing.JScrollPane h_scrollPane;
     private javax.swing.JPanel h_scrollUpPanel;
