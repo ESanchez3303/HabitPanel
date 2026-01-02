@@ -210,45 +210,18 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void habitNameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_habitNameMouseClicked
-        // Current state is "COMPLTED" -> moving to "NOT COMPLETED"
-        if(!pressToMarkText.isVisible()){
-            // If the press timer is current running, wait until its finished
-            if(pressTimer != null && pressTimer.isRunning())
+        // Catching whehn we are mid another animation
+        if(pressTimer != null && pressTimer.isRunning())
                 return;
-            animatePress(false);
-            
-            // Reseting the away timer
-            mainGUI.reseAwaytAway();
-            
-            // Chaning visuasl
-            pressToMarkText.setVisible(true);
-            checkmarkImage.setVisible(false);
-            completeText.setVisible(false);
-            
-            // Changing variables
-            isComplete = false;
-            
-        }
         
-        // Current state is "NOT COMPLETED" -> moving to "COMPLETED"
-        else{
-            // If the press timer is current running, wait until its finished
-            if(pressTimer != null && pressTimer.isRunning())
-                return;
-            animatePress(true);
-            
-            // Resting the away timer
-            mainGUI.reseAwaytAway();
-            
-            // Changing visuals
-            pressToMarkText.setVisible(false);
-            checkmarkImage.setVisible(true);
-            completeText.setVisible(true);
-            
-            // Changing variables
-            isComplete = true;
-        }
-        
+        // Updating all visuals
+        isComplete = !isComplete;
+        animatePress();
+        mainGUI.reseAwaytAway();
+        pressToMarkText.setVisible(!isComplete);
+        checkmarkImage.setVisible(isComplete);
+        completeText.setVisible(isComplete);
+
         // Changing the completion status in the map
         completionMap.put(LocalDate.now(), isComplete);
         
@@ -259,8 +232,8 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
 
     // ===================================================================================================
     private Timer pressTimer;
-    public void animatePress(boolean pressIn) {
-        targetPressOffset = pressIn ? MAX_PRESS : 0;
+    public void animatePress() {
+        targetPressOffset = isComplete ? MAX_PRESS : 0;
 
         if (pressTimer != null && pressTimer.isRunning()) 
             return;
@@ -340,11 +313,17 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     // Set Functions:
     public void setComplete(boolean state){
         isComplete = state;
+        pressToMarkText.setVisible(!isComplete);
+        checkmarkImage.setVisible(isComplete);
+        completeText.setVisible(isComplete);
+        
+        // Moving button to where its suppose to be with this new quantity
+        animatePress();
+        
+        this.repaint();
     }
     
-    public void forceCompleted(){
-        habitNameMouseClicked(null);
-    }
+    
             
     public void setHabitName(String newName){
         habitName.setText(newName);
@@ -368,8 +347,28 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         completionMap.put(date, completedStatus);
     }
     
+    public int changeDateEntry(LocalDate targetDate){
+        if (!hasDateEntry(targetDate)) {
+            return -1; // date not initialized -> do nothing
+        }
+
+        boolean newValue = !completionMap.get(targetDate);
+        completionMap.put(targetDate, newValue);
+
+        return newValue ? 1 : 0;
+    }
     
+    public boolean hasDateEntry(LocalDate targetDate){
+        return completionMap.containsKey(targetDate);
+    }
     
+    public boolean getDateEntry(LocalDate targetDate){
+        return completionMap.get(targetDate);
+    }
+    
+    public int getDateEntryCount(){
+        return completionMap.size();
+    }
     
     
     // ===================================================================================================

@@ -12,8 +12,8 @@ class QuantityEntry {
     private double reached;
     private double goal;
 
-    public QuantityEntry(boolean completed, double reached, double goal) {
-        this.completed = completed;
+    public QuantityEntry(double reached, double goal) {
+        this.completed = (reached >= goal);
         this.reached = reached;
         this.goal = goal;
     }
@@ -25,7 +25,7 @@ class QuantityEntry {
 
     // Setters (if you want to update)
     public void setCompleted(boolean completed) { this.completed = completed; }
-    public void setReached(double reached) { this.reached = reached; }
+    public void setReached(double reached) { this.reached = reached; completed = (reached >= goal); }
     public void setGoal(double goal) { this.goal = goal; }
 }
 
@@ -291,7 +291,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     
     // CLICKS OF THE BUTTONS: =======================================================================
     
-    private void minusClicked() {
+    public void minusClicked() {
         // Resetting the away from screen timer
         mainGUI.reseAwaytAway(); 
         
@@ -306,8 +306,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         // Checking if this puts quantity under goal to take away completion 
         if(quantity<goal){
             completeText.setVisible(false);
-            completionMap.put(LocalDate.now(), new QuantityEntry(false, quantity, goal));  // Changing the completion status in the map
         }
+        
+         // Changing the completion status in the map
+        completionMap.put(LocalDate.now(), new QuantityEntry(quantity, goal)); 
         
         animatePress(false); // do the animation, inside the animation it will handle if it will bounce or stay down
         
@@ -315,7 +317,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         this.repaint();
     }
 
-    private void plusClicked() {
+    public void plusClicked() {
         // Resetting the away from screen timer
         mainGUI.reseAwaytAway();  
         
@@ -330,9 +332,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         }
         
         // Changing the completion status in the map -> setting to complete or false depending on if complete text is visible
-        completionMap.put(LocalDate.now(), new QuantityEntry(completeText.isVisible(), quantity, goal));  
+        completionMap.put(LocalDate.now(), new QuantityEntry(quantity, goal));  
         
-        animatePress(true); // do the animation, inside the animation it will handle if it will bounce or stay down
+        animatePress(false); // do the animation, inside the animation it will handle if it will bounce or stay down
         
         // This does the repainting of the brim
         this.repaint();
@@ -345,7 +347,7 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     
     
     private Timer pressTimer;
-    private void animatePress(boolean pressedIn) {
+    private void animatePress(boolean comingFromSetQuantity) {
         if (pressTimer != null && pressTimer.isRunning()) 
             return;
         
@@ -358,7 +360,11 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         if(quantity < goal)
             targetPressOffset = MAX_PRESS/2; // If this was a pressed in and we are still under the goal, then we want to only bounce half way
         else 
-            targetPressOffset = pressedIn ? MAX_PRESS : 0;  // If this is not a bounce, then go all the way in or out
+            targetPressOffset = quantity>=goal ? MAX_PRESS : 0;  // If this is not a bounce, do maxpress if quantity>=goal | do 0 if not
+        
+        if(comingFromSetQuantity){
+            targetPressOffset = 0;
+        }
         
         pressTimer = new Timer(10, e -> {
             if (pressOffset < targetPressOffset){
@@ -510,6 +516,8 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     public void setHabitColor(Color newColor){
         habitColor = newColor;
         insidePanel.setBackground(newColor);
+        plusButton.setBackground(darkenColor(newColor));
+        minusButton.setBackground(darkenColor(newColor));
     }
     
     public void setWeek(String newWeek){
@@ -525,19 +533,41 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     }
     
     public void setQuantity(double quantityInput){
-        quantity = quantityInput;
-        minusClicked();
+        quantity = quantityInput;                       // Updating memory
+        quantityText.setText(String.valueOf(quantity)); // Showing new value
+        completeText.setVisible(quantity >= goal);      // Showing the "compelted" message if needed
+        
+        // Moving button to where its suppose to be with this new quantity
+        animatePress(true);
+        
+        this.repaint();                                 // Repaint so that it can get painted the way its suppose to be with new quantity
     }
     
-    public void forceComplete(){
-        plusClicked();
+    
+    public void addDateEntry(LocalDate date, double quantityReached, double targetGoal){
+        completionMap.put(date, new QuantityEntry(quantityReached, targetGoal));
     }
     
-    public void addDateEntry(LocalDate date, boolean completedStatus, double quantityReached, double targetGoal){
-        completionMap.put(date, new QuantityEntry(completedStatus, quantityReached, targetGoal));
+    public boolean hasDateEntry(LocalDate targetDate){
+        return completionMap.containsKey(targetDate);
     }
     
+    public int changeDateEntry(LocalDate targetDate, double newQuantity){
+        if(!hasDateEntry(targetDate))
+            return -1;
+        
+        completionMap.get(targetDate).setReached(newQuantity);
+
+        return completionMap.get(targetDate).getCompleted() ? 1 : 0;
+    }
     
+    public QuantityEntry getDateEntry(LocalDate targetDate){
+        return completionMap.get(targetDate);
+    }
+    
+    public int getDateEntryCount(){
+        return completionMap.size();
+    }
     
     
     
