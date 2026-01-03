@@ -1,8 +1,8 @@
-name=YS
+name=YSIJU
 color=153,153,153
 type=quantity
 days=1111111
 increment=1.0
 goal=7.0
 
-2026-01-03=0.0,7.0
+2026-01-03=2.0,7.0

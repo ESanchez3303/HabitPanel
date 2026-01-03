@@ -1,4 +1,4 @@
-name=RUN
+name=RUNNING
 color=255,102,102
 type=yesno
 days=1111111

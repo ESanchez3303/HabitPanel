@@ -11,7 +11,7 @@ import java.util.Map;
 public class HabitCard_YesNo extends javax.swing.JPanel {
     
     // Private Variables: ================================================================================
-    private final int MAX_LENGTH = 17;
+    private int MAX_LENGTH = 0;
     private boolean isComplete = false;
     private GUI_Window mainGUI = null;
     private String week = "0000000";
@@ -99,6 +99,7 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // Setting the parent gui so that we can use its methods later
         mainGUI = guiInput;
         habitColor = habitColorInput;
+        MAX_LENGTH = mainGUI.MAX_HABIT_NAME_LENGTH;
         
         // Setting up the week
         week = weekInput;

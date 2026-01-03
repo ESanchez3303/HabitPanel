@@ -31,6 +31,7 @@ class Screensaver {
     private JLabel dateText = null;
     private int savedScreensaver = 1; // Current Screensaver: 1 -> Skyline Background  ------------> ALSO A VARIABLE THAT CAN BE SAVED IN VARIABLE FILE
     private JPanel background = null;
+    GUI_Window mainGUI = null;
     
     // Skyline Screensaver
     private int skylineMinLocation;
@@ -43,14 +44,18 @@ class Screensaver {
     
     // Todays Progress Screensaver
     private JPanel todaysProgressPanel = null;
+    private JPanel todaysProgressDisplay = null;
     
     // Fish Tank Screensaver
     private JLabel fishTankBackground = null;
     
     
      // 400x70 | 400x50
-    public void setUp(JPanel backgroundInput, JLabel timeInput, JLabel dateInput, JLabel sp1, JLabel sp2, JLabel sp3,
-                      JPanel todaysProgressPanelInput, JLabel fishTankBackgroundInput){
+    public void setUp(GUI_Window mainGUIinput, JPanel backgroundInput, JLabel timeInput, JLabel dateInput, JLabel sp1, JLabel sp2, JLabel sp3,
+                      JPanel todaysProgressPanelInput, JPanel todaysProgessDisplayInput, JLabel fishTankBackgroundInput){
+        // Setting up main gui window
+        mainGUI = mainGUIinput;
+        
         // Setting up the date and time labels
         dateText = dateInput;
         timeText = timeInput;
@@ -68,6 +73,7 @@ class Screensaver {
         
         // Setting up Todays Progress Panel
         todaysProgressPanel = todaysProgressPanelInput;
+        todaysProgressDisplay = todaysProgessDisplayInput;
         
     }
     
@@ -120,6 +126,7 @@ class Screensaver {
             
             // Todays Progress Screensaver
             case 4 -> {
+                setUpTodaysProgess();
                 todaysProgressPanel.setVisible(true);
             }
             
@@ -184,6 +191,37 @@ class Screensaver {
         screensaverClock.start();
     }
     // --------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    private void addHabitByName(String addingHabitName, String otherInfo){
+        JLabel newItem = new JLabel(addingHabitName);
+        newItem.setHorizontalAlignment(SwingConstants.CENTER);
+        newItem.setFont(new Font("Segoe UI", 1, 15));
+        newItem.setForeground(todaysProgressDisplay.getForeground());
+        todaysProgressDisplay.add(newItem);
+    }
+    
+    private void setUpTodaysProgess(){
+        todaysProgressDisplay.removeAll();
+        String todaysWeekday = mainGUI.getWeekday();
+        LocalDate todayDate = LocalDate.now();
+        for(HabitCard_Quantity currCard : mainGUI.allQuantityCards){
+            if(currCard.isForToday(todaysWeekday) && !currCard.getCompleted(todayDate)){
+                addHabitByName(currCard.getHabitName(), "6/10");
+            }
+        }
+        for(HabitCard_YesNo currCard : mainGUI.allYesNoCards){
+            if(currCard.isForToday(todaysWeekday) && !currCard.getCompleted(todayDate)){
+                 addHabitByName(currCard.getHabitName(), "");
+            }
+        }
+        
+        // Resizing all the habit names after we know how many there are
+        int habitCount = todaysProgressDisplay.getComponentCount();
+        int itemHeight = todaysProgressDisplay.getHeight()/habitCount;
+        for(int i = 0; i < todaysProgressDisplay.getComponentCount(); i++){
+            todaysProgressDisplay.getComponent(i).setPreferredSize(new Dimension(todaysProgressDisplay.getWidth(), itemHeight));   
+        }
+    }
 }
 
 
@@ -195,39 +233,41 @@ class Screensaver {
 //============================================================================================================================================================================================================
 //============================================================================================================================================================================================================
 public class GUI_Window extends javax.swing.JFrame {
-    
+    // CHANGABLE BEFORE COMPILE VARIABLES: =================================
+    int MAX_HABIT_NAME_LENGTH = 15;
+    // =====================================================================
     
     // FILE NAMES: ========================================================
-    String configFileName = "config.txt";
-    String programFolderName = "PROGRAM FILES";
-    String habitsFolderName = "HABITS";
+    private final String configFileName = "config.txt";
+    private final String programFolderName = "PROGRAM FILES";
+    private final String habitsFolderName = "HABITS";
     
     // FILE VARIABLES: ============================================
-    int AWAY_FROM_SCREEN_TIME = 60;                 // In seconds (1 minute)
-    Color PRIMARY_COLOR = new Color(221,178,93);    // =.
-    Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
-    Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
-    Color TEXT_COLOR = new Color(255,255,255);      // ='
+    private int AWAY_FROM_SCREEN_TIME = 60;                 // In seconds (1 minute)
+    private Color PRIMARY_COLOR = new Color(221,178,93);    // =.
+    private Color SECONDARY_COLOR = new Color(204,204,204); //  | Color variables that can change
+    private Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
+    private Color TEXT_COLOR = new Color(255,255,255);      // ='
     // ============================================================
     
     
     // CHANGING VARIABLES: ========================================
-    JTextField keyboardTarget = null;    // Holds where we are typing into 
-    JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
-    JPanel navSelectorAgain = null;      // Holds the navigation panel for foward refrence
-    Screensaver screensaver = new Screensaver();  // Holds the instance of the object that manages the screensaver
-    int awayFromScreenCounter = 0;       // Keeps count from 0- AWAY_FROM_SCREEN_TIME
-    boolean awayIsOn = true;             // User can set this up through the settings to turn it off 
-    LocalDate todaysDate;                // Saving todays date so that we know when it changed
+    private JTextField keyboardTarget = null;    // Holds where we are typing into 
+    private JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
+    private JPanel navSelectorAgain = null;      // Holds the navigation panel for foward refrence
+    private Screensaver screensaver = new Screensaver();  // Holds the instance of the object that manages the screensaver
+    private int awayFromScreenCounter = 0;       // Keeps count from 0- AWAY_FROM_SCREEN_TIME
+    private boolean awayIsOn = true;             // User can set this up through the settings to turn it off 
+    private LocalDate todaysDate;                // Saving todays date so that we know when it changed
     // ====================================================================
             
     
-    // STATIC/HOLDING VARIABLES: =============================================
-    ArrayList<HabitCard_Quantity> allQuantityCards = new ArrayList<>(); // Holds all the quantity cards that user has made
-    ArrayList<HabitCard_YesNo> allYesNoCards = new ArrayList<>();       // Holds all the yes/no cards that user has made
-    ButtonGroup ah_IncrementButtonGroup = null; // Holds the group button from the add menu
-    ButtonGroup eh_IncrementButtonGroup = null; // Holds the group button from the edit habit menu
-    ButtonGroup ehist_completedButtonGroup = null; // Holds the group button from the edit history panel
+    // HOLDING VARIABLES: =============================================
+    public ArrayList<HabitCard_Quantity> allQuantityCards = new ArrayList<>(); // Holds all the quantity cards that user has made
+    public ArrayList<HabitCard_YesNo> allYesNoCards = new ArrayList<>();       // Holds all the yes/no cards that user has made
+    private ButtonGroup ah_IncrementButtonGroup = null; // Holds the group button from the add menu
+    private ButtonGroup eh_IncrementButtonGroup = null; // Holds the group button from the edit habit menu
+    private ButtonGroup ehist_completedButtonGroup = null; // Holds the group button from the edit history panel
     // ====================================================================
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI_Window.class.getName());
@@ -289,8 +329,8 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         // Setting up the screensaver
-        screensaver.setUp(screensaverPanel, screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3,
-                          screensaverTodaysProgress, screensaverFishTankBackground); 
+        screensaver.setUp(this, screensaverPanel, screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3,
+                          screensaverTodaysProgress, screensaverTodaysProgressDisplay, screensaverFishTankBackground); 
         
         // Setting up the scroll buttons in the home panel (removing, making new object, adding, setting z level to 0)
         home.remove(h_scrollUpPanel);
@@ -354,6 +394,16 @@ public class GUI_Window extends javax.swing.JFrame {
         settingsButton = new javax.swing.JButton();
         homeButton = new javax.swing.JButton();
         navSelector = new javax.swing.JPanel();
+        screensaverPanel = new javax.swing.JPanel();
+        screensaverTodaysProgress = new javax.swing.JPanel();
+        screensaverTodaysProgressTitle = new javax.swing.JLabel();
+        screensaverTodaysProgressDisplay = new javax.swing.JPanel();
+        screensaverFishTankBackground = new javax.swing.JLabel();
+        screensaverTimeText = new javax.swing.JLabel();
+        screensaverDateText = new javax.swing.JLabel();
+        skylinePanel1 = new javax.swing.JLabel();
+        skylinePanel2 = new javax.swing.JLabel();
+        skylinePanel3 = new javax.swing.JLabel();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
         eh_editHabitPanel = new javax.swing.JPanel();
@@ -379,7 +429,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_nameInput = new javax.swing.JTextField();
         eh_bottomButtonsPanel = new javax.swing.JPanel();
         eh_cancelChangesButton = new javax.swing.JButton();
-        eh_saveHabitButton = new javax.swing.JButton();
         eh_deleteHabitButton = new javax.swing.JButton();
         eh_editHistoryButton = new javax.swing.JButton();
         eh_deletePanel = new javax.swing.JPanel();
@@ -544,16 +593,6 @@ public class GUI_Window extends javax.swing.JFrame {
         key28 = new javax.swing.JButton();
         progress = new javax.swing.JPanel();
         p_progressTitle = new javax.swing.JLabel();
-        screensaverPanel = new javax.swing.JPanel();
-        screensaverFishTankBackground = new javax.swing.JLabel();
-        screensaverTodaysProgress = new javax.swing.JPanel();
-        screensaverTodaysProgressTitle = new javax.swing.JLabel();
-        screensaverTodaysProgressDisplay = new javax.swing.JPanel();
-        screensaverTimeText = new javax.swing.JLabel();
-        screensaverDateText = new javax.swing.JLabel();
-        skylinePanel1 = new javax.swing.JLabel();
-        skylinePanel2 = new javax.swing.JLabel();
-        skylinePanel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("HabitPanel");
@@ -664,6 +703,73 @@ public class GUI_Window extends javax.swing.JFrame {
         navSelector.setBounds(3, 3, 63, 120);
 
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
+
+        screensaverPanel.setBackground(java.awt.Color.black);
+        screensaverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                screensaverPanelMouseClicked(evt);
+            }
+        });
+        screensaverPanel.setLayout(null);
+
+        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 204, 51));
+        screensaverTodaysProgress.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        screensaverTodaysProgress.setLayout(null);
+
+        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 204, 51));
+        screensaverTodaysProgressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        screensaverTodaysProgressTitle.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverTodaysProgressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverTodaysProgressTitle.setText("Left To Do Today");
+        screensaverTodaysProgressTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        screensaverTodaysProgressTitle.setOpaque(true);
+        screensaverTodaysProgress.add(screensaverTodaysProgressTitle);
+        screensaverTodaysProgressTitle.setBounds(10, 10, 820, 40);
+
+        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(255, 204, 51));
+        screensaverTodaysProgressDisplay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
+        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 5, 1);
+        flowLayout2.setAlignOnBaseline(true);
+        screensaverTodaysProgressDisplay.setLayout(flowLayout2);
+        screensaverTodaysProgress.add(screensaverTodaysProgressDisplay);
+        screensaverTodaysProgressDisplay.setBounds(10, 60, 820, 330);
+
+        screensaverPanel.add(screensaverTodaysProgress);
+        screensaverTodaysProgress.setBounds(100, 100, 840, 400);
+
+        screensaverFishTankBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverFishBackground.png"))); // NOI18N
+        screensaverFishTankBackground.setOpaque(true);
+        screensaverPanel.add(screensaverFishTankBackground);
+        screensaverFishTankBackground.setBounds(0, 0, 1040, 600);
+
+        screensaverTimeText.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        screensaverTimeText.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverTimeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverTimeText.setText("7:20 PM");
+        screensaverPanel.add(screensaverTimeText);
+        screensaverTimeText.setBounds(320, 60, 400, 70);
+
+        screensaverDateText.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        screensaverDateText.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverDateText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverDateText.setText("Thursday, December 11, 2025");
+        screensaverDateText.setToolTipText("");
+        screensaverPanel.add(screensaverDateText);
+        screensaverDateText.setBounds(320, 120, 400, 50);
+
+        skylinePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP1.png"))); // NOI18N
+        screensaverPanel.add(skylinePanel1);
+        skylinePanel1.setBounds(0, 0, 1040, 600);
+
+        skylinePanel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP2.png"))); // NOI18N
+        screensaverPanel.add(skylinePanel2);
+        skylinePanel2.setBounds(0, 0, 1040, 600);
+
+        skylinePanel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP3.png"))); // NOI18N
+        screensaverPanel.add(skylinePanel3);
+        skylinePanel3.setBounds(0, 0, 1040, 600);
+
+        getContentPane().add(screensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         editHabit.setBackground(new java.awt.Color(181, 181, 181));
         editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -866,18 +972,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 eh_cancelChangesButtonMouseClicked(evt);
             }
         });
-        eh_bottomButtonsPanel.add(eh_cancelChangesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 140, 70));
-
-        eh_saveHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_saveHabitButton.setForeground(java.awt.Color.white);
-        eh_saveHabitButton.setText("Save Habit");
-        eh_saveHabitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_saveHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_saveHabitButtonMouseClicked(evt);
-            }
-        });
-        eh_bottomButtonsPanel.add(eh_saveHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 140, 70));
+        eh_bottomButtonsPanel.add(eh_cancelChangesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 180, 70));
 
         eh_deleteHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         eh_deleteHabitButton.setForeground(java.awt.Color.white);
@@ -888,7 +983,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 eh_deleteHabitButtonMouseClicked(evt);
             }
         });
-        eh_bottomButtonsPanel.add(eh_deleteHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 10, 140, 70));
+        eh_bottomButtonsPanel.add(eh_deleteHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 180, 70));
 
         eh_editHistoryButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         eh_editHistoryButton.setForeground(java.awt.Color.white);
@@ -899,7 +994,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 eh_editHistoryButtonMouseClicked(evt);
             }
         });
-        eh_bottomButtonsPanel.add(eh_editHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 140, 70));
+        eh_bottomButtonsPanel.add(eh_editHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 180, 70));
 
         eh_editHabitPanel.add(eh_bottomButtonsPanel);
         eh_bottomButtonsPanel.setBounds(150, 370, 630, 90);
@@ -2501,70 +2596,6 @@ public class GUI_Window extends javax.swing.JFrame {
 
         getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
-        screensaverPanel.setBackground(java.awt.Color.black);
-        screensaverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                screensaverPanelMouseClicked(evt);
-            }
-        });
-        screensaverPanel.setLayout(null);
-
-        screensaverFishTankBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverFishBackground.png"))); // NOI18N
-        screensaverFishTankBackground.setOpaque(true);
-        screensaverPanel.add(screensaverFishTankBackground);
-        screensaverFishTankBackground.setBounds(0, 0, 1040, 600);
-
-        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 204, 51));
-        screensaverTodaysProgress.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        screensaverTodaysProgress.setLayout(null);
-
-        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 204, 51));
-        screensaverTodaysProgressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        screensaverTodaysProgressTitle.setForeground(new java.awt.Color(255, 255, 255));
-        screensaverTodaysProgressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        screensaverTodaysProgressTitle.setText("Left To Do Today");
-        screensaverTodaysProgressTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        screensaverTodaysProgressTitle.setOpaque(true);
-        screensaverTodaysProgress.add(screensaverTodaysProgressTitle);
-        screensaverTodaysProgressTitle.setBounds(10, 10, 820, 40);
-
-        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(255, 204, 51));
-        screensaverTodaysProgressDisplay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        screensaverTodaysProgress.add(screensaverTodaysProgressDisplay);
-        screensaverTodaysProgressDisplay.setBounds(10, 60, 820, 330);
-
-        screensaverPanel.add(screensaverTodaysProgress);
-        screensaverTodaysProgress.setBounds(100, 100, 840, 400);
-
-        screensaverTimeText.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        screensaverTimeText.setForeground(new java.awt.Color(255, 255, 255));
-        screensaverTimeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        screensaverTimeText.setText("7:20 PM");
-        screensaverPanel.add(screensaverTimeText);
-        screensaverTimeText.setBounds(320, 60, 400, 70);
-
-        screensaverDateText.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        screensaverDateText.setForeground(new java.awt.Color(255, 255, 255));
-        screensaverDateText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        screensaverDateText.setText("Thursday, December 11, 2025");
-        screensaverDateText.setToolTipText("");
-        screensaverPanel.add(screensaverDateText);
-        screensaverDateText.setBounds(320, 120, 400, 50);
-
-        skylinePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP1.png"))); // NOI18N
-        screensaverPanel.add(skylinePanel1);
-        skylinePanel1.setBounds(0, 0, 1040, 600);
-
-        skylinePanel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP2.png"))); // NOI18N
-        screensaverPanel.add(skylinePanel2);
-        skylinePanel2.setBounds(0, 0, 1040, 600);
-
-        skylinePanel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP3.png"))); // NOI18N
-        screensaverPanel.add(skylinePanel3);
-        skylinePanel3.setBounds(0, 0, 1040, 600);
-
-        getContentPane().add(screensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -2689,7 +2720,9 @@ public class GUI_Window extends javax.swing.JFrame {
     // =================================================================================================================================
     private final Timer awayFromScreen = new Timer(1000, e->{
         awayFromScreenCounter++;              // Increase counter
+        System.out.println("TICK: " + Integer.toString(awayFromScreenCounter) + "/" + Integer.toString(AWAY_FROM_SCREEN_TIME));
         if(awayFromScreenCounter >= AWAY_FROM_SCREEN_TIME){  // IF: checking if we reached the max time
+            System.out.println("----> REACHED!!");
             ((Timer)e.getSource()).stop();    // Stop Timer
             awayFromScreenCounter = 0;        // Reset counter
             screensaver.startScreenSaver();   // Starting the screensaver
@@ -3097,7 +3130,7 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // EDIT HABIT
             eh_editNameButton, eh_editColorButton, eh_editIncrementAndGoalButton,
-            eh_editDaysButton, eh_editNameCancelButton, eh_editNameSaveButton, eh_deleteHabitButton, eh_cancelChangesButton, eh_saveHabitButton,
+            eh_editDaysButton, eh_editNameCancelButton, eh_editNameSaveButton, eh_deleteHabitButton, eh_cancelChangesButton,
             eh_editDaysCancelButton, eh_editDaysSaveButton, eh_quantityDecrease, eh_euantityIncrease, eh_editIncrementAndGoalCancelButton, eh_editIncrementAndGoalSaveButton,
             eh_deleteConfirmButton, eh_deleteCancelButton, eh_editHistoryButton, eh_editHistoryBackButton, eh_editHistoryScrollDownButton, eh_editHistoryScrollUpButton, 
         };
@@ -3193,6 +3226,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 screensaverTodaysProgressTitle.setForeground(TEXT_COLOR);
                 screensaverTodaysProgress.setBackground(SECONDARY_COLOR);
                 screensaverTodaysProgressDisplay.setBackground(PRIMARY_COLOR);
+                screensaverTodaysProgressDisplay.setForeground(TEXT_COLOR);
                 screensaverPanel.setBackground(darkenColor(PRIMARY_COLOR));
             }
             case 6 -> {
@@ -3690,7 +3724,7 @@ public class GUI_Window extends javax.swing.JFrame {
         h_habitPanel.repaint();
     }
     
-    private String getWeekday(){
+    public String getWeekday(){
         return h_date.getText().substring(0,h_date.getText().indexOf(','));
     }
     
@@ -3930,7 +3964,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Custom return code for limiting the size of the name for the habit (added: allows backspace to go through this)
         if((keyboardTarget == h_addHabitName || keyboardTarget == eh_nameInput)
-           && keyboardTarget.getText().length() >= 17 && !input.equals("<-"))
+           && keyboardTarget.getText().length() >= MAX_HABIT_NAME_LENGTH && !input.equals("<-"))
             return;
         
         // Editing the string 
@@ -4641,36 +4675,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_resetPanel();
     }//GEN-LAST:event_eh_cancelChangesButtonMouseClicked
 
-    private void eh_saveHabitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_saveHabitButtonMouseClicked
-        if(targetQuantityCard != null){
-            targetQuantityCard.setHabitName(eh_name.getText());
-            targetQuantityCard.setHabitColor(eh_color.getBackground());
-            targetQuantityCard.setWeek(savedWeek); 
-            targetQuantityCard.setIncrement(Double.valueOf(eh_increment.getText()));
-            targetQuantityCard.setGoal(Double.valueOf(eh_goal.getText()));
-            
-            // Renaming file if the name changed
-            if(!savedName.equals(targetQuantityCard.getHabitName()))
-                renameHabitFile(savedName, targetQuantityCard.getHabitName());
-        
-            // Updating the file
-            saveQuantityHabitFile(targetQuantityCard);
-        }
-        else{
-            targetYesNoCard.setHabitName(eh_name.getText());
-            targetYesNoCard.setHabitColor(eh_color.getBackground());
-            targetYesNoCard.setWeek(savedWeek); 
-            
-            // Renaming file if the name changed
-            if(!savedName.equals(targetYesNoCard.getHabitName()))
-                renameHabitFile(savedName, targetYesNoCard.getHabitName());
-        
-            // Updating the file
-            saveYesNoHabitFile(targetYesNoCard);
-        }
-        eh_resetPanel();
-    }//GEN-LAST:event_eh_saveHabitButtonMouseClicked
-
     private void eh_editNameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editNameButtonMouseClicked
         keyboard.setLocation(190,330);
         keyboard.setVisible(true);
@@ -4719,6 +4723,23 @@ public class GUI_Window extends javax.swing.JFrame {
         // Change the name in the summary panel
         eh_name.setText(fixName(eh_nameInput.getText()));
         
+        // Saving into memory
+        if(targetQuantityCard != null){
+            targetQuantityCard.setHabitName(eh_name.getText());                 // Setting the text on the summary 
+            if(!savedName.equals(targetQuantityCard.getHabitName())){           // If name does not equal to the saved name
+                renameHabitFile(savedName, targetQuantityCard.getHabitName());  // Renaming the file
+                savedName = eh_name.getText();                                  // Updating saved name
+            }
+        }
+        else{
+            targetYesNoCard.setHabitName(eh_name.getText());                    // Setting the text on the summary
+            if(!savedName.equals(targetYesNoCard.getHabitName())){
+                renameHabitFile(savedName, targetYesNoCard.getHabitName());     // Renaming file if the name changed
+                savedName = eh_name.getText();                                  // Updating saved name
+            }
+            
+        }
+        
         // Switch back to the summary panel
         keyboard.setVisible(false);
         keyboard.setLocation(190,-330);
@@ -4735,6 +4756,10 @@ public class GUI_Window extends javax.swing.JFrame {
         // If color is valid, make the panel this color
         if(chosenColor != null){
             eh_color.setBackground(chosenColor);
+            if(targetQuantityCard != null)
+                targetQuantityCard.setHabitColor(chosenColor);
+            else
+                targetYesNoCard.setHabitColor(chosenColor);
         }
     }//GEN-LAST:event_eh_editColorButtonMouseClicked
 
@@ -4807,6 +4832,12 @@ public class GUI_Window extends javax.swing.JFrame {
         newWeekString += (savedWeek.charAt(6) == '1' ? " Sun" : "");
         eh_days.setText(newWeekString);
         
+        // Saving into memory
+        if(targetQuantityCard != null)
+            targetQuantityCard.setWeek(savedWeek); 
+        else
+            targetYesNoCard.setWeek(savedWeek);
+        
         
         
         eh_editDaysPanel.setVisible(false);
@@ -4857,6 +4888,11 @@ public class GUI_Window extends javax.swing.JFrame {
     private void eh_editIncrementAndGoalSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editIncrementAndGoalSaveButtonMouseClicked
         eh_goal.setText(eh_editIncrementAndGoalGoal.getText());
         eh_increment.setText(eh_IncrementPointOne.isSelected() ? "0.1" : (eh_IncrementPointFive.isSelected() ? "0.5" : "1.0"));
+        
+        // Save into memory
+        targetQuantityCard.setIncrement(Double.valueOf(eh_increment.getText()));
+        targetQuantityCard.setGoal(Double.valueOf(eh_goal.getText()));
+        
         
         // Switching back to summary panel
         eh_editIncrementAndGoalPanel.setVisible(false);
@@ -5342,7 +5378,6 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel eh_name;
     private javax.swing.JTextField eh_nameInput;
     private javax.swing.JButton eh_quantityDecrease;
-    private javax.swing.JButton eh_saveHabitButton;
     private javax.swing.JPanel eh_scrollDownPanel;
     private javax.swing.JScrollPane eh_scrollPane;
     private javax.swing.JPanel eh_scrollUpPanel;
