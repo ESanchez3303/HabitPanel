@@ -1,7 +1,0 @@
-name=BRUSH TEETH
-color=255,153,51
-type=yesno
-days=1111111
-
-2026-01-02=false
-2026-01-01=false

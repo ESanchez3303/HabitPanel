@@ -1,6 +1,0 @@
-name=TY
-color=255,102,153
-type=yesno
-days=0011111
-
-2026-01-02=false

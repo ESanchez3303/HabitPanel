@@ -269,8 +269,8 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Setting up edit history panel (button grouping):
         ehist_completedButtonGroup = new ButtonGroup();
-        ehist_completedButtonGroup.add(ehist_completedButton);
-        ehist_completedButtonGroup.add(ehist_notCompletedButton);
+        ehist_completedButtonGroup.add(eh_editHistoryCompleteButton);
+        ehist_completedButtonGroup.add(eh_editHistoryNotCompleteButton);
         
         // Setting up edit habit up and down scroll panel
         eh_chooseHabitPanel.remove(eh_scrollUpPanel);
@@ -309,15 +309,9 @@ public class GUI_Window extends javax.swing.JFrame {
         home.setComponentZOrder(h_scrollDownPanel, 0);
         
         // Setting up the listener for the jtable in the edit history panel
-        ehist_historyTable.getSelectionModel().addListSelectionListener(e -> {
+        eh_historyTable.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) { // Only respond when the selection is finalized
                 ehist_rowChanged();
-            }
-        });
-        
-        ehist_habitSelectionBox.getSelectionModel().addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) { // Only respond when the selection is finalized
-                ehist_habitSelectionBoxIndexChanged();
             }
         });
         
@@ -355,7 +349,6 @@ public class GUI_Window extends javax.swing.JFrame {
 
         navigationPanel = new javax.swing.JPanel();
         addHabitButton = new javax.swing.JButton();
-        editHistoryButton = new javax.swing.JButton();
         progressButton = new javax.swing.JButton();
         editHabitButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
@@ -415,32 +408,27 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editDaysSaveButton = new javax.swing.JButton();
         eh_editDaysCancelButton = new javax.swing.JButton();
         jSeparator1 = new javax.swing.JSeparator();
+        eh_editHistoryPanel = new javax.swing.JPanel();
+        ehist_historyScrollPane = new javax.swing.JScrollPane();
+        eh_historyTable = new javax.swing.JTable();
+        eh_editHistoryYesNoPanel = new javax.swing.JPanel();
+        eh_editHistoryNotCompleteButton = new javax.swing.JToggleButton();
+        eh_editHistoryCompleteButton = new javax.swing.JToggleButton();
+        eh_editHistoryQuantityPanel = new javax.swing.JPanel();
+        eh_editHIstoryIncreaseButton = new javax.swing.JButton();
+        eh_editHistorydDecreaseButton = new javax.swing.JButton();
+        eh_editHistoryQuantity = new javax.swing.JLabel();
+        eh_text3 = new javax.swing.JLabel();
+        eh_editHistoryHabitName = new javax.swing.JLabel();
+        eh_editHistoryText1 = new javax.swing.JLabel();
+        eh_editHistoryScrollUpButton = new javax.swing.JButton();
+        eh_editHistoryScrollDownButton = new javax.swing.JButton();
+        eh_editHistoryBackButton = new javax.swing.JButton();
         eh_chooseHabitPanel = new javax.swing.JPanel();
         eh_scrollDownPanel = new javax.swing.JPanel();
         eh_scrollUpPanel = new javax.swing.JPanel();
         eh_scrollPane = new javax.swing.JScrollPane();
         eh_chooseHabitDisplay = new javax.swing.JPanel();
-        editHistory = new javax.swing.JPanel();
-        eHist_title = new javax.swing.JLabel();
-        ehist_habitScrollDownButton = new javax.swing.JButton();
-        ehist_habitScrollUpButton = new javax.swing.JButton();
-        ehist_habitSelectionScrollPane = new javax.swing.JScrollPane();
-        ehist_habitSelectionBox = new javax.swing.JList<>();
-        ehist_historyScrollPane = new javax.swing.JScrollPane();
-        ehist_historyTable = new javax.swing.JTable();
-        ehist_habitName = new javax.swing.JLabel();
-        ehist_changeValuePanelQuantity = new javax.swing.JPanel();
-        ehist_increaseButton = new javax.swing.JButton();
-        ehist_decreaseButton = new javax.swing.JButton();
-        ehist_quantity = new javax.swing.JLabel();
-        ehist_text3 = new javax.swing.JLabel();
-        ehist_changeValuePanelYesNo = new javax.swing.JPanel();
-        ehist_notCompletedButton = new javax.swing.JToggleButton();
-        ehist_completedButton = new javax.swing.JToggleButton();
-        ehist_tableScrollUpButton = new javax.swing.JButton();
-        ehist_tableScrollDownButton = new javax.swing.JButton();
-        ehist_tableTitle = new javax.swing.JLabel();
-        ehist_noHabitsText = new javax.swing.JLabel();
         addHabit = new javax.swing.JPanel();
         ah_title = new javax.swing.JLabel();
         ah_NamePanel = new javax.swing.JPanel();
@@ -593,24 +581,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         navigationPanel.add(addHabitButton);
-        addHabitButton.setBounds(0, 200, 68, 100);
-
-        editHistoryButton.setBackground(new java.awt.Color(193, 144, 69));
-        editHistoryButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        editHistoryButton.setForeground(java.awt.Color.white);
-        editHistoryButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/historyIcon.png"))); // NOI18N
-        editHistoryButton.setToolTipText("");
-        editHistoryButton.setBorder(null);
-        editHistoryButton.setContentAreaFilled(false);
-        editHistoryButton.setFocusPainted(false);
-        editHistoryButton.setFocusable(false);
-        editHistoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editHistoryButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(editHistoryButton);
-        editHistoryButton.setBounds(0, 400, 68, 100);
+        addHabitButton.setBounds(0, 240, 68, 120);
 
         progressButton.setBackground(new java.awt.Color(193, 144, 69));
         progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -627,7 +598,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         navigationPanel.add(progressButton);
-        progressButton.setBounds(0, 500, 68, 100);
+        progressButton.setBounds(0, 120, 68, 120);
 
         editHabitButton.setBackground(new java.awt.Color(193, 144, 69));
         editHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -644,7 +615,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         navigationPanel.add(editHabitButton);
-        editHabitButton.setBounds(0, 300, 68, 100);
+        editHabitButton.setBounds(0, 360, 68, 120);
 
         settingsButton.setBackground(new java.awt.Color(193, 144, 69));
         settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -660,7 +631,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         navigationPanel.add(settingsButton);
-        settingsButton.setBounds(0, 100, 68, 100);
+        settingsButton.setBounds(0, 480, 68, 120);
 
         homeButton.setBackground(new java.awt.Color(193, 144, 69));
         homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/homeIcon.png"))); // NOI18N
@@ -674,7 +645,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         navigationPanel.add(homeButton);
-        homeButton.setBounds(0, 0, 68, 100);
+        homeButton.setBounds(0, 0, 68, 120);
 
         navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -686,11 +657,11 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         navSelectorLayout.setVerticalGroup(
             navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 96, Short.MAX_VALUE)
+            .addGap(0, 116, Short.MAX_VALUE)
         );
 
         navigationPanel.add(navSelector);
-        navSelector.setBounds(3, 3, 63, 100);
+        navSelector.setBounds(3, 3, 63, 120);
 
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
 
@@ -888,7 +859,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
         eh_cancelChangesButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         eh_cancelChangesButton.setForeground(java.awt.Color.white);
-        eh_cancelChangesButton.setText("Cancel");
+        eh_cancelChangesButton.setText("Back");
         eh_cancelChangesButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         eh_cancelChangesButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -923,6 +894,11 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editHistoryButton.setForeground(java.awt.Color.white);
         eh_editHistoryButton.setText("Edit History");
         eh_editHistoryButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryButtonMouseClicked(evt);
+            }
+        });
         eh_bottomButtonsPanel.add(eh_editHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 10, 140, 70));
 
         eh_editHabitPanel.add(eh_bottomButtonsPanel);
@@ -1149,6 +1125,180 @@ public class GUI_Window extends javax.swing.JFrame {
 
         editHabit.add(eh_editHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 950, 490));
 
+        eh_editHistoryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ehist_historyScrollPane.setBackground(new java.awt.Color(156, 183, 133));
+        ehist_historyScrollPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ehist_historyScrollPane.setForeground(new java.awt.Color(156, 183, 133));
+
+        eh_historyTable.setBackground(new java.awt.Color(156, 183, 133));
+        eh_historyTable.setForeground(java.awt.Color.white);
+        eh_historyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Date", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        eh_historyTable.setFocusable(false);
+        ehist_historyScrollPane.setViewportView(eh_historyTable);
+        if (eh_historyTable.getColumnModel().getColumnCount() > 0) {
+            eh_historyTable.getColumnModel().getColumn(0).setResizable(false);
+            eh_historyTable.getColumnModel().getColumn(1).setResizable(false);
+            eh_historyTable.getColumnModel().getColumn(2).setResizable(false);
+            eh_historyTable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        eh_editHistoryPanel.add(ehist_historyScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 630, 350));
+
+        eh_editHistoryYesNoPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryYesNoPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryYesNoPanel.setForeground(java.awt.Color.white);
+        eh_editHistoryYesNoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryNotCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryNotCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryNotCompleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryNotCompleteButton.setText("Not Completed");
+        eh_editHistoryNotCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryNotCompleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_completedNotCompletedButtonClicked(evt);
+            }
+        });
+        eh_editHistoryYesNoPanel.add(eh_editHistoryNotCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 310, 80));
+
+        eh_editHistoryCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryCompleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryCompleteButton.setText("Completed");
+        eh_editHistoryCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryCompleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_completedNotCompletedButtonClicked(evt);
+            }
+        });
+        eh_editHistoryYesNoPanel.add(eh_editHistoryCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 80));
+
+        eh_editHistoryPanel.add(eh_editHistoryYesNoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 660, 110));
+
+        eh_editHistoryQuantityPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryQuantityPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryQuantityPanel.setForeground(java.awt.Color.white);
+        eh_editHistoryQuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHIstoryIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHIstoryIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHIstoryIncreaseButton.setForeground(java.awt.Color.white);
+        eh_editHIstoryIncreaseButton.setText("+");
+        eh_editHIstoryIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHIstoryIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_increaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryQuantityPanel.add(eh_editHIstoryIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 150, 70));
+
+        eh_editHistorydDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistorydDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHistorydDecreaseButton.setForeground(java.awt.Color.white);
+        eh_editHistorydDecreaseButton.setText("-");
+        eh_editHistorydDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistorydDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_increaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryQuantityPanel.add(eh_editHistorydDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 150, 70));
+
+        eh_editHistoryQuantity.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHistoryQuantity.setForeground(java.awt.Color.white);
+        eh_editHistoryQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryQuantity.setText("9999");
+        eh_editHistoryQuantityPanel.add(eh_editHistoryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 220, 60));
+
+        eh_text3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_text3.setForeground(java.awt.Color.white);
+        eh_text3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_text3.setText("Quantity Reached");
+        eh_editHistoryQuantityPanel.add(eh_text3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 220, -1));
+
+        eh_editHistoryPanel.add(eh_editHistoryQuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 660, 110));
+
+        eh_editHistoryHabitName.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryHabitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryHabitName.setForeground(java.awt.Color.white);
+        eh_editHistoryHabitName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        eh_editHistoryHabitName.setText("<habit name>");
+        eh_editHistoryPanel.add(eh_editHistoryHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 270, 50));
+
+        eh_editHistoryText1.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryText1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryText1.setForeground(java.awt.Color.white);
+        eh_editHistoryText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        eh_editHistoryText1.setText("                                   Loaded Entries for:");
+        eh_editHistoryText1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryText1.setOpaque(true);
+        eh_editHistoryPanel.add(eh_editHistoryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 630, 50));
+
+        eh_editHistoryScrollUpButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryScrollUpButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryScrollUpButton.setForeground(java.awt.Color.white);
+        eh_editHistoryScrollUpButton.setText("^");
+        eh_editHistoryScrollUpButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryScrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryScrollButtonClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryScrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 200));
+
+        eh_editHistoryScrollDownButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryScrollDownButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryScrollDownButton.setForeground(java.awt.Color.white);
+        eh_editHistoryScrollDownButton.setText("V");
+        eh_editHistoryScrollDownButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryScrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryScrollButtonClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryScrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 200, 30, 200));
+
+        eh_editHistoryBackButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryBackButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryBackButton.setForeground(java.awt.Color.white);
+        eh_editHistoryBackButton.setText("Back");
+        eh_editHistoryBackButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryBackButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryBackButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 100, 70));
+
+        editHabit.add(eh_editHistoryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 950, 520));
+
         eh_chooseHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_chooseHabitPanel.setLayout(null);
 
@@ -1196,237 +1346,6 @@ public class GUI_Window extends javax.swing.JFrame {
         editHabit.add(eh_chooseHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
 
         getContentPane().add(editHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
-        editHistory.setBackground(new java.awt.Color(204, 204, 204));
-        editHistory.setForeground(new java.awt.Color(0, 0, 0));
-        editHistory.setMaximumSize(new java.awt.Dimension(1040, 600));
-        editHistory.setMinimumSize(new java.awt.Dimension(1040, 600));
-        editHistory.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eHist_title.setBackground(new java.awt.Color(156, 183, 133));
-        eHist_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eHist_title.setForeground(java.awt.Color.white);
-        eHist_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eHist_title.setText("Edit Past Entries");
-        eHist_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        eHist_title.setOpaque(true);
-        editHistory.add(eHist_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
-
-        ehist_habitScrollDownButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_habitScrollDownButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ehist_habitScrollDownButton.setForeground(java.awt.Color.white);
-        ehist_habitScrollDownButton.setText("V");
-        ehist_habitScrollDownButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_habitScrollDownButton.setFocusable(false);
-        ehist_habitScrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_habitScrollButtonMouseClicked(evt);
-            }
-        });
-        editHistory.add(ehist_habitScrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 30, 200));
-
-        ehist_habitScrollUpButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_habitScrollUpButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_habitScrollUpButton.setForeground(java.awt.Color.white);
-        ehist_habitScrollUpButton.setText("^");
-        ehist_habitScrollUpButton.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_habitScrollUpButton.setFocusPainted(false);
-        ehist_habitScrollUpButton.setFocusable(false);
-        ehist_habitScrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_habitScrollButtonMouseClicked(evt);
-            }
-        });
-        editHistory.add(ehist_habitScrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 70, 30, 200));
-
-        ehist_habitSelectionScrollPane.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_habitSelectionScrollPane.setBorder(null);
-        ehist_habitSelectionScrollPane.setForeground(new java.awt.Color(0, 0, 0));
-        ehist_habitSelectionScrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        ehist_habitSelectionScrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        ehist_habitSelectionScrollPane.setViewportBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        ehist_habitSelectionBox.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_habitSelectionBox.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED));
-        ehist_habitSelectionBox.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
-        ehist_habitSelectionBox.setForeground(new java.awt.Color(255, 255, 255));
-        ehist_habitSelectionBox.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "jksjduwhebhfnjksj", "nfjskeuwjfnsklieo", "ooooooooooooooooo", "mmmmmmmmmmmmmmmmk", " " };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        ehist_habitSelectionBox.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        ehist_habitSelectionBox.setFocusable(false);
-        ehist_habitSelectionScrollPane.setViewportView(ehist_habitSelectionBox);
-
-        editHistory.add(ehist_habitSelectionScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 240, 400));
-
-        ehist_historyScrollPane.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_historyScrollPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_historyScrollPane.setForeground(new java.awt.Color(156, 183, 133));
-
-        ehist_historyTable.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_historyTable.setForeground(java.awt.Color.white);
-        ehist_historyTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Date", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        ehist_historyTable.setFocusable(false);
-        ehist_historyScrollPane.setViewportView(ehist_historyTable);
-        if (ehist_historyTable.getColumnModel().getColumnCount() > 0) {
-            ehist_historyTable.getColumnModel().getColumn(0).setResizable(false);
-            ehist_historyTable.getColumnModel().getColumn(1).setResizable(false);
-            ehist_historyTable.getColumnModel().getColumn(2).setResizable(false);
-            ehist_historyTable.getColumnModel().getColumn(3).setResizable(false);
-        }
-
-        editHistory.add(ehist_historyScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 120, 630, 350));
-
-        ehist_habitName.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_habitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_habitName.setForeground(java.awt.Color.white);
-        ehist_habitName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ehist_habitName.setText("<habit name>");
-        editHistory.add(ehist_habitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 70, 290, 50));
-
-        ehist_changeValuePanelQuantity.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_changeValuePanelQuantity.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_changeValuePanelQuantity.setForeground(java.awt.Color.white);
-        ehist_changeValuePanelQuantity.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ehist_increaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_increaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        ehist_increaseButton.setForeground(java.awt.Color.white);
-        ehist_increaseButton.setText("+");
-        ehist_increaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_increaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_increaseDecreaseButtonClicked(evt);
-            }
-        });
-        ehist_changeValuePanelQuantity.add(ehist_increaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 150, 70));
-
-        ehist_decreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_decreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        ehist_decreaseButton.setForeground(java.awt.Color.white);
-        ehist_decreaseButton.setText("-");
-        ehist_decreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_decreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_increaseDecreaseButtonClicked(evt);
-            }
-        });
-        ehist_changeValuePanelQuantity.add(ehist_decreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 30, 150, 70));
-
-        ehist_quantity.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        ehist_quantity.setForeground(java.awt.Color.white);
-        ehist_quantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ehist_quantity.setText("9999");
-        ehist_changeValuePanelQuantity.add(ehist_quantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 40, 220, 60));
-
-        ehist_text3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_text3.setForeground(java.awt.Color.white);
-        ehist_text3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ehist_text3.setText("Quantity Reached");
-        ehist_changeValuePanelQuantity.add(ehist_text3, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 10, 220, -1));
-
-        editHistory.add(ehist_changeValuePanelQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 930, 110));
-
-        ehist_changeValuePanelYesNo.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_changeValuePanelYesNo.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_changeValuePanelYesNo.setForeground(java.awt.Color.white);
-        ehist_changeValuePanelYesNo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ehist_notCompletedButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_notCompletedButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_notCompletedButton.setForeground(java.awt.Color.white);
-        ehist_notCompletedButton.setText("Not Completed");
-        ehist_notCompletedButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_notCompletedButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_completedNotCompletedButtonClicked(evt);
-            }
-        });
-        ehist_changeValuePanelYesNo.add(ehist_notCompletedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 15, 310, 80));
-
-        ehist_completedButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_completedButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_completedButton.setForeground(java.awt.Color.white);
-        ehist_completedButton.setText("Completed");
-        ehist_completedButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_completedButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_completedNotCompletedButtonClicked(evt);
-            }
-        });
-        ehist_changeValuePanelYesNo.add(ehist_completedButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 15, 300, 80));
-
-        editHistory.add(ehist_changeValuePanelYesNo, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, 930, 110));
-
-        ehist_tableScrollUpButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_tableScrollUpButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_tableScrollUpButton.setForeground(java.awt.Color.white);
-        ehist_tableScrollUpButton.setText("^");
-        ehist_tableScrollUpButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_tableScrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_habitScrollButtonMouseClicked(evt);
-            }
-        });
-        editHistory.add(ehist_tableScrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 70, 30, 200));
-
-        ehist_tableScrollDownButton.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_tableScrollDownButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ehist_tableScrollDownButton.setForeground(java.awt.Color.white);
-        ehist_tableScrollDownButton.setText("V");
-        ehist_tableScrollDownButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_tableScrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_habitScrollButtonMouseClicked(evt);
-            }
-        });
-        editHistory.add(ehist_tableScrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(920, 270, 30, 200));
-
-        ehist_tableTitle.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_tableTitle.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ehist_tableTitle.setForeground(java.awt.Color.white);
-        ehist_tableTitle.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ehist_tableTitle.setText("                                   Loaded Entries for:");
-        ehist_tableTitle.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_tableTitle.setOpaque(true);
-        editHistory.add(ehist_tableTitle, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 630, 50));
-
-        ehist_noHabitsText.setForeground(java.awt.Color.white);
-        ehist_noHabitsText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ehist_noHabitsText.setText("No Habits With Past Entries");
-        ehist_noHabitsText.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_noHabitsText.setOpaque(true);
-        editHistory.add(ehist_noHabitsText, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, 660, 400));
-
-        getContentPane().add(editHistory, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         addHabit.setBackground(new java.awt.Color(181, 181, 181));
         addHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -2670,11 +2589,6 @@ public class GUI_Window extends javax.swing.JFrame {
     // ================== [SWITCH FRAMES FUNCTION ] ===============================================================================
     // =================================================================================================================================
     private void switchFrame(JPanel target){
-        // Checking if we just came from the editHistory section, if so we want to save all of the habits (write into disk)
-        if(editHistory.isVisible()){
-            saveAllHabits();
-        }
-        
         // Hidding all other frames (and keyboard)
         keyboard.setVisible(false);
         screensaverPanel.setVisible(false);
@@ -2683,7 +2597,6 @@ public class GUI_Window extends javax.swing.JFrame {
         progress.setVisible(false);
         addHabit.setVisible(false);
         editHabit.setVisible(false);
-        editHistory.setVisible(false);
         navigationPanel.setVisible(true);
         
         
@@ -2751,10 +2664,6 @@ public class GUI_Window extends javax.swing.JFrame {
         else if(target == editHabit){
             moveNavSelector(editHabitButton); // Moving the navSelector to the correct position
             eh_resetPanel();
-        }
-        else if(target == editHistory){
-            moveNavSelector(editHistoryButton); // Moving the navSelector to the correct position
-            resetEditHistory();
         }
         else if(target == screensaverPanel){
             navigationPanel.setVisible(false);
@@ -3147,7 +3056,6 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // KEYBOARD:
             keyboard,
-            // EDIT HISTORY
             
             // ADD HABIT:
             ah_NamePanel, ah_SummaryPanel, ah_DaysPanel, ah_QuantityPanel, 
@@ -3163,12 +3071,11 @@ public class GUI_Window extends javax.swing.JFrame {
             settings, 
             // PROGRESS SCREEN:
             progress,
-            // EDIT HISTORY
-            editHistory,
+            
             // ADD HABIT 
             addHabit, 
             // EDIT HABIT
-            eh_chooseHabitPanel, editHabit, eh_chooseHabitDisplay, eh_editHabitPanel, eh_bottomButtonsPanel
+            eh_chooseHabitPanel, editHabit, eh_chooseHabitDisplay, eh_editHabitPanel, eh_bottomButtonsPanel, eh_editHistoryPanel
         };
         JButton buttonColored[] = {
             // HOME SCREEN:
@@ -3176,6 +3083,7 @@ public class GUI_Window extends javax.swing.JFrame {
             // SETTINGS SCREEN:
             s_primaryColorButton, s_secondaryColorButton, s_buttonColorButton, s_textColorButton, s_awayFromScreenButton, 
             s_turnOffAwayFromScreenButton, s_resetButton,
+            
             // PROGRESS SCREEN:
             
             // KEYBOARD:
@@ -3183,18 +3091,15 @@ public class GUI_Window extends javax.swing.JFrame {
             key11,key12,key13,key14,key15,key16,key17,key18,key19,key20,
             key21,key22,key23,key24,key25,key26,key27, key28,
             
-            // EDIT HISTORY
-            ehist_habitScrollUpButton, ehist_habitScrollDownButton, ehist_tableScrollDownButton, ehist_tableScrollUpButton, 
-            
             // ADD HABIT
             ah_ResetButton, ah_ChooseColorButton, ah_QuantityDecrease, ah_QuantityIncrease, 
-            ah_QuantitySaveButton, ah_SaveDaysButton, ehist_decreaseButton, ehist_increaseButton, 
+            ah_QuantitySaveButton, ah_SaveDaysButton, eh_editHistorydDecreaseButton, eh_editHIstoryIncreaseButton, 
             
             // EDIT HABIT
             eh_editNameButton, eh_editColorButton, eh_editIncrementAndGoalButton,
             eh_editDaysButton, eh_editNameCancelButton, eh_editNameSaveButton, eh_deleteHabitButton, eh_cancelChangesButton, eh_saveHabitButton,
             eh_editDaysCancelButton, eh_editDaysSaveButton, eh_quantityDecrease, eh_euantityIncrease, eh_editIncrementAndGoalCancelButton, eh_editIncrementAndGoalSaveButton,
-            eh_deleteConfirmButton, eh_deleteCancelButton, eh_editHistoryButton,
+            eh_deleteConfirmButton, eh_deleteCancelButton, eh_editHistoryButton, eh_editHistoryBackButton, eh_editHistoryScrollDownButton, eh_editHistoryScrollUpButton, 
         };
         
         JLabel textColored[] = {
@@ -3206,9 +3111,6 @@ public class GUI_Window extends javax.swing.JFrame {
             // PROGRESS SCREEN:
             p_progressTitle,
             
-            // EDIT HISTORY
-            eHist_title, ehist_habitName, ehist_text3, ehist_quantity, ehist_tableTitle, ehist_noHabitsText,
-            
             // ADD HABIT
             ah_title,ah_title, ah_TopPanelText, ah_TopPanelText1, ah_SummaryText1,
             ah_SummaryText2,ah_SummaryText3, ah_SummaryText4, ah_SummaryText5, ah_SummaryText6, ah_SummaryName, 
@@ -3218,7 +3120,7 @@ public class GUI_Window extends javax.swing.JFrame {
             // EDIT HABIT
             eh_title, eh_editHabitText1, eh_editHabitText2, eh_editHabitText3, eh_editHabitText4, 
             eh_editHabitText5, eh_editHabitText6, eh_editIncrementAndGoalText1, eh_editIncrementAndGoalText2, eh_editIncrementAndGoalGoal,
-            eh_deleteText1,eh_name, eh_days, eh_increment, eh_goal,
+            eh_deleteText1,eh_name, eh_days, eh_increment, eh_goal, eh_editHistoryHabitName, eh_text3, eh_editHistoryQuantity, eh_editHistoryText1,
             
             // SCREENSAVER PANEL
             screensaverTimeText, screensaverDateText,
@@ -3229,7 +3131,7 @@ public class GUI_Window extends javax.swing.JFrame {
             ah_IncrementPointOne, ah_IncrementPointFive, ah_IncrementOne,
             eh_Monday, eh_Tuesday, eh_Wednesday, eh_Thursday, eh_Friday, eh_Saturday, eh_Sunday,  
             eh_IncrementPointOne, eh_IncrementPointFive, eh_IncrementOne,
-            ehist_completedButton, ehist_notCompletedButton,
+            eh_editHistoryCompleteButton, eh_editHistoryNotCompleteButton,
         };
        
         
@@ -3264,7 +3166,6 @@ public class GUI_Window extends javax.swing.JFrame {
         settingsButton.setBackground(PRIMARY_COLOR);
         addHabitButton.setBackground(PRIMARY_COLOR);
         editHabitButton.setBackground(PRIMARY_COLOR);
-        editHistoryButton.setBackground(PRIMARY_COLOR);
         progressButton.setBackground(PRIMARY_COLOR);
         
         // HOME: Painting the scroll buttons/panels
@@ -3342,19 +3243,15 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_scrollDownPanel.setForeground(TEXT_COLOR);
         
         // EDIT HISTORY: Painting the edit habits entries 
-        ehist_historyTable.setBackground(PRIMARY_COLOR);
-        ehist_historyTable.setForeground(TEXT_COLOR);
+        eh_historyTable.setBackground(PRIMARY_COLOR);
+        eh_historyTable.setForeground(TEXT_COLOR);
         ehist_historyScrollPane.setBackground(PRIMARY_COLOR);
         
         // EDIT HISTORY: Painting the two changing values panel
-        ehist_changeValuePanelQuantity.setBackground(PRIMARY_COLOR);
-        ehist_changeValuePanelYesNo.setBackground(PRIMARY_COLOR);
+        eh_editHistoryQuantityPanel.setBackground(PRIMARY_COLOR);
+        eh_editHistoryYesNoPanel.setBackground(PRIMARY_COLOR);
         
         
-        // EDIT HISTORY: Painting selection boxes
-        ehist_habitSelectionScrollPane.setBackground(PRIMARY_COLOR); // For the smaller border
-        ehist_habitSelectionBox.setBackground(PRIMARY_COLOR);        // "actual" background
-        ehist_habitSelectionBox.setForeground(TEXT_COLOR);           // Text inside actual object of the box
         
         
         // SCREENSAVER : If the screensavers is "Skyline" | "today progress" | "simple clock/date" ----> Then we need to repaint certain things
@@ -3656,10 +3553,6 @@ public class GUI_Window extends javax.swing.JFrame {
         switchFrame(editHabit);
     }//GEN-LAST:event_editHabitButtonMouseClicked
 
-    private void editHistoryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editHistoryButtonMouseClicked
-        switchFrame(editHistory);
-    }//GEN-LAST:event_editHistoryButtonMouseClicked
-
     private void progressButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_progressButtonMouseClicked
         switchFrame(progress); // Swtich to the progress frame
     }//GEN-LAST:event_progressButtonMouseClicked
@@ -3818,8 +3711,10 @@ public class GUI_Window extends javax.swing.JFrame {
         for(HabitCard_Quantity currCard : allQuantityCards){  // Looking through all quantity cards
             if(currCard.isForToday(todaysWeekDay)){           // If this card is a habit for today
                 h_habitPanel.add(currCard);
-                if(!currCard.hasDateEntry(LocalDate.now()))   // Adding an entry for today if it does not already have one 
-                    currCard.addDateEntry(LocalDate.now(), 0.0, currCard.getGoal());
+                if(!currCard.hasDateEntry(LocalDate.now())){   // Adding an entry for today if it does not already have one 
+                    currCard.addDateEntry(LocalDate.now(), 0.0, currCard.getGoal()); // Adding date entry for today
+                    saveQuantityHabitFile(currCard);                                 // Saving file in the disk since we are creating a new one
+                }
                 else                                          // If there is already an entry for today, then we need to update the cache
                     currCard.setQuantity(currCard.getDateEntry(LocalDate.now()).getReached());
                 
@@ -3831,8 +3726,10 @@ public class GUI_Window extends javax.swing.JFrame {
         for(HabitCard_YesNo currCard : allYesNoCards){        // Looking through all yesno cards
             if(currCard.isForToday(todaysWeekDay)){           // If this card is a habit for today
                 h_habitPanel.add(currCard);
-                if(!currCard.hasDateEntry(LocalDate.now()))   // Adding an entry for today if it does not already have one 
-                    currCard.addDateEntry(LocalDate.now(), false);
+                if(!currCard.hasDateEntry(LocalDate.now())){   // Adding an entry for today if it does not already have one 
+                    currCard.addDateEntry(LocalDate.now(), false); // Adding date entry for today
+                    saveYesNoHabitFile(currCard);                  // Saving file in the disk since we are creating a new one
+                }
                 else                                          // If there is already an entry for today, then we need to update the cache for it
                     currCard.setComplete(currCard.getDateEntry(LocalDate.now()));
             }
@@ -4028,13 +3925,13 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     private void keyboardKeyClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_keyboardKeyClicked
-        // Custom return code for limiting the size of the name for the habit
-        if((keyboardTarget == h_addHabitName || keyboardTarget == eh_nameInput)
-           && keyboardTarget.getText().length() >= 17)
-            return;
-        
         String current = keyboardTarget.getText();           // Getting the current text from the target input
         String input = ((JButton)evt.getSource()).getText(); // Getting the button text that was pressed
+        
+        // Custom return code for limiting the size of the name for the habit (added: allows backspace to go through this)
+        if((keyboardTarget == h_addHabitName || keyboardTarget == eh_nameInput)
+           && keyboardTarget.getText().length() >= 17 && !input.equals("<-"))
+            return;
         
         // Editing the string 
         if(input.equals("<-")){                              // If it was a backspace, then remove one letter from the back
@@ -4546,6 +4443,7 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editDaysPanel.setVisible(false);
         eh_editIncrementAndGoalPanel.setVisible(false);
         eh_deletePanel.setVisible(false);
+        eh_editHistoryPanel.setVisible(false);
         
         
         
@@ -4660,6 +4558,9 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // Saving name to check later if they are different
             savedName = targetQuantityCard.getHabitName();
+            
+            // Disable or Enable the edit habit button
+            eh_editHistoryButton.setEnabled(targetQuantityCard.getDateEntryCount() > 1);
         }
         else{  // No need to do targetYesNoCard == null anymore since we made sure of that with earlier catch
             eh_name.setText(targetYesNoCard.getHabitName());
@@ -4670,6 +4571,9 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // Saving name to check later if they are different
             savedName = targetYesNoCard.getHabitName();
+            
+            // Disable or Enable the edit habit button
+            eh_editHistoryButton.setEnabled(targetYesNoCard.getDateEntryCount() > 1);
         }
         eh_editHabitSummaryPanel.getParent().repaint();
         eh_editHabitSummaryPanel.repaint();
@@ -4693,7 +4597,6 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Saving information that we might need later in other functions
         savedWeek = weekFromCard;
-        
         
         
         // Switching Panels
@@ -4962,17 +4865,36 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_eh_editIncrementAndGoalSaveButtonMouseClicked
     
     
-    
-    
-    
-    
-    
-    
-    
-    // =================================================================================================================================
-    // ================== [ EDIT HISTORY FUNCTIONS ] ===================================================================================
-    // =================================================================================================================================
-    
+    //  [ EDIT HISTORY HELPER FUNCTIONS ] ---------------------------------------------------------
+    // SCROLL FUNCTION: When the scroll button is clicked (for both the selection box and history table)
+    private void eh_editHistoryScrollButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editHistoryScrollButtonClicked
+        JButton pressedButton = (JButton) evt.getSource();
+
+        // Making sure that row count is greater than 1
+        if(eh_historyTable.getRowCount() > 1){
+            int row = Math.max(0, eh_historyTable.getSelectedRow()); // Making sure that the selected row is greater than 0 
+            int rowCount = eh_historyTable.getRowCount();
+
+            
+            if (pressedButton == eh_editHistoryScrollUpButton)
+                row--;
+            else
+                row++;
+
+            if (row >= 0 && row < rowCount) {
+                eh_historyTable.setRowSelectionInterval(row, row);
+                eh_historyTable.scrollRectToVisible(eh_historyTable.getCellRect(row, 0, true));
+            }
+        }
+    }//GEN-LAST:event_eh_editHistoryScrollButtonClicked
+
+    // BACK BUTTON: go back to the page before (summary page of habit)
+    private void eh_editHistoryBackButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editHistoryBackButtonMouseClicked
+        eh_editHistoryPanel.setVisible(false); // Simple hide again the history panel
+        eh_bottomButtonsPanel.setVisible(true);
+        eh_editHabitPanel.setVisible(true);
+    }//GEN-LAST:event_eh_editHistoryBackButtonMouseClicked
+
     // Helper function to return a target quantity card
     private HabitCard_Quantity getQuantityCard(String target){
         for(HabitCard_Quantity currCard : allQuantityCards){
@@ -4990,52 +4912,28 @@ public class GUI_Window extends javax.swing.JFrame {
          return null;
     }
     
-    // Reset the screen to set up
-    private void resetEditHistory(){
-        // Resetting the habit names insice
-        ehist_habitSelectionBox.setModel(new DefaultListModel<>());
-        
-        // Adding the habit new habit names
-        DefaultListModel<String> habitNameList = (DefaultListModel<String>) ehist_habitSelectionBox.getModel();
-        for(HabitCard_Quantity currCard : allQuantityCards){
-            if(currCard.getDateEntryCount() > 1)
-                habitNameList.addElement(currCard.getHabitName());
-        }
-        
-        for(HabitCard_YesNo currCard : allYesNoCards){
-            if(currCard.getDateEntryCount() > 1)
-                habitNameList.addElement(currCard.getHabitName());
-        }
-        
-        
-        // Making all the panels invisble if there are no habits in the list, if there is then we are making them visible
-        boolean hasHabits = habitNameList.isEmpty();
-        ehist_tableTitle.setVisible(!hasHabits);
-        ehist_changeValuePanelQuantity.setVisible(!hasHabits);
-        ehist_changeValuePanelYesNo.setVisible(!hasHabits);
-        ehist_habitName.setVisible(!hasHabits);
-        ehist_historyScrollPane.setVisible(!hasHabits);
-        ehist_tableScrollUpButton.setVisible(!hasHabits);
-        ehist_tableScrollDownButton.setVisible(!hasHabits);
-        ehist_noHabitsText.setVisible(hasHabits);
-        ehist_habitSelectionBox.setSelectedIndex(hasHabits ? 0 : -1);
-    }
     
-    // When a habit is chosen from the selection box
-    private void ehist_habitSelectionBoxIndexChanged(){
-        ehist_changeValuePanelQuantity.setVisible(false);
-        ehist_changeValuePanelYesNo.setVisible(false);
-        
-        
-        ehist_habitName.setText(ehist_habitSelectionBox.getSelectedValue());
-        
+    //  [ EDIT HISTORY FUNCTIONS ] ----------------------------------------------------------------------
+    // SET UP THE HISTORY PANEL:  Edit History button is clicked in
+    private void eh_editHistoryButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editHistoryButtonMouseClicked
+        // Making sure that we do not come here if the button is disabled from the set up of habit summary function
+        if(!eh_editHistoryButton.isEnabled()){
+            return;
+        }
+
+        // Setting up the name label
+        eh_editHistoryHabitName.setText(savedName);
+
         // Loading in information into the table and showing the correct value change panel
-        HabitCard_Quantity loadedQuantityCard = getQuantityCard(ehist_habitName.getText());
-        HabitCard_YesNo loadedYesNoCard = (loadedQuantityCard != null ? null : getYesNoCard(ehist_habitName.getText()));
+        HabitCard_Quantity loadedQuantityCard = getQuantityCard(eh_editHistoryHabitName.getText());
+        HabitCard_YesNo loadedYesNoCard = (loadedQuantityCard != null ? null : getYesNoCard(eh_editHistoryHabitName.getText()));
         // ^^^ To save time, if we already found the card in quantity  array, then just make loadedyesnocard null
-        
+
         if(loadedQuantityCard != null){
-            ehist_changeValuePanelQuantity.setVisible(true); // Making change value panel visible
+            eh_editHistoryQuantityPanel.setVisible(true); // Making change value panel visible
+            eh_editHistoryYesNoPanel.setVisible(false);
+
+
             DefaultTableModel model = new DefaultTableModel(
                 new Object[]{"Date", "Quantity", "Goal", "Completed"}, 0) {
                     @Override
@@ -5061,21 +4959,23 @@ public class GUI_Window extends javax.swing.JFrame {
                     });
                 });
 
-            ehist_historyTable.setModel(model);
-            
+            eh_historyTable.setModel(model);
+
         }
         else if(loadedYesNoCard != null){
-            ehist_changeValuePanelYesNo.setVisible(true);    // Making change value panel visible
+            eh_editHistoryYesNoPanel.setVisible(true);    // Making change value panel visible
+            eh_editHistoryQuantityPanel.setVisible(false);
+
 
             // Create new model (also making cells uneditable)
-            DefaultTableModel model = new DefaultTableModel( 
+            DefaultTableModel model = new DefaultTableModel(
                 new Object[]{"Date", "Completed"} , 0) {
                     @Override
                     public boolean isCellEditable(int row, int column) {
                         return false;
                     }
             };
-            
+
             // Loading in entries
             Map<LocalDate, Boolean> newCompletionMap = loadedYesNoCard.getCompletionMap();
             newCompletionMap.entrySet().stream()
@@ -5087,111 +4987,76 @@ public class GUI_Window extends javax.swing.JFrame {
                 }));
 
             // Setting the information into the table
-            ehist_historyTable.setModel(model);
-            
+            eh_historyTable.setModel(model);
+
         }
-        
-        
+        else{
+            JOptionPane.showMessageDialog(this, "Could not load past entries -> Did not find habit using name: " + savedName,"ERROR", JOptionPane.ERROR);
+            return;
+        }
+
+
+
         // Setting the font and height of the rows OF THE INFORMATION
-        ehist_historyTable.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-        ehist_historyTable.setRowHeight(24);
-        
+        eh_historyTable.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        eh_historyTable.setRowHeight(24);
+
         // Setting the font and height of the rows OF THE HEADERS
-        JTableHeader header = ehist_historyTable.getTableHeader();
+        JTableHeader header = eh_historyTable.getTableHeader();
         header.setFont(new Font("Segoe UI", Font.BOLD, 14));
         header.setPreferredSize(new Dimension(header.getWidth(), 30));
-        
+
         // Centering the date (for some reason the header is already center so no need to do so)
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(SwingConstants.CENTER);
-        for (int i = 0; i < ehist_historyTable.getColumnCount(); i++) 
-            ehist_historyTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
-        
-        // Setting the selected row to the first row 
-        if(ehist_historyTable.getRowCount() > 0){
-            ehist_historyTable.setRowSelectionInterval(0, 0);
-            ehist_historyTable.scrollRectToVisible(ehist_historyTable.getCellRect(0, 0, true));
-        }
-        // If there is no entries at all, then we want to not allow any edits (hide the two changing value panels)
-        else{
-            ehist_changeValuePanelQuantity.setVisible(false);
-            ehist_changeValuePanelYesNo.setVisible(false);
-        }
-    }
-    
-    // When the scroll button is clicked (for both the selection box and history table)
-    private void eh_habitScrollButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_habitScrollButtonMouseClicked
-        JButton pressedButton = (JButton) evt.getSource();
-        
-        // Since we have 4 buttons that can be clicked, we are choosing the correct action for each one
-        if(pressedButton == ehist_habitScrollUpButton || pressedButton == ehist_habitScrollDownButton){
-            int index = ehist_habitSelectionBox.getSelectedIndex();
-            if(pressedButton == ehist_habitScrollUpButton)
-                index--;
-            else
-                index++;
-            if(index >= 0 && index < (ehist_habitSelectionBox.getModel().getSize())){
-                ehist_habitSelectionBox.setSelectedIndex(index);
-            }
-        }
-        else{
-            int row = ehist_historyTable.getSelectedRow();
-            int rowCount = ehist_historyTable.getRowCount();
+        for (int i = 0; i < eh_historyTable.getColumnCount(); i++)
+            eh_historyTable.getColumnModel().getColumn(i).setCellRenderer(centerRenderer);
 
-            // Makes sure that there is always one selected
-            if (row == -1 && rowCount > 0)
-                row = 0;          
-            
-            else if (pressedButton == ehist_tableScrollUpButton)
-                row--;
-            else
-                row++;
-
-            if (row >= 0 && row < rowCount) {
-                ehist_historyTable.setRowSelectionInterval(row, row);
-                ehist_historyTable.scrollRectToVisible(ehist_historyTable.getCellRect(row, 0, true));
-            }
+        // Setting the selected row to the first row
+        if(eh_historyTable.getRowCount() > 0){
+            eh_historyTable.setRowSelectionInterval(0, 0);
+            eh_historyTable.scrollRectToVisible(eh_historyTable.getCellRect(0, 0, true));
         }
-    }//GEN-LAST:event_eh_habitScrollButtonMouseClicked
-    
+
+        // If we did populate successfully, switch panels
+        eh_editHistoryPanel.setVisible(true);
+        eh_editHabitPanel.setVisible(false);
+        eh_bottomButtonsPanel.setVisible(false);
+    }//GEN-LAST:event_eh_editHistoryButtonMouseClicked
+
     // When the row changes in the history table
     private void ehist_rowChanged(){
-        int row = ehist_historyTable.getSelectedRow();
+        int row = eh_historyTable.getSelectedRow();
         
         // If for some reason the row changed to none selected, go ahead and set it back to the first row
         if (row == -1) {
-            if(ehist_historyTable.getRowCount() > 1){
-                ehist_historyTable.setRowSelectionInterval(0, 0);
-                ehist_historyTable.scrollRectToVisible(ehist_historyTable.getCellRect(0, 0, true));
-            }
             return;
         } 
 
         // If we have more than 2 columns, we are in a quantity habit
-        if(ehist_changeValuePanelQuantity.isVisible()){
-            Object temp = ehist_historyTable.getValueAt(row, 1);
-            ehist_quantity.setText(String.valueOf(temp));
+        if(eh_editHistoryQuantityPanel.isVisible()){
+            Object temp = eh_historyTable.getValueAt(row, 1);
+            eh_editHistoryQuantity.setText(String.valueOf(temp));
         }
         // If we only have 2 columns, we are in a yesno habit
         else{
             ehist_completedButtonGroup.clearSelection();
-            if((String.valueOf(ehist_historyTable.getValueAt(row, 1)).equals("true")))
-                ehist_completedButton.setSelected(true);
-            else
-                ehist_notCompletedButton.setSelected(true);
+            boolean rowValue = (String.valueOf(eh_historyTable.getValueAt(row, 1)).equals("true"));
+            eh_editHistoryCompleteButton.setSelected(rowValue);
+            eh_editHistoryNotCompleteButton.setSelected(!rowValue);
         }
     }
     
     // When the complete/not complete button is pressed
     private void ehist_completedNotCompletedButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ehist_completedNotCompletedButtonClicked
-        int row = ehist_historyTable.getSelectedRow();                                             // Finding out what row is selected
+        int row = eh_historyTable.getSelectedRow();                                             // Finding out what row is selected
         if(row == -1){                                                                             // Catching when for some reason a row is not selected
             JOptionPane.showMessageDialog(this, "No row selected.", "ERROR", JOptionPane.ERROR); 
             return;
         }
         
-        LocalDate dateSelected = (LocalDate) ehist_historyTable.getValueAt(row, 0);                // Getting the date that we are going to be looking for
-        HabitCard_YesNo habitSelected = getYesNoCard(ehist_habitName.getText());
+        LocalDate dateSelected = (LocalDate) eh_historyTable.getValueAt(row, 0);                // Getting the date that we are going to be looking for
+        HabitCard_YesNo habitSelected = getYesNoCard(eh_editHistoryHabitName.getText());        // Getting the habit that we are suppose to be using 
         
         int newValue = habitSelected.changeDateEntry(dateSelected);      // Change the value in the data array
          
@@ -5200,25 +5065,25 @@ public class GUI_Window extends javax.swing.JFrame {
             return;
         }
         
-        ehist_historyTable.setValueAt((newValue == 1), row, 1);                                    // Change the value in the table
-        
+        eh_historyTable.setValueAt((newValue == 1), row, 1);                                    // Change the value in the table
     }//GEN-LAST:event_ehist_completedNotCompletedButtonClicked
 
+    
     // When the -/+ button is pressed
     private void ehist_increaseDecreaseButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ehist_increaseDecreaseButtonClicked
-        int row = ehist_historyTable.getSelectedRow();
+        int row = eh_historyTable.getSelectedRow();
         if(row == -1){
             JOptionPane.showMessageDialog(this, "No row selected.", "ERROR", JOptionPane.ERROR); 
             return;
         }
         
         // Getting current data from the table and saving the card to acces things in it temp.
-        LocalDate dateSelected = (LocalDate) ehist_historyTable.getValueAt(row, 0);
-        double currentValue = Double.parseDouble(ehist_quantity.getText());
-        HabitCard_Quantity habitSelected = getQuantityCard(ehist_habitName.getText());
+        LocalDate dateSelected = (LocalDate) eh_historyTable.getValueAt(row, 0);
+        double currentValue = Double.parseDouble(eh_editHistoryQuantity.getText());
+        HabitCard_Quantity habitSelected = getQuantityCard(eh_editHistoryHabitName.getText());
         
         // Incresing or decreasing the value we got from
-        if((JButton)evt.getSource() == ehist_decreaseButton){
+        if((JButton)evt.getSource() == eh_editHistorydDecreaseButton){
             currentValue -= habitSelected.getIncrement();
             if(currentValue < 0)
                 currentValue = 0;
@@ -5240,12 +5105,13 @@ public class GUI_Window extends javax.swing.JFrame {
         }
         
         // Setting the value in the bottom quantity showing value
-        ehist_quantity.setText(Double.toString(currentValue));
+        eh_editHistoryQuantity.setText(Double.toString(currentValue));
         
         // Setting the value in the table
-        ehist_historyTable.setValueAt(currentValue, row, 1);
-        ehist_historyTable.setValueAt((newCompletedValue == 1), row, 3);
+        eh_historyTable.setValueAt(currentValue, row, 1);
+        eh_historyTable.setValueAt((newCompletedValue == 1), row, 3);
     }//GEN-LAST:event_ehist_increaseDecreaseButtonClicked
+
 
     
 
@@ -5408,11 +5274,8 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JToggleButton ah_Wednesday;
     private javax.swing.JLabel ah_YesButton;
     private javax.swing.JLabel ah_title;
-    private javax.swing.JLabel eHist_title;
     private javax.swing.JPanel editHabit;
     private javax.swing.JButton editHabitButton;
-    private javax.swing.JPanel editHistory;
-    private javax.swing.JButton editHistoryButton;
     private javax.swing.JToggleButton eh_Friday;
     private javax.swing.JToggleButton eh_IncrementOne;
     private javax.swing.JToggleButton eh_IncrementPointFive;
@@ -5439,6 +5302,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton eh_editDaysCancelButton;
     private javax.swing.JPanel eh_editDaysPanel;
     private javax.swing.JButton eh_editDaysSaveButton;
+    private javax.swing.JButton eh_editHIstoryIncreaseButton;
     private javax.swing.JPanel eh_editHabitPanel;
     private javax.swing.JPanel eh_editHabitSummaryPanel;
     private javax.swing.JLabel eh_editHabitText1;
@@ -5447,7 +5311,19 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel eh_editHabitText4;
     private javax.swing.JLabel eh_editHabitText5;
     private javax.swing.JLabel eh_editHabitText6;
+    private javax.swing.JButton eh_editHistoryBackButton;
     private javax.swing.JButton eh_editHistoryButton;
+    private javax.swing.JToggleButton eh_editHistoryCompleteButton;
+    private javax.swing.JLabel eh_editHistoryHabitName;
+    private javax.swing.JToggleButton eh_editHistoryNotCompleteButton;
+    private javax.swing.JPanel eh_editHistoryPanel;
+    private javax.swing.JLabel eh_editHistoryQuantity;
+    private javax.swing.JPanel eh_editHistoryQuantityPanel;
+    private javax.swing.JButton eh_editHistoryScrollDownButton;
+    private javax.swing.JButton eh_editHistoryScrollUpButton;
+    private javax.swing.JLabel eh_editHistoryText1;
+    private javax.swing.JPanel eh_editHistoryYesNoPanel;
+    private javax.swing.JButton eh_editHistorydDecreaseButton;
     private javax.swing.JButton eh_editIncrementAndGoalButton;
     private javax.swing.JButton eh_editIncrementAndGoalCancelButton;
     private javax.swing.JLabel eh_editIncrementAndGoalGoal;
@@ -5461,6 +5337,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton eh_editNameSaveButton;
     private javax.swing.JButton eh_euantityIncrease;
     private javax.swing.JLabel eh_goal;
+    private javax.swing.JTable eh_historyTable;
     private javax.swing.JLabel eh_increment;
     private javax.swing.JLabel eh_name;
     private javax.swing.JTextField eh_nameInput;
@@ -5469,26 +5346,9 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel eh_scrollDownPanel;
     private javax.swing.JScrollPane eh_scrollPane;
     private javax.swing.JPanel eh_scrollUpPanel;
+    private javax.swing.JLabel eh_text3;
     private javax.swing.JLabel eh_title;
-    private javax.swing.JPanel ehist_changeValuePanelQuantity;
-    private javax.swing.JPanel ehist_changeValuePanelYesNo;
-    private javax.swing.JToggleButton ehist_completedButton;
-    private javax.swing.JButton ehist_decreaseButton;
-    private javax.swing.JLabel ehist_habitName;
-    private javax.swing.JButton ehist_habitScrollDownButton;
-    private javax.swing.JButton ehist_habitScrollUpButton;
-    private javax.swing.JList<String> ehist_habitSelectionBox;
-    private javax.swing.JScrollPane ehist_habitSelectionScrollPane;
     private javax.swing.JScrollPane ehist_historyScrollPane;
-    private javax.swing.JTable ehist_historyTable;
-    private javax.swing.JButton ehist_increaseButton;
-    private javax.swing.JLabel ehist_noHabitsText;
-    private javax.swing.JToggleButton ehist_notCompletedButton;
-    private javax.swing.JLabel ehist_quantity;
-    private javax.swing.JButton ehist_tableScrollDownButton;
-    private javax.swing.JButton ehist_tableScrollUpButton;
-    private javax.swing.JLabel ehist_tableTitle;
-    private javax.swing.JLabel ehist_text3;
     private javax.swing.JTextField h_addHabitName;
     private javax.swing.JLabel h_date;
     private javax.swing.JPanel h_habitPanel;
