@@ -4,3 +4,4 @@ type=yesno
 days=1111111
 
 2026-01-02=false
+2026-01-01=false
