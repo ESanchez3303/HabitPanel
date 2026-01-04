@@ -1,8 +1,7 @@
-name=RUNNING
-color=255,102,102
+name=RTG
+color=153,255,102
 type=yesno
 days=1111111
 
 2026-01-04=false
 2026-01-03=false
-2026-01-02=false

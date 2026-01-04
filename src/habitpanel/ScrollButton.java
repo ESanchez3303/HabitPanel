@@ -15,39 +15,28 @@ import javax.swing.Timer;
 
 public class ScrollButton extends JPanel {
     private final Color shadowColor = new Color(70,70,70);
-    private final int arrowW = 50;
-    private final int arrowH = 15;
-    int thickness = 30;
+    private int arrowH = 0;
+    private int arrowW = 0;
+    
     int shadowThickness = 8;
-    int xPadding = 100;
     private int pressOffset = 0;          // current visual offset
     private int targetPressOffset = 0;    // where we want to go
     private final int MAX_PRESS = shadowThickness - 1;
     
     
-    public enum Type { UP, DOWN }
-    public enum Panel { HOME, EDIT_HABIT }
+    public enum Type { UP, DOWN, LEFT, RIGHT }
+    public enum Form {PILL, CIRCLE}
     private final Type type;
-    private final Panel panel;
+    private final Form form;
     
-    public ScrollButton(Type typeInput, Panel panelInput) {
+    public ScrollButton(Type typeInput, Form formInput, int x, int y, int w, int h) {
         type = typeInput;
-        panel = panelInput;
+        form = formInput;
         setOpaque(false); 
         setLayout(null);
-        
-        if(panel == Panel.HOME){
-            if(type == Type.UP)
-                setBounds(10 ,70, 950, 90);
-            else
-                setBounds(10, 495, 950, 90);
-        }
-        else if (panel == Panel.EDIT_HABIT){
-            if(type == Type.UP)
-                setBounds(40 , 10, 850, 50);
-            else
-                setBounds(30, 430, 850, 50);
-        }
+        setBounds(x,y,w,h);
+        arrowH = getHeight()/3;
+        arrowW = arrowH;
     }
 
     @Override
@@ -55,39 +44,43 @@ public class ScrollButton extends JPanel {
         super.paintComponent(g);
         int w = getWidth();
         int h = getHeight();
-        int yPill = (type == Type.UP ? 0 : h-thickness-shadowThickness);
-        int yArrow = yPill + (thickness/2-arrowH/2);
+        int thickness = getHeight() - shadowThickness;
+        int yArrow = (thickness/2-arrowH/2);
         
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
         Path2D shape = new Path2D.Double();
+        
+        if(form == Form.PILL){
+            // --- FILL SHAPE FOR SHADOW ---
+            shape.moveTo(thickness/2, shadowThickness);
+            shape.append(new Arc2D.Double(thickness/2, shadowThickness, thickness, thickness, 90, 180, Arc2D.OPEN), true);
+            shape.lineTo(w-thickness/2, thickness+shadowThickness);
+            shape.append(new Arc2D.Double(w-thickness, shadowThickness, thickness, thickness, 270, 180, Arc2D.OPEN), true);
+            shape.closePath();
+            g2.setColor(shadowColor);
+            g2.fill(shape);
+
+
+            // --- FILL SHAPE FOR PILL SHAPE ---
+            AffineTransform shadowTx = AffineTransform.getTranslateInstance(0, -shadowThickness+pressOffset);
+            Shape shadow = shadowTx.createTransformedShape(shape);
+            g2.setColor(getBackground());
+            g2.fill(shadow);
+        }
+        else if(form == Form.CIRCLE){
+            if(w != h) // Makes sure we are using a square
+                return;
             
-        // --- FILL SHAPE FOR SHADOW ---
-        shape.moveTo(xPadding+thickness/2, yPill+shadowThickness);
-        shape.append(new Arc2D.Double(xPadding+thickness/2, yPill+shadowThickness, thickness, thickness, 90, 180, Arc2D.OPEN), true);
-        shape.lineTo(w-xPadding-thickness/2, thickness+yPill+shadowThickness);
-        shape.append(new Arc2D.Double(w-xPadding-thickness, yPill+shadowThickness, thickness, thickness, 270, 180, Arc2D.OPEN), true);
-        shape.closePath();
-        g2.setColor(shadowColor);
-        g2.fill(shape);
-
-
-        // --- FILL SHAPE FOR PILL SHAPE ---
-        AffineTransform shadowTx = AffineTransform.getTranslateInstance(0, -shadowThickness+pressOffset);
-        Shape shadow = shadowTx.createTransformedShape(shape);
-        g2.setColor(getBackground());
-        g2.fill(shadow);
-
-        // --- BORDER ---
-        /*
-        g2.setColor(Color.BLACK);
-        g2.setStroke(new BasicStroke(1));
-        g2.drawLine(xPadding+thickness, yPill+pressOffset, w-xPadding-thickness/2, yPill+pressOffset);
-        g2.drawLine(xPadding+thickness, yPill+thickness+pressOffset, w-xPadding-thickness/2, yPill+thickness+pressOffset);
-        g2.draw(new Arc2D.Double(xPadding+thickness/2, yPill+pressOffset, thickness, thickness, 90, 180, Arc2D.OPEN));
-        g2.draw(new Arc2D.Double(w-xPadding-thickness, yPill+pressOffset, thickness, thickness, 270, 180, Arc2D.OPEN));
-        */
-
+            // -- FILL FOR SHAPE FOR SHADOW --
+            g2.setColor(shadowColor);
+            g2.fillOval(0, 0, w, h);
+            
+            // -- FILL SHAPE FOR CIRCLE SHAPE --
+            g2.setColor(getBackground());
+            g2.fillOval(0, 0, w, h);
+        }
+        
         // --- POINTING ARROW ---
         shape.reset();
         shape.moveTo(w/2, yArrow+pressOffset);
@@ -95,17 +88,21 @@ public class ScrollButton extends JPanel {
         shape.lineTo(w/2+arrowW/2, yArrow+arrowH+pressOffset);
         shape.closePath();
         
-        g2.setColor(getBackground() == Color.GRAY ? Color.DARK_GRAY : getForeground());
         
-        if(type == Type.UP)
-            g2.fill(shape);
-        else{
-            Rectangle2D b = shape.getBounds2D();
-            AffineTransform rotate = AffineTransform.getRotateInstance(Math.PI, b.getCenterX(), b.getCenterY());
-            Shape newArrow = rotate.createTransformedShape(shape);
-            g2.fill(newArrow);
+        double angle = 0;
+        Rectangle2D bounds = shape.getBounds2D();
+        double cx = bounds.getCenterX();
+        double cy = bounds.getCenterY();
+        switch (type) {
+            case UP -> angle = 0;
+            case RIGHT -> angle = Math.PI / 2;
+            case DOWN -> angle = Math.PI;
+            case LEFT -> angle = -Math.PI / 2;
         }
-       
+        g2.setColor(getBackground() == Color.GRAY ? Color.DARK_GRAY : getForeground());
+        AffineTransform rotate = AffineTransform.getRotateInstance(angle, cx, cy);
+        Shape rotated = rotate.createTransformedShape(shape);
+        g2.fill(rotated);
         
         g2.dispose();
     }
