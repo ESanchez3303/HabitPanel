@@ -362,8 +362,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         else 
             targetPressOffset = quantity>=goal ? MAX_PRESS : 0;  // If this is not a bounce, do maxpress if quantity>=goal | do 0 if not
         
+        // Overiding the bounce if we are coming from the setQuantity function
         if(comingFromSetQuantity){
-            targetPressOffset = 0;
+            targetPressOffset = quantity>=goal ? MAX_PRESS : 0;
         }
         
         pressTimer = new Timer(10, e -> {

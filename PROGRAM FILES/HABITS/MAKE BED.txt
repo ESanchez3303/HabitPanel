@@ -1,0 +1,6 @@
+name=MAKE BED
+color=153,102,0
+type=yesno
+days=1111111
+
+2026-01-05=true

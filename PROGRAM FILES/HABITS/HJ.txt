@@ -1,7 +1,0 @@
-name=HJ
-color=255,0,51
-type=yesno
-days=1111111
-
-2026-01-04=false
-2026-01-03=false

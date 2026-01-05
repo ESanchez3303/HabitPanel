@@ -484,15 +484,15 @@ public class GUI_Window extends javax.swing.JFrame {
     private void initComponents() {
 
         navigationPanel = new javax.swing.JPanel();
-        addHabitButton = new javax.swing.JButton();
-        progressButton = new javax.swing.JButton();
-        editHabitButton = new javax.swing.JButton();
         settingsButton = new javax.swing.JButton();
+        addHabitButton = new javax.swing.JButton();
         homeButton = new javax.swing.JButton();
+        editHabitButton = new javax.swing.JButton();
+        progressButton = new javax.swing.JButton();
         navSelector = new javax.swing.JPanel();
         progress = new javax.swing.JPanel();
         p_progressTitle = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
+        p_tableScrollPane = new javax.swing.JScrollPane();
         p_table = new javax.swing.JTable();
         p_tableRightScrollButton = new javax.swing.JPanel();
         p_habitRightScrollButton = new javax.swing.JPanel();
@@ -504,6 +504,7 @@ public class GUI_Window extends javax.swing.JFrame {
         p_resetMonthButton = new javax.swing.JButton();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
+        eh_noHabitsPanel = new javax.swing.JLabel();
         eh_chooseHabitPanel = new javax.swing.JPanel();
         eh_scrollDownPanel = new javax.swing.JPanel();
         eh_scrollUpPanel = new javax.swing.JPanel();
@@ -526,6 +527,17 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editColorButton = new javax.swing.JButton();
         eh_editIncrementAndGoalButton = new javax.swing.JButton();
         eh_editDaysButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalPanel = new javax.swing.JPanel();
+        eh_IncrementPointOne = new javax.swing.JToggleButton();
+        eh_IncrementPointFive = new javax.swing.JToggleButton();
+        eh_IncrementOne = new javax.swing.JToggleButton();
+        eh_quantityIncrease = new javax.swing.JButton();
+        eh_quantityDecrease = new javax.swing.JButton();
+        eh_editIncrementAndGoalSaveButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalText1 = new javax.swing.JLabel();
+        eh_editIncrementAndGoalGoal = new javax.swing.JLabel();
+        eh_editIncrementAndGoalText2 = new javax.swing.JLabel();
+        eh_editIncrementAndGoalCancelButton = new javax.swing.JButton();
         eh_editNamePanel = new javax.swing.JPanel();
         eh_editNameCancelButton = new javax.swing.JButton();
         eh_editNameSaveButton = new javax.swing.JButton();
@@ -538,17 +550,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_deleteConfirmButton = new javax.swing.JButton();
         eh_deleteCancelButton = new javax.swing.JButton();
         eh_deleteText1 = new javax.swing.JLabel();
-        eh_editIncrementAndGoalPanel = new javax.swing.JPanel();
-        eh_IncrementPointOne = new javax.swing.JToggleButton();
-        eh_IncrementPointFive = new javax.swing.JToggleButton();
-        eh_IncrementOne = new javax.swing.JToggleButton();
-        eh_euantityIncrease = new javax.swing.JButton();
-        eh_editIncrementAndGoalSaveButton = new javax.swing.JButton();
-        eh_editIncrementAndGoalText1 = new javax.swing.JLabel();
-        eh_editIncrementAndGoalGoal = new javax.swing.JLabel();
-        eh_editIncrementAndGoalText2 = new javax.swing.JLabel();
-        eh_quantityDecrease = new javax.swing.JButton();
-        eh_editIncrementAndGoalCancelButton = new javax.swing.JButton();
         eh_editDaysPanel = new javax.swing.JPanel();
         eh_Monday = new javax.swing.JToggleButton();
         eh_Tuesday = new javax.swing.JToggleButton();
@@ -583,6 +584,7 @@ public class GUI_Window extends javax.swing.JFrame {
         h_habitPanel = new javax.swing.JPanel();
         h_savingFilesText = new javax.swing.JLabel();
         h_date = new javax.swing.JLabel();
+        h_noHabitsPanel = new javax.swing.JLabel();
         settings = new javax.swing.JPanel();
         s_title = new javax.swing.JLabel();
         s_colorsPanel = new javax.swing.JPanel();
@@ -711,6 +713,22 @@ public class GUI_Window extends javax.swing.JFrame {
         navigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
         navigationPanel.setLayout(null);
 
+        settingsButton.setBackground(new java.awt.Color(193, 144, 69));
+        settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        settingsButton.setForeground(java.awt.Color.white);
+        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/settingsIcon.png"))); // NOI18N
+        settingsButton.setBorder(null);
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setFocusable(false);
+        settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                settingsButtonMouseClicked(evt);
+            }
+        });
+        navigationPanel.add(settingsButton);
+        settingsButton.setBounds(0, 0, 68, 120);
+
         addHabitButton.setBackground(new java.awt.Color(193, 144, 69));
         addHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         addHabitButton.setForeground(java.awt.Color.white);
@@ -726,24 +744,21 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         navigationPanel.add(addHabitButton);
-        addHabitButton.setBounds(0, 240, 68, 120);
+        addHabitButton.setBounds(0, 120, 68, 120);
 
-        progressButton.setBackground(new java.awt.Color(193, 144, 69));
-        progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        progressButton.setForeground(java.awt.Color.white);
-        progressButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/progressIcon.png"))); // NOI18N
-        progressButton.setToolTipText("");
-        progressButton.setBorder(null);
-        progressButton.setContentAreaFilled(false);
-        progressButton.setFocusPainted(false);
-        progressButton.setFocusable(false);
-        progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        homeButton.setBackground(new java.awt.Color(193, 144, 69));
+        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/homeIcon.png"))); // NOI18N
+        homeButton.setBorder(null);
+        homeButton.setContentAreaFilled(false);
+        homeButton.setFocusPainted(false);
+        homeButton.setFocusable(false);
+        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                progressButtonMouseClicked(evt);
+                homeButtonMouseClicked(evt);
             }
         });
-        navigationPanel.add(progressButton);
-        progressButton.setBounds(0, 120, 68, 120);
+        navigationPanel.add(homeButton);
+        homeButton.setBounds(0, 240, 68, 120);
 
         editHabitButton.setBackground(new java.awt.Color(193, 144, 69));
         editHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -762,35 +777,22 @@ public class GUI_Window extends javax.swing.JFrame {
         navigationPanel.add(editHabitButton);
         editHabitButton.setBounds(0, 360, 68, 120);
 
-        settingsButton.setBackground(new java.awt.Color(193, 144, 69));
-        settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        settingsButton.setForeground(java.awt.Color.white);
-        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/settingsIcon.png"))); // NOI18N
-        settingsButton.setBorder(null);
-        settingsButton.setContentAreaFilled(false);
-        settingsButton.setFocusPainted(false);
-        settingsButton.setFocusable(false);
-        settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+        progressButton.setBackground(new java.awt.Color(193, 144, 69));
+        progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        progressButton.setForeground(java.awt.Color.white);
+        progressButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/progressIcon.png"))); // NOI18N
+        progressButton.setToolTipText("");
+        progressButton.setBorder(null);
+        progressButton.setContentAreaFilled(false);
+        progressButton.setFocusPainted(false);
+        progressButton.setFocusable(false);
+        progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                settingsButtonMouseClicked(evt);
+                progressButtonMouseClicked(evt);
             }
         });
-        navigationPanel.add(settingsButton);
-        settingsButton.setBounds(0, 480, 68, 120);
-
-        homeButton.setBackground(new java.awt.Color(193, 144, 69));
-        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/homeIcon.png"))); // NOI18N
-        homeButton.setBorder(null);
-        homeButton.setContentAreaFilled(false);
-        homeButton.setFocusPainted(false);
-        homeButton.setFocusable(false);
-        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                homeButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(homeButton);
-        homeButton.setBounds(0, 0, 68, 120);
+        navigationPanel.add(progressButton);
+        progressButton.setBounds(0, 480, 68, 120);
 
         navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
@@ -825,7 +827,7 @@ public class GUI_Window extends javax.swing.JFrame {
         progress.add(p_progressTitle);
         p_progressTitle.setBounds(10, 10, 950, 50);
 
-        jScrollPane1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p_tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         p_table.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -838,10 +840,10 @@ public class GUI_Window extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(p_table);
+        p_tableScrollPane.setViewportView(p_table);
 
-        progress.add(jScrollPane1);
-        jScrollPane1.setBounds(85, 170, 800, 410);
+        progress.add(p_tableScrollPane);
+        p_tableScrollPane.setBounds(85, 170, 800, 410);
 
         p_tableRightScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -861,7 +863,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         progress.add(p_tableRightScrollButton);
-        p_tableRightScrollButton.setBounds(885, 318, 75, 75);
+        p_tableRightScrollButton.setBounds(890, 318, 75, 75);
 
         javax.swing.GroupLayout p_habitRightScrollButtonLayout = new javax.swing.GroupLayout(p_habitRightScrollButton);
         p_habitRightScrollButton.setLayout(p_habitRightScrollButtonLayout);
@@ -905,7 +907,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         progress.add(p_tableLeftScrollButton);
-        p_tableLeftScrollButton.setBounds(10, 318, 75, 75);
+        p_tableLeftScrollButton.setBounds(5, 318, 75, 75);
 
         p_habitLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -930,6 +932,7 @@ public class GUI_Window extends javax.swing.JFrame {
         p_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         p_noHabitsPanel.setText("Add Habits To Unlock This Section");
         p_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_noHabitsPanel.setOpaque(true);
         progress.add(p_noHabitsPanel);
         p_noHabitsPanel.setBounds(285, 200, 400, 200);
 
@@ -955,7 +958,7 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         });
         progress.add(p_resetMonthButton);
-        p_resetMonthButton.setBounds(750, 70, 130, 40);
+        p_resetMonthButton.setBounds(760, 70, 130, 40);
 
         getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
@@ -970,6 +973,12 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         eh_title.setOpaque(true);
         editHabit.add(eh_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
+
+        eh_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_noHabitsPanel.setText("Add Habits To Unlock This Section");
+        eh_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_noHabitsPanel.setOpaque(true);
+        editHabit.add(eh_noHabitsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 200, 400, 200));
 
         eh_chooseHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_chooseHabitPanel.setLayout(null);
@@ -1156,6 +1165,100 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_editHabitPanel.add(eh_editHabitSummaryPanel);
         eh_editHabitSummaryPanel.setBounds(150, 80, 630, 280);
 
+        eh_editIncrementAndGoalPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editIncrementAndGoalPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editIncrementAndGoalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementPointOne.setForeground(java.awt.Color.white);
+        eh_IncrementPointOne.setText("+0.1");
+        eh_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, 40));
+
+        eh_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementPointFive.setForeground(java.awt.Color.white);
+        eh_IncrementPointFive.setText("+0.5");
+        eh_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 40));
+
+        eh_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementOne.setForeground(java.awt.Color.white);
+        eh_IncrementOne.setText("+1");
+        eh_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 40));
+
+        eh_quantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
+        eh_quantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_quantityIncrease.setForeground(java.awt.Color.white);
+        eh_quantityIncrease.setText("+");
+        eh_quantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_quantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_quantityDecreasedIncreasedButtonClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_quantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 80, 60));
+
+        eh_quantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
+        eh_quantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_quantityDecrease.setForeground(java.awt.Color.white);
+        eh_quantityDecrease.setText("-");
+        eh_quantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_quantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_quantityDecreasedIncreasedButtonClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_quantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 80, 60));
+
+        eh_editIncrementAndGoalSaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editIncrementAndGoalSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editIncrementAndGoalSaveButton.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalSaveButton.setText("Save");
+        eh_editIncrementAndGoalSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
+
+        eh_editIncrementAndGoalText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalText1.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalText1.setText("Increment:");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 400, 60));
+
+        eh_editIncrementAndGoalGoal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalGoal.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalGoal.setText("0.0");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 60));
+
+        eh_editIncrementAndGoalText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalText2.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalText2.setText("Goal:");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 400, 60));
+
+        eh_editIncrementAndGoalCancelButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editIncrementAndGoalCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editIncrementAndGoalCancelButton.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalCancelButton.setText("Cancel/Reset");
+        eh_editIncrementAndGoalCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
+
+        eh_editHabitPanel.add(eh_editIncrementAndGoalPanel);
+        eh_editIncrementAndGoalPanel.setBounds(150, 80, 630, 380);
+
         eh_editNamePanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editNamePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
         eh_editNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1269,100 +1372,6 @@ public class GUI_Window extends javax.swing.JFrame {
 
         eh_editHabitPanel.add(eh_deletePanel);
         eh_deletePanel.setBounds(150, 80, 630, 380);
-
-        eh_editIncrementAndGoalPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editIncrementAndGoalPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editIncrementAndGoalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementPointOne.setForeground(java.awt.Color.white);
-        eh_IncrementPointOne.setText("+0.1");
-        eh_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, 40));
-
-        eh_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementPointFive.setForeground(java.awt.Color.white);
-        eh_IncrementPointFive.setText("+0.5");
-        eh_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 40));
-
-        eh_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementOne.setForeground(java.awt.Color.white);
-        eh_IncrementOne.setText("+1");
-        eh_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 40));
-
-        eh_euantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
-        eh_euantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_euantityIncrease.setForeground(java.awt.Color.white);
-        eh_euantityIncrease.setText("+");
-        eh_euantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_euantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_quantityDecreasedIncreasedButtonClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_euantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 80, 60));
-
-        eh_editIncrementAndGoalSaveButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editIncrementAndGoalSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editIncrementAndGoalSaveButton.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalSaveButton.setText("Save");
-        eh_editIncrementAndGoalSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editIncrementAndGoalSaveButtonMouseClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
-
-        eh_editIncrementAndGoalText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalText1.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalText1.setText("Increment:");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 400, 60));
-
-        eh_editIncrementAndGoalGoal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalGoal.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalGoal.setText("0.0");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 60));
-
-        eh_editIncrementAndGoalText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalText2.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalText2.setText("Goal:");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 400, 60));
-
-        eh_quantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
-        eh_quantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_quantityDecrease.setForeground(java.awt.Color.white);
-        eh_quantityDecrease.setText("-");
-        eh_quantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_quantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_quantityDecreasedIncreasedButtonClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_quantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 80, 60));
-
-        eh_editIncrementAndGoalCancelButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editIncrementAndGoalCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editIncrementAndGoalCancelButton.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalCancelButton.setText("Cancel/Reset");
-        eh_editIncrementAndGoalCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editIncrementAndGoalCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
-
-        eh_editHabitPanel.add(eh_editIncrementAndGoalPanel);
-        eh_editIncrementAndGoalPanel.setBounds(150, 80, 630, 380);
 
         eh_editDaysPanel.setBackground(new java.awt.Color(156, 183, 133));
         eh_editDaysPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -1702,6 +1711,13 @@ public class GUI_Window extends javax.swing.JFrame {
         h_date.setOpaque(true);
         home.add(h_date);
         h_date.setBounds(10, 10, 950, 50);
+
+        h_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        h_noHabitsPanel.setText("Add Habits To Unlock This Section");
+        h_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        h_noHabitsPanel.setOpaque(true);
+        home.add(h_noHabitsPanel);
+        h_noHabitsPanel.setBounds(285, 200, 400, 200);
 
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
@@ -3371,7 +3387,7 @@ public class GUI_Window extends javax.swing.JFrame {
             // EDIT HABIT
             eh_editNameButton, eh_editColorButton, eh_editIncrementAndGoalButton,
             eh_editDaysButton, eh_editNameCancelButton, eh_editNameSaveButton, eh_deleteHabitButton, eh_cancelChangesButton,
-            eh_editDaysCancelButton, eh_editDaysSaveButton, eh_quantityDecrease, eh_euantityIncrease, eh_editIncrementAndGoalCancelButton, eh_editIncrementAndGoalSaveButton,
+            eh_editDaysCancelButton, eh_editDaysSaveButton, eh_quantityDecrease, eh_quantityIncrease, eh_editIncrementAndGoalCancelButton, eh_editIncrementAndGoalSaveButton,
             eh_deleteConfirmButton, eh_deleteCancelButton, eh_editHistoryButton, eh_editHistoryBackButton, eh_editHistoryScrollDownButton, eh_editHistoryScrollUpButton, 
             
             // PROGRESS PANEL
@@ -3380,21 +3396,23 @@ public class GUI_Window extends javax.swing.JFrame {
         
         JLabel textColored[] = {
             // HOME SCREEN:
+            h_noHabitsPanel,
             
             // SETTINGS SCREEN:
             s_title, s_colorsTitle, s_awayFromScreenTitle, 
             s_awayFromScreenTitle2, s_awayFromScreen, s_title,
+            
             // PROGRESS SCREEN:
-            p_progressTitle, p_habitName, p_noHabitsPanel, p_monthAndYear,
+            p_progressTitle, p_habitName, p_monthAndYear, p_noHabitsPanel,
             
             // ADD HABIT
             ah_title,ah_title, ah_TopPanelText, ah_TopPanelText1, ah_SummaryText1,
             ah_SummaryText2,ah_SummaryText3, ah_SummaryText4, ah_SummaryText5, ah_SummaryText6, ah_SummaryName, 
             ah_SummaryQuantity, ah_SummaryIncrement, ah_SummaryGoal, ah_SummaryDays, ah_DaysText, ah_QuantityPanelText2,
-            ah_QuantityPanelText, ah_QuantityGoal,
+            ah_QuantityPanelText, ah_QuantityGoal, 
             
             // EDIT HABIT
-            eh_title, eh_editHabitText1, eh_editHabitText2, eh_editHabitText3, eh_editHabitText4, 
+            eh_title, eh_editHabitText1, eh_editHabitText2, eh_editHabitText3, eh_editHabitText4, eh_noHabitsPanel,
             eh_editHabitText5, eh_editHabitText6, eh_editIncrementAndGoalText1, eh_editIncrementAndGoalText2, eh_editIncrementAndGoalGoal,
             eh_deleteText1,eh_name, eh_days, eh_increment, eh_goal, eh_editHistoryHabitName, eh_text3, eh_editHistoryQuantity, eh_editHistoryText1,
             
@@ -3454,6 +3472,7 @@ public class GUI_Window extends javax.swing.JFrame {
         // HOME: Painting the date
         h_date.setBackground(PRIMARY_COLOR);
         h_date.setForeground(TEXT_COLOR);
+        
         
         
         // ADD: Painting the input for the name of the new habit
@@ -3976,7 +3995,6 @@ public class GUI_Window extends javax.swing.JFrame {
                 else                                          // If there is already an entry for today, then we need to update the cache
                     currCard.setQuantity(currCard.getDateEntry(LocalDate.now()).getReached());
                 
-                    
             }
         }
         
@@ -3995,6 +4013,17 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Changes the size of the scroll after we added the cards
         updateScrollPaneSize();
+        
+        
+        // If there are no habits in the panel, then we want to show the no habits panel
+        if(h_habitPanel.getComponentCount() == 0){
+            h_noHabitsPanel.setVisible(true);
+            h_scrollPane.setVisible(false);
+        }
+        else{
+            h_noHabitsPanel.setVisible(false);
+            h_scrollPane.setVisible(true);
+        }
     }
 
     
@@ -4694,6 +4723,15 @@ public class GUI_Window extends javax.swing.JFrame {
             makeEditHabitCard(currCard.getHabitName(), currCard.getHabitColor(), buttonW, buttonH, roundness, false, 0);
         
         
+        // Getting count and finding out if we need to stop here
+        if(allQuantityCards.size() + allYesNoCards.size() == 0){
+            eh_noHabitsPanel.setVisible(true);
+        }
+        else{
+            eh_noHabitsPanel.setVisible(false);
+        }
+        
+        
         
         // Setting the preffered size of the display
         int count = allQuantityCards.size() + allYesNoCards.size();
@@ -4951,11 +4989,18 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // If color is valid, make the panel this color
         if(chosenColor != null){
+            // Setting the summary panel with this new color
             eh_color.setBackground(chosenColor);
-            if(targetQuantityCard != null)
+            
+            // Saving into memory and disk
+            if(targetQuantityCard != null){
                 targetQuantityCard.setHabitColor(chosenColor);
-            else
+                saveQuantityHabitFile(targetQuantityCard);
+            }
+            else{
                 targetYesNoCard.setHabitColor(chosenColor);
+                saveYesNoHabitFile(targetYesNoCard);
+            }
         }
     }//GEN-LAST:event_eh_editColorButtonMouseClicked
 
@@ -5007,7 +5052,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
 
-        // Building the new week string in binary to get ready to save
+        // Building the new week string in binary to get ready to save (For memory)
         savedWeek = "";
         savedWeek += (eh_Monday.isSelected() ? "1" : "0");
         savedWeek += (eh_Tuesday.isSelected() ? "1" : "0");
@@ -5017,7 +5062,7 @@ public class GUI_Window extends javax.swing.JFrame {
         savedWeek += (eh_Saturday.isSelected() ? "1" : "0");
         savedWeek += (eh_Sunday.isSelected() ? "1" : "0");
         
-        // Making the string week to show in summary
+        // Making the string week to show in summary 
         String newWeekString = ""; 
         newWeekString += (savedWeek.charAt(0) == '1' ? "Mon" : "");
         newWeekString += (savedWeek.charAt(1) == '1' ? " Tue" : "");
@@ -5026,16 +5071,22 @@ public class GUI_Window extends javax.swing.JFrame {
         newWeekString += (savedWeek.charAt(4) == '1' ? " Fri" : "");
         newWeekString += (savedWeek.charAt(5) == '1' ? " Sat" : "");
         newWeekString += (savedWeek.charAt(6) == '1' ? " Sun" : "");
+        
+        // Setting the summary visaul of the week
         eh_days.setText(newWeekString);
         
-        // Saving into memory
-        if(targetQuantityCard != null)
+        // Saving into memory and disk
+        if(targetQuantityCard != null){
             targetQuantityCard.setWeek(savedWeek); 
-        else
+            saveQuantityHabitFile(targetQuantityCard);
+        }
+        else{
             targetYesNoCard.setWeek(savedWeek);
+            saveYesNoHabitFile(targetYesNoCard);
+        }
         
         
-        
+        // Switching back to summary panel
         eh_editDaysPanel.setVisible(false);
         eh_editHabitSummaryPanel.setVisible(true);
         eh_bottomButtonsPanel.setVisible(true);
@@ -5082,13 +5133,40 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_eh_quantityDecreasedIncreasedButtonClicked
 
     private void eh_editIncrementAndGoalSaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editIncrementAndGoalSaveButtonMouseClicked
-        eh_goal.setText(eh_editIncrementAndGoalGoal.getText());
-        eh_increment.setText(eh_IncrementPointOne.isSelected() ? "0.1" : (eh_IncrementPointFive.isSelected() ? "0.5" : "1.0"));
+        Double newIncrement = eh_IncrementPointOne.isSelected() ? 0.1 : (eh_IncrementPointFive.isSelected() ? 0.5 : eh_IncrementOne.isSelected() ? 1.0 : -1);
+        Double newGoal = Double.valueOf(eh_editIncrementAndGoalGoal.getText());
+        
+
+        // If the increment is for some reason not set, then deny the save
+        if(newIncrement == -1){
+            flashToggleButton(eh_IncrementPointOne);
+            flashToggleButton(eh_IncrementPointFive);
+            flashToggleButton(eh_IncrementOne);
+            return;
+        }
+        
+        // If the goal is set to 0, we deny the save
+        if(newGoal <= 0){
+            flashButton(eh_quantityIncrease);
+            flashButton(eh_quantityDecrease);
+            return;
+        }
+        
+        
+            
+        
+        // Setting up the summary we are going back to 
+        eh_increment.setText(Double.toString(newIncrement));
+        eh_goal.setText(Double.toString(newGoal));
+        
         
         // Save into memory
-        targetQuantityCard.setIncrement(Double.valueOf(eh_increment.getText()));
-        targetQuantityCard.setGoal(Double.valueOf(eh_goal.getText()));
+        targetQuantityCard.setIncrement(newIncrement);
+        targetQuantityCard.setGoal(newGoal);
         
+        
+        // Saving into disk
+        saveQuantityHabitFile(targetQuantityCard);
         
         // Switching back to summary panel
         eh_editIncrementAndGoalPanel.setVisible(false);
@@ -5328,34 +5406,42 @@ public class GUI_Window extends javax.swing.JFrame {
     }//GEN-LAST:event_ehist_increaseDecreaseButtonClicked
 
     
+    
+    
+    
+    
+    
+    
     // =================================================================================================================================
     // ================== [ PROGRESS SCREEN FUNCTIONS ] ================================================================================
     // =================================================================================================================================
     
-    // SET UP PROGRESS PANEL 
     LocalDate showingMonth = LocalDate.now();
     int currentHabitIndex = 0;
     ArrayList<String> allHabitNames = new ArrayList<>();
-    boolean showingQuantityCard = false;
+    // SET UP PROGRESS PANEL 
     private void setUpProgressScreen(){
         // If there are currently no habits, then hide everything and show the no habits panel
         boolean hasHabits = allQuantityCards.size() + allYesNoCards.size() > 0;
         p_tableLeftScrollButton.setVisible(hasHabits);
         p_tableRightScrollButton.setVisible(hasHabits);
         p_habitLeftScrollButton.setVisible(hasHabits);
-        p_habitLeftScrollButton.setVisible(hasHabits);
+        p_habitRightScrollButton.setVisible(hasHabits);
         p_habitName.setVisible(hasHabits);
-        p_table.setVisible(hasHabits);
+        p_tableScrollPane.setVisible(hasHabits);
         p_monthAndYear.setVisible(hasHabits);
         p_resetMonthButton.setVisible(hasHabits);
+        
+        // Showing the no habits panel if there are no habits avaiable
         p_noHabitsPanel.setVisible(!hasHabits);
+        
         
         // Setting up saving variables
         currentHabitIndex = hasHabits ? 0 : -1; // <------ This will set to the first index for when sending into the loadTable function
         showingMonth = LocalDate.now();
         
         // Returning if there is nothing left to do
-        if(currentHabitIndex == -1)
+        if(!hasHabits)
             return;
         
         // Loading all habits into the allHabitsName array
@@ -5368,40 +5454,34 @@ public class GUI_Window extends javax.swing.JFrame {
         // Painting the left scroll as gray since we are starting on the left of the array
         p_habitLeftScrollButton.setBackground(Color.GRAY);
         
-        // Setting up the boolean for if the currently showing habit is a quantitycard or a yesno card
-        showingQuantityCard = getQuantityCard(allHabitNames.get(currentHabitIndex)) != null; 
         
         // Load the table for the current habit that we have selected
         loadTable(); // <-- uses the currentHabitIndex 
     }
     
+    // LOAD TABLE
     private void loadTable(){
+        // Returning if there was no habitIndex set
+        
         // --- Set Name ---
         String habitName = allHabitNames.get(currentHabitIndex);
         p_habitName.setText(habitName);
 
         // -- Set month/year label --
         YearMonth yearMonth = YearMonth.from(showingMonth);
-        String monthTitle = yearMonth.getMonth()
-                .getDisplayName(TextStyle.FULL, Locale.getDefault())
-                + " " + yearMonth.getYear();
+        String monthTitle = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + yearMonth.getYear();
         p_monthAndYear.setText(monthTitle);
 
-        // Detect habit type
+        // -- Detect habit type --
         HabitCard_Quantity quantityCard = getQuantityCard(habitName);
         HabitCard_YesNo yesNoCard = getYesNoCard(habitName);
-
         boolean isQuantity = quantityCard != null;
         boolean isYesNo = yesNoCard != null;
 
-        // Table set up
+        // -- Set up Table -- 
         String[] columns = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
-
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
+            @Override public boolean isCellEditable(int row, int column) { return false; }
         };
 
         // Populate calendar with habit data
@@ -5422,14 +5502,15 @@ public class GUI_Window extends javax.swing.JFrame {
                 // Quantity habit
                 if (isQuantity && quantityCard.hasDateEntry(date)) {
                     QuantityEntry entry = quantityCard.getDateEntry(date);
-                    cellText += "\n" + (entry.getCompleted() ? "COMPLETE" : "INCOMPLETE");
+                    
                     cellText += "\n" + entry.getReached() + " / " + entry.getGoal();
+                    cellText += entry.getCompleted() ? "\n@COMPLETE@" : "\n@INCOMPLETE@"; // Hidden marker (creative huh) so that we can catch later
                 } 
                 
                 // Yes/No habit
                 else if (isYesNo && yesNoCard.hasDateEntry(date)) {
                     boolean completed = yesNoCard.getDateEntry(date);
-                    cellText += "\n" + (completed ? "COMPLETE" : "INCOMPLETE");
+                    cellText += completed ? "\n@COMPLETE@" : "\n@INCOMPLETE@"; // Hidden marker (creative huh) so that we can catch later
                 }
 
                 row[col] = cellText;
@@ -5442,7 +5523,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
         p_table.setModel(model);
 
-        // Adjust row heights to fill table
+        // -- Adjust row height -- 
         int rowCount = p_table.getRowCount();
         if (rowCount > 0) {
             int tableHeight = p_table.getParent().getHeight();
@@ -5450,69 +5531,62 @@ public class GUI_Window extends javax.swing.JFrame {
             p_table.setRowHeight(rowHeight);
         }
         
+        
+        
+        
         // -- MULTI LINE RENDERING --
-        p_table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
-            @Override
-            public Component getTableCellRendererComponent(JTable table,
-                    Object value, boolean isSelected, boolean hasFocus, int row, int column) {
-
-                JLabel label = (JLabel) super.getTableCellRendererComponent(
-                        table, value, isSelected, hasFocus, row, column);
-
-                if (value != null) 
-                    label.setText("<html><div style='text-align:center;'>" + value.toString().replace("\n", "<br>") + "</div></html>");
-                else 
-                    label.setText("");
-
-                label.setHorizontalAlignment(JLabel.CENTER);
-                label.setVerticalAlignment(JLabel.CENTER);
-
-                return label;
-            }
-        });
         
-        
-        // -- PAINTING COLORS ---
         Color backgroundColor = new Color(225, 225, 225);
         Color incompleteColor = new Color(255, 182, 193);
         Color completeColor = new Color(144, 238, 144);
         
         p_table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
         @Override
-        public Component getTableCellRendererComponent(JTable table,
-                Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
 
-            JLabel label = (JLabel) super.getTableCellRendererComponent(
-                    table, value, isSelected, hasFocus, row, column);
-
+            // Saving label and formating text
+            JLabel label = (JLabel) super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
             if (value != null) {
-                String text = value.toString();
+                String raw = value.toString();
 
-                label.setText("<html><div style='text-align:center;'>" +
-                        text.replace("\n", "<br>") + "</div></html>");
-            } 
-            else 
-                label.setText("");
+                // Remove hidden markers and replace (code newline) -> (html newline)
+                String visibleText = raw
+                        .replace("\n@COMPLETE@", "")
+                        .replace("\n@INCOMPLETE@", "")
+                        .replace("\n", "<br>");
+
+                label.setText(
+                    "<html><div style='text-align:center;'>"
+                    + visibleText
+                    + "</div></html>"
+                );
+            } else {
+                label.setText("");  // <--- does nothing, just in case
+            }
             
 
             label.setHorizontalAlignment(JLabel.CENTER);
             label.setVerticalAlignment(JLabel.CENTER);
-
-            // --- Coloring background depending on if its ocmplete or incomplete ---
             
+            
+            
+            // -- PAINTING COLORS ---
+            // --- Coloring background depending on if its ocmplete or incomplete ---
             if (value != null) {
                 String text = value.toString().toUpperCase();
                 
-                if (text.contains("INCOMPLETE")) {
+                
+                if (text.contains("@INCOMPLETE@")) 
                     label.setBackground(incompleteColor); 
-                } else if (text.contains("COMPLETE")) {
+                else if (text.contains("@COMPLETE@")) 
                     label.setBackground(completeColor);
-                } else {
+                else 
                     label.setBackground(backgroundColor); 
-                }
-            } else {
+                
+            } 
+            else 
                 label.setBackground(backgroundColor); 
-            }
+            
 
             label.setOpaque(true); 
 
@@ -5578,6 +5652,7 @@ public class GUI_Window extends javax.swing.JFrame {
         loadTable();
     }//GEN-LAST:event_p_habitScrollButtonClicked
 
+    // BRING CALENDAR BACK TO THIS MONTH
     private void p_resetMonthButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_resetMonthButtonMouseClicked
         showingMonth = LocalDate.now();
         loadTable();
@@ -5820,13 +5895,14 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton eh_editNameCancelButton;
     private javax.swing.JPanel eh_editNamePanel;
     private javax.swing.JButton eh_editNameSaveButton;
-    private javax.swing.JButton eh_euantityIncrease;
     private javax.swing.JLabel eh_goal;
     private javax.swing.JTable eh_historyTable;
     private javax.swing.JLabel eh_increment;
     private javax.swing.JLabel eh_name;
     private javax.swing.JTextField eh_nameInput;
+    private javax.swing.JLabel eh_noHabitsPanel;
     private javax.swing.JButton eh_quantityDecrease;
+    private javax.swing.JButton eh_quantityIncrease;
     private javax.swing.JPanel eh_scrollDownPanel;
     private javax.swing.JScrollPane eh_scrollPane;
     private javax.swing.JPanel eh_scrollUpPanel;
@@ -5836,13 +5912,13 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JTextField h_addHabitName;
     private javax.swing.JLabel h_date;
     private javax.swing.JPanel h_habitPanel;
+    private javax.swing.JLabel h_noHabitsPanel;
     private javax.swing.JLabel h_savingFilesText;
     private javax.swing.JPanel h_scrollDownPanel;
     private javax.swing.JScrollPane h_scrollPane;
     private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
     private javax.swing.JButton homeButton;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JButton key1;
     private javax.swing.JButton key10;
@@ -5885,6 +5961,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JTable p_table;
     private javax.swing.JPanel p_tableLeftScrollButton;
     private javax.swing.JPanel p_tableRightScrollButton;
+    private javax.swing.JScrollPane p_tableScrollPane;
     private javax.swing.JPanel progress;
     private javax.swing.JButton progressButton;
     private javax.swing.JLabel s_awayFromScreen;
