@@ -4,7 +4,7 @@ type=yesno
 days=1111111
 
 2026-12-31=true
-2026-01-04=false
+2026-01-04=true
 2026-01-03=false
 2026-01-02=true
 2026-01-01=false

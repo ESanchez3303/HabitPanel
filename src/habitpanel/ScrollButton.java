@@ -20,7 +20,7 @@ public class ScrollButton extends JPanel {
     private int arrowW = 0;
     private int pressOffset = 0;          // current visual offset
     private int targetPressOffset = 0;    // where we want to go
-    private final int MAX_PRESS = shadowThickness - 1;
+    private final int MAX_PRESS = shadowThickness - 2;
     
     
     public enum Type { UP, DOWN, LEFT, RIGHT }
@@ -50,13 +50,14 @@ public class ScrollButton extends JPanel {
         Path2D shape = new Path2D.Double();
         
         if(form == Form.PILL){
+            // Make sure that the rectangle is big enough for a pill shape 
             if(h*2 > w){
                 System.out.println("ERROR: PILL is not rectangle enough");
                 return;
             }
             // Setting arrow size for the pill shape
-            arrowH = getHeight()/3;
-            arrowW = arrowH;
+            arrowH = getHeight()/2;
+            arrowW = getHeight();
             
             // --- FILL SHAPE FOR SHADOW ---
             shape.moveTo(thickness/2, shadowThickness);
@@ -75,20 +76,22 @@ public class ScrollButton extends JPanel {
             g2.fill(shadow);
         }
         else if(form == Form.CIRCLE){
-            if(w != h){ // Makes sure we are using a square
+            // Makes sure we are using a square
+            if(w != h){ 
                 System.out.println("ERROR: CIRCLE is not a squate");
                 return;
             }
             
-            arrowH = arrowW = w/2;
+            // Resizing the arrow to be bigger on these circle scroll button
+            arrowH = arrowW = w/3; 
             
             // -- FILL FOR SHAPE FOR SHADOW --
             g2.setColor(shadowColor);
-            g2.fillOval(0, 0, w, h);
+            g2.fillOval(shadowThickness/2, shadowThickness, w-shadowThickness, h-shadowThickness-1);
             
             // -- FILL SHAPE FOR CIRCLE SHAPE --
             g2.setColor(getBackground());
-            g2.fillOval(0, 0, w, h);
+            g2.fillOval(shadowThickness/2,  Math.max(pressOffset-2,0), w-shadowThickness, h-shadowThickness+pressOffset);
         }
         
         // --- POINTING ARROW ---
@@ -100,21 +103,32 @@ public class ScrollButton extends JPanel {
         
         
         double angle = 0;
-        Rectangle2D bounds = shape.getBounds2D();
-        double cx = bounds.getCenterX();
-        double cy = bounds.getCenterY();
+        double cx = shape.getBounds2D().getCenterX();
+        double cy = shape.getBounds2D().getCenterY();
         switch (type) {
             case UP -> angle = 0;
             case RIGHT -> angle = Math.PI / 2;
             case DOWN -> angle = Math.PI;
             case LEFT -> angle = -Math.PI / 2;
         }
+        
+        // -- ROTATE IF NEEDED -- 
+        AffineTransform tempShape = new AffineTransform();
+        
+        // -- SHIFT IF NEEDED -- 
+        if(type == Type.RIGHT)     tempShape.translate(arrowW / 10, 0);
+        else if(type == Type.LEFT) tempShape.translate(- arrowW / 10, 0);
+        
+        tempShape.rotate(angle, cx, cy);
+        Shape finishedShape = tempShape.createTransformedShape(shape);
+        
+        // -- DRAW ARROW FINALLY -- 
         g2.setColor(getBackground() == Color.GRAY ? Color.DARK_GRAY : getForeground());
-        AffineTransform rotate = AffineTransform.getRotateInstance(angle, cx, cy);
-        Shape rotated = rotate.createTransformedShape(shape);
-        g2.fill(rotated);
+        g2.fill(finishedShape);
         
         g2.dispose();
+        this.repaint();
+        
     }
     
     
