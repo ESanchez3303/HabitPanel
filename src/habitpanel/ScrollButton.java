@@ -15,10 +15,9 @@ import javax.swing.Timer;
 
 public class ScrollButton extends JPanel {
     private final Color shadowColor = new Color(70,70,70);
+    int shadowThickness = 8;
     private int arrowH = 0;
     private int arrowW = 0;
-    
-    int shadowThickness = 8;
     private int pressOffset = 0;          // current visual offset
     private int targetPressOffset = 0;    // where we want to go
     private final int MAX_PRESS = shadowThickness - 1;
@@ -35,8 +34,7 @@ public class ScrollButton extends JPanel {
         setOpaque(false); 
         setLayout(null);
         setBounds(x,y,w,h);
-        arrowH = getHeight()/3;
-        arrowW = arrowH;
+        
     }
 
     @Override
@@ -52,6 +50,14 @@ public class ScrollButton extends JPanel {
         Path2D shape = new Path2D.Double();
         
         if(form == Form.PILL){
+            if(h*2 > w){
+                System.out.println("ERROR: PILL is not rectangle enough");
+                return;
+            }
+            // Setting arrow size for the pill shape
+            arrowH = getHeight()/3;
+            arrowW = arrowH;
+            
             // --- FILL SHAPE FOR SHADOW ---
             shape.moveTo(thickness/2, shadowThickness);
             shape.append(new Arc2D.Double(thickness/2, shadowThickness, thickness, thickness, 90, 180, Arc2D.OPEN), true);
@@ -69,8 +75,12 @@ public class ScrollButton extends JPanel {
             g2.fill(shadow);
         }
         else if(form == Form.CIRCLE){
-            if(w != h) // Makes sure we are using a square
+            if(w != h){ // Makes sure we are using a square
+                System.out.println("ERROR: CIRCLE is not a squate");
                 return;
+            }
+            
+            arrowH = arrowW = w/2;
             
             // -- FILL FOR SHAPE FOR SHADOW --
             g2.setColor(shadowColor);
