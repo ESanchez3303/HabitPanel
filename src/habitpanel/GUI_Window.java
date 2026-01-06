@@ -279,20 +279,44 @@ class Screensaver {
         
         int itemCount = 0;
         // Loading habits that are for today and have not been completed yet
-        for(HabitCard_Quantity currCard : mainGUI.allQuantityCards)
+        for(HabitCard_Quantity currCard : mainGUI.allQuantityCards){
             if(currCard.isForToday(todaysWeekday) && !currCard.getCompleted(todayDate) && itemCount <= 14){ 
                 addHabitByName(currCard.getHabitName()); 
                 itemCount++;
             }
+        }
             
-        for(HabitCard_YesNo currCard : mainGUI.allYesNoCards)
+        for(HabitCard_YesNo currCard : mainGUI.allYesNoCards){
             if(currCard.isForToday(todaysWeekday) && !currCard.getCompleted(todayDate) && itemCount <= 14){ 
                 addHabitByName(currCard.getHabitName()); 
                 itemCount++;
             }
+        }
+        
+        if(mainGUI.allQuantityCards.size() + mainGUI.allYesNoCards.size() == 0){
+            JLabel completedHabitsText = new JLabel("There Are No Habits Added");
+            completedHabitsText.setFont(new Font("Segoe UI",1,18));
+            completedHabitsText.setForeground(mainGUI.TEXT_COLOR);
+            completedHabitsText.setHorizontalAlignment(SwingConstants.CENTER);
+            todaysProgressDisplay.add(completedHabitsText);
+            
+            // We can now continue because the item count will be 1, not zero!
+            itemCount = 1;
+        }
+        
+        if(itemCount == 0){
+            JLabel completedHabitsText = new JLabel("CONGRATULATIONS! All Habits Have Been Completed!");
+            completedHabitsText.setFont(new Font("Segoe UI",1,18));
+            completedHabitsText.setForeground(mainGUI.TEXT_COLOR);
+            completedHabitsText.setHorizontalAlignment(SwingConstants.CENTER);
+            todaysProgressDisplay.add(completedHabitsText);
+            
+            // We can now continue because the item count will be 1, not zero!
+            itemCount = 1;
+        }
         
         // Resizing all the habit names after we know how many there are
-        int itemHeight = todaysProgressDisplay.getHeight() / itemCount -3;
+        int itemHeight = todaysProgressDisplay.getHeight() / itemCount - 3;
         int newWidth = (todaysProgressDisplay.getWidth() - 10) / (itemCount > 7 ? 2 : 1); // If we have more than 7 habits, then we need to make it into two columns by dividing witdh by 2 
         int newHeight = itemHeight * (itemCount > 7 ? 2 : 1);                             // If we have more than 7 habits, then we need to multiply the height by 2 to acomodate for the two columns
         for(int i = 0; i < todaysProgressDisplay.getComponentCount(); i++){
@@ -321,10 +345,10 @@ public class GUI_Window extends javax.swing.JFrame {
     
     // FILE VARIABLES: ============================================
     private int AWAY_FROM_SCREEN_TIME = 60;                 // In seconds (1 minute)
-    private Color PRIMARY_COLOR = new Color(221,178,93);    // =.
-    private Color SECONDARY_COLOR = new Color(255,204,153); //  | Color variables that can change
-    private Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
-    private Color TEXT_COLOR = new Color(255,255,255);      // ='
+    public Color PRIMARY_COLOR = new Color(221,178,93);    // =.
+    public Color SECONDARY_COLOR = new Color(255,204,153); //  | Color variables that can change
+    public Color BUTTON_COLOR = new Color(193,144,69);     //  | when reading from the variable file
+    public Color TEXT_COLOR = new Color(255,255,255);      // ='
     // ============================================================
     
     
