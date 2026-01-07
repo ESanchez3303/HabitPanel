@@ -1,6 +1,6 @@
 away_time,60
 away_screen,6
 primary,221,178,93
-secondary,255,204,153
+secondary,212,201,155
 button,193,144,69
 text,255,255,255

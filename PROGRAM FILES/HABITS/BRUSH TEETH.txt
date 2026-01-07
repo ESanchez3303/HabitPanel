@@ -3,4 +3,4 @@ color=153,153,153
 type=yesno
 days=1111111
 
-2026-01-05=false
+2026-01-07=false

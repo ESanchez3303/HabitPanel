@@ -571,6 +571,10 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
     }
     
     
+    public void removeDateEntry(LocalDate targetDate){
+        completionMap.remove(targetDate);
+    }
+    
     
     
     

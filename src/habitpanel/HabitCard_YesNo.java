@@ -371,6 +371,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         return completionMap.size();
     }
     
+     public void removeDateEntry(LocalDate targetDate){
+        completionMap.remove(targetDate);
+    }
+    
     
     // ===================================================================================================
     
