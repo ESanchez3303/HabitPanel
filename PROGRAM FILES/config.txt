@@ -1,5 +1,5 @@
 away_time,60
-away_screen,6
+away_screen,5
 primary,221,178,93
 secondary,212,201,155
 button,193,144,69
