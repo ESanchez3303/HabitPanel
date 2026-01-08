@@ -534,6 +534,20 @@ public class GUI_Window extends javax.swing.JFrame {
         editHabitButton = new javax.swing.JButton();
         progressButton = new javax.swing.JButton();
         navSelector = new javax.swing.JPanel();
+        progress = new javax.swing.JPanel();
+        p_progressTitle = new javax.swing.JLabel();
+        p_showAllHabitsText = new javax.swing.JLabel();
+        p_tableScrollPane = new javax.swing.JScrollPane();
+        p_table = new javax.swing.JTable();
+        p_tableRightScrollButton = new javax.swing.JPanel();
+        p_habitRightScrollButton = new javax.swing.JPanel();
+        p_habitName = new javax.swing.JLabel();
+        p_tableLeftScrollButton = new javax.swing.JPanel();
+        p_habitLeftScrollButton = new javax.swing.JPanel();
+        p_noHabitsPanel = new javax.swing.JLabel();
+        p_monthAndYear = new javax.swing.JLabel();
+        p_resetMonthButton = new javax.swing.JButton();
+        p_showAllHabitsButton = new javax.swing.JButton();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
         eh_noHabitsPanel = new javax.swing.JLabel();
@@ -640,18 +654,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_scrollUpPanel = new javax.swing.JPanel();
         eh_scrollPane = new javax.swing.JScrollPane();
         eh_chooseHabitDisplay = new javax.swing.JPanel();
-        progress = new javax.swing.JPanel();
-        p_progressTitle = new javax.swing.JLabel();
-        p_tableScrollPane = new javax.swing.JScrollPane();
-        p_table = new javax.swing.JTable();
-        p_tableRightScrollButton = new javax.swing.JPanel();
-        p_habitRightScrollButton = new javax.swing.JPanel();
-        p_habitName = new javax.swing.JLabel();
-        p_tableLeftScrollButton = new javax.swing.JPanel();
-        p_habitLeftScrollButton = new javax.swing.JPanel();
-        p_noHabitsPanel = new javax.swing.JLabel();
-        p_monthAndYear = new javax.swing.JLabel();
-        p_resetMonthButton = new javax.swing.JButton();
         home = new javax.swing.JPanel();
         h_scrollUpPanel = new javax.swing.JPanel();
         h_scrollDownPanel = new javax.swing.JPanel();
@@ -879,13 +881,186 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         navSelectorLayout.setVerticalGroup(
             navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 116, Short.MAX_VALUE)
+            .addGap(0, 111, Short.MAX_VALUE)
         );
 
         navigationPanel.add(navSelector);
-        navSelector.setBounds(3, 3, 63, 120);
+        navSelector.setBounds(3, 3, 63, 115);
 
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
+
+        progress.setBackground(new java.awt.Color(202, 202, 202));
+        progress.setMaximumSize(new java.awt.Dimension(1040, 600));
+        progress.setMinimumSize(new java.awt.Dimension(1040, 600));
+        progress.setLayout(null);
+
+        p_progressTitle.setBackground(new java.awt.Color(156, 183, 133));
+        p_progressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        p_progressTitle.setForeground(java.awt.Color.white);
+        p_progressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_progressTitle.setText("Progress Center");
+        p_progressTitle.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        p_progressTitle.setOpaque(true);
+        progress.add(p_progressTitle);
+        p_progressTitle.setBounds(10, 10, 950, 50);
+
+        p_showAllHabitsText.setBackground(new java.awt.Color(156, 183, 133));
+        p_showAllHabitsText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        p_showAllHabitsText.setForeground(java.awt.Color.white);
+        p_showAllHabitsText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_showAllHabitsText.setText("Showing All Habits");
+        p_showAllHabitsText.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_showAllHabitsText.setOpaque(true);
+        progress.add(p_showAllHabitsText);
+        p_showAllHabitsText.setBounds(225, 70, 520, 50);
+
+        p_tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        p_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        p_tableScrollPane.setViewportView(p_table);
+
+        progress.add(p_tableScrollPane);
+        p_tableScrollPane.setBounds(85, 170, 800, 410);
+
+        p_tableRightScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_tableScrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_tableRightScrollButtonLayout = new javax.swing.GroupLayout(p_tableRightScrollButton);
+        p_tableRightScrollButton.setLayout(p_tableRightScrollButtonLayout);
+        p_tableRightScrollButtonLayout.setHorizontalGroup(
+            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_tableRightScrollButtonLayout.setVerticalGroup(
+            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        progress.add(p_tableRightScrollButton);
+        p_tableRightScrollButton.setBounds(890, 318, 75, 75);
+
+        javax.swing.GroupLayout p_habitRightScrollButtonLayout = new javax.swing.GroupLayout(p_habitRightScrollButton);
+        p_habitRightScrollButton.setLayout(p_habitRightScrollButtonLayout);
+        p_habitRightScrollButtonLayout.setHorizontalGroup(
+            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_habitRightScrollButtonLayout.setVerticalGroup(
+            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        progress.add(p_habitRightScrollButton);
+        p_habitRightScrollButton.setBounds(660, 70, 50, 50);
+
+        p_habitName.setBackground(new java.awt.Color(156, 183, 133));
+        p_habitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        p_habitName.setForeground(java.awt.Color.white);
+        p_habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_habitName.setText("<habit name>");
+        p_habitName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_habitName.setOpaque(true);
+        progress.add(p_habitName);
+        p_habitName.setBounds(320, 75, 330, 40);
+
+        p_tableLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_tableScrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_tableLeftScrollButtonLayout = new javax.swing.GroupLayout(p_tableLeftScrollButton);
+        p_tableLeftScrollButton.setLayout(p_tableLeftScrollButtonLayout);
+        p_tableLeftScrollButtonLayout.setHorizontalGroup(
+            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_tableLeftScrollButtonLayout.setVerticalGroup(
+            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        progress.add(p_tableLeftScrollButton);
+        p_tableLeftScrollButton.setBounds(5, 318, 75, 75);
+
+        p_habitLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_habitScrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_habitLeftScrollButtonLayout = new javax.swing.GroupLayout(p_habitLeftScrollButton);
+        p_habitLeftScrollButton.setLayout(p_habitLeftScrollButtonLayout);
+        p_habitLeftScrollButtonLayout.setHorizontalGroup(
+            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_habitLeftScrollButtonLayout.setVerticalGroup(
+            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        progress.add(p_habitLeftScrollButton);
+        p_habitLeftScrollButton.setBounds(260, 70, 50, 50);
+
+        p_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_noHabitsPanel.setText("Add Habits To Unlock This Section");
+        p_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_noHabitsPanel.setOpaque(true);
+        progress.add(p_noHabitsPanel);
+        p_noHabitsPanel.setBounds(285, 200, 400, 200);
+
+        p_monthAndYear.setBackground(new java.awt.Color(156, 183, 133));
+        p_monthAndYear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        p_monthAndYear.setForeground(java.awt.Color.white);
+        p_monthAndYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_monthAndYear.setText("<MONTH AND YEAR>");
+        p_monthAndYear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p_monthAndYear.setOpaque(true);
+        progress.add(p_monthAndYear);
+        p_monthAndYear.setBounds(85, 132, 800, 40);
+
+        p_resetMonthButton.setBackground(new java.awt.Color(156, 183, 133));
+        p_resetMonthButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        p_resetMonthButton.setForeground(java.awt.Color.white);
+        p_resetMonthButton.setText("This Month");
+        p_resetMonthButton.setToolTipText("");
+        p_resetMonthButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_resetMonthButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_resetMonthButtonMouseClicked(evt);
+            }
+        });
+        progress.add(p_resetMonthButton);
+        p_resetMonthButton.setBounds(760, 75, 130, 40);
+
+        p_showAllHabitsButton.setBackground(new java.awt.Color(156, 183, 133));
+        p_showAllHabitsButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        p_showAllHabitsButton.setForeground(java.awt.Color.white);
+        p_showAllHabitsButton.setText("Show By Habit");
+        p_showAllHabitsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_showAllHabitsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_showAllHabitsButtonMouseClicked(evt);
+            }
+        });
+        progress.add(p_showAllHabitsButton);
+        p_showAllHabitsButton.setBounds(80, 75, 130, 40);
+
+        getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         editHabit.setBackground(new java.awt.Color(181, 181, 181));
         editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1797,156 +1972,6 @@ public class GUI_Window extends javax.swing.JFrame {
         editHabit.add(eh_chooseHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
 
         getContentPane().add(editHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
-        progress.setBackground(new java.awt.Color(202, 202, 202));
-        progress.setMaximumSize(new java.awt.Dimension(1040, 600));
-        progress.setMinimumSize(new java.awt.Dimension(1040, 600));
-        progress.setLayout(null);
-
-        p_progressTitle.setBackground(new java.awt.Color(156, 183, 133));
-        p_progressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        p_progressTitle.setForeground(java.awt.Color.white);
-        p_progressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_progressTitle.setText("Progress Center");
-        p_progressTitle.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        p_progressTitle.setOpaque(true);
-        progress.add(p_progressTitle);
-        p_progressTitle.setBounds(10, 10, 950, 50);
-
-        p_tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        p_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        p_tableScrollPane.setViewportView(p_table);
-
-        progress.add(p_tableScrollPane);
-        p_tableScrollPane.setBounds(85, 170, 800, 410);
-
-        p_tableRightScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_tableScrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout p_tableRightScrollButtonLayout = new javax.swing.GroupLayout(p_tableRightScrollButton);
-        p_tableRightScrollButton.setLayout(p_tableRightScrollButtonLayout);
-        p_tableRightScrollButtonLayout.setHorizontalGroup(
-            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_tableRightScrollButtonLayout.setVerticalGroup(
-            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        progress.add(p_tableRightScrollButton);
-        p_tableRightScrollButton.setBounds(890, 318, 75, 75);
-
-        javax.swing.GroupLayout p_habitRightScrollButtonLayout = new javax.swing.GroupLayout(p_habitRightScrollButton);
-        p_habitRightScrollButton.setLayout(p_habitRightScrollButtonLayout);
-        p_habitRightScrollButtonLayout.setHorizontalGroup(
-            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_habitRightScrollButtonLayout.setVerticalGroup(
-            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        progress.add(p_habitRightScrollButton);
-        p_habitRightScrollButton.setBounds(660, 65, 50, 50);
-
-        p_habitName.setBackground(new java.awt.Color(156, 183, 133));
-        p_habitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        p_habitName.setForeground(java.awt.Color.white);
-        p_habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_habitName.setText("<habit name>");
-        p_habitName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_habitName.setOpaque(true);
-        progress.add(p_habitName);
-        p_habitName.setBounds(320, 70, 330, 40);
-
-        p_tableLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_tableScrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout p_tableLeftScrollButtonLayout = new javax.swing.GroupLayout(p_tableLeftScrollButton);
-        p_tableLeftScrollButton.setLayout(p_tableLeftScrollButtonLayout);
-        p_tableLeftScrollButtonLayout.setHorizontalGroup(
-            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_tableLeftScrollButtonLayout.setVerticalGroup(
-            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        progress.add(p_tableLeftScrollButton);
-        p_tableLeftScrollButton.setBounds(5, 318, 75, 75);
-
-        p_habitLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_habitScrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout p_habitLeftScrollButtonLayout = new javax.swing.GroupLayout(p_habitLeftScrollButton);
-        p_habitLeftScrollButton.setLayout(p_habitLeftScrollButtonLayout);
-        p_habitLeftScrollButtonLayout.setHorizontalGroup(
-            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_habitLeftScrollButtonLayout.setVerticalGroup(
-            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-
-        progress.add(p_habitLeftScrollButton);
-        p_habitLeftScrollButton.setBounds(260, 65, 50, 50);
-
-        p_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_noHabitsPanel.setText("Add Habits To Unlock This Section");
-        p_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_noHabitsPanel.setOpaque(true);
-        progress.add(p_noHabitsPanel);
-        p_noHabitsPanel.setBounds(285, 200, 400, 200);
-
-        p_monthAndYear.setBackground(new java.awt.Color(156, 183, 133));
-        p_monthAndYear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        p_monthAndYear.setForeground(java.awt.Color.white);
-        p_monthAndYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_monthAndYear.setText("<MONTH AND YEAR>");
-        p_monthAndYear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        p_monthAndYear.setOpaque(true);
-        progress.add(p_monthAndYear);
-        p_monthAndYear.setBounds(85, 132, 800, 40);
-
-        p_resetMonthButton.setBackground(new java.awt.Color(156, 183, 133));
-        p_resetMonthButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        p_resetMonthButton.setForeground(java.awt.Color.white);
-        p_resetMonthButton.setText("This Month");
-        p_resetMonthButton.setToolTipText("");
-        p_resetMonthButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_resetMonthButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_resetMonthButtonMouseClicked(evt);
-            }
-        });
-        progress.add(p_resetMonthButton);
-        p_resetMonthButton.setBounds(760, 70, 130, 40);
-
-        getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         home.setBackground(new java.awt.Color(204, 204, 204));
         home.setMaximumSize(new java.awt.Dimension(1040, 600));
@@ -3659,7 +3684,7 @@ public class GUI_Window extends javax.swing.JFrame {
             eh_editHistoryAddYesNoPanel, eh_editHistoryAddQuantityPanel, eh_editHistoryAddYesNoPanel, eh_editHistoryAddQuantityPanel, 
             
             // PROGRESS PANEL:
-            p_tableLeftScrollButton, p_tableRightScrollButton, p_habitLeftScrollButton, p_habitRightScrollButton, 
+            p_tableLeftScrollButton, p_tableRightScrollButton, p_habitLeftScrollButton, p_habitRightScrollButton,
         };
         JPanel secondaryColored[] = {
             // HOME SCREEN:
@@ -3704,7 +3729,7 @@ public class GUI_Window extends javax.swing.JFrame {
             eh_editHistoryAddGoalDecreaseButton, eh_editHistoryAddGoalIncreaseButton,
 
             // PROGRESS PANEL
-            p_resetMonthButton,
+            p_resetMonthButton, p_showAllHabitsButton, 
         };
         
         JLabel textColored[] = {
@@ -3716,7 +3741,7 @@ public class GUI_Window extends javax.swing.JFrame {
             s_awayFromScreenTitle2, s_awayFromScreen, s_title,
             
             // PROGRESS SCREEN:
-            p_progressTitle, p_habitName, p_monthAndYear, p_noHabitsPanel,
+            p_progressTitle, p_habitName, p_monthAndYear, p_noHabitsPanel, p_showAllHabitsText,
             
             // ADD HABIT
             ah_title,ah_title, ah_TopPanelText, ah_TopPanelText1, ah_SummaryText1,
@@ -6004,18 +6029,19 @@ public class GUI_Window extends javax.swing.JFrame {
         p_tableScrollPane.setVisible(hasHabits);
         p_monthAndYear.setVisible(hasHabits);
         p_resetMonthButton.setVisible(hasHabits);
+        p_showAllHabitsText.setVisible(hasHabits); 
+        p_showAllHabitsButton.setText("Filter By Habit"); 
         
         // Showing the no habits panel if there are no habits avaiable
         p_noHabitsPanel.setVisible(!hasHabits);
         
-        
-        // Setting up saving variables
-        currentHabitIndex = hasHabits ? 0 : -1; // <------ This will set to the first index for when sending into the loadTable function
-        showingMonth = LocalDate.now();
-        
         // Returning if there is nothing left to do
         if(!hasHabits)
             return;
+        
+        // Setting up saving variables
+        currentHabitIndex = -1;           // WE ARE STARTING THE CURRENT HABIT TO BE AT -1 TO SHOW ALL HABITS FIRST
+        showingMonth = LocalDate.now();
         
         // Loading all habits into the allHabitsName array
         allHabitNames.clear();
@@ -6032,24 +6058,57 @@ public class GUI_Window extends javax.swing.JFrame {
         loadTable(); // <-- uses the currentHabitIndex 
     }
     
+    // HELPER FUNCTION FOR LOAD TABLE: Count the total amount of habits that are for a day AND the amount of habits that were completed that day
+    private int[] countTodaysProgress(LocalDate targetDay){
+        int totalHabits = 0;
+        int completedToday = 0;
+        for (String currentHabitName : allHabitNames) {
+            HabitCard_Quantity tempQuantity = getQuantityCard(currentHabitName);
+            if(tempQuantity != null){
+                if(tempQuantity.hasDateEntry(targetDay)){
+                    totalHabits++;
+                    QuantityEntry entry = tempQuantity.getDateEntry(targetDay);
+                    if(entry.getCompleted())
+                        completedToday++;
+                }
+            }
+            else{
+                HabitCard_YesNo tempYesNo = getYesNoCard(currentHabitName);
+                if(tempYesNo.hasDateEntry(targetDay)){
+                    totalHabits++;
+                    if(tempYesNo.getDateEntry(targetDay))
+                        completedToday++;
+                }
+            }
+        }
+         return new int[]{completedToday, totalHabits};
+    }
+    
     // LOAD TABLE
     private void loadTable(){
-        // Returning if there was no habitIndex set
-        
-        // --- Set Name ---
-        String habitName = allHabitNames.get(currentHabitIndex);
-        p_habitName.setText(habitName);
-
         // -- Set month/year label --
         YearMonth yearMonth = YearMonth.from(showingMonth);
         String monthTitle = yearMonth.getMonth().getDisplayName(TextStyle.FULL, Locale.getDefault()) + " " + yearMonth.getYear();
         p_monthAndYear.setText(monthTitle);
-
-        // -- Detect habit type --
-        HabitCard_Quantity quantityCard = getQuantityCard(habitName);
-        HabitCard_YesNo yesNoCard = getYesNoCard(habitName);
-        boolean isQuantity = quantityCard != null;
-        boolean isYesNo = yesNoCard != null;
+        
+        
+        // (ONLY IN THE CASE THAT WE ARE SHOWING A SPECIFIC HABIT)
+        HabitCard_Quantity quantityCard = null;
+        HabitCard_YesNo yesNoCard = null;
+        boolean isQuantity = false;
+        boolean isYesNo = false;
+        if(currentHabitIndex >= 0){
+            // -- SET UP NAME --
+            String habitName = allHabitNames.get(currentHabitIndex);
+            p_habitName.setText(habitName); 
+            
+            // -- DETECT HABIT TYPE --
+            quantityCard = getQuantityCard(habitName);
+            yesNoCard = getYesNoCard(habitName);
+            isQuantity = (quantityCard != null);
+            isYesNo = (yesNoCard != null);
+        }
+        
 
         // -- Set up Table -- 
         String[] columns = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
@@ -6071,20 +6130,35 @@ public class GUI_Window extends javax.swing.JFrame {
             for (int col = startColumn; col < 7 && day <= daysInMonth; col++) {
                 LocalDate date = yearMonth.atDay(day);
                 String cellText = String.valueOf(day);
-
-                // Quantity habit
-                if (isQuantity && quantityCard.hasDateEntry(date)) {
-                    QuantityEntry entry = quantityCard.getDateEntry(date);
-                    
-                    cellText += "\n" + entry.getReached() + " / " + entry.getGoal();
-                    cellText += entry.getCompleted() ? "\n@COMPLETE@" : "\n@INCOMPLETE@"; // Hidden marker (creative huh) so that we can catch later
-                } 
                 
-                // Yes/No habit
-                else if (isYesNo && yesNoCard.hasDateEntry(date)) {
-                    boolean completed = yesNoCard.getDateEntry(date);
-                    cellText += completed ? "\n@COMPLETE@" : "\n@INCOMPLETE@"; // Hidden marker (creative huh) so that we can catch later
+                // -- IF WE ARE SHOWING A SPECIFIC HABIT --
+                if(currentHabitIndex >= 0){
+                    // Quantity habit
+                    if (isQuantity && quantityCard.hasDateEntry(date)) {
+                        QuantityEntry entry = quantityCard.getDateEntry(date);
+
+                        cellText += "\n" + entry.getReached() + " / " + entry.getGoal();
+                        cellText += entry.getCompleted() ? "\n@COMPLETE@" : "\n@INCOMPLETE@"; // Hidden marker (creative huh) so that we can catch later
+                    } 
+
+                    // Yes/No habit
+                    else if (isYesNo && yesNoCard.hasDateEntry(date)) {
+                        boolean completed = yesNoCard.getDateEntry(date);
+                        cellText += completed ? "\n@COMPLETE@" : "\n@INCOMPLETE@"; // Hidden marker (creative huh) so that we can catch later
+                    }
                 }
+                
+                // -- IF WE ARE SHOWING ALL HABITS --
+                else{
+                    // If the date is before OR is today, then we want to show the track
+                    if(!date.isAfter(LocalDate.now())){
+                        int[] results = countTodaysProgress(date);
+                        cellText += "\n" + Integer.toString(results[0]) + "/" + Integer.toString(results[1]);
+                        if(results[1] != 0)
+                            cellText += (results[0] == results[1]) ? "\n@COMPLETE@" : "\n@INCOMPLETE@";
+                    }
+                }
+                
 
                 row[col] = cellText;
                 day++;
@@ -6109,9 +6183,12 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // -- MULTI LINE RENDERING --
         
-        Color backgroundColor = new Color(225, 225, 225);
-        Color incompleteColor = new Color(255, 182, 193);
-        Color completeColor = new Color(144, 238, 144);
+        Color backgroundColor   = new Color(225, 225, 225);
+        Color incompleteColor   = new Color(255, 182, 193);
+        Color completeColor     = new Color(144, 238, 144);
+        //Color highlightDayColor = new Color(30, 144, 255);
+        Color highlightDayColor = new Color(100, 100, 100);
+        
         
         p_table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
         @Override
@@ -6160,21 +6237,32 @@ public class GUI_Window extends javax.swing.JFrame {
             else 
                 label.setBackground(backgroundColor); 
             
-
             label.setOpaque(true); 
+            
+            // ---- HIGHLIGHT TODAY ----
+            // Calculating which day this cell represents
+            int startCol = firstOfMonth.getDayOfWeek().getValue() % 7;
+            int dayNumber = row * 7 + column - startCol + 1;
 
+            boolean isToday =
+                dayNumber >= 1 &&
+                dayNumber <= yearMonth.lengthOfMonth() &&
+                yearMonth.equals(YearMonth.from(LocalDate.now())) &&
+                dayNumber == LocalDate.now().getDayOfMonth();
+
+            if (isToday) 
+                label.setBorder(BorderFactory.createLineBorder(highlightDayColor, 3));
+            else 
+                label.setBorder(null);
+            
             return label;
-        }
-    });
-        
-        
+            }
+        });
     }
     
     // TABLE SCROLL BUTTONS
     private void p_tableScrollButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_tableScrollButtonClicked
-        // Catching in the case that there are currently no habits
-        if(currentHabitIndex == -1)
-            return;
+        // NO LONGER CATCHING -1 FOR THE CURRENT HABIT BECAUSE IT WILL FLAG TO THE LOAD TABLE TO SHOW ALL INSTEAD
         
         // Saving the panel target
         ScrollButton scrollButtonClicked = (ScrollButton) evt.getSource();
@@ -6194,7 +6282,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
     // HABIT SCROLL BUTTONS
     private void p_habitScrollButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_habitScrollButtonClicked
-        // Catching in the case that there are currently no habits
+        // Catching in the case that we are showing all habits, no need for these buttons
         if(currentHabitIndex == -1)
             return;
         
@@ -6230,6 +6318,47 @@ public class GUI_Window extends javax.swing.JFrame {
         showingMonth = LocalDate.now();
         loadTable();
     }//GEN-LAST:event_p_resetMonthButtonMouseClicked
+
+    // SHOW ALL HABITS BUTTON
+    private void p_showAllHabitsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_p_showAllHabitsButtonMouseClicked
+        String buttonText = ((JButton) evt.getSource()).getText();
+        
+        // NOW SHOWING SPECIFIC HABIT
+        if(buttonText.equals("Filter By Habit")){
+            p_showAllHabitsButton.setText("Show All Habits"); // Changing states to show a specific habit
+            p_showAllHabitsText.setVisible(false);            // Showing the cover for the habit choose and buttons
+            
+            // Hiding other panels under the cover
+            p_habitName.setVisible(true);                  
+            p_habitLeftScrollButton.setVisible(true);
+            p_habitRightScrollButton.setVisible(true); 
+            
+            // Setting the current habit index to the first one again
+            currentHabitIndex = 0;
+            
+            // Setting the colors of the scroll buttons at the starting index (Depending on the amount of habits we have)
+            p_habitLeftScrollButton.setBackground(Color.GRAY);
+            p_habitRightScrollButton.setBackground(allHabitNames.size() > 1 ? PRIMARY_COLOR : Color.GRAY);
+                
+        }
+        
+        // NOW SHOWING ALL HABITS
+        else{
+            p_showAllHabitsButton.setText("Filter By Habit");       // Changing state to show all habits
+            p_showAllHabitsText.setVisible(true);
+            
+            // Showing the other panels that were under
+            p_habitName.setVisible(false);                  
+            p_habitLeftScrollButton.setVisible(false);
+            p_habitRightScrollButton.setVisible(false); 
+            
+            // Setting the current habit index to the flag that will get caught in the loadTable
+            currentHabitIndex = -1;
+        }
+        
+        // LOAD HABIT TABLE AGAIN 
+        loadTable();
+    }//GEN-LAST:event_p_showAllHabitsButtonMouseClicked
 
 
     
@@ -6582,6 +6711,8 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel p_noHabitsPanel;
     private javax.swing.JLabel p_progressTitle;
     private javax.swing.JButton p_resetMonthButton;
+    private javax.swing.JButton p_showAllHabitsButton;
+    private javax.swing.JLabel p_showAllHabitsText;
     private javax.swing.JTable p_table;
     private javax.swing.JPanel p_tableLeftScrollButton;
     private javax.swing.JPanel p_tableRightScrollButton;
