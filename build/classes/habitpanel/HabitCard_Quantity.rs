@@ -1,0 +1,2 @@
+habitpanel.HabitCard_Quantity
+habitpanel.QuantityEntry

@@ -8,7 +8,6 @@ import java.awt.Color;
 import java.awt.geom.Arc2D;
 import java.awt.geom.AffineTransform;
 import java.awt.Shape;
-import java.awt.geom.*;
 import javax.swing.Timer;
 
 
@@ -127,8 +126,6 @@ public class ScrollButton extends JPanel {
         g2.fill(finishedShape);
         
         g2.dispose();
-        this.repaint();
-        
     }
     
     

@@ -466,6 +466,19 @@ public class GUI_Window extends javax.swing.JFrame {
         home.setComponentZOrder(h_scrollUpPanel, 0);
         home.setComponentZOrder(h_scrollDownPanel, 0);
         
+        
+        // Setting up the progress screensaver
+        screensaverOverallProgress.remove(overallProgressDayCircle);
+        screensaverOverallProgress.remove(overallProgressWeekCircle);
+        screensaverOverallProgress.remove(overallProgressMonthCircle);
+        overallProgressDayCircle = new ProgressCircle("Day", overallProgressDayCircle.getX(), overallProgressDayCircle.getY(), overallProgressDayCircle.getWidth(), overallProgressDayCircle.getHeight());
+        overallProgressWeekCircle = new ProgressCircle("Week", overallProgressWeekCircle.getX(), overallProgressWeekCircle.getY(), overallProgressWeekCircle.getWidth(), overallProgressWeekCircle.getHeight());
+        overallProgressMonthCircle = new ProgressCircle("Month", overallProgressMonthCircle.getX(), overallProgressMonthCircle.getY(), overallProgressMonthCircle.getWidth(), overallProgressMonthCircle.getHeight());
+        screensaverOverallProgress.add(overallProgressDayCircle);
+        screensaverOverallProgress.add(overallProgressWeekCircle);
+        screensaverOverallProgress.add(overallProgressMonthCircle);
+        
+        
         // Setting up the scroll button for the progress panel
         progress.remove(p_tableLeftScrollButton);
         progress.remove(p_tableRightScrollButton);
@@ -3907,7 +3920,6 @@ public class GUI_Window extends javax.swing.JFrame {
         h_date.setForeground(TEXT_COLOR);
         
         
-        
         // ADD: Painting the input for the name of the new habit
         h_addHabitName.setBackground(PRIMARY_COLOR);
         h_addHabitName.setForeground(TEXT_COLOR);
@@ -3958,7 +3970,6 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         
-        
         // SCREENSAVER : If the screensavers is "Skyline" | "today progress" | "simple clock/date" ----> Then we need to repaint certain things
         switch(screensaver.getScreensaver()){
             case 1 -> {
@@ -3979,6 +3990,9 @@ public class GUI_Window extends javax.swing.JFrame {
             }
             case 5 ->{
                 screensaverOverallProgress.setBackground(PRIMARY_COLOR);
+                overallProgressDayCircle.setBackground(TEXT_COLOR);
+                overallProgressWeekCircle.setBackground(TEXT_COLOR);
+                overallProgressMonthCircle.setBackground(TEXT_COLOR);
             }
             case 6 -> {
                 screensaverPanel.setBackground(PRIMARY_COLOR);

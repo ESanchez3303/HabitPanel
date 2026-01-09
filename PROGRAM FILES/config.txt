@@ -1,4 +1,4 @@
-away_time,60
+away_time,3
 away_screen,5
 primary,221,178,93
 secondary,212,201,155
