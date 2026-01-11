@@ -2,8 +2,6 @@ package habitpanel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.time.LocalDateTime;
-import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
@@ -19,9 +17,13 @@ import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import javax.swing.table.DefaultTableCellRenderer;
-import java.time.YearMonth;
 import java.time.format.TextStyle;
 import java.util.Locale;
+import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.YearMonth;
+import java.time.DayOfWeek;
+import java.time.temporal.TemporalAdjusters;
 import java.time.DateTimeException;
 
 
@@ -30,63 +32,27 @@ import java.time.DateTimeException;
 
 class Screensaver {
     // General Screensaver Variables
-    Timer screensaverClock = null;
-    private JLabel timeText = null;
-    private JLabel dateText = null;
-    private int savedScreensaver = 1; // Current Screensaver: 1 -> Skyline Background  ------------> ALSO A VARIABLE THAT CAN BE SAVED IN VARIABLE FILE
-    private JPanel background = null;
     GUI_Window mainGUI = null;
+    private int savedScreensaver = 1; // Current Screensaver: 1 -> Skyline Background  ------------> ALSO A VARIABLE THAT CAN BE SAVED IN VARIABLE FILE
     
-    // Skyline Screensaver
+    // Skyline Screensaver extras 
+    Timer skylineTimer = null;
     private int skylineMinLocation;
     private int skylinePanelWidth;
-    private final int skylineStep = 1;  // 1  -> Step for the skyline movement
-    private final int skylineTick = 30; // 30 -> Speed til next step in (ms)
-    private JLabel skylinePanel1 = null;
-    private JLabel skylinePanel2 = null;
-    private JLabel skylinePanel3 = null;
-    
-    // Todays Progress Screensaver
-    private JPanel todaysProgressPanel = null;
-    private JPanel todaysProgressDisplay = null;
-    
-    // Overall Progress Screensaver
-    private JPanel overallProgressPanel = null;
-    
-    // Fish Tank Screensaver
-    private JLabel fishTankBackground = null;
     
     
      // 400x70 | 400x50
-    public void setUp(GUI_Window mainGUIinput, JPanel backgroundInput, JLabel timeInput, JLabel dateInput, JLabel sp1, JLabel sp2, JLabel sp3,
-                      JPanel todaysProgressPanelInput, JPanel todaysProgessDisplayInput, JLabel fishTankBackgroundInput,
-                      JPanel overallProgressInput){
+    public void setUp(GUI_Window mainGUIinput, JPanel backgroundInput){
         // Setting up main gui window
         mainGUI = mainGUIinput;
         
-        // Setting up the date and time labels
-        dateText = dateInput;
-        timeText = timeInput;
-        background = backgroundInput;
-        
         // Setting up skyline variablaes
-        skylineMinLocation = -sp1.getWidth() - 10;
-        skylinePanelWidth = sp1.getWidth();
-        skylinePanel1 = sp1;
-        skylinePanel2 = sp2;
-        skylinePanel3 = sp3;
-        
-        // Setting up overall progress panel
-        overallProgressPanel = overallProgressInput;
-        
-        // Setting up fishtank screensaver
-        fishTankBackground = fishTankBackgroundInput;
-        
-        // Setting up Todays Progress Panel
-        todaysProgressPanel = todaysProgressPanelInput;
-        todaysProgressDisplay = todaysProgessDisplayInput;
+        skylineMinLocation = -mainGUI.skylinePanel1.getWidth() - 10;
+        skylinePanelWidth = mainGUI.skylinePanel1.getWidth();
         
     }
+    
+    
     
     // Call this function to set up a different screensaver
     public void setScreensaver(int input){
@@ -98,38 +64,41 @@ class Screensaver {
         return savedScreensaver;
     }
     
+    
+    
+    
     // Call this function to start up the screensaver we want to use
     public void startScreenSaver(){
         // Setting invisible panels of all screensavers to only later show the one we want to use
         stopClock();
-        timeText.setVisible(false);
-        dateText.setVisible(false);
+        mainGUI.screensaverTimeText.setVisible(false);
+        mainGUI.screensaverDateText.setVisible(false);
         
-        skylinePanel1.setVisible(false);
-        skylinePanel2.setVisible(false);
-        skylinePanel3.setVisible(false);
+        mainGUI.skylinePanel1.setVisible(false);
+        mainGUI.skylinePanel2.setVisible(false);
+        mainGUI.skylinePanel3.setVisible(false);
         
-        fishTankBackground.setVisible(false);
+        mainGUI.screensaverFishTankBackground.setVisible(false);
         
-        todaysProgressPanel.setVisible(false);
+        mainGUI.screensaverTodaysProgress.setVisible(false);
         
-        overallProgressPanel.setVisible(false);
+        mainGUI.screensaverOverallProgress.setVisible(false);
         
         
         switch (savedScreensaver) {
             // Skyline Screensaver
             case 1 -> {
-                skylinePanel1.setVisible(true);
-                skylinePanel2.setVisible(true);
-                skylinePanel3.setVisible(true);
-                timeText.setVisible(true);
-                dateText.setVisible(true);
+                mainGUI.skylinePanel1.setVisible(true);
+                mainGUI.skylinePanel2.setVisible(true);
+                mainGUI.skylinePanel3.setVisible(true);
+                mainGUI.screensaverTimeText.setVisible(true);
+                mainGUI.screensaverDateText.setVisible(true);
                 startSkylineClock();
             }
             
             // Fish tank screensaver
             case 2 -> {
-                fishTankBackground.setVisible(true);
+                mainGUI.screensaverFishTankBackground.setVisible(true);
             }
             
             // Blank Black Screensaver
@@ -140,21 +109,24 @@ class Screensaver {
             // Todays Progress Screensaver
             case 4 -> {
                 setUpTodaysProgess();
-                todaysProgressPanel.setVisible(true);
+                mainGUI.screensaverTodaysProgress.setVisible(true);
             }
             
             // Overall Progress Screensaver
             case 5 -> {
-                overallProgressPanel.setVisible(true);
+                mainGUI.screensaverOverallProgress.setVisible(true);
+                setUpOverallProgessPanel();
             }
             
             // Simple Clock and Date Screensaver
             case 6 -> {
                 // Centering the time text and then centering the date text under the time text
-                timeText.setLocation(background.getWidth()/2 - timeText.getWidth()/2, background.getHeight()/2-timeText.getHeight());
-                dateText.setLocation(timeText.getX() + (timeText.getWidth() - dateText.getWidth())/2, timeText.getY() + timeText.getHeight());
-                timeText.setVisible(true);
-                dateText.setVisible(true);
+                mainGUI.screensaverTimeText.setLocation(mainGUI.screensaverPanel.getWidth()/2 - mainGUI.screensaverTimeText.getWidth()/2, 
+                                                        mainGUI.screensaverPanel.getHeight()/2-mainGUI.screensaverTimeText.getHeight());
+                mainGUI.screensaverDateText.setLocation(mainGUI.screensaverTimeText.getX() + (mainGUI.screensaverTimeText.getWidth() - mainGUI.screensaverDateText.getWidth())/2, 
+                                                        mainGUI.screensaverTimeText.getY() + mainGUI.screensaverTimeText.getHeight());
+                mainGUI.screensaverTimeText.setVisible(true);
+                mainGUI.screensaverDateText.setVisible(true);
             }
             
             
@@ -164,44 +136,44 @@ class Screensaver {
     // SCREEN SAVER CLOCKS ------------------------------------------------------------------------------------------------------------------------------
     // Safely stopping the clock
     public void stopClock(){
-        if(screensaverClock != null){        // Making sure there is an object here
-            if(screensaverClock.isRunning()) // If its running -> stop
-                screensaverClock.stop();
-            screensaverClock = null;         // Removing it so memory can delete it when it can
+        if(skylineTimer != null){        // Making sure there is an object here
+            if(skylineTimer.isRunning()) // If its running -> stop
+                skylineTimer.stop();
+            skylineTimer = null;         // Removing it so memory can delete it when it can
         }
     }
     
     private void startSkylineClock(){
         // Moving panels to position 
-        skylinePanel1.setLocation(0,0);
-        skylinePanel2.setLocation(1040,0);
-        skylinePanel3.setLocation(2060,0);
-        timeText.setLocation(320,60);
-        dateText.setLocation(320,120);
+        mainGUI.skylinePanel1.setLocation(0,0);
+        mainGUI.skylinePanel2.setLocation(1040,0);
+        mainGUI.skylinePanel3.setLocation(2060,0);
+        mainGUI.screensaverTimeText.setLocation(320,60);
+        mainGUI.screensaverDateText.setLocation(320,120);
         
-        screensaverClock = new Timer(skylineTick, e->{
+        skylineTimer = new Timer(30, e->{
             // Move panels to their new location
-            skylinePanel1.setLocation(skylinePanel1.getX()-skylineStep, 0);
-            skylinePanel2.setLocation(skylinePanel2.getX()-skylineStep, 0);
-            skylinePanel3.setLocation(skylinePanel3.getX()-skylineStep, 0);
+            mainGUI.skylinePanel1.setLocation(mainGUI.skylinePanel1.getX()-1, 0);
+            mainGUI.skylinePanel2.setLocation(mainGUI.skylinePanel2.getX()-1, 0);
+            mainGUI.skylinePanel3.setLocation(mainGUI.skylinePanel3.getX()-1, 0);
             
             // Checks if any panel has reached max left location (there should only be one that reaches this, so no need to check all three
-            if(skylinePanel1.getX() <= skylineMinLocation){
-                skylinePanel1.setLocation(skylinePanel3.getX()+skylinePanelWidth,0);
+            if(mainGUI.skylinePanel1.getX() <= skylineMinLocation){
+                mainGUI.skylinePanel1.setLocation(mainGUI.skylinePanel3.getX()+skylinePanelWidth,0);
             }
             else{
-                if(skylinePanel2.getX() <= skylineMinLocation){
-                    skylinePanel2.setLocation(skylinePanel1.getX()+skylinePanelWidth,0);
+                if(mainGUI.skylinePanel2.getX() <= skylineMinLocation){
+                    mainGUI.skylinePanel2.setLocation(mainGUI.skylinePanel1.getX()+skylinePanelWidth,0);
                 }
                 else{
-                    if(skylinePanel3.getX() <= skylineMinLocation){
-                        skylinePanel3.setLocation(skylinePanel2.getX()+skylinePanelWidth,0);
+                    if(mainGUI.skylinePanel3.getX() <= skylineMinLocation){
+                        mainGUI.skylinePanel3.setLocation(mainGUI.skylinePanel2.getX()+skylinePanelWidth,0);
                     }
                 }
             }
         });
         
-        screensaverClock.start();
+        skylineTimer.start();
     }
     // --------------------------------------------------------------------------------------------------------------------------------------------------
     
@@ -224,7 +196,7 @@ class Screensaver {
                 int lineY = getHeight()/2 + textSize;
                 
                 // Fill Dot
-                g2.setColor(todaysProgressPanel.getForeground()); 
+                g2.setColor(mainGUI.screensaverTodaysProgress.getForeground()); 
                 g2.fillOval(dotX, dotY, dotD, dotD);
                 
                 // Dot Border (3D)
@@ -244,7 +216,7 @@ class Screensaver {
                 
                 // Line  --> essetianlly the fill of the rectangle
                 g2.setStroke(new BasicStroke(stroke));
-                g2.setColor(todaysProgressPanel.getForeground()); 
+                g2.setColor(mainGUI.screensaverTodaysProgress.getForeground()); 
                 g2.drawLine(lineXStart, lineY, lineXStart+lineLenght, lineY);
                 
                 // 3D Effect of line
@@ -271,17 +243,17 @@ class Screensaver {
         
         JLabel newHabitText = new JLabel(addingHabitName, SwingConstants.CENTER);
         newHabitText.setFont(new Font("Segoe UI", Font.BOLD, textSize));
-        newHabitText.setForeground(todaysProgressDisplay.getForeground());
+        newHabitText.setForeground(mainGUI.screensaverTodaysProgressDisplay.getForeground());
 
         newHabitPanel.add(newHabitText, BorderLayout.CENTER);
-        todaysProgressDisplay.add(newHabitPanel);
-        todaysProgressDisplay.revalidate();
-        todaysProgressDisplay.repaint();
+        mainGUI.screensaverTodaysProgressDisplay.add(newHabitPanel);
+        mainGUI.screensaverTodaysProgressDisplay.revalidate();
+        mainGUI.screensaverTodaysProgressDisplay.repaint();
     }
     
     private void setUpTodaysProgess(){
         // Removing previous habits
-        todaysProgressDisplay.removeAll();
+        mainGUI.screensaverTodaysProgressDisplay.removeAll();
         
         // Getting information on todays day
         String todaysWeekday = mainGUI.getWeekday();
@@ -308,7 +280,7 @@ class Screensaver {
             completedHabitsText.setFont(new Font("Segoe UI",1,18));
             completedHabitsText.setForeground(mainGUI.TEXT_COLOR);
             completedHabitsText.setHorizontalAlignment(SwingConstants.CENTER);
-            todaysProgressDisplay.add(completedHabitsText);
+            mainGUI.screensaverTodaysProgressDisplay.add(completedHabitsText);
             
             // We can now continue because the item count will be 1, not zero!
             itemCount = 1;
@@ -319,19 +291,110 @@ class Screensaver {
             completedHabitsText.setFont(new Font("Segoe UI",1,18));
             completedHabitsText.setForeground(mainGUI.TEXT_COLOR);
             completedHabitsText.setHorizontalAlignment(SwingConstants.CENTER);
-            todaysProgressDisplay.add(completedHabitsText);
+            mainGUI.screensaverTodaysProgressDisplay.add(completedHabitsText);
             
             // We can now continue because the item count will be 1, not zero!
             itemCount = 1;
         }
         
         // Resizing all the habit names after we know how many there are
-        int itemHeight = todaysProgressDisplay.getHeight() / itemCount - 3;
-        int newWidth = (todaysProgressDisplay.getWidth() - 10) / (itemCount > 7 ? 2 : 1); // If we have more than 7 habits, then we need to make it into two columns by dividing witdh by 2 
+        int itemHeight = mainGUI.screensaverTodaysProgressDisplay.getHeight() / itemCount - 3;
+        int newWidth = (mainGUI.screensaverTodaysProgressDisplay.getWidth() - 10) / (itemCount > 7 ? 2 : 1); // If we have more than 7 habits, then we need to make it into two columns by dividing witdh by 2 
         int newHeight = itemHeight * (itemCount > 7 ? 2 : 1);                             // If we have more than 7 habits, then we need to multiply the height by 2 to acomodate for the two columns
-        for(int i = 0; i < todaysProgressDisplay.getComponentCount(); i++){
-            todaysProgressDisplay.getComponent(i).setPreferredSize(new Dimension(newWidth, newHeight));   
+        for(int i = 0; i < mainGUI.screensaverTodaysProgressDisplay.getComponentCount(); i++){
+            mainGUI.screensaverTodaysProgressDisplay.getComponent(i).setPreferredSize(new Dimension(newWidth, newHeight));   
         }
+    }
+    
+    private void setUpOverallProgessPanel(){
+        int dayHabitCount = 0;
+        int weekHabitCount = 0;
+        int monthHabitCount = 0;
+        int dayReachedCount = 0;
+        int weekReachedCount = 0;
+        int monthReachedCount = 0;
+
+        LocalDate today = LocalDate.now();
+
+        // Week range (Sun -> Today)
+        LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
+
+        // Month range (1 - > Today)
+        YearMonth ym = YearMonth.from(today);
+        LocalDate startOfMonth = ym.atDay(1);
+
+        // Loop through all valid days this month (no future days though)
+        for (LocalDate date = startOfMonth; !date.isAfter(today); date = date.plusDays(1)) {
+
+            boolean isToday = date.equals(today);
+            boolean isThisWeek = !date.isBefore(startOfWeek);
+
+            // ----- Quantity Habits -----
+            for (HabitCard_Quantity currCard : mainGUI.allQuantityCards) {
+
+                if (!currCard.hasDateEntry(date)) 
+                    continue;
+
+                // MONTH
+                monthHabitCount++;
+                if (currCard.getDateEntry(date).getCompleted()) {
+                    monthReachedCount++;
+                }
+
+                // WEEK
+                if (isThisWeek) {
+                    weekHabitCount++;
+                    if (currCard.getDateEntry(date).getCompleted()) {
+                        weekReachedCount++;
+                    }
+                }
+
+                // DAY
+                if (isToday) {
+                    dayHabitCount++;
+                    if (currCard.getDateEntry(date).getCompleted()) {
+                        dayReachedCount++;
+                    }
+                }
+            }
+
+            // ----- Yes / No Habits -----
+            for (HabitCard_YesNo currCard : mainGUI.allYesNoCards) {
+
+                if (!currCard.hasDateEntry(date)) 
+                    continue;
+
+                // MONTH
+                monthHabitCount++;
+                if (currCard.getCompleted(date)) {
+                    monthReachedCount++;
+                }
+
+                // WEEK
+                if (isThisWeek) {
+                    weekHabitCount++;
+                    if (currCard.getCompleted(date)) {
+                        weekReachedCount++;
+                    }
+                }
+
+                // DAY
+                if (isToday) {
+                    dayHabitCount++;
+                    if (currCard.getCompleted(date)) {
+                        dayReachedCount++;
+                    }
+                }
+            }
+        }
+
+        ((ProgressCircle)mainGUI.overallProgressDayCircle).setReached(dayReachedCount);
+        ((ProgressCircle)mainGUI.overallProgressDayCircle).setMax(dayHabitCount);
+        ((ProgressCircle)mainGUI.overallProgressWeekCircle).setReached(weekReachedCount);
+        ((ProgressCircle)mainGUI.overallProgressWeekCircle).setMax(weekHabitCount);
+        ((ProgressCircle)mainGUI.overallProgressMonthCircle).setReached(monthReachedCount);
+        ((ProgressCircle)mainGUI.overallProgressMonthCircle).setMax(monthHabitCount);
+        
     }
 }
 
@@ -447,8 +510,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         // Setting up the screensaver
-        screensaver.setUp(this, screensaverPanel, screensaverTimeText, screensaverDateText, skylinePanel1, skylinePanel2, skylinePanel3,
-                          screensaverTodaysProgress, screensaverTodaysProgressDisplay, screensaverFishTankBackground, screensaverOverallProgress); 
+        screensaver.setUp(this, screensaverPanel); 
         
         // Setting up the scroll buttons in the home panel (removing, making new object, adding, setting z level to 0)
         home.remove(h_scrollUpPanel);
@@ -968,7 +1030,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         screensaverOverallProgress.add(overallProgressWeekCircle);
-        overallProgressWeekCircle.setBounds(700, 367, 150, 150);
+        overallProgressWeekCircle.setBounds(695, 367, 150, 150);
 
         javax.swing.GroupLayout overallProgressDayCircleLayout = new javax.swing.GroupLayout(overallProgressDayCircle);
         overallProgressDayCircle.setLayout(overallProgressDayCircleLayout);
@@ -982,7 +1044,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         screensaverOverallProgress.add(overallProgressDayCircle);
-        overallProgressDayCircle.setBounds(550, 367, 150, 150);
+        overallProgressDayCircle.setBounds(540, 367, 150, 150);
 
         javax.swing.GroupLayout overallProgressMonthCircleLayout = new javax.swing.GroupLayout(overallProgressMonthCircle);
         overallProgressMonthCircle.setLayout(overallProgressMonthCircleLayout);
@@ -1114,7 +1176,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         p_tableRightScrollButtonLayout.setVerticalGroup(
             p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         progress.add(p_tableRightScrollButton);
@@ -1128,7 +1190,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         p_habitRightScrollButtonLayout.setVerticalGroup(
             p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         progress.add(p_habitRightScrollButton);
@@ -1158,7 +1220,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         p_tableLeftScrollButtonLayout.setVerticalGroup(
             p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 75, Short.MAX_VALUE)
         );
 
         progress.add(p_tableLeftScrollButton);
@@ -1178,7 +1240,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         p_habitLeftScrollButtonLayout.setVerticalGroup(
             p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 50, Short.MAX_VALUE)
         );
 
         progress.add(p_habitLeftScrollButton);
@@ -2524,7 +2586,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         s_connectionPanelLayout.setVerticalGroup(
             s_connectionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 214, Short.MAX_VALUE)
         );
 
         settings.add(s_connectionPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 560, 220));
@@ -2627,7 +2689,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         ah_ColorDisplayLayout.setVerticalGroup(
             ah_ColorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
+            .addGap(0, 26, Short.MAX_VALUE)
         );
 
         ah_NamePanel.add(ah_ColorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 140, 30));
@@ -6812,10 +6874,10 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel keyboard;
     private javax.swing.JPanel navSelector;
     private javax.swing.JPanel navigationPanel;
-    private javax.swing.JPanel overallProgressDayCircle;
-    private javax.swing.JPanel overallProgressMonthCircle;
+    public javax.swing.JPanel overallProgressDayCircle;
+    public javax.swing.JPanel overallProgressMonthCircle;
     private javax.swing.JPanel overallProgressStreakBarGraph;
-    private javax.swing.JPanel overallProgressWeekCircle;
+    public javax.swing.JPanel overallProgressWeekCircle;
     private javax.swing.JPanel overallProgressYearLineGraph;
     private javax.swing.JPanel p_habitLeftScrollButton;
     private javax.swing.JLabel p_habitName;
@@ -6861,18 +6923,18 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JButton s_textColorButton;
     private javax.swing.JLabel s_title;
     private javax.swing.JButton s_turnOffAwayFromScreenButton;
-    private javax.swing.JLabel screensaverDateText;
-    private javax.swing.JLabel screensaverFishTankBackground;
-    private javax.swing.JPanel screensaverOverallProgress;
-    private javax.swing.JPanel screensaverPanel;
-    private javax.swing.JLabel screensaverTimeText;
-    private javax.swing.JPanel screensaverTodaysProgress;
-    private javax.swing.JPanel screensaverTodaysProgressDisplay;
+    public javax.swing.JLabel screensaverDateText;
+    public javax.swing.JLabel screensaverFishTankBackground;
+    public javax.swing.JPanel screensaverOverallProgress;
+    public javax.swing.JPanel screensaverPanel;
+    public javax.swing.JLabel screensaverTimeText;
+    public javax.swing.JPanel screensaverTodaysProgress;
+    public javax.swing.JPanel screensaverTodaysProgressDisplay;
     private javax.swing.JLabel screensaverTodaysProgressTitle;
     private javax.swing.JPanel settings;
     private javax.swing.JButton settingsButton;
-    private javax.swing.JLabel skylinePanel1;
-    private javax.swing.JLabel skylinePanel2;
-    private javax.swing.JLabel skylinePanel3;
+    public javax.swing.JLabel skylinePanel1;
+    public javax.swing.JLabel skylinePanel2;
+    public javax.swing.JLabel skylinePanel3;
     // End of variables declaration//GEN-END:variables
 }

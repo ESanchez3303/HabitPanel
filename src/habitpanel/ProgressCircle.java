@@ -7,29 +7,60 @@ import java.awt.geom.Path2D;
 import javax.swing.JPanel;
 import java.awt.Color;
 import java.awt.BasicStroke;
+import java.awt.Font;
+import javax.swing.JLabel;
 
 
 public class ProgressCircle extends JPanel{
     private final int thickness = 20;
     private int max = 10;
-    private int reached = 5;
+    private int reached = 10;
+    JLabel nameTag = null;
+    JLabel progressData = null;
 
     public ProgressCircle(String nameInput, int x, int y, int w, int h) {
         setOpaque(false); 
         setLayout(null);
         setBounds(x,y,w,h);
+        
+        // Making the label for the progress circle (day, week, month)
+        nameTag = new JLabel(nameInput);
+        nameTag.setHorizontalAlignment(JLabel.CENTER);
+        nameTag.setBounds(0, getHeight()-40, getWidth(), 40);
+        nameTag.setFont(new Font("Segoe UI", Font.BOLD, 18));
+        nameTag.setForeground(getBackground());
+        this.add(nameTag);
+        
+        // Making the label for the progress display (9/10) etc
+        progressData = new JLabel("");
+        progressData.setHorizontalAlignment(JLabel.CENTER);
+        progressData.setBounds(0, 0, getWidth(), getHeight());
+        progressData.setFont(new Font("Segoe UI", Font.BOLD, 15));
+        progressData.setForeground(getBackground());
+        this.add(progressData);
+        
     }    
     
     public void setMax(int maxInput){
         max = maxInput;
+        progressData.setText(reached + "/" + max);
     }
     public void setReached(int reachedInput){
         reached = reachedInput;
+        progressData.setText(reached + "/" + max);
     }
 
    
     @Override
     protected void paintComponent(Graphics g) {
+        // PAINTING COLORS
+        nameTag.setForeground(getBackground());
+        progressData.setForeground(getBackground());
+        
+        // Catch when we have invalid data
+        if(reached > max)
+            return;
+        
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g.create();
@@ -48,13 +79,14 @@ public class ProgressCircle extends JPanel{
         g2.draw(new Arc2D.Double(thickness/2.0, thickness/2.0, w-thickness, h-thickness, startingDegree, -270, Arc2D.OPEN));
         
         
-        // -- DRAWING THE DATA FILL --
+        // -- DRAWING THE DATA FILL -- 
         int angleReached = (int) Math.round(270 * fill);
         g2.setColor(getBackground());
         g2.draw(new Arc2D.Double(thickness/2.0, thickness/2.0, w-thickness, h-thickness, startingDegree, -angleReached, Arc2D.OPEN));
         
         
         // -- DRAWING BORDER FOR GUAGE SHAPE --
+        /*
         // Making outside and inside arcs
         Arc2D outerArc = new Arc2D.Double(1, 1, w - 2, h - 2, startingDegree, -delta, Arc2D.OPEN);
         Arc2D innerArc = new Arc2D.Double(thickness, thickness, w - thickness * 2, h - thickness * 2, startingDegree - delta, delta, Arc2D.OPEN);
@@ -65,10 +97,10 @@ public class ProgressCircle extends JPanel{
         var iEnd   = innerArc.getEndPoint();
         
         // Making end caps for border
-        Arc2D rightCap = new Arc2D.Double(iStart.getX()-2, iStart.getY()-4, thickness-1, thickness-1, 315, -180, Arc2D.OPEN);
-        Arc2D leftCap = new Arc2D.Double(iEnd.getX()-thickness+3, iEnd.getY()-4, thickness-1, thickness-1, 45, -180, Arc2D.OPEN);
+        Arc2D rightCap = new Arc2D.Double(iStart.getX()-3, iStart.getY()-3, thickness-1, thickness-1, 315, -180, Arc2D.OPEN);
+        Arc2D leftCap = new Arc2D.Double(iEnd.getX()-thickness+4, iEnd.getY()-3, thickness-1, thickness-1, 45, -180, Arc2D.OPEN);
         
-        // Building Shape
+        // Building Shape for border
         shape.moveTo(oStart.getX(), oStart.getY());// Moving to starting position
         shape.append(outerArc, true); // Draw outer arc first going left->right
         shape.append(rightCap, true); // Draw right side cap
@@ -79,7 +111,8 @@ public class ProgressCircle extends JPanel{
         g2.setStroke(new BasicStroke(1));
         g2.setColor(Color.BLACK);
         g2.draw(shape); // Draw the border
-        
+        */
+
         g2.dispose();
     }
 }
