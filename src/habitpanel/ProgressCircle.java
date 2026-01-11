@@ -44,22 +44,27 @@ public class ProgressCircle extends JPanel{
     public void setMax(int maxInput){
         max = maxInput;
         progressData.setText(reached + "/" + max);
+        repaint();
     }
     public void setReached(int reachedInput){
         reached = reachedInput;
         progressData.setText(reached + "/" + max);
+        repaint();
     }
 
    
     @Override
     protected void paintComponent(Graphics g) {
+        // Catch when we have invalid data
+        if(reached > max || max <= 0 || reached < 0)
+            return;
+        
+        
+        
         // PAINTING COLORS
         nameTag.setForeground(getBackground());
         progressData.setForeground(getBackground());
         
-        // Catch when we have invalid data
-        if(reached > max)
-            return;
         
         super.paintComponent(g);
 
@@ -82,7 +87,14 @@ public class ProgressCircle extends JPanel{
         // -- DRAWING THE DATA FILL -- 
         int angleReached = (int) Math.round(270 * fill);
         g2.setColor(getBackground());
-        g2.draw(new Arc2D.Double(thickness/2.0, thickness/2.0, w-thickness, h-thickness, startingDegree, -angleReached, Arc2D.OPEN));
+        if(reached > 0){
+            g2.draw(new Arc2D.Double(thickness/2.0, thickness/2.0, w-thickness, h-thickness, startingDegree, -angleReached, Arc2D.OPEN));
+        }
+        // If we are 0/x completed, then just draw a small dot
+        else{
+            g2.draw(new Arc2D.Double(thickness/2.0, thickness/2.0, w-thickness, h-thickness, startingDegree, -1, Arc2D.OPEN));
+        }
+        
         
         
         // -- DRAWING BORDER FOR GUAGE SHAPE --
