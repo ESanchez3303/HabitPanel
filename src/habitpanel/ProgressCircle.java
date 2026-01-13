@@ -60,12 +60,6 @@ public class ProgressCircle extends JPanel{
             return;
         
         
-        
-        // PAINTING COLORS
-        nameTag.setForeground(getBackground());
-        progressData.setForeground(getBackground());
-        
-        
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g.create();

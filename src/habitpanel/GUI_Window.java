@@ -334,10 +334,15 @@ class Screensaver {
         int dayReachedCount = 0;
         int weekReachedCount = 0;
         int monthReachedCount = 0;
+        
+        
 
         LocalDate today = LocalDate.now();
+        
+        
+        
 
-        // -- DATA FOR THE GAUGES (DAY/WEEK/MONTH TRACKER) --
+        // -- DATA FOR THE GAUGES (DAY/WEEK/MONTH TRACKER) **AND** THE YEAR BAR GRAPH DATA --
         // Week range (Sun -> Today)
         LocalDate startOfWeek = today.with(TemporalAdjusters.previousOrSame(DayOfWeek.SUNDAY));
 
@@ -345,23 +350,28 @@ class Screensaver {
         YearMonth ym = YearMonth.from(today);
         LocalDate startOfMonth = ym.atDay(1);
 
+        // Setting up the year bar graph data (init to -1 at first)
+        int dayCount = ym.lengthOfMonth();
+        double[] monthProgressArray = new double[dayCount];
+        for (int i = 0; i < dayCount; i++) 
+            monthProgressArray[i] = -1;
+        
         // Loop through all valid days this month (no future days though)
         for (LocalDate date = startOfMonth; !date.isAfter(today); date = date.plusDays(1)) {
-
             boolean isToday = date.equals(today);
             boolean isThisWeek = !date.isBefore(startOfWeek);
+            int totalHabitsForDay = 0;
+            int completedHabitsForDay = 0;
 
             // ----- Quantity Habits -----
             for (HabitCard_Quantity currCard : mainGUI.allQuantityCards) {
-
                 if (!currCard.hasDateEntry(date)) 
                     continue;
 
                 // MONTH
                 monthHabitCount++;
-                if (currCard.getDateEntry(date).getCompleted()) {
+                if (currCard.getDateEntry(date).getCompleted()) 
                     monthReachedCount++;
-                }
 
                 // WEEK
                 if (isThisWeek) {
@@ -378,20 +388,23 @@ class Screensaver {
                         dayReachedCount++;
                     }
                 }
+                
+                // -- DATA FOR YEAR BAR GRAPH -- 
+                totalHabitsForDay++;
+                if (currCard.getDateEntry(date).getCompleted()) 
+                    completedHabitsForDay++;
             }
 
             // ----- Yes / No Habits -----
             for (HabitCard_YesNo currCard : mainGUI.allYesNoCards) {
-
                 if (!currCard.hasDateEntry(date)) 
                     continue;
 
                 // MONTH
                 monthHabitCount++;
-                if (currCard.getCompleted(date)) {
+                if (currCard.getCompleted(date)) 
                     monthReachedCount++;
-                }
-
+                
                 // WEEK
                 if (isThisWeek) {
                     weekHabitCount++;
@@ -399,7 +412,6 @@ class Screensaver {
                         weekReachedCount++;
                     }
                 }
-
                 // DAY
                 if (isToday) {
                     dayHabitCount++;
@@ -407,18 +419,34 @@ class Screensaver {
                         dayReachedCount++;
                     }
                 }
+                
+                 // -- DATA FOR YEAR BAR GRAPH -- 
+                totalHabitsForDay++;
+                if (currCard.getCompleted(date)) 
+                    completedHabitsForDay++;
             }
+            
+            // -- DATA FOR YEAR BAR GRAPH --
+            // Finding out index and saving into month progress array
+            int dayIndex = date.getDayOfMonth() - 1;
+            if (totalHabitsForDay == 0) 
+                monthProgressArray[dayIndex] = -1; // gray full bar (will be triggered by the -1)
+            else 
+                monthProgressArray[dayIndex] = (double) completedHabitsForDay / totalHabitsForDay;
         }
+        
+        
+        
         
         // -- DATA FOR THE STREAKS --
         Map<String, Integer> habitStreaks = new HashMap<>();
         for (HabitCard_Quantity currCard : mainGUI.allQuantityCards) {
             int streak = 0;
             for (LocalDate d = today.minusDays(1); ; d = d.minusDays(1)) {
-                if (!currCard.hasDateEntry(d))
-                    break;
-                if (!currCard.getDateEntry(d).getCompleted())
-                    break;
+                if (currCard.hasDateEntry(d)){
+                    if (!currCard.getDateEntry(d).getCompleted())
+                        break;
+                }
                 streak++;
             }
             if(streak > 0)
@@ -428,10 +456,10 @@ class Screensaver {
         for (HabitCard_YesNo currCard : mainGUI.allYesNoCards) {
             int streak = 0;
             for (LocalDate d = today.minusDays(1); ; d = d.minusDays(1)) {
-                    if (!currCard.hasDateEntry(d))
-                        break;
-                    if (!currCard.getCompleted(d))
-                        break;
+                    if (currCard.hasDateEntry(d)){
+                        if (!currCard.getCompleted(d))
+                            break;    
+                    }
                     streak++;
             }
             if(streak > 0)
@@ -459,6 +487,8 @@ class Screensaver {
             mainGUI.overallProgressNoStreaksText.setVisible(true);
         }
         
+        // Sending information to YearBarGraph panel 
+        ((YearBarGraph) mainGUI.overallProgressYearBarGraph).updateData(monthProgressArray);
     }
     
     
@@ -601,14 +631,17 @@ public class GUI_Window extends javax.swing.JFrame {
         screensaverOverallProgress.remove(overallProgressWeekCircle);
         screensaverOverallProgress.remove(overallProgressMonthCircle);
         screensaverOverallProgress.remove(overallProgressStreakBarGraph);
+        screensaverOverallProgress.remove(overallProgressYearBarGraph);
         overallProgressDayCircle = new ProgressCircle("Day", overallProgressDayCircle.getX(), overallProgressDayCircle.getY(), overallProgressDayCircle.getWidth(), overallProgressDayCircle.getHeight());
         overallProgressWeekCircle = new ProgressCircle("Week", overallProgressWeekCircle.getX(), overallProgressWeekCircle.getY(), overallProgressWeekCircle.getWidth(), overallProgressWeekCircle.getHeight());
         overallProgressMonthCircle = new ProgressCircle("Month", overallProgressMonthCircle.getX(), overallProgressMonthCircle.getY(), overallProgressMonthCircle.getWidth(), overallProgressMonthCircle.getHeight());
         overallProgressStreakBarGraph = new StreaksBarGraph(overallProgressStreakBarGraph.getX(), overallProgressStreakBarGraph.getY(), overallProgressStreakBarGraph.getWidth(), overallProgressStreakBarGraph.getHeight());;
+        overallProgressYearBarGraph = new YearBarGraph(overallProgressYearBarGraph.getX(), overallProgressYearBarGraph.getY(), overallProgressYearBarGraph.getWidth(), overallProgressYearBarGraph.getHeight());;
         screensaverOverallProgress.add(overallProgressDayCircle);
         screensaverOverallProgress.add(overallProgressWeekCircle);
         screensaverOverallProgress.add(overallProgressMonthCircle);
         screensaverOverallProgress.add(overallProgressStreakBarGraph);
+        screensaverOverallProgress.add(overallProgressYearBarGraph);
         
         
         
@@ -700,6 +733,8 @@ public class GUI_Window extends javax.swing.JFrame {
         overallProgressNoStreaksText = new javax.swing.JLabel();
         overallProgressText1 = new javax.swing.JLabel();
         overallProgressText2 = new javax.swing.JLabel();
+        overallProgressText3 = new javax.swing.JLabel();
+        overallProgressText4 = new javax.swing.JLabel();
         screensaverTodaysProgress = new javax.swing.JPanel();
         screensaverTodaysProgressTitle = new javax.swing.JLabel();
         screensaverTodaysProgressDisplay = new javax.swing.JPanel();
@@ -1083,7 +1118,7 @@ public class GUI_Window extends javax.swing.JFrame {
         overallProgressYearBarGraph.setLayout(overallProgressYearBarGraphLayout);
         overallProgressYearBarGraphLayout.setHorizontalGroup(
             overallProgressYearBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 980, Short.MAX_VALUE)
+            .addGap(0, 916, Short.MAX_VALUE)
         );
         overallProgressYearBarGraphLayout.setVerticalGroup(
             overallProgressYearBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -1091,7 +1126,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
 
         screensaverOverallProgress.add(overallProgressYearBarGraph);
-        overallProgressYearBarGraph.setBounds(30, 30, 980, 255);
+        overallProgressYearBarGraph.setBounds(62, 30, 916, 255);
 
         javax.swing.GroupLayout overallProgressWeekCircleLayout = new javax.swing.GroupLayout(overallProgressWeekCircle);
         overallProgressWeekCircle.setLayout(overallProgressWeekCircleLayout);
@@ -1168,6 +1203,20 @@ public class GUI_Window extends javax.swing.JFrame {
         overallProgressText2.setText("Completion Tracker");
         screensaverOverallProgress.add(overallProgressText2);
         overallProgressText2.setBounds(540, 320, 460, 30);
+
+        overallProgressText3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        overallProgressText3.setForeground(java.awt.Color.white);
+        overallProgressText3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        overallProgressText3.setText("100%");
+        screensaverOverallProgress.add(overallProgressText3);
+        overallProgressText3.setBounds(30, 65, 32, 20);
+
+        overallProgressText4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        overallProgressText4.setForeground(java.awt.Color.white);
+        overallProgressText4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        overallProgressText4.setText("0%");
+        screensaverOverallProgress.add(overallProgressText4);
+        overallProgressText4.setBounds(30, 235, 32, 20);
 
         screensaverPanel.add(screensaverOverallProgress);
         screensaverOverallProgress.setBounds(0, 0, 1040, 600);
@@ -4170,7 +4219,11 @@ public class GUI_Window extends javax.swing.JFrame {
                 overallProgressNoStreaksText.setForeground(TEXT_COLOR);
                 overallProgressText1.setForeground(TEXT_COLOR);
                 overallProgressText2.setForeground(TEXT_COLOR);
+                overallProgressText3.setForeground(TEXT_COLOR);
+                overallProgressText4.setForeground(TEXT_COLOR);
                 overallProgressStreakBarGraph.setBackground(TEXT_COLOR);
+                overallProgressYearBarGraph.setBackground(TEXT_COLOR);
+                overallProgressYearBarGraph.setForeground(darkenColor(PRIMARY_COLOR));
             }
             case 6 -> {
                 screensaverPanel.setBackground(PRIMARY_COLOR);
@@ -7006,6 +7059,8 @@ public class GUI_Window extends javax.swing.JFrame {
     public javax.swing.JPanel overallProgressStreakBarGraph;
     public javax.swing.JLabel overallProgressText1;
     public javax.swing.JLabel overallProgressText2;
+    private javax.swing.JLabel overallProgressText3;
+    private javax.swing.JLabel overallProgressText4;
     public javax.swing.JPanel overallProgressWeekCircle;
     public javax.swing.JPanel overallProgressYearBarGraph;
     private javax.swing.JPanel p_habitLeftScrollButton;
