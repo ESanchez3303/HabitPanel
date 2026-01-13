@@ -37,9 +37,10 @@ class Screensaver {
     private int savedScreensaver = 1; // Current Screensaver: 1 -> Skyline Background  ------------> ALSO A VARIABLE THAT CAN BE SAVED IN VARIABLE FILE
     
     // Skyline Screensaver extras 
-    Timer skylineTimer = null;
+    Timer screensaverTimer = null;
     private int skylineMinLocation;
     private int skylinePanelWidth;
+    
     
     
      // CONSTRUCTOR : --------------------------------------------------------------------------------------------------------------------------------------
@@ -132,19 +133,19 @@ class Screensaver {
         }
     }
     
-    
-    
-    // SKYLINE SCREENSAVER ------------------------------------------------------------------------------------------------------------------------------
     // Safely stopping the clock
-    public void stopClock(){
-        if(skylineTimer != null){        // Making sure there is an object here
-            if(skylineTimer.isRunning()) // If its running -> stop
-                skylineTimer.stop();
-            skylineTimer = null;         // Removing it so memory can delete it when it can
+    public void stopClocks(){
+        if(screensaverTimer != null){        // Making sure there is an object here
+            if(screensaverTimer.isRunning()) // If its running -> stop
+                screensaverTimer.stop();
+            screensaverTimer = null;         
         }
+        
+        ((StreaksBarGraph)mainGUI.overallProgressStreakBarGraph).stopClock();
     }
     
-// Set up and start the clock
+    // SKYLINE SCREENSAVER ------------------------------------------------------------------------------------------------------------------------------
+    // Set up and start the clock
     private void startSkylineClock(){
         // Moving panels to position 
         mainGUI.skylinePanel1.setLocation(0,0);
@@ -153,7 +154,7 @@ class Screensaver {
         mainGUI.screensaverTimeText.setLocation(320,60);
         mainGUI.screensaverDateText.setLocation(320,120);
         
-        skylineTimer = new Timer(30, e->{
+        screensaverTimer = new Timer(30, e->{
             // Move panels to their new location
             mainGUI.skylinePanel1.setLocation(mainGUI.skylinePanel1.getX()-1, 0);
             mainGUI.skylinePanel2.setLocation(mainGUI.skylinePanel2.getX()-1, 0);
@@ -175,8 +176,11 @@ class Screensaver {
             }
         });
         
-        skylineTimer.start();
+        screensaverTimer.start();
     }
+    
+    
+    
     
     
     // TODAYS PROGRESS SCREENSAVER ------------------------------------------------------------------------------------------------------------------------------
@@ -314,6 +318,8 @@ class Screensaver {
     
     
     
+    
+    
     // OVERALL PROGRESS SCREENSAVER ------------------------------------------------------------------------------------------------------------------------------
     // Sets up overall progress panel
     private void setUpOverallProgessPanel(){
@@ -352,7 +358,7 @@ class Screensaver {
 
         // Setting up the year bar graph data (init to -1 at first)
         int dayCount = ym.lengthOfMonth();
-        double[] monthProgressArray = new double[dayCount];
+        double[] monthProgressArray = new double[dayCount];  
         for (int i = 0; i < dayCount; i++) 
             monthProgressArray[i] = -1;
         
@@ -439,7 +445,7 @@ class Screensaver {
         
         
         // -- DATA FOR THE STREAKS --
-        Map<String, Integer> habitStreaks = new HashMap<>();
+        Map<String, Integer> habitStreaks = new HashMap<>();      // <---- Saving this outside of this function so that the timer can use it if needed
         for (HabitCard_Quantity currCard : mainGUI.allQuantityCards) {
             int streak = 0;
             for (LocalDate d = today.minusDays(1); ; d = d.minusDays(1)) {
@@ -476,21 +482,22 @@ class Screensaver {
         ((ProgressCircle)mainGUI.overallProgressMonthCircle).setReached(monthReachedCount);
         ((ProgressCircle)mainGUI.overallProgressMonthCircle).setMax(monthHabitCount);
         
+        // Sending information to YearBarGraph panel 
+        ((YearBarGraph) mainGUI.overallProgressYearBarGraph).updateData(monthProgressArray);
+        
         // Sending information to SreakBarGraph panel (if there is any)
         if(!habitStreaks.isEmpty()){
             mainGUI.overallProgressStreakBarGraph.setVisible(true);
             mainGUI.overallProgressNoStreaksText.setVisible(false);
-            ((StreaksBarGraph) mainGUI.overallProgressStreakBarGraph).setStreaks(habitStreaks);
+            List<Map.Entry<String, Integer>> entries = new ArrayList<>(habitStreaks.entrySet()); // Making list of this map
+            entries.sort((a, b) -> Integer.compare(b.getValue(), a.getValue()));                 // Sorting the list 
+            ((StreaksBarGraph) mainGUI.overallProgressStreakBarGraph).setStreaks(entries);       // Setting the data for the panel to repaint itself
         }
         else{
             mainGUI.overallProgressStreakBarGraph.setVisible(false);
             mainGUI.overallProgressNoStreaksText.setVisible(true);
         }
-        
-        // Sending information to YearBarGraph panel 
-        ((YearBarGraph) mainGUI.overallProgressYearBarGraph).updateData(monthProgressArray);
     }
-    
     
     // -----------------------------------------------------------------------------------------------------------------------------------------------------
 }
@@ -4838,7 +4845,7 @@ public class GUI_Window extends javax.swing.JFrame {
     // =================================================================================================================================
 
     private void screensaverPanelMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_screensaverPanelMouseClicked
-        screensaver.stopClock(); // Stopping the clock
+        screensaver.stopClocks(); // Stopping the clock
         switchFrame(home);
     }//GEN-LAST:event_screensaverPanelMouseClicked
 
