@@ -1,5 +1,5 @@
-name=BRUSH TEETH
-color=153,153,153
+name=YUH
+color=204,204,0
 type=yesno
 days=1111111
 

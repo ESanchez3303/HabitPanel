@@ -61,7 +61,7 @@ public class StreaksBarGraph extends JPanel{
         
         repaint(); // Repaints which is whats going to paint the new entries list
         
-        cycleTimer = new Timer(1000,e->{
+        cycleTimer = new Timer(7000,e->{
             entries.clear();
             
             // Adding the entries from the copy to teh entries 
@@ -84,7 +84,7 @@ public class StreaksBarGraph extends JPanel{
     public void setStreaks(List<Map.Entry<String, Integer>>  entriesInput){
         // Reset Variables
         stopClock();
-        entriesCopy = new ArrayList<>(entriesInput);
+        entries = new ArrayList<>(entriesInput);
         
         
         // Making entries set and sorting and finding out the maxStreak

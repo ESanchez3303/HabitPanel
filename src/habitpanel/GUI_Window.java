@@ -70,7 +70,7 @@ class Screensaver {
     // Call this function to start up the screensaver we want to use
     public void startScreenSaver(){
         // Setting invisible panels of all screensavers to only later show the one we want to use
-        stopClock();
+        stopClocks();
         mainGUI.screensaverTimeText.setVisible(false);
         mainGUI.screensaverDateText.setVisible(false);
         
@@ -5186,7 +5186,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private void ah_QuantitySaveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ah_QuantitySaveButtonMouseClicked
         if(ah_QuantityDecrease.getBackground() == Color.RED || ah_QuantityIncrease.getBackground() == Color.RED)
            return;
-           
+        
         if(Double.parseDouble(ah_QuantityGoal.getText()) == 0){
            flashButton(ah_QuantityDecrease); 
            flashButton(ah_QuantityIncrease); 
@@ -6060,6 +6060,9 @@ public class GUI_Window extends javax.swing.JFrame {
         }
     }
     
+     // Boolean to prevent changes while writting
+    boolean criticalSection = false;    
+
     
     // When the complete/not complete button is pressed
     private void ehist_completedNotCompletedButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ehist_completedNotCompletedButtonClicked
@@ -6073,6 +6076,11 @@ public class GUI_Window extends javax.swing.JFrame {
             return;
         }
         
+        // Catch when we are currently writting in something else
+        if(criticalSection)
+            return;
+        criticalSection = true;
+       
         LocalDate dateSelected = (LocalDate) eh_historyTable.getValueAt(row, 0);                // Getting the date that we are going to be looking for
         HabitCard_YesNo habitSelected = getYesNoCard(eh_editHistoryHabitName.getText());        // Getting the habit that we are suppose to be using 
         
@@ -6093,6 +6101,7 @@ public class GUI_Window extends javax.swing.JFrame {
         }
         
         eh_historyTable.setValueAt((newValue == 1), row, 1);                                    // Change the value in the table
+        criticalSection = false;
     }//GEN-LAST:event_ehist_completedNotCompletedButtonClicked
 
     
@@ -6107,6 +6116,10 @@ public class GUI_Window extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "No row selected.", "ERROR", JOptionPane.ERROR); 
             return;
         }
+        
+        if(criticalSection)
+            return;
+        criticalSection = true;
         
         // Getting current data from the table and saving the card to acces things in it temp.
         LocalDate dateSelected = (LocalDate) eh_historyTable.getValueAt(row, 0);
@@ -6132,6 +6145,7 @@ public class GUI_Window extends javax.swing.JFrame {
         // Catching if there was no entry for this day, shouldn't ever happen though
         if(newCompletedValue == -1){
             JOptionPane.showMessageDialog(this, "Could not change data.", "ERROR", JOptionPane.ERROR);
+            criticalSection = false;
             return;
         }
         
@@ -6141,6 +6155,8 @@ public class GUI_Window extends javax.swing.JFrame {
         // Setting the value in the table
         eh_historyTable.setValueAt(currentValue, row, 1);
         eh_historyTable.setValueAt((newCompletedValue == 1), row, 3);
+        
+        criticalSection = false;
     }//GEN-LAST:event_ehist_increaseDecreaseButtonClicked
 
     
@@ -6206,10 +6222,6 @@ public class GUI_Window extends javax.swing.JFrame {
         }    
     }//GEN-LAST:event_eh_editHistoryDeleteConfirmButtonMouseClicked
 
-
-
-
-
     // ADD BUTTON CLICKED
     private void eh_editHistoryAddButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editHistoryAddButtonMouseClicked
         
@@ -6250,6 +6262,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
     // ADD -> +/- BUTTONS CLICKED IN THE QUANTITY PANEL OF THE ADD PANEL
     private void eh_editHistoryAddIncreaseDecreaseButtonClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editHistoryAddIncreaseDecreaseButtonClicked
+        criticalSection = true;
         JButton buttonClicked = (JButton) evt.getSource();
         
         // -- REACHED NUMBER BEING CHANGED --
@@ -6274,6 +6287,8 @@ public class GUI_Window extends javax.swing.JFrame {
                 goalNumber = 0;
             eh_editHistoryAddGoal.setText(Double.toString(goalNumber));
         }
+        
+        criticalSection = false;
     }//GEN-LAST:event_eh_editHistoryAddIncreaseDecreaseButtonClicked
 
     // ADD -> CANCEL BUTTON CLICKED
