@@ -10,13 +10,14 @@ import java.util.List;
 import java.util.Map;
 import javax.swing.JPanel;
 import javax.swing.Timer;
+import java.awt.BasicStroke;
 
 public class StreaksBarGraph extends JPanel{
     // CONSTANTS:
     int padding = 15;
     int rowHeight = 30;
     int barHeight = 16;
-    int nameWidth = 140;
+    int nameWidth = 170;
     int valueWidth = 50;
     
     // Holding variables
@@ -119,7 +120,7 @@ public class StreaksBarGraph extends JPanel{
 
 
         // ----- Fonts -----
-        Font nameFont = new Font("Segoe UI", Font.BOLD, 13);
+        Font fontName = new Font("Segoe UI", Font.BOLD, 13);
         Font valueFont = new Font("Segoe UI", Font.BOLD, 13);
         
         
@@ -129,7 +130,9 @@ public class StreaksBarGraph extends JPanel{
         int topOffset = (getHeight() - totalBarsHeight) / 2;
         int y = topOffset;
         
-        
+        g2.setFont(fontName);
+        var fm = g2.getFontMetrics();
+        int nameRightX = padding + nameWidth;
         
         for (int i = 0; i < entries.size() && i < maxRows; i++) {
             Map.Entry<String, Integer> entry = entries.get(i);
@@ -141,13 +144,17 @@ public class StreaksBarGraph extends JPanel{
             int centerY = y + rowHeight / 2;
 
             // ----- Habit name -----
-            g2.setFont(nameFont);
             g2.setColor(getBackground());
-            g2.drawString(habit, padding, centerY + 5);
+            int textWidth = fm.stringWidth(habit);
+            int textX = nameRightX - textWidth;
+            textX -= padding*2;
+
+            g2.drawString(habit, textX, centerY + 5);
 
             // ----- Bar -----
             double percent = streak / (double) maxStreak;
             int barWidth = (int) (maxBarWidth * percent);
+            barWidth = Math.max(0,barWidth);
 
             g2.setColor(getBackground());
             g2.fillRoundRect(
@@ -170,6 +177,11 @@ public class StreaksBarGraph extends JPanel{
 
             y += rowHeight;
         }
+        
+        // -- Draw Line Between Bars and Names --
+        g2.setColor(getBackground());
+        g2.setStroke(new BasicStroke(2));
+        g2.drawLine(barStartX-padding, padding, barStartX-padding, getHeight()-padding);
 
         g2.dispose();
     }

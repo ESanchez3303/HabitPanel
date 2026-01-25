@@ -249,6 +249,28 @@ public class GUI_Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        screensaverPanel = new javax.swing.JPanel();
+        screensaverOverallProgress = new javax.swing.JPanel();
+        overallProgressStreakBarGraph = new javax.swing.JPanel();
+        overallProgressYearBarGraph = new javax.swing.JPanel();
+        overallProgressWeekCircle = new javax.swing.JPanel();
+        overallProgressDayCircle = new javax.swing.JPanel();
+        overallProgressMonthCircle = new javax.swing.JPanel();
+        overallProgressNoHabitsText = new javax.swing.JLabel();
+        overallProgressNoStreaksText = new javax.swing.JLabel();
+        overallProgressText1 = new javax.swing.JLabel();
+        overallProgressText2 = new javax.swing.JLabel();
+        overallProgressText3 = new javax.swing.JLabel();
+        overallProgressText4 = new javax.swing.JLabel();
+        screensaverTodaysProgress = new javax.swing.JPanel();
+        screensaverTodaysProgressTitle = new javax.swing.JLabel();
+        screensaverTodaysProgressDisplay = new javax.swing.JPanel();
+        screensaverFishTankBackground = new javax.swing.JLabel();
+        screensaverTimeText = new javax.swing.JLabel();
+        screensaverDateText = new javax.swing.JLabel();
+        skylinePanel1 = new javax.swing.JLabel();
+        skylinePanel2 = new javax.swing.JLabel();
+        skylinePanel3 = new javax.swing.JLabel();
         navigationPanel = new javax.swing.JPanel();
         settingsButton = new javax.swing.JButton();
         addHabitButton = new javax.swing.JButton();
@@ -286,28 +308,6 @@ public class GUI_Window extends javax.swing.JFrame {
         s_awayFromScreenButton = new javax.swing.JButton();
         s_connectionPanel = new javax.swing.JPanel();
         s_turnOffAwayFromScreenButton = new javax.swing.JButton();
-        screensaverPanel = new javax.swing.JPanel();
-        screensaverOverallProgress = new javax.swing.JPanel();
-        overallProgressStreakBarGraph = new javax.swing.JPanel();
-        overallProgressYearBarGraph = new javax.swing.JPanel();
-        overallProgressWeekCircle = new javax.swing.JPanel();
-        overallProgressDayCircle = new javax.swing.JPanel();
-        overallProgressMonthCircle = new javax.swing.JPanel();
-        overallProgressNoHabitsText = new javax.swing.JLabel();
-        overallProgressNoStreaksText = new javax.swing.JLabel();
-        overallProgressText1 = new javax.swing.JLabel();
-        overallProgressText2 = new javax.swing.JLabel();
-        overallProgressText3 = new javax.swing.JLabel();
-        overallProgressText4 = new javax.swing.JLabel();
-        screensaverTodaysProgress = new javax.swing.JPanel();
-        screensaverTodaysProgressTitle = new javax.swing.JLabel();
-        screensaverTodaysProgressDisplay = new javax.swing.JPanel();
-        screensaverFishTankBackground = new javax.swing.JLabel();
-        screensaverTimeText = new javax.swing.JLabel();
-        screensaverDateText = new javax.swing.JLabel();
-        skylinePanel1 = new javax.swing.JLabel();
-        skylinePanel2 = new javax.swing.JLabel();
-        skylinePanel3 = new javax.swing.JLabel();
         editHabit = new javax.swing.JPanel();
         eh_title = new javax.swing.JLabel();
         eh_noHabitsPanel = new javax.swing.JLabel();
@@ -519,6 +519,194 @@ public class GUI_Window extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(1040, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        screensaverPanel.setBackground(java.awt.Color.black);
+        screensaverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                screensaverPanelMouseClicked(evt);
+            }
+        });
+        screensaverPanel.setLayout(null);
+
+        screensaverOverallProgress.setBackground(new java.awt.Color(156, 183, 133));
+        screensaverOverallProgress.setLayout(null);
+
+        javax.swing.GroupLayout overallProgressStreakBarGraphLayout = new javax.swing.GroupLayout(overallProgressStreakBarGraph);
+        overallProgressStreakBarGraph.setLayout(overallProgressStreakBarGraphLayout);
+        overallProgressStreakBarGraphLayout.setHorizontalGroup(
+            overallProgressStreakBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
+        overallProgressStreakBarGraphLayout.setVerticalGroup(
+            overallProgressStreakBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 220, Short.MAX_VALUE)
+        );
+
+        screensaverOverallProgress.add(overallProgressStreakBarGraph);
+        overallProgressStreakBarGraph.setBounds(30, 350, 490, 220);
+
+        javax.swing.GroupLayout overallProgressYearBarGraphLayout = new javax.swing.GroupLayout(overallProgressYearBarGraph);
+        overallProgressYearBarGraph.setLayout(overallProgressYearBarGraphLayout);
+        overallProgressYearBarGraphLayout.setHorizontalGroup(
+            overallProgressYearBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 916, Short.MAX_VALUE)
+        );
+        overallProgressYearBarGraphLayout.setVerticalGroup(
+            overallProgressYearBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 255, Short.MAX_VALUE)
+        );
+
+        screensaverOverallProgress.add(overallProgressYearBarGraph);
+        overallProgressYearBarGraph.setBounds(62, 30, 916, 255);
+
+        javax.swing.GroupLayout overallProgressWeekCircleLayout = new javax.swing.GroupLayout(overallProgressWeekCircle);
+        overallProgressWeekCircle.setLayout(overallProgressWeekCircleLayout);
+        overallProgressWeekCircleLayout.setHorizontalGroup(
+            overallProgressWeekCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        overallProgressWeekCircleLayout.setVerticalGroup(
+            overallProgressWeekCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        screensaverOverallProgress.add(overallProgressWeekCircle);
+        overallProgressWeekCircle.setBounds(695, 385, 150, 150);
+
+        javax.swing.GroupLayout overallProgressDayCircleLayout = new javax.swing.GroupLayout(overallProgressDayCircle);
+        overallProgressDayCircle.setLayout(overallProgressDayCircleLayout);
+        overallProgressDayCircleLayout.setHorizontalGroup(
+            overallProgressDayCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        overallProgressDayCircleLayout.setVerticalGroup(
+            overallProgressDayCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        screensaverOverallProgress.add(overallProgressDayCircle);
+        overallProgressDayCircle.setBounds(540, 385, 150, 150);
+
+        javax.swing.GroupLayout overallProgressMonthCircleLayout = new javax.swing.GroupLayout(overallProgressMonthCircle);
+        overallProgressMonthCircle.setLayout(overallProgressMonthCircleLayout);
+        overallProgressMonthCircleLayout.setHorizontalGroup(
+            overallProgressMonthCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+        overallProgressMonthCircleLayout.setVerticalGroup(
+            overallProgressMonthCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 150, Short.MAX_VALUE)
+        );
+
+        screensaverOverallProgress.add(overallProgressMonthCircle);
+        overallProgressMonthCircle.setBounds(850, 385, 150, 150);
+
+        overallProgressNoHabitsText.setBackground(new java.awt.Color(156, 183, 133));
+        overallProgressNoHabitsText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        overallProgressNoHabitsText.setForeground(java.awt.Color.white);
+        overallProgressNoHabitsText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        overallProgressNoHabitsText.setText("Add Habits To Unlock Statistics");
+        screensaverOverallProgress.add(overallProgressNoHabitsText);
+        overallProgressNoHabitsText.setBounds(320, 200, 400, 200);
+
+        overallProgressNoStreaksText.setBackground(new java.awt.Color(156, 183, 133));
+        overallProgressNoStreaksText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        overallProgressNoStreaksText.setForeground(java.awt.Color.white);
+        overallProgressNoStreaksText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        overallProgressNoStreaksText.setText("There Are No Streaks Set Yet");
+        overallProgressNoStreaksText.setToolTipText("");
+        overallProgressNoStreaksText.setOpaque(true);
+        screensaverOverallProgress.add(overallProgressNoStreaksText);
+        overallProgressNoStreaksText.setBounds(75, 345, 400, 200);
+
+        overallProgressText1.setBackground(new java.awt.Color(156, 183, 133));
+        overallProgressText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        overallProgressText1.setForeground(java.awt.Color.white);
+        overallProgressText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        overallProgressText1.setText("This Month's Streaks");
+        screensaverOverallProgress.add(overallProgressText1);
+        overallProgressText1.setBounds(30, 320, 490, 30);
+
+        overallProgressText2.setBackground(new java.awt.Color(156, 183, 133));
+        overallProgressText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        overallProgressText2.setForeground(java.awt.Color.white);
+        overallProgressText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        overallProgressText2.setText("Completion Tracker");
+        screensaverOverallProgress.add(overallProgressText2);
+        overallProgressText2.setBounds(540, 320, 460, 30);
+
+        overallProgressText3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        overallProgressText3.setForeground(java.awt.Color.white);
+        overallProgressText3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        overallProgressText3.setText("100%");
+        screensaverOverallProgress.add(overallProgressText3);
+        overallProgressText3.setBounds(30, 65, 32, 20);
+
+        overallProgressText4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        overallProgressText4.setForeground(java.awt.Color.white);
+        overallProgressText4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        overallProgressText4.setText("0%");
+        screensaverOverallProgress.add(overallProgressText4);
+        overallProgressText4.setBounds(30, 235, 32, 20);
+
+        screensaverPanel.add(screensaverOverallProgress);
+        screensaverOverallProgress.setBounds(0, 0, 1040, 600);
+
+        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 204, 51));
+        screensaverTodaysProgress.setLayout(null);
+
+        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 204, 51));
+        screensaverTodaysProgressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        screensaverTodaysProgressTitle.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverTodaysProgressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverTodaysProgressTitle.setText("Left To Do Today");
+        screensaverTodaysProgressTitle.setOpaque(true);
+        screensaverTodaysProgress.add(screensaverTodaysProgressTitle);
+        screensaverTodaysProgressTitle.setBounds(10, 10, 820, 40);
+
+        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(255, 204, 51));
+        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 1, 1);
+        flowLayout2.setAlignOnBaseline(true);
+        screensaverTodaysProgressDisplay.setLayout(flowLayout2);
+        screensaverTodaysProgress.add(screensaverTodaysProgressDisplay);
+        screensaverTodaysProgressDisplay.setBounds(10, 60, 820, 330);
+
+        screensaverPanel.add(screensaverTodaysProgress);
+        screensaverTodaysProgress.setBounds(120, 100, 840, 400);
+
+        screensaverFishTankBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverFishBackground.png"))); // NOI18N
+        screensaverFishTankBackground.setOpaque(true);
+        screensaverPanel.add(screensaverFishTankBackground);
+        screensaverFishTankBackground.setBounds(0, 0, 1040, 600);
+
+        screensaverTimeText.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
+        screensaverTimeText.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverTimeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverTimeText.setText("7:20 PM");
+        screensaverPanel.add(screensaverTimeText);
+        screensaverTimeText.setBounds(320, 60, 400, 70);
+
+        screensaverDateText.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
+        screensaverDateText.setForeground(new java.awt.Color(255, 255, 255));
+        screensaverDateText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        screensaverDateText.setText("Thursday, December 11, 2025");
+        screensaverDateText.setToolTipText("");
+        screensaverPanel.add(screensaverDateText);
+        screensaverDateText.setBounds(320, 120, 400, 50);
+
+        skylinePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP1.png"))); // NOI18N
+        screensaverPanel.add(skylinePanel1);
+        skylinePanel1.setBounds(0, 0, 1040, 600);
+
+        skylinePanel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP2.png"))); // NOI18N
+        screensaverPanel.add(skylinePanel2);
+        skylinePanel2.setBounds(0, 0, 1040, 600);
+
+        skylinePanel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP3.png"))); // NOI18N
+        screensaverPanel.add(skylinePanel3);
+        skylinePanel3.setBounds(0, 0, 1040, 600);
+
+        getContentPane().add(screensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         navigationPanel.setBackground(new java.awt.Color(156, 183, 133));
         navigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
@@ -942,194 +1130,6 @@ public class GUI_Window extends javax.swing.JFrame {
         settings.add(s_turnOffAwayFromScreenButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 950, 50));
 
         getContentPane().add(settings, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
-        screensaverPanel.setBackground(java.awt.Color.black);
-        screensaverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                screensaverPanelMouseClicked(evt);
-            }
-        });
-        screensaverPanel.setLayout(null);
-
-        screensaverOverallProgress.setBackground(new java.awt.Color(156, 183, 133));
-        screensaverOverallProgress.setLayout(null);
-
-        javax.swing.GroupLayout overallProgressStreakBarGraphLayout = new javax.swing.GroupLayout(overallProgressStreakBarGraph);
-        overallProgressStreakBarGraph.setLayout(overallProgressStreakBarGraphLayout);
-        overallProgressStreakBarGraphLayout.setHorizontalGroup(
-            overallProgressStreakBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
-        );
-        overallProgressStreakBarGraphLayout.setVerticalGroup(
-            overallProgressStreakBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-
-        screensaverOverallProgress.add(overallProgressStreakBarGraph);
-        overallProgressStreakBarGraph.setBounds(30, 350, 490, 220);
-
-        javax.swing.GroupLayout overallProgressYearBarGraphLayout = new javax.swing.GroupLayout(overallProgressYearBarGraph);
-        overallProgressYearBarGraph.setLayout(overallProgressYearBarGraphLayout);
-        overallProgressYearBarGraphLayout.setHorizontalGroup(
-            overallProgressYearBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 916, Short.MAX_VALUE)
-        );
-        overallProgressYearBarGraphLayout.setVerticalGroup(
-            overallProgressYearBarGraphLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 255, Short.MAX_VALUE)
-        );
-
-        screensaverOverallProgress.add(overallProgressYearBarGraph);
-        overallProgressYearBarGraph.setBounds(62, 30, 916, 255);
-
-        javax.swing.GroupLayout overallProgressWeekCircleLayout = new javax.swing.GroupLayout(overallProgressWeekCircle);
-        overallProgressWeekCircle.setLayout(overallProgressWeekCircleLayout);
-        overallProgressWeekCircleLayout.setHorizontalGroup(
-            overallProgressWeekCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-        overallProgressWeekCircleLayout.setVerticalGroup(
-            overallProgressWeekCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-
-        screensaverOverallProgress.add(overallProgressWeekCircle);
-        overallProgressWeekCircle.setBounds(695, 385, 150, 150);
-
-        javax.swing.GroupLayout overallProgressDayCircleLayout = new javax.swing.GroupLayout(overallProgressDayCircle);
-        overallProgressDayCircle.setLayout(overallProgressDayCircleLayout);
-        overallProgressDayCircleLayout.setHorizontalGroup(
-            overallProgressDayCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-        overallProgressDayCircleLayout.setVerticalGroup(
-            overallProgressDayCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-
-        screensaverOverallProgress.add(overallProgressDayCircle);
-        overallProgressDayCircle.setBounds(540, 385, 150, 150);
-
-        javax.swing.GroupLayout overallProgressMonthCircleLayout = new javax.swing.GroupLayout(overallProgressMonthCircle);
-        overallProgressMonthCircle.setLayout(overallProgressMonthCircleLayout);
-        overallProgressMonthCircleLayout.setHorizontalGroup(
-            overallProgressMonthCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-        overallProgressMonthCircleLayout.setVerticalGroup(
-            overallProgressMonthCircleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 150, Short.MAX_VALUE)
-        );
-
-        screensaverOverallProgress.add(overallProgressMonthCircle);
-        overallProgressMonthCircle.setBounds(850, 385, 150, 150);
-
-        overallProgressNoHabitsText.setBackground(new java.awt.Color(156, 183, 133));
-        overallProgressNoHabitsText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        overallProgressNoHabitsText.setForeground(java.awt.Color.white);
-        overallProgressNoHabitsText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        overallProgressNoHabitsText.setText("Add Habits To Unlock Statistics");
-        screensaverOverallProgress.add(overallProgressNoHabitsText);
-        overallProgressNoHabitsText.setBounds(320, 200, 400, 200);
-
-        overallProgressNoStreaksText.setBackground(new java.awt.Color(156, 183, 133));
-        overallProgressNoStreaksText.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        overallProgressNoStreaksText.setForeground(java.awt.Color.white);
-        overallProgressNoStreaksText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        overallProgressNoStreaksText.setText("There Are No Streaks Set Yet");
-        overallProgressNoStreaksText.setToolTipText("");
-        overallProgressNoStreaksText.setOpaque(true);
-        screensaverOverallProgress.add(overallProgressNoStreaksText);
-        overallProgressNoStreaksText.setBounds(75, 345, 400, 200);
-
-        overallProgressText1.setBackground(new java.awt.Color(156, 183, 133));
-        overallProgressText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        overallProgressText1.setForeground(java.awt.Color.white);
-        overallProgressText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        overallProgressText1.setText("Streaks");
-        screensaverOverallProgress.add(overallProgressText1);
-        overallProgressText1.setBounds(30, 320, 490, 30);
-
-        overallProgressText2.setBackground(new java.awt.Color(156, 183, 133));
-        overallProgressText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        overallProgressText2.setForeground(java.awt.Color.white);
-        overallProgressText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        overallProgressText2.setText("Completion Tracker");
-        screensaverOverallProgress.add(overallProgressText2);
-        overallProgressText2.setBounds(540, 320, 460, 30);
-
-        overallProgressText3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        overallProgressText3.setForeground(java.awt.Color.white);
-        overallProgressText3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        overallProgressText3.setText("100%");
-        screensaverOverallProgress.add(overallProgressText3);
-        overallProgressText3.setBounds(30, 65, 32, 20);
-
-        overallProgressText4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        overallProgressText4.setForeground(java.awt.Color.white);
-        overallProgressText4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        overallProgressText4.setText("0%");
-        screensaverOverallProgress.add(overallProgressText4);
-        overallProgressText4.setBounds(30, 235, 32, 20);
-
-        screensaverPanel.add(screensaverOverallProgress);
-        screensaverOverallProgress.setBounds(0, 0, 1040, 600);
-
-        screensaverTodaysProgress.setBackground(new java.awt.Color(255, 204, 51));
-        screensaverTodaysProgress.setLayout(null);
-
-        screensaverTodaysProgressTitle.setBackground(new java.awt.Color(255, 204, 51));
-        screensaverTodaysProgressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        screensaverTodaysProgressTitle.setForeground(new java.awt.Color(255, 255, 255));
-        screensaverTodaysProgressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        screensaverTodaysProgressTitle.setText("Left To Do Today");
-        screensaverTodaysProgressTitle.setOpaque(true);
-        screensaverTodaysProgress.add(screensaverTodaysProgressTitle);
-        screensaverTodaysProgressTitle.setBounds(10, 10, 820, 40);
-
-        screensaverTodaysProgressDisplay.setBackground(new java.awt.Color(255, 204, 51));
-        java.awt.FlowLayout flowLayout2 = new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 1, 1);
-        flowLayout2.setAlignOnBaseline(true);
-        screensaverTodaysProgressDisplay.setLayout(flowLayout2);
-        screensaverTodaysProgress.add(screensaverTodaysProgressDisplay);
-        screensaverTodaysProgressDisplay.setBounds(10, 60, 820, 330);
-
-        screensaverPanel.add(screensaverTodaysProgress);
-        screensaverTodaysProgress.setBounds(120, 100, 840, 400);
-
-        screensaverFishTankBackground.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverFishBackground.png"))); // NOI18N
-        screensaverFishTankBackground.setOpaque(true);
-        screensaverPanel.add(screensaverFishTankBackground);
-        screensaverFishTankBackground.setBounds(0, 0, 1040, 600);
-
-        screensaverTimeText.setFont(new java.awt.Font("Segoe UI Black", 1, 48)); // NOI18N
-        screensaverTimeText.setForeground(new java.awt.Color(255, 255, 255));
-        screensaverTimeText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        screensaverTimeText.setText("7:20 PM");
-        screensaverPanel.add(screensaverTimeText);
-        screensaverTimeText.setBounds(320, 60, 400, 70);
-
-        screensaverDateText.setFont(new java.awt.Font("Segoe UI Black", 1, 24)); // NOI18N
-        screensaverDateText.setForeground(new java.awt.Color(255, 255, 255));
-        screensaverDateText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        screensaverDateText.setText("Thursday, December 11, 2025");
-        screensaverDateText.setToolTipText("");
-        screensaverPanel.add(screensaverDateText);
-        screensaverDateText.setBounds(320, 120, 400, 50);
-
-        skylinePanel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP1.png"))); // NOI18N
-        screensaverPanel.add(skylinePanel1);
-        skylinePanel1.setBounds(0, 0, 1040, 600);
-
-        skylinePanel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP2.png"))); // NOI18N
-        screensaverPanel.add(skylinePanel2);
-        skylinePanel2.setBounds(0, 0, 1040, 600);
-
-        skylinePanel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/screensaverSkylineP3.png"))); // NOI18N
-        screensaverPanel.add(skylinePanel3);
-        skylinePanel3.setBounds(0, 0, 1040, 600);
-
-        getContentPane().add(screensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
         editHabit.setBackground(new java.awt.Color(181, 181, 181));
         editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());

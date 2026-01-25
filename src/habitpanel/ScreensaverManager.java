@@ -440,35 +440,36 @@ public class ScreensaverManager {
         
         
         
-        
         // -- DATA FOR THE STREAKS --
+        LocalDate firstOfMonth = today.withDayOfMonth(1);
         Map<String, Integer> habitStreaks = new HashMap<>();      // <---- Saving this outside of this function so that the timer can use it if needed
         for (HabitCard_Quantity currCard : mainGUI.allQuantityCards) {
             int streak = 0;
-            for (LocalDate d = today.minusDays(1); ; d = d.minusDays(1)) {
+            for (LocalDate d = today; !d.isBefore(firstOfMonth); d = d.minusDays(1)) {
                 if (currCard.hasDateEntry(d)){
                     if (!currCard.getDateEntry(d).getCompleted())
                         break;
+                    streak++; // else, then add to the streak
                 }
-                streak++;
             }
             if(streak > 0)
                 habitStreaks.put(currCard.getHabitName(), streak);
         }
+        
         
         for (HabitCard_YesNo currCard : mainGUI.allYesNoCards) {
             int streak = 0;
-            for (LocalDate d = today.minusDays(1); ; d = d.minusDays(1)) {
-                    if (currCard.hasDateEntry(d)){
-                        if (!currCard.getCompleted(d))
-                            break;    
-                    }
-                    streak++;
+            for (LocalDate d = today; !d.isBefore(firstOfMonth);  d = d.minusDays(1)) {
+                if (currCard.hasDateEntry(d)){
+                    if (!currCard.getCompleted(d))
+                        break;    
+                    streak++;  // else, then add to the streak
+                }
+                    
             }
             if(streak > 0)
                 habitStreaks.put(currCard.getHabitName(), streak);
         }
-        
         
         
         // Sending information into the ProgressCircle Panel
