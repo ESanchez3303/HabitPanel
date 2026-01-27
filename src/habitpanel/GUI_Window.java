@@ -249,6 +249,27 @@ public class GUI_Window extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        navigationPanel = new javax.swing.JPanel();
+        settingsButton = new javax.swing.JButton();
+        addHabitButton = new javax.swing.JButton();
+        homeButton = new javax.swing.JButton();
+        editHabitButton = new javax.swing.JButton();
+        progressButton = new javax.swing.JButton();
+        navSelector = new javax.swing.JPanel();
+        progress = new javax.swing.JPanel();
+        p_progressTitle = new javax.swing.JLabel();
+        p_showAllHabitsText = new javax.swing.JLabel();
+        p_tableScrollPane = new javax.swing.JScrollPane();
+        p_table = new javax.swing.JTable();
+        p_tableRightScrollButton = new javax.swing.JPanel();
+        p_habitRightScrollButton = new javax.swing.JPanel();
+        p_habitName = new javax.swing.JLabel();
+        p_tableLeftScrollButton = new javax.swing.JPanel();
+        p_habitLeftScrollButton = new javax.swing.JPanel();
+        p_noHabitsPanel = new javax.swing.JLabel();
+        p_monthAndYear = new javax.swing.JLabel();
+        p_resetMonthButton = new javax.swing.JButton();
+        p_showAllHabitsButton = new javax.swing.JButton();
         screensaverPanel = new javax.swing.JPanel();
         screensaverOverallProgress = new javax.swing.JPanel();
         overallProgressStreakBarGraph = new javax.swing.JPanel();
@@ -271,13 +292,6 @@ public class GUI_Window extends javax.swing.JFrame {
         skylinePanel1 = new javax.swing.JLabel();
         skylinePanel2 = new javax.swing.JLabel();
         skylinePanel3 = new javax.swing.JLabel();
-        navigationPanel = new javax.swing.JPanel();
-        settingsButton = new javax.swing.JButton();
-        addHabitButton = new javax.swing.JButton();
-        homeButton = new javax.swing.JButton();
-        editHabitButton = new javax.swing.JButton();
-        progressButton = new javax.swing.JButton();
-        navSelector = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
         s_title = new javax.swing.JLabel();
         s_colorsPanel = new javax.swing.JPanel();
@@ -414,20 +428,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_scrollUpPanel = new javax.swing.JPanel();
         eh_scrollPane = new javax.swing.JScrollPane();
         eh_chooseHabitDisplay = new javax.swing.JPanel();
-        progress = new javax.swing.JPanel();
-        p_progressTitle = new javax.swing.JLabel();
-        p_showAllHabitsText = new javax.swing.JLabel();
-        p_tableScrollPane = new javax.swing.JScrollPane();
-        p_table = new javax.swing.JTable();
-        p_tableRightScrollButton = new javax.swing.JPanel();
-        p_habitRightScrollButton = new javax.swing.JPanel();
-        p_habitName = new javax.swing.JLabel();
-        p_tableLeftScrollButton = new javax.swing.JPanel();
-        p_habitLeftScrollButton = new javax.swing.JPanel();
-        p_noHabitsPanel = new javax.swing.JLabel();
-        p_monthAndYear = new javax.swing.JLabel();
-        p_resetMonthButton = new javax.swing.JButton();
-        p_showAllHabitsButton = new javax.swing.JButton();
         home = new javax.swing.JPanel();
         h_scrollUpPanel = new javax.swing.JPanel();
         h_scrollDownPanel = new javax.swing.JPanel();
@@ -519,6 +519,282 @@ public class GUI_Window extends javax.swing.JFrame {
         setResizable(false);
         setSize(new java.awt.Dimension(1040, 600));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        navigationPanel.setBackground(new java.awt.Color(156, 183, 133));
+        navigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        navigationPanel.setLayout(null);
+
+        settingsButton.setBackground(new java.awt.Color(193, 144, 69));
+        settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        settingsButton.setForeground(java.awt.Color.white);
+        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/settingsIcon.png"))); // NOI18N
+        settingsButton.setBorder(null);
+        settingsButton.setContentAreaFilled(false);
+        settingsButton.setFocusPainted(false);
+        settingsButton.setFocusable(false);
+        settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                settingsButtonMouseClicked(evt);
+            }
+        });
+        navigationPanel.add(settingsButton);
+        settingsButton.setBounds(0, 0, 68, 120);
+
+        addHabitButton.setBackground(new java.awt.Color(193, 144, 69));
+        addHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        addHabitButton.setForeground(java.awt.Color.white);
+        addHabitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/addIcon.png"))); // NOI18N
+        addHabitButton.setToolTipText("");
+        addHabitButton.setBorder(null);
+        addHabitButton.setContentAreaFilled(false);
+        addHabitButton.setFocusPainted(false);
+        addHabitButton.setFocusable(false);
+        addHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                addHabitButtonMouseClicked(evt);
+            }
+        });
+        navigationPanel.add(addHabitButton);
+        addHabitButton.setBounds(0, 120, 68, 120);
+
+        homeButton.setBackground(new java.awt.Color(193, 144, 69));
+        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/homeIcon.png"))); // NOI18N
+        homeButton.setBorder(null);
+        homeButton.setContentAreaFilled(false);
+        homeButton.setFocusPainted(false);
+        homeButton.setFocusable(false);
+        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                homeButtonMouseClicked(evt);
+            }
+        });
+        navigationPanel.add(homeButton);
+        homeButton.setBounds(0, 240, 68, 120);
+
+        editHabitButton.setBackground(new java.awt.Color(193, 144, 69));
+        editHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        editHabitButton.setForeground(java.awt.Color.white);
+        editHabitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/editIcon.png"))); // NOI18N
+        editHabitButton.setToolTipText("");
+        editHabitButton.setBorder(null);
+        editHabitButton.setContentAreaFilled(false);
+        editHabitButton.setFocusPainted(false);
+        editHabitButton.setFocusable(false);
+        editHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                editHabitButtonMouseClicked(evt);
+            }
+        });
+        navigationPanel.add(editHabitButton);
+        editHabitButton.setBounds(0, 360, 68, 120);
+
+        progressButton.setBackground(new java.awt.Color(193, 144, 69));
+        progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        progressButton.setForeground(java.awt.Color.white);
+        progressButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/progressIcon.png"))); // NOI18N
+        progressButton.setToolTipText("");
+        progressButton.setBorder(null);
+        progressButton.setContentAreaFilled(false);
+        progressButton.setFocusPainted(false);
+        progressButton.setFocusable(false);
+        progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                progressButtonMouseClicked(evt);
+            }
+        });
+        navigationPanel.add(progressButton);
+        progressButton.setBounds(0, 480, 68, 120);
+
+        navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout navSelectorLayout = new javax.swing.GroupLayout(navSelector);
+        navSelector.setLayout(navSelectorLayout);
+        navSelectorLayout.setHorizontalGroup(
+            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 59, Short.MAX_VALUE)
+        );
+        navSelectorLayout.setVerticalGroup(
+            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 111, Short.MAX_VALUE)
+        );
+
+        navigationPanel.add(navSelector);
+        navSelector.setBounds(3, 3, 63, 115);
+
+        getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
+
+        progress.setBackground(new java.awt.Color(202, 202, 202));
+        progress.setMaximumSize(new java.awt.Dimension(1040, 600));
+        progress.setMinimumSize(new java.awt.Dimension(1040, 600));
+        progress.setLayout(null);
+
+        p_progressTitle.setBackground(new java.awt.Color(156, 183, 133));
+        p_progressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        p_progressTitle.setForeground(java.awt.Color.white);
+        p_progressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_progressTitle.setText("Progress Center");
+        p_progressTitle.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        p_progressTitle.setOpaque(true);
+        progress.add(p_progressTitle);
+        p_progressTitle.setBounds(10, 10, 950, 50);
+
+        p_showAllHabitsText.setBackground(new java.awt.Color(156, 183, 133));
+        p_showAllHabitsText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        p_showAllHabitsText.setForeground(java.awt.Color.white);
+        p_showAllHabitsText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_showAllHabitsText.setText("Showing All Habits");
+        p_showAllHabitsText.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_showAllHabitsText.setOpaque(true);
+        progress.add(p_showAllHabitsText);
+        p_showAllHabitsText.setBounds(225, 70, 520, 50);
+
+        p_tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        p_table.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        p_tableScrollPane.setViewportView(p_table);
+
+        progress.add(p_tableScrollPane);
+        p_tableScrollPane.setBounds(85, 170, 800, 410);
+
+        p_tableRightScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_tableScrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_tableRightScrollButtonLayout = new javax.swing.GroupLayout(p_tableRightScrollButton);
+        p_tableRightScrollButton.setLayout(p_tableRightScrollButtonLayout);
+        p_tableRightScrollButtonLayout.setHorizontalGroup(
+            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_tableRightScrollButtonLayout.setVerticalGroup(
+            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
+
+        progress.add(p_tableRightScrollButton);
+        p_tableRightScrollButton.setBounds(890, 318, 75, 75);
+
+        javax.swing.GroupLayout p_habitRightScrollButtonLayout = new javax.swing.GroupLayout(p_habitRightScrollButton);
+        p_habitRightScrollButton.setLayout(p_habitRightScrollButtonLayout);
+        p_habitRightScrollButtonLayout.setHorizontalGroup(
+            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_habitRightScrollButtonLayout.setVerticalGroup(
+            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        progress.add(p_habitRightScrollButton);
+        p_habitRightScrollButton.setBounds(660, 70, 50, 50);
+
+        p_habitName.setBackground(new java.awt.Color(156, 183, 133));
+        p_habitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        p_habitName.setForeground(java.awt.Color.white);
+        p_habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_habitName.setText("<habit name>");
+        p_habitName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_habitName.setOpaque(true);
+        progress.add(p_habitName);
+        p_habitName.setBounds(320, 75, 330, 40);
+
+        p_tableLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_tableScrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_tableLeftScrollButtonLayout = new javax.swing.GroupLayout(p_tableLeftScrollButton);
+        p_tableLeftScrollButton.setLayout(p_tableLeftScrollButtonLayout);
+        p_tableLeftScrollButtonLayout.setHorizontalGroup(
+            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_tableLeftScrollButtonLayout.setVerticalGroup(
+            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 75, Short.MAX_VALUE)
+        );
+
+        progress.add(p_tableLeftScrollButton);
+        p_tableLeftScrollButton.setBounds(5, 318, 75, 75);
+
+        p_habitLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_habitScrollButtonClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout p_habitLeftScrollButtonLayout = new javax.swing.GroupLayout(p_habitLeftScrollButton);
+        p_habitLeftScrollButton.setLayout(p_habitLeftScrollButtonLayout);
+        p_habitLeftScrollButtonLayout.setHorizontalGroup(
+            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        p_habitLeftScrollButtonLayout.setVerticalGroup(
+            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 50, Short.MAX_VALUE)
+        );
+
+        progress.add(p_habitLeftScrollButton);
+        p_habitLeftScrollButton.setBounds(260, 70, 50, 50);
+
+        p_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_noHabitsPanel.setText("Add Habits To Unlock This Section");
+        p_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_noHabitsPanel.setOpaque(true);
+        progress.add(p_noHabitsPanel);
+        p_noHabitsPanel.setBounds(285, 200, 400, 200);
+
+        p_monthAndYear.setBackground(new java.awt.Color(156, 183, 133));
+        p_monthAndYear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        p_monthAndYear.setForeground(java.awt.Color.white);
+        p_monthAndYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        p_monthAndYear.setText("<MONTH AND YEAR>");
+        p_monthAndYear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        p_monthAndYear.setOpaque(true);
+        progress.add(p_monthAndYear);
+        p_monthAndYear.setBounds(85, 132, 800, 40);
+
+        p_resetMonthButton.setBackground(new java.awt.Color(156, 183, 133));
+        p_resetMonthButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        p_resetMonthButton.setForeground(java.awt.Color.white);
+        p_resetMonthButton.setText("This Month");
+        p_resetMonthButton.setToolTipText("");
+        p_resetMonthButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_resetMonthButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_resetMonthButtonMouseClicked(evt);
+            }
+        });
+        progress.add(p_resetMonthButton);
+        p_resetMonthButton.setBounds(760, 75, 130, 40);
+
+        p_showAllHabitsButton.setBackground(new java.awt.Color(156, 183, 133));
+        p_showAllHabitsButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        p_showAllHabitsButton.setForeground(java.awt.Color.white);
+        p_showAllHabitsButton.setText("Show By Habit");
+        p_showAllHabitsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        p_showAllHabitsButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                p_showAllHabitsButtonMouseClicked(evt);
+            }
+        });
+        progress.add(p_showAllHabitsButton);
+        p_showAllHabitsButton.setBounds(80, 75, 130, 40);
+
+        getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         screensaverPanel.setBackground(java.awt.Color.black);
         screensaverPanel.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -707,109 +983,6 @@ public class GUI_Window extends javax.swing.JFrame {
         skylinePanel3.setBounds(0, 0, 1040, 600);
 
         getContentPane().add(screensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
-
-        navigationPanel.setBackground(new java.awt.Color(156, 183, 133));
-        navigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        navigationPanel.setLayout(null);
-
-        settingsButton.setBackground(new java.awt.Color(193, 144, 69));
-        settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        settingsButton.setForeground(java.awt.Color.white);
-        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/settingsIcon.png"))); // NOI18N
-        settingsButton.setBorder(null);
-        settingsButton.setContentAreaFilled(false);
-        settingsButton.setFocusPainted(false);
-        settingsButton.setFocusable(false);
-        settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                settingsButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(settingsButton);
-        settingsButton.setBounds(0, 0, 68, 120);
-
-        addHabitButton.setBackground(new java.awt.Color(193, 144, 69));
-        addHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        addHabitButton.setForeground(java.awt.Color.white);
-        addHabitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/addIcon.png"))); // NOI18N
-        addHabitButton.setToolTipText("");
-        addHabitButton.setBorder(null);
-        addHabitButton.setContentAreaFilled(false);
-        addHabitButton.setFocusPainted(false);
-        addHabitButton.setFocusable(false);
-        addHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addHabitButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(addHabitButton);
-        addHabitButton.setBounds(0, 120, 68, 120);
-
-        homeButton.setBackground(new java.awt.Color(193, 144, 69));
-        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/homeIcon.png"))); // NOI18N
-        homeButton.setBorder(null);
-        homeButton.setContentAreaFilled(false);
-        homeButton.setFocusPainted(false);
-        homeButton.setFocusable(false);
-        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                homeButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(homeButton);
-        homeButton.setBounds(0, 240, 68, 120);
-
-        editHabitButton.setBackground(new java.awt.Color(193, 144, 69));
-        editHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        editHabitButton.setForeground(java.awt.Color.white);
-        editHabitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/editIcon.png"))); // NOI18N
-        editHabitButton.setToolTipText("");
-        editHabitButton.setBorder(null);
-        editHabitButton.setContentAreaFilled(false);
-        editHabitButton.setFocusPainted(false);
-        editHabitButton.setFocusable(false);
-        editHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editHabitButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(editHabitButton);
-        editHabitButton.setBounds(0, 360, 68, 120);
-
-        progressButton.setBackground(new java.awt.Color(193, 144, 69));
-        progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        progressButton.setForeground(java.awt.Color.white);
-        progressButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/progressIcon.png"))); // NOI18N
-        progressButton.setToolTipText("");
-        progressButton.setBorder(null);
-        progressButton.setContentAreaFilled(false);
-        progressButton.setFocusPainted(false);
-        progressButton.setFocusable(false);
-        progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                progressButtonMouseClicked(evt);
-            }
-        });
-        navigationPanel.add(progressButton);
-        progressButton.setBounds(0, 480, 68, 120);
-
-        navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        javax.swing.GroupLayout navSelectorLayout = new javax.swing.GroupLayout(navSelector);
-        navSelector.setLayout(navSelectorLayout);
-        navSelectorLayout.setHorizontalGroup(
-            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 59, Short.MAX_VALUE)
-        );
-        navSelectorLayout.setVerticalGroup(
-            navSelectorLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 111, Short.MAX_VALUE)
-        );
-
-        navigationPanel.add(navSelector);
-        navSelector.setBounds(3, 3, 63, 115);
-
-        getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
 
         settings.setBackground(new java.awt.Color(204, 204, 204));
         settings.setMaximumSize(new java.awt.Dimension(1040, 600));
@@ -2041,179 +2214,6 @@ public class GUI_Window extends javax.swing.JFrame {
         editHabit.add(eh_chooseHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
 
         getContentPane().add(editHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
-        progress.setBackground(new java.awt.Color(202, 202, 202));
-        progress.setMaximumSize(new java.awt.Dimension(1040, 600));
-        progress.setMinimumSize(new java.awt.Dimension(1040, 600));
-        progress.setLayout(null);
-
-        p_progressTitle.setBackground(new java.awt.Color(156, 183, 133));
-        p_progressTitle.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        p_progressTitle.setForeground(java.awt.Color.white);
-        p_progressTitle.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_progressTitle.setText("Progress Center");
-        p_progressTitle.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        p_progressTitle.setOpaque(true);
-        progress.add(p_progressTitle);
-        p_progressTitle.setBounds(10, 10, 950, 50);
-
-        p_showAllHabitsText.setBackground(new java.awt.Color(156, 183, 133));
-        p_showAllHabitsText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        p_showAllHabitsText.setForeground(java.awt.Color.white);
-        p_showAllHabitsText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_showAllHabitsText.setText("Showing All Habits");
-        p_showAllHabitsText.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_showAllHabitsText.setOpaque(true);
-        progress.add(p_showAllHabitsText);
-        p_showAllHabitsText.setBounds(225, 70, 520, 50);
-
-        p_tableScrollPane.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-
-        p_table.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
-            }
-        ));
-        p_tableScrollPane.setViewportView(p_table);
-
-        progress.add(p_tableScrollPane);
-        p_tableScrollPane.setBounds(85, 170, 800, 410);
-
-        p_tableRightScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_tableScrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout p_tableRightScrollButtonLayout = new javax.swing.GroupLayout(p_tableRightScrollButton);
-        p_tableRightScrollButton.setLayout(p_tableRightScrollButtonLayout);
-        p_tableRightScrollButtonLayout.setHorizontalGroup(
-            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_tableRightScrollButtonLayout.setVerticalGroup(
-            p_tableRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        progress.add(p_tableRightScrollButton);
-        p_tableRightScrollButton.setBounds(890, 318, 75, 75);
-
-        javax.swing.GroupLayout p_habitRightScrollButtonLayout = new javax.swing.GroupLayout(p_habitRightScrollButton);
-        p_habitRightScrollButton.setLayout(p_habitRightScrollButtonLayout);
-        p_habitRightScrollButtonLayout.setHorizontalGroup(
-            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_habitRightScrollButtonLayout.setVerticalGroup(
-            p_habitRightScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        progress.add(p_habitRightScrollButton);
-        p_habitRightScrollButton.setBounds(660, 70, 50, 50);
-
-        p_habitName.setBackground(new java.awt.Color(156, 183, 133));
-        p_habitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        p_habitName.setForeground(java.awt.Color.white);
-        p_habitName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_habitName.setText("<habit name>");
-        p_habitName.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_habitName.setOpaque(true);
-        progress.add(p_habitName);
-        p_habitName.setBounds(320, 75, 330, 40);
-
-        p_tableLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_tableScrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout p_tableLeftScrollButtonLayout = new javax.swing.GroupLayout(p_tableLeftScrollButton);
-        p_tableLeftScrollButton.setLayout(p_tableLeftScrollButtonLayout);
-        p_tableLeftScrollButtonLayout.setHorizontalGroup(
-            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_tableLeftScrollButtonLayout.setVerticalGroup(
-            p_tableLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 75, Short.MAX_VALUE)
-        );
-
-        progress.add(p_tableLeftScrollButton);
-        p_tableLeftScrollButton.setBounds(5, 318, 75, 75);
-
-        p_habitLeftScrollButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_habitScrollButtonClicked(evt);
-            }
-        });
-
-        javax.swing.GroupLayout p_habitLeftScrollButtonLayout = new javax.swing.GroupLayout(p_habitLeftScrollButton);
-        p_habitLeftScrollButton.setLayout(p_habitLeftScrollButtonLayout);
-        p_habitLeftScrollButtonLayout.setHorizontalGroup(
-            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        p_habitLeftScrollButtonLayout.setVerticalGroup(
-            p_habitLeftScrollButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 50, Short.MAX_VALUE)
-        );
-
-        progress.add(p_habitLeftScrollButton);
-        p_habitLeftScrollButton.setBounds(260, 70, 50, 50);
-
-        p_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_noHabitsPanel.setText("Add Habits To Unlock This Section");
-        p_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_noHabitsPanel.setOpaque(true);
-        progress.add(p_noHabitsPanel);
-        p_noHabitsPanel.setBounds(285, 200, 400, 200);
-
-        p_monthAndYear.setBackground(new java.awt.Color(156, 183, 133));
-        p_monthAndYear.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        p_monthAndYear.setForeground(java.awt.Color.white);
-        p_monthAndYear.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        p_monthAndYear.setText("<MONTH AND YEAR>");
-        p_monthAndYear.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        p_monthAndYear.setOpaque(true);
-        progress.add(p_monthAndYear);
-        p_monthAndYear.setBounds(85, 132, 800, 40);
-
-        p_resetMonthButton.setBackground(new java.awt.Color(156, 183, 133));
-        p_resetMonthButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        p_resetMonthButton.setForeground(java.awt.Color.white);
-        p_resetMonthButton.setText("This Month");
-        p_resetMonthButton.setToolTipText("");
-        p_resetMonthButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_resetMonthButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_resetMonthButtonMouseClicked(evt);
-            }
-        });
-        progress.add(p_resetMonthButton);
-        p_resetMonthButton.setBounds(760, 75, 130, 40);
-
-        p_showAllHabitsButton.setBackground(new java.awt.Color(156, 183, 133));
-        p_showAllHabitsButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        p_showAllHabitsButton.setForeground(java.awt.Color.white);
-        p_showAllHabitsButton.setText("Show By Habit");
-        p_showAllHabitsButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        p_showAllHabitsButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                p_showAllHabitsButtonMouseClicked(evt);
-            }
-        });
-        progress.add(p_showAllHabitsButton);
-        p_showAllHabitsButton.setBounds(80, 75, 130, 40);
-
-        getContentPane().add(progress, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         home.setBackground(new java.awt.Color(204, 204, 204));
         home.setMaximumSize(new java.awt.Dimension(1040, 600));
@@ -5916,6 +5916,7 @@ public class GUI_Window extends javax.swing.JFrame {
     ArrayList<String> allHabitNames = new ArrayList<>();
     // SET UP PROGRESS PANEL 
     private void setUpProgressScreen(){
+        
         // If there are currently no habits, then hide everything and show the no habits panel
         boolean hasHabits = allQuantityCards.size() + allYesNoCards.size() > 0;
         p_tableLeftScrollButton.setVisible(hasHabits);
@@ -5953,6 +5954,15 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Load the table for the current habit that we have selected
         loadTable(); // <-- uses the currentHabitIndex 
+        
+        
+        // Repainting the scroll buttons
+        p_tableLeftScrollButton.repaint();
+        p_tableLeftScrollButton.revalidate();
+        p_tableRightScrollButton.repaint();
+        p_tableRightScrollButton.revalidate();
+        progress.repaint();
+        progress.revalidate();
     }
     
     // HELPER FUNCTION FOR LOAD TABLE: Count the total amount of habits that are for a day AND the amount of habits that were completed that day
