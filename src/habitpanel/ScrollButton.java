@@ -33,7 +33,6 @@ public class ScrollButton extends JPanel {
         setOpaque(false); 
         setLayout(null);
         setBounds(x,y,w,h);
-        
     }
 
     @Override
@@ -42,7 +41,6 @@ public class ScrollButton extends JPanel {
         int w = getWidth();
         int h = getHeight();
         int thickness = getHeight() - shadowThickness;
-        int yArrow = (thickness/2-arrowH/2);
         
         Graphics2D g2 = (Graphics2D) g.create();
         g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING,RenderingHints.VALUE_ANTIALIAS_ON);
@@ -93,7 +91,10 @@ public class ScrollButton extends JPanel {
             g2.fillOval(shadowThickness/2,  Math.max(pressOffset-2,0), w-shadowThickness, h-shadowThickness+pressOffset);
         }
         
+        
+        
         // --- POINTING ARROW ---
+        int yArrow = (thickness / 2 - arrowH / 2);
         shape.reset();
         shape.moveTo(w/2, yArrow+pressOffset);
         shape.lineTo(w/2-arrowW/2, yArrow+arrowH+pressOffset);

@@ -3,6 +3,7 @@ color=153,153,153
 type=yesno
 days=1111111
 
+2026-01-29=false
 2026-01-27=false
 2026-01-24=true
 2026-01-23=true
