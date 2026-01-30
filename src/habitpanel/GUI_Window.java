@@ -89,6 +89,31 @@ public class GUI_Window extends javax.swing.JFrame {
         // Main Frame Code:
         this.setLayout(null);  // Setting the layout to null, so that we can use the set location without issues
         
+        
+        // Setting up navigation panel code:
+        navigationPanel.remove(settingsButton);
+        navigationPanel.remove(addHabitButton);
+        navigationPanel.remove(homeButton);
+        navigationPanel.remove(editHabitButton);
+        navigationPanel.remove(progressButton);
+        settingsButton = new NavigationButton(NavigationButton.Type.SETTINGS, settingsButton.getX(), settingsButton.getY(), settingsButton.getWidth(), settingsButton.getHeight());
+        addHabitButton = new NavigationButton(NavigationButton.Type.ADD, addHabitButton.getX(), addHabitButton.getY(), addHabitButton.getWidth(), addHabitButton.getHeight());
+        homeButton = new NavigationButton(NavigationButton.Type.HOME, homeButton.getX(), homeButton.getY(), homeButton.getWidth(), homeButton.getHeight());
+        editHabitButton = new NavigationButton(NavigationButton.Type.EDIT, editHabitButton.getX(), editHabitButton.getY(), editHabitButton.getWidth(), editHabitButton.getHeight());
+        progressButton = new NavigationButton(NavigationButton.Type.PROGRESS, progressButton.getX(), progressButton.getY(), progressButton.getWidth(), progressButton.getHeight());
+        settingsButton.addMouseListener(new MouseAdapter() { @Override public void mouseClicked(MouseEvent e) {settingsButtonClicked();}});
+        addHabitButton.addMouseListener(new MouseAdapter() { @Override public void mouseClicked(MouseEvent e) {addHabitButtonClicked();}});
+        homeButton.addMouseListener(new MouseAdapter()     { @Override public void mouseClicked(MouseEvent e) {homeButtonClicked();}});
+        editHabitButton.addMouseListener(new MouseAdapter(){ @Override public void mouseClicked(MouseEvent e) {editHabitButtonClicked();}});
+        progressButton.addMouseListener(new MouseAdapter() { @Override public void mouseClicked(MouseEvent e) {progressButtonClicked();}});
+        navigationPanel.add(settingsButton);
+        navigationPanel.add(addHabitButton);
+        navigationPanel.add(homeButton);
+        navigationPanel.add(editHabitButton);
+        navigationPanel.add(progressButton);
+        
+        
+        
         // Settings Panel Code:
         screenSaver_again = screensaverPanel; // Saving the progress again into another location because of foward refrence in timer
         s_awayFromScreen.setText(Integer.toString(AWAY_FROM_SCREEN_TIME/60) + " Minute(s)");          // Setting the away from screen time
@@ -250,11 +275,11 @@ public class GUI_Window extends javax.swing.JFrame {
     private void initComponents() {
 
         navigationPanel = new javax.swing.JPanel();
-        settingsButton = new javax.swing.JButton();
-        addHabitButton = new javax.swing.JButton();
-        homeButton = new javax.swing.JButton();
-        editHabitButton = new javax.swing.JButton();
-        progressButton = new javax.swing.JButton();
+        settingsButton = new javax.swing.JPanel();
+        addHabitButton = new javax.swing.JPanel();
+        homeButton = new javax.swing.JPanel();
+        editHabitButton = new javax.swing.JPanel();
+        progressButton = new javax.swing.JPanel();
         navSelector = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
         s_title = new javax.swing.JLabel();
@@ -527,88 +552,88 @@ public class GUI_Window extends javax.swing.JFrame {
         navigationPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
         navigationPanel.setLayout(null);
 
-        settingsButton.setBackground(new java.awt.Color(193, 144, 69));
-        settingsButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        settingsButton.setForeground(java.awt.Color.white);
-        settingsButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/settingsIcon.png"))); // NOI18N
-        settingsButton.setBorder(null);
-        settingsButton.setContentAreaFilled(false);
-        settingsButton.setFocusPainted(false);
-        settingsButton.setFocusable(false);
-        settingsButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                settingsButtonMouseClicked(evt);
-            }
-        });
+        settingsButton.setBackground(new java.awt.Color(156, 183, 133));
+
+        javax.swing.GroupLayout settingsButtonLayout = new javax.swing.GroupLayout(settingsButton);
+        settingsButton.setLayout(settingsButtonLayout);
+        settingsButtonLayout.setHorizontalGroup(
+            settingsButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        settingsButtonLayout.setVerticalGroup(
+            settingsButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
         navigationPanel.add(settingsButton);
-        settingsButton.setBounds(0, 0, 68, 120);
+        settingsButton.setBounds(4, 0, 60, 120);
 
-        addHabitButton.setBackground(new java.awt.Color(193, 144, 69));
-        addHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        addHabitButton.setForeground(java.awt.Color.white);
-        addHabitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/addIcon.png"))); // NOI18N
-        addHabitButton.setToolTipText("");
-        addHabitButton.setBorder(null);
-        addHabitButton.setContentAreaFilled(false);
-        addHabitButton.setFocusPainted(false);
-        addHabitButton.setFocusable(false);
-        addHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                addHabitButtonMouseClicked(evt);
-            }
-        });
+        addHabitButton.setBackground(new java.awt.Color(156, 183, 133));
+
+        javax.swing.GroupLayout addHabitButtonLayout = new javax.swing.GroupLayout(addHabitButton);
+        addHabitButton.setLayout(addHabitButtonLayout);
+        addHabitButtonLayout.setHorizontalGroup(
+            addHabitButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        addHabitButtonLayout.setVerticalGroup(
+            addHabitButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
         navigationPanel.add(addHabitButton);
-        addHabitButton.setBounds(0, 120, 68, 120);
+        addHabitButton.setBounds(4, 120, 60, 120);
 
-        homeButton.setBackground(new java.awt.Color(193, 144, 69));
-        homeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/homeIcon.png"))); // NOI18N
-        homeButton.setBorder(null);
-        homeButton.setContentAreaFilled(false);
-        homeButton.setFocusPainted(false);
-        homeButton.setFocusable(false);
-        homeButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                homeButtonMouseClicked(evt);
-            }
-        });
+        homeButton.setBackground(new java.awt.Color(156, 183, 133));
+
+        javax.swing.GroupLayout homeButtonLayout = new javax.swing.GroupLayout(homeButton);
+        homeButton.setLayout(homeButtonLayout);
+        homeButtonLayout.setHorizontalGroup(
+            homeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        homeButtonLayout.setVerticalGroup(
+            homeButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
         navigationPanel.add(homeButton);
-        homeButton.setBounds(0, 240, 68, 120);
+        homeButton.setBounds(4, 240, 60, 120);
 
-        editHabitButton.setBackground(new java.awt.Color(193, 144, 69));
-        editHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        editHabitButton.setForeground(java.awt.Color.white);
-        editHabitButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/editIcon.png"))); // NOI18N
-        editHabitButton.setToolTipText("");
-        editHabitButton.setBorder(null);
-        editHabitButton.setContentAreaFilled(false);
-        editHabitButton.setFocusPainted(false);
-        editHabitButton.setFocusable(false);
-        editHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                editHabitButtonMouseClicked(evt);
-            }
-        });
+        editHabitButton.setBackground(new java.awt.Color(156, 183, 133));
+
+        javax.swing.GroupLayout editHabitButtonLayout = new javax.swing.GroupLayout(editHabitButton);
+        editHabitButton.setLayout(editHabitButtonLayout);
+        editHabitButtonLayout.setHorizontalGroup(
+            editHabitButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        editHabitButtonLayout.setVerticalGroup(
+            editHabitButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
         navigationPanel.add(editHabitButton);
-        editHabitButton.setBounds(0, 360, 68, 120);
+        editHabitButton.setBounds(4, 360, 60, 120);
 
-        progressButton.setBackground(new java.awt.Color(193, 144, 69));
-        progressButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        progressButton.setForeground(java.awt.Color.white);
-        progressButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/progressIcon.png"))); // NOI18N
-        progressButton.setToolTipText("");
-        progressButton.setBorder(null);
-        progressButton.setContentAreaFilled(false);
-        progressButton.setFocusPainted(false);
-        progressButton.setFocusable(false);
-        progressButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                progressButtonMouseClicked(evt);
-            }
-        });
+        progressButton.setBackground(new java.awt.Color(156, 183, 133));
+
+        javax.swing.GroupLayout progressButtonLayout = new javax.swing.GroupLayout(progressButton);
+        progressButton.setLayout(progressButtonLayout);
+        progressButtonLayout.setHorizontalGroup(
+            progressButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 60, Short.MAX_VALUE)
+        );
+        progressButtonLayout.setVerticalGroup(
+            progressButtonLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 120, Short.MAX_VALUE)
+        );
+
         navigationPanel.add(progressButton);
-        progressButton.setBounds(0, 480, 68, 120);
+        progressButton.setBounds(4, 480, 60, 120);
 
         navSelector.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        navSelector.setOpaque(false);
 
         javax.swing.GroupLayout navSelectorLayout = new javax.swing.GroupLayout(navSelector);
         navSelector.setLayout(navSelectorLayout);
@@ -4039,31 +4064,12 @@ public class GUI_Window extends javax.swing.JFrame {
         }
     }
     
+   
+    
     
     // =================================================================================================================================
-    // ================== [ NAVIGATION PANEL FUNCTIONS ] ===============================================================================
+    // ================== [ NAVIGATIONS FUNCTIONS ] ====================================================================================
     // =================================================================================================================================
-    
-    private void homeButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_homeButtonMouseClicked
-        switchFrame(home);
-    }//GEN-LAST:event_homeButtonMouseClicked
-    
-    private void settingsButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_settingsButtonMouseClicked
-        switchFrame(settings); // Swtich to the settings frame
-    }//GEN-LAST:event_settingsButtonMouseClicked
-
-    private void addHabitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_addHabitButtonMouseClicked
-        switchFrame(addHabit);
-    }//GEN-LAST:event_addHabitButtonMouseClicked
-
-    private void editHabitButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_editHabitButtonMouseClicked
-        switchFrame(editHabit);
-    }//GEN-LAST:event_editHabitButtonMouseClicked
-
-    private void progressButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_progressButtonMouseClicked
-        switchFrame(progress); // Swtich to the progress frame
-    }//GEN-LAST:event_progressButtonMouseClicked
-
     int navTargetY = 3;
     int navSelectorStep = 20; // Make sure this is divisible by 100 (the size of each icon
     Timer navSelectorTimer = new Timer(10,e->{
@@ -4079,7 +4085,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
     });
     
-    private void moveNavSelector(JButton target){
+    private void moveNavSelector(JPanel target){
         if(navSelectorTimer.isRunning())
             navSelectorTimer.stop();
         
@@ -4088,6 +4094,11 @@ public class GUI_Window extends javax.swing.JFrame {
     }
     
     
+    private void settingsButtonClicked(){switchFrame(settings);}
+    private void addHabitButtonClicked(){switchFrame(addHabit);}
+    private void homeButtonClicked(){switchFrame(home);}
+    private void editHabitButtonClicked(){switchFrame(editHabit);}
+    private void progressButtonClicked(){switchFrame(progress);}
     
     
     // =================================================================================================================================
@@ -6446,7 +6457,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel addHabit;
-    private javax.swing.JButton addHabitButton;
+    private javax.swing.JPanel addHabitButton;
     private javax.swing.JPanel ah_CardPanel;
     private javax.swing.JButton ah_ChooseColorButton;
     private javax.swing.JPanel ah_ColorDisplay;
@@ -6493,7 +6504,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JLabel ah_YesButton;
     private javax.swing.JLabel ah_title;
     private javax.swing.JPanel editHabit;
-    private javax.swing.JButton editHabitButton;
+    private javax.swing.JPanel editHabitButton;
     private javax.swing.JToggleButton eh_Friday;
     private javax.swing.JToggleButton eh_IncrementOne;
     private javax.swing.JToggleButton eh_IncrementPointFive;
@@ -6607,7 +6618,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JScrollPane h_scrollPane;
     private javax.swing.JPanel h_scrollUpPanel;
     private javax.swing.JPanel home;
-    private javax.swing.JButton homeButton;
+    private javax.swing.JPanel homeButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -6673,7 +6684,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JPanel p_tableRightScrollButton;
     private javax.swing.JScrollPane p_tableScrollPane;
     private javax.swing.JPanel progress;
-    private javax.swing.JButton progressButton;
+    private javax.swing.JPanel progressButton;
     private javax.swing.JLabel s_awayFromScreen;
     private javax.swing.JButton s_awayFromScreenButton;
     private javax.swing.JSpinner s_awayFromScreenInput;
@@ -6707,7 +6718,7 @@ public class GUI_Window extends javax.swing.JFrame {
     public javax.swing.JPanel screensaverTodaysProgressDisplay;
     private javax.swing.JLabel screensaverTodaysProgressTitle;
     private javax.swing.JPanel settings;
-    private javax.swing.JButton settingsButton;
+    private javax.swing.JPanel settingsButton;
     public javax.swing.JLabel skylinePanel1;
     public javax.swing.JLabel skylinePanel2;
     public javax.swing.JLabel skylinePanel3;
