@@ -3569,8 +3569,6 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // COLLECTING ALL PANELS, BUTTONS, AND LABELS
         JPanel primaryColored[] = {
-            // HOME SCREEN:
-            
             // SETTINGS SCREEN:
             s_colorsPanel, s_customScreensaverPanel, s_awayFromScreenPanel, s_connectionPanel,
             // PROGRESS SCREEN:
@@ -3700,7 +3698,19 @@ public class GUI_Window extends javax.swing.JFrame {
         // MISC. PAINTING CALLS : ==============================================================================
         // NAVIGATION:  Painting the navSelectorPanel so that it can be a different color
         navSelector.setBackground(PRIMARY_COLOR);
-        navigationPanel.setBackground(darkenColor(PRIMARY_COLOR));
+        navigationPanel.setBackground(PRIMARY_COLOR);
+        
+        settingsButton.setBackground(PRIMARY_COLOR);
+        addHabitButton.setBackground(darkenColor(PRIMARY_COLOR));
+        homeButton.setBackground(darkenColor(PRIMARY_COLOR));
+        editHabitButton.setBackground(darkenColor(PRIMARY_COLOR));
+        progressButton.setBackground(darkenColor(PRIMARY_COLOR));
+        
+        settingsButton.setForeground(darkenColor(TEXT_COLOR));
+        addHabitButton.setForeground(darkenColor(TEXT_COLOR));
+        homeButton.setForeground(darkenColor(TEXT_COLOR));
+        editHabitButton.setForeground(darkenColor(TEXT_COLOR));
+        progressButton.setForeground(darkenColor(TEXT_COLOR));
 
         // HOME: Painting the backgrounds of the navigation buttons to the same primary color INSTEAD of the button color
         settingsButton.setBackground(PRIMARY_COLOR);
