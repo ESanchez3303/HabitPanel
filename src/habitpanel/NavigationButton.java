@@ -4,7 +4,6 @@ import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.geom.Path2D;
 import javax.swing.JPanel;
-import java.awt.Color;
 import java.awt.BasicStroke;
 
 
@@ -91,7 +90,26 @@ public class NavigationButton extends JPanel{
                     
                 }
                 case EDIT -> {
+                    // -- Outside Box --
+                    g2.drawRoundRect(boxX, boxY, boxW, boxH, 5, 5);
+                    
+                    // -- Edit Pencil Symbol Thing -- 
+                    int pointerDiff = 5;
+                    int shiftDownLeftDiff = 3;
                     Path2D shape = new Path2D.Double();
+                    shape.moveTo(boxX+boxW/2-shiftDownLeftDiff, boxY+boxH/2+shiftDownLeftDiff);
+                    shape.lineTo(shape.getCurrentPoint().getX(), shape.getCurrentPoint().getY()-pointerDiff);
+                    shape.lineTo(boxX+boxW, boxY-pointerDiff);
+                    shape.lineTo(boxX+boxW+pointerDiff, boxY);
+                    shape.lineTo(boxX+boxW/2-shiftDownLeftDiff+pointerDiff, boxY+boxH/2+shiftDownLeftDiff);
+                    shape.lineTo(boxX+boxW/2-shiftDownLeftDiff, boxY+boxH/2+shiftDownLeftDiff);
+                    shape.closePath();
+                    
+                    g2.setStroke(new BasicStroke(lineThickness-2));
+                    g2.setColor(getBackground());
+                    g2.fill(shape);
+                    g2.setColor(getForeground());
+                    g2.draw(shape);
                 }
                 case PROGRESS -> {
                     // -- Outside Box -- 

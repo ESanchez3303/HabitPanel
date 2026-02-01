@@ -164,6 +164,9 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_chooseHabitPanel.add(eh_scrollDownPanel);
         
         
+        // Setting up the add habit panel
+        ah_NamePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 20));
+        
         
         // Setting up the screensaver
         screensaver.setUp(this, screensaverPanel); 
@@ -281,6 +284,53 @@ public class GUI_Window extends javax.swing.JFrame {
         editHabitButton = new javax.swing.JPanel();
         progressButton = new javax.swing.JPanel();
         navSelector = new javax.swing.JPanel();
+        addHabit = new javax.swing.JPanel();
+        ah_title = new javax.swing.JLabel();
+        ah_NamePanel = new javax.swing.JPanel();
+        ah_TopPanelText = new javax.swing.JLabel();
+        h_addHabitName = new javax.swing.JTextField();
+        ah_TopPanelText1 = new javax.swing.JLabel();
+        ah_YesButton = new javax.swing.JLabel();
+        ah_NoButton = new javax.swing.JLabel();
+        ah_ChooseColorButton = new javax.swing.JButton();
+        ah_ColorDisplay = new javax.swing.JPanel();
+        ah_DaysPanel = new javax.swing.JPanel();
+        ah_DaysText = new javax.swing.JLabel();
+        ah_SaveDaysButton = new javax.swing.JButton();
+        ah_Sunday = new javax.swing.JToggleButton();
+        ah_Monday = new javax.swing.JToggleButton();
+        ah_Tuesday = new javax.swing.JToggleButton();
+        ah_Wednesday = new javax.swing.JToggleButton();
+        ah_Thursday = new javax.swing.JToggleButton();
+        ah_Friday = new javax.swing.JToggleButton();
+        ah_Saturday = new javax.swing.JToggleButton();
+        ah_QuantityPanel = new javax.swing.JPanel();
+        ah_QuantityPanelText = new javax.swing.JLabel();
+        ah_QuantityPanelText2 = new javax.swing.JLabel();
+        ah_QuantityIncrementPanel = new javax.swing.JPanel();
+        ah_IncrementPointOne = new javax.swing.JToggleButton();
+        ah_IncrementPointFive = new javax.swing.JToggleButton();
+        ah_IncrementOne = new javax.swing.JToggleButton();
+        ah_QuantitySaveButton = new javax.swing.JButton();
+        ah_QuantityGoal = new javax.swing.JLabel();
+        ah_QuantityDecrease = new javax.swing.JButton();
+        ah_QuantityIncrease = new javax.swing.JButton();
+        ah_ResetButton = new javax.swing.JButton();
+        ah_SummaryPanel = new javax.swing.JPanel();
+        ah_SummaryName = new javax.swing.JLabel();
+        ah_SummaryText1 = new javax.swing.JLabel();
+        ah_SummaryText3 = new javax.swing.JLabel();
+        ah_SummaryQuantity = new javax.swing.JLabel();
+        ah_SummaryDays = new javax.swing.JLabel();
+        ah_SummaryText6 = new javax.swing.JLabel();
+        ah_SummaryIncrement = new javax.swing.JLabel();
+        ah_SummaryText4 = new javax.swing.JLabel();
+        ah_SummaryText5 = new javax.swing.JLabel();
+        ah_SummaryGoal = new javax.swing.JLabel();
+        ah_SummaryText2 = new javax.swing.JLabel();
+        ah_SummaryColor = new javax.swing.JLabel();
+        ah_SaveButton = new javax.swing.JLabel();
+        ah_CardPanel = new javax.swing.JPanel();
         settings = new javax.swing.JPanel();
         s_title = new javax.swing.JLabel();
         s_colorsPanel = new javax.swing.JPanel();
@@ -464,53 +514,6 @@ public class GUI_Window extends javax.swing.JFrame {
         h_savingFilesText = new javax.swing.JLabel();
         h_date = new javax.swing.JLabel();
         h_noHabitsPanel = new javax.swing.JLabel();
-        addHabit = new javax.swing.JPanel();
-        ah_title = new javax.swing.JLabel();
-        ah_NamePanel = new javax.swing.JPanel();
-        ah_TopPanelText = new javax.swing.JLabel();
-        h_addHabitName = new javax.swing.JTextField();
-        ah_TopPanelText1 = new javax.swing.JLabel();
-        ah_YesButton = new javax.swing.JLabel();
-        ah_NoButton = new javax.swing.JLabel();
-        ah_ChooseColorButton = new javax.swing.JButton();
-        ah_ColorDisplay = new javax.swing.JPanel();
-        ah_DaysPanel = new javax.swing.JPanel();
-        ah_DaysText = new javax.swing.JLabel();
-        ah_SaveDaysButton = new javax.swing.JButton();
-        ah_Sunday = new javax.swing.JToggleButton();
-        ah_Monday = new javax.swing.JToggleButton();
-        ah_Tuesday = new javax.swing.JToggleButton();
-        ah_Wednesday = new javax.swing.JToggleButton();
-        ah_Thursday = new javax.swing.JToggleButton();
-        ah_Friday = new javax.swing.JToggleButton();
-        ah_Saturday = new javax.swing.JToggleButton();
-        ah_QuantityPanel = new javax.swing.JPanel();
-        ah_QuantityPanelText = new javax.swing.JLabel();
-        ah_QuantityPanelText2 = new javax.swing.JLabel();
-        ah_QuantityIncrementPanel = new javax.swing.JPanel();
-        ah_IncrementPointOne = new javax.swing.JToggleButton();
-        ah_IncrementPointFive = new javax.swing.JToggleButton();
-        ah_IncrementOne = new javax.swing.JToggleButton();
-        ah_QuantitySaveButton = new javax.swing.JButton();
-        ah_QuantityGoal = new javax.swing.JLabel();
-        ah_QuantityDecrease = new javax.swing.JButton();
-        ah_QuantityIncrease = new javax.swing.JButton();
-        ah_ResetButton = new javax.swing.JButton();
-        ah_SummaryPanel = new javax.swing.JPanel();
-        ah_SummaryName = new javax.swing.JLabel();
-        ah_SummaryText1 = new javax.swing.JLabel();
-        ah_SummaryText3 = new javax.swing.JLabel();
-        ah_SummaryQuantity = new javax.swing.JLabel();
-        ah_SummaryDays = new javax.swing.JLabel();
-        ah_SummaryText6 = new javax.swing.JLabel();
-        ah_SummaryIncrement = new javax.swing.JLabel();
-        ah_SummaryText4 = new javax.swing.JLabel();
-        ah_SummaryText5 = new javax.swing.JLabel();
-        ah_SummaryGoal = new javax.swing.JLabel();
-        ah_SummaryText2 = new javax.swing.JLabel();
-        ah_SummaryColor = new javax.swing.JLabel();
-        ah_SaveButton = new javax.swing.JLabel();
-        ah_CardPanel = new javax.swing.JPanel();
         keyboard = new javax.swing.JPanel();
         key1 = new javax.swing.JButton();
         key2 = new javax.swing.JButton();
@@ -650,6 +653,378 @@ public class GUI_Window extends javax.swing.JFrame {
         navSelector.setBounds(3, 3, 63, 115);
 
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
+
+        addHabit.setBackground(new java.awt.Color(181, 181, 181));
+        addHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ah_title.setBackground(new java.awt.Color(156, 183, 133));
+        ah_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        ah_title.setForeground(java.awt.Color.white);
+        ah_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_title.setText("Add New Habit");
+        ah_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        ah_title.setOpaque(true);
+        addHabit.add(ah_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
+
+        ah_NamePanel.setBackground(new java.awt.Color(156, 183, 133));
+        ah_NamePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_NamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ah_TopPanelText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_TopPanelText.setForeground(java.awt.Color.white);
+        ah_TopPanelText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ah_TopPanelText.setText("Habit Name:");
+        ah_NamePanel.add(ah_TopPanelText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, 30));
+
+        h_addHabitName.setBackground(java.awt.Color.white);
+        h_addHabitName.setForeground(java.awt.Color.black);
+        h_addHabitName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        ah_NamePanel.add(h_addHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 220, 30));
+
+        ah_TopPanelText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_TopPanelText1.setForeground(java.awt.Color.white);
+        ah_TopPanelText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_TopPanelText1.setText("Will This Habit Have a Quantity?");
+        ah_NamePanel.add(ah_TopPanelText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 360, 20));
+
+        ah_YesButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_YesButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ah_YesButton.setForeground(java.awt.Color.white);
+        ah_YesButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_YesButton.setText("Yes");
+        ah_YesButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_YesButton.setOpaque(true);
+        ah_YesButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_YesButtonMouseClicked(evt);
+            }
+        });
+        ah_NamePanel.add(ah_YesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 150, 30));
+
+        ah_NoButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_NoButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ah_NoButton.setForeground(java.awt.Color.white);
+        ah_NoButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_NoButton.setText("No");
+        ah_NoButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_NoButton.setOpaque(true);
+        ah_NoButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_NoButtonMouseClicked(evt);
+            }
+        });
+        ah_NamePanel.add(ah_NoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 150, 30));
+
+        ah_ChooseColorButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_ChooseColorButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_ChooseColorButton.setForeground(java.awt.Color.white);
+        ah_ChooseColorButton.setText("Choose a Color");
+        ah_ChooseColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_ChooseColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_ChooseColorButtonMouseClicked(evt);
+            }
+        });
+        ah_NamePanel.add(ah_ChooseColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 190, 30));
+
+        ah_ColorDisplay.setBackground(java.awt.Color.white);
+        ah_ColorDisplay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
+
+        javax.swing.GroupLayout ah_ColorDisplayLayout = new javax.swing.GroupLayout(ah_ColorDisplay);
+        ah_ColorDisplay.setLayout(ah_ColorDisplayLayout);
+        ah_ColorDisplayLayout.setHorizontalGroup(
+            ah_ColorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        ah_ColorDisplayLayout.setVerticalGroup(
+            ah_ColorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 26, Short.MAX_VALUE)
+        );
+
+        ah_NamePanel.add(ah_ColorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 140, 30));
+
+        addHabit.add(ah_NamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 390, 190));
+
+        ah_DaysPanel.setBackground(new java.awt.Color(156, 183, 133));
+        ah_DaysPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ah_DaysText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_DaysText.setForeground(java.awt.Color.white);
+        ah_DaysText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_DaysText.setText("Choose The Days For This Habit");
+        ah_DaysPanel.add(ah_DaysText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 40));
+
+        ah_SaveDaysButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_SaveDaysButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SaveDaysButton.setForeground(java.awt.Color.white);
+        ah_SaveDaysButton.setText("Save Days");
+        ah_SaveDaysButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_SaveDaysButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_SaveDaysButtonMouseClicked(evt);
+            }
+        });
+        ah_DaysPanel.add(ah_SaveDaysButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 400, 30));
+
+        ah_Sunday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Sunday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Sunday.setForeground(java.awt.Color.white);
+        ah_Sunday.setText("Sunday");
+        ah_Sunday.setToolTipText("");
+        ah_Sunday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Sunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 90, 50));
+
+        ah_Monday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Monday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Monday.setForeground(java.awt.Color.white);
+        ah_Monday.setText("Monday");
+        ah_Monday.setToolTipText("");
+        ah_Monday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Monday, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 90, 50));
+
+        ah_Tuesday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Tuesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Tuesday.setForeground(java.awt.Color.white);
+        ah_Tuesday.setText("Tuesday");
+        ah_Tuesday.setToolTipText("");
+        ah_Tuesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Tuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 90, 50));
+
+        ah_Wednesday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Wednesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Wednesday.setForeground(java.awt.Color.white);
+        ah_Wednesday.setText("Wednesday");
+        ah_Wednesday.setToolTipText("");
+        ah_Wednesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Wednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 90, 50));
+
+        ah_Thursday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Thursday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Thursday.setForeground(java.awt.Color.white);
+        ah_Thursday.setText("Thursday");
+        ah_Thursday.setToolTipText("");
+        ah_Thursday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Thursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 90, 50));
+
+        ah_Friday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Friday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Friday.setForeground(java.awt.Color.white);
+        ah_Friday.setText("Friday");
+        ah_Friday.setToolTipText("");
+        ah_Friday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Friday, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 90, 50));
+
+        ah_Saturday.setBackground(new java.awt.Color(128, 161, 98));
+        ah_Saturday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_Saturday.setForeground(java.awt.Color.white);
+        ah_Saturday.setText("Saturday");
+        ah_Saturday.setToolTipText("");
+        ah_Saturday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.add(ah_Saturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 90, 50));
+
+        addHabit.add(ah_DaysPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 450, 210));
+
+        ah_QuantityPanel.setBackground(new java.awt.Color(156, 183, 133));
+        ah_QuantityPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ah_QuantityPanelText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_QuantityPanelText.setForeground(java.awt.Color.white);
+        ah_QuantityPanelText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ah_QuantityPanelText.setText("Goal To Reach:");
+        ah_QuantityPanel.add(ah_QuantityPanelText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 140, 40));
+
+        ah_QuantityPanelText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_QuantityPanelText2.setForeground(java.awt.Color.white);
+        ah_QuantityPanelText2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        ah_QuantityPanelText2.setText("Increment:");
+        ah_QuantityPanelText2.setToolTipText("");
+        ah_QuantityPanel.add(ah_QuantityPanelText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 140, 40));
+
+        ah_QuantityIncrementPanel.setOpaque(false);
+        ah_QuantityIncrementPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ah_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
+        ah_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ah_IncrementPointOne.setForeground(java.awt.Color.white);
+        ah_IncrementPointOne.setText("+0.1");
+        ah_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityIncrementPanel.add(ah_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 80, 40));
+
+        ah_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
+        ah_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ah_IncrementPointFive.setForeground(java.awt.Color.white);
+        ah_IncrementPointFive.setText("+0.5");
+        ah_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityIncrementPanel.add(ah_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 80, 40));
+
+        ah_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
+        ah_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        ah_IncrementOne.setForeground(java.awt.Color.white);
+        ah_IncrementOne.setText("+1");
+        ah_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityIncrementPanel.add(ah_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 0, 80, 40));
+
+        ah_QuantityPanel.add(ah_QuantityIncrementPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 280, 40));
+
+        ah_QuantitySaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_QuantitySaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_QuantitySaveButton.setForeground(java.awt.Color.white);
+        ah_QuantitySaveButton.setText("Save Settings");
+        ah_QuantitySaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantitySaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_QuantitySaveButtonMouseClicked(evt);
+            }
+        });
+        ah_QuantityPanel.add(ah_QuantitySaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 440, 50));
+
+        ah_QuantityGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_QuantityGoal.setForeground(java.awt.Color.white);
+        ah_QuantityGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_QuantityGoal.setText("9999");
+        ah_QuantityPanel.add(ah_QuantityGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 80, 40));
+
+        ah_QuantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
+        ah_QuantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ah_QuantityDecrease.setForeground(java.awt.Color.white);
+        ah_QuantityDecrease.setText("-");
+        ah_QuantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_QuantityDecreaseMouseClicked(evt);
+            }
+        });
+        ah_QuantityPanel.add(ah_QuantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 50, 40));
+
+        ah_QuantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
+        ah_QuantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ah_QuantityIncrease.setForeground(java.awt.Color.white);
+        ah_QuantityIncrease.setText("+");
+        ah_QuantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_QuantityDecreaseMouseClicked(evt);
+            }
+        });
+        ah_QuantityPanel.add(ah_QuantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 80, 50, 40));
+
+        addHabit.add(ah_QuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 460, 210));
+
+        ah_ResetButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_ResetButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_ResetButton.setForeground(java.awt.Color.white);
+        ah_ResetButton.setText("Reset Habit");
+        ah_ResetButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_ResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_ResetButtonMouseClicked(evt);
+            }
+        });
+        addHabit.add(ah_ResetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 270, 40));
+
+        ah_SummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
+        ah_SummaryPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_SummaryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        ah_SummaryName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryName.setForeground(java.awt.Color.white);
+        ah_SummaryName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SummaryName.setText("ppppppppppppppppk");
+        ah_SummaryPanel.add(ah_SummaryName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 175, 30));
+
+        ah_SummaryText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryText1.setForeground(java.awt.Color.white);
+        ah_SummaryText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ah_SummaryText1.setText("Name:");
+        ah_SummaryPanel.add(ah_SummaryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 75, 30));
+
+        ah_SummaryText3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryText3.setForeground(java.awt.Color.white);
+        ah_SummaryText3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ah_SummaryText3.setText("Quantity:");
+        ah_SummaryPanel.add(ah_SummaryText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 75, 75, 30));
+
+        ah_SummaryQuantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryQuantity.setForeground(java.awt.Color.white);
+        ah_SummaryQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SummaryQuantity.setText("Yes/No");
+        ah_SummaryPanel.add(ah_SummaryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 75, 175, 30));
+
+        ah_SummaryDays.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryDays.setForeground(java.awt.Color.white);
+        ah_SummaryDays.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SummaryDays.setText("M/T/W/Th/F/S/Su");
+        ah_SummaryPanel.add(ah_SummaryDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 165, 175, 30));
+
+        ah_SummaryText6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryText6.setForeground(java.awt.Color.white);
+        ah_SummaryText6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ah_SummaryText6.setText("Days:");
+        ah_SummaryPanel.add(ah_SummaryText6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 165, 75, 30));
+
+        ah_SummaryIncrement.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryIncrement.setForeground(java.awt.Color.white);
+        ah_SummaryIncrement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SummaryIncrement.setText("+1");
+        ah_SummaryPanel.add(ah_SummaryIncrement, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 175, 30));
+
+        ah_SummaryText4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryText4.setForeground(java.awt.Color.white);
+        ah_SummaryText4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ah_SummaryText4.setText("Increment:");
+        ah_SummaryPanel.add(ah_SummaryText4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 105, 75, 30));
+
+        ah_SummaryText5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryText5.setForeground(java.awt.Color.white);
+        ah_SummaryText5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ah_SummaryText5.setText("Goal:");
+        ah_SummaryPanel.add(ah_SummaryText5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 75, 30));
+
+        ah_SummaryGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryGoal.setForeground(java.awt.Color.white);
+        ah_SummaryGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SummaryGoal.setText("9999");
+        ah_SummaryPanel.add(ah_SummaryGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 135, 175, 30));
+
+        ah_SummaryText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryText2.setForeground(java.awt.Color.white);
+        ah_SummaryText2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        ah_SummaryText2.setText("Color:");
+        ah_SummaryPanel.add(ah_SummaryText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 75, 30));
+
+        ah_SummaryColor.setBackground(java.awt.Color.white);
+        ah_SummaryColor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ah_SummaryColor.setForeground(java.awt.Color.white);
+        ah_SummaryColor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SummaryColor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_SummaryColor.setOpaque(true);
+        ah_SummaryPanel.add(ah_SummaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 45, 175, 30));
+
+        addHabit.add(ah_SummaryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 270, 210));
+
+        ah_SaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        ah_SaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        ah_SaveButton.setForeground(java.awt.Color.white);
+        ah_SaveButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        ah_SaveButton.setText("Save Habit");
+        ah_SaveButton.setToolTipText("");
+        ah_SaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_SaveButton.setOpaque(true);
+        ah_SaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ah_SaveButtonMouseClicked(evt);
+            }
+        });
+        addHabit.add(ah_SaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 450, 40));
+
+        ah_CardPanel.setBackground(new java.awt.Color(156, 183, 133));
+        ah_CardPanel.setOpaque(false);
+        ah_CardPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
+        addHabit.add(ah_CardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 200, 200));
+
+        getContentPane().add(addHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         settings.setBackground(new java.awt.Color(204, 204, 204));
         settings.setMaximumSize(new java.awt.Dimension(1040, 600));
@@ -889,7 +1264,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
         s_awayFromScreenOption5.setForeground(java.awt.Color.white);
         s_awayFromScreenOption5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        s_awayFromScreenOption5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/overallProgressScreensaver.jpg"))); // NOI18N
+        s_awayFromScreenOption5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/overallProgressScreensaver.png"))); // NOI18N
         s_awayFromScreenOption5.setToolTipText("");
         s_awayFromScreenOption5.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         s_awayFromScreenOption5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
@@ -904,7 +1279,6 @@ public class GUI_Window extends javax.swing.JFrame {
         s_awayFromScreenOption6.setBackground(java.awt.Color.black);
         s_awayFromScreenOption6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/habitpanel/clockScreensaver.png"))); // NOI18N
         s_awayFromScreenOption6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        s_awayFromScreenOption6.setOpaque(true);
         s_awayFromScreenOption6.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 awayFromScreenOptionClicked(evt);
@@ -2341,378 +2715,6 @@ public class GUI_Window extends javax.swing.JFrame {
         h_noHabitsPanel.setBounds(285, 200, 400, 200);
 
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
-        addHabit.setBackground(new java.awt.Color(181, 181, 181));
-        addHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ah_title.setBackground(new java.awt.Color(156, 183, 133));
-        ah_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        ah_title.setForeground(java.awt.Color.white);
-        ah_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_title.setText("Add New Habit");
-        ah_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        ah_title.setOpaque(true);
-        addHabit.add(ah_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
-
-        ah_NamePanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_NamePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_NamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ah_TopPanelText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_TopPanelText.setForeground(java.awt.Color.white);
-        ah_TopPanelText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        ah_TopPanelText.setText("Habit Name:");
-        ah_NamePanel.add(ah_TopPanelText, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 100, 30));
-
-        h_addHabitName.setBackground(java.awt.Color.white);
-        h_addHabitName.setForeground(java.awt.Color.black);
-        h_addHabitName.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        ah_NamePanel.add(h_addHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 220, 30));
-
-        ah_TopPanelText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_TopPanelText1.setForeground(java.awt.Color.white);
-        ah_TopPanelText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_TopPanelText1.setText("Will This Habit Have a Quantity?");
-        ah_NamePanel.add(ah_TopPanelText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 110, 360, 20));
-
-        ah_YesButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_YesButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ah_YesButton.setForeground(java.awt.Color.white);
-        ah_YesButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_YesButton.setText("Yes");
-        ah_YesButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_YesButton.setOpaque(true);
-        ah_YesButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_YesButtonMouseClicked(evt);
-            }
-        });
-        ah_NamePanel.add(ah_YesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, 150, 30));
-
-        ah_NoButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_NoButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ah_NoButton.setForeground(java.awt.Color.white);
-        ah_NoButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_NoButton.setText("No");
-        ah_NoButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_NoButton.setOpaque(true);
-        ah_NoButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_NoButtonMouseClicked(evt);
-            }
-        });
-        ah_NamePanel.add(ah_NoButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 140, 150, 30));
-
-        ah_ChooseColorButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_ChooseColorButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_ChooseColorButton.setForeground(java.awt.Color.white);
-        ah_ChooseColorButton.setText("Choose a Color");
-        ah_ChooseColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_ChooseColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_ChooseColorButtonMouseClicked(evt);
-            }
-        });
-        ah_NamePanel.add(ah_ChooseColorButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 70, 190, 30));
-
-        ah_ColorDisplay.setBackground(java.awt.Color.white);
-        ah_ColorDisplay.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 2));
-
-        javax.swing.GroupLayout ah_ColorDisplayLayout = new javax.swing.GroupLayout(ah_ColorDisplay);
-        ah_ColorDisplay.setLayout(ah_ColorDisplayLayout);
-        ah_ColorDisplayLayout.setHorizontalGroup(
-            ah_ColorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 0, Short.MAX_VALUE)
-        );
-        ah_ColorDisplayLayout.setVerticalGroup(
-            ah_ColorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 26, Short.MAX_VALUE)
-        );
-
-        ah_NamePanel.add(ah_ColorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 140, 30));
-
-        addHabit.add(ah_NamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 390, 190));
-
-        ah_DaysPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_DaysPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ah_DaysText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_DaysText.setForeground(java.awt.Color.white);
-        ah_DaysText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_DaysText.setText("Choose The Days For This Habit");
-        ah_DaysPanel.add(ah_DaysText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 40));
-
-        ah_SaveDaysButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_SaveDaysButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SaveDaysButton.setForeground(java.awt.Color.white);
-        ah_SaveDaysButton.setText("Save Days");
-        ah_SaveDaysButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_SaveDaysButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_SaveDaysButtonMouseClicked(evt);
-            }
-        });
-        ah_DaysPanel.add(ah_SaveDaysButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 400, 30));
-
-        ah_Sunday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Sunday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Sunday.setForeground(java.awt.Color.white);
-        ah_Sunday.setText("Sunday");
-        ah_Sunday.setToolTipText("");
-        ah_Sunday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Sunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 100, 90, 50));
-
-        ah_Monday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Monday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Monday.setForeground(java.awt.Color.white);
-        ah_Monday.setText("Monday");
-        ah_Monday.setToolTipText("");
-        ah_Monday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Monday, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 40, 90, 50));
-
-        ah_Tuesday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Tuesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Tuesday.setForeground(java.awt.Color.white);
-        ah_Tuesday.setText("Tuesday");
-        ah_Tuesday.setToolTipText("");
-        ah_Tuesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Tuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 40, 90, 50));
-
-        ah_Wednesday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Wednesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Wednesday.setForeground(java.awt.Color.white);
-        ah_Wednesday.setText("Wednesday");
-        ah_Wednesday.setToolTipText("");
-        ah_Wednesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Wednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 40, 90, 50));
-
-        ah_Thursday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Thursday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Thursday.setForeground(java.awt.Color.white);
-        ah_Thursday.setText("Thursday");
-        ah_Thursday.setToolTipText("");
-        ah_Thursday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Thursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 40, 90, 50));
-
-        ah_Friday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Friday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Friday.setForeground(java.awt.Color.white);
-        ah_Friday.setText("Friday");
-        ah_Friday.setToolTipText("");
-        ah_Friday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Friday, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 90, 50));
-
-        ah_Saturday.setBackground(new java.awt.Color(128, 161, 98));
-        ah_Saturday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_Saturday.setForeground(java.awt.Color.white);
-        ah_Saturday.setText("Saturday");
-        ah_Saturday.setToolTipText("");
-        ah_Saturday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_DaysPanel.add(ah_Saturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 100, 90, 50));
-
-        addHabit.add(ah_DaysPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 450, 210));
-
-        ah_QuantityPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_QuantityPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ah_QuantityPanelText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_QuantityPanelText.setForeground(java.awt.Color.white);
-        ah_QuantityPanelText.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        ah_QuantityPanelText.setText("Goal To Reach:");
-        ah_QuantityPanel.add(ah_QuantityPanelText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 80, 140, 40));
-
-        ah_QuantityPanelText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_QuantityPanelText2.setForeground(java.awt.Color.white);
-        ah_QuantityPanelText2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        ah_QuantityPanelText2.setText("Increment:");
-        ah_QuantityPanelText2.setToolTipText("");
-        ah_QuantityPanel.add(ah_QuantityPanelText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 140, 40));
-
-        ah_QuantityIncrementPanel.setOpaque(false);
-        ah_QuantityIncrementPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ah_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
-        ah_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        ah_IncrementPointOne.setForeground(java.awt.Color.white);
-        ah_IncrementPointOne.setText("+0.1");
-        ah_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantityIncrementPanel.add(ah_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 0, 80, 40));
-
-        ah_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
-        ah_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        ah_IncrementPointFive.setForeground(java.awt.Color.white);
-        ah_IncrementPointFive.setText("+0.5");
-        ah_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantityIncrementPanel.add(ah_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 80, 40));
-
-        ah_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
-        ah_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        ah_IncrementOne.setForeground(java.awt.Color.white);
-        ah_IncrementOne.setText("+1");
-        ah_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantityIncrementPanel.add(ah_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(185, 0, 80, 40));
-
-        ah_QuantityPanel.add(ah_QuantityIncrementPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 20, 280, 40));
-
-        ah_QuantitySaveButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_QuantitySaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_QuantitySaveButton.setForeground(java.awt.Color.white);
-        ah_QuantitySaveButton.setText("Save Settings");
-        ah_QuantitySaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantitySaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_QuantitySaveButtonMouseClicked(evt);
-            }
-        });
-        ah_QuantityPanel.add(ah_QuantitySaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 440, 50));
-
-        ah_QuantityGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_QuantityGoal.setForeground(java.awt.Color.white);
-        ah_QuantityGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_QuantityGoal.setText("9999");
-        ah_QuantityPanel.add(ah_QuantityGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 80, 80, 40));
-
-        ah_QuantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
-        ah_QuantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ah_QuantityDecrease.setForeground(java.awt.Color.white);
-        ah_QuantityDecrease.setText("-");
-        ah_QuantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_QuantityDecreaseMouseClicked(evt);
-            }
-        });
-        ah_QuantityPanel.add(ah_QuantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 80, 50, 40));
-
-        ah_QuantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
-        ah_QuantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ah_QuantityIncrease.setForeground(java.awt.Color.white);
-        ah_QuantityIncrease.setText("+");
-        ah_QuantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_QuantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_QuantityDecreaseMouseClicked(evt);
-            }
-        });
-        ah_QuantityPanel.add(ah_QuantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(355, 80, 50, 40));
-
-        addHabit.add(ah_QuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 460, 210));
-
-        ah_ResetButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_ResetButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_ResetButton.setForeground(java.awt.Color.white);
-        ah_ResetButton.setText("Reset Habit");
-        ah_ResetButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_ResetButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_ResetButtonMouseClicked(evt);
-            }
-        });
-        addHabit.add(ah_ResetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 270, 40));
-
-        ah_SummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_SummaryPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_SummaryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        ah_SummaryName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryName.setForeground(java.awt.Color.white);
-        ah_SummaryName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SummaryName.setText("ppppppppppppppppk");
-        ah_SummaryPanel.add(ah_SummaryName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 175, 30));
-
-        ah_SummaryText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryText1.setForeground(java.awt.Color.white);
-        ah_SummaryText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ah_SummaryText1.setText("Name:");
-        ah_SummaryPanel.add(ah_SummaryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 75, 30));
-
-        ah_SummaryText3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryText3.setForeground(java.awt.Color.white);
-        ah_SummaryText3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ah_SummaryText3.setText("Quantity:");
-        ah_SummaryPanel.add(ah_SummaryText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 75, 75, 30));
-
-        ah_SummaryQuantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryQuantity.setForeground(java.awt.Color.white);
-        ah_SummaryQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SummaryQuantity.setText("Yes/No");
-        ah_SummaryPanel.add(ah_SummaryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 75, 175, 30));
-
-        ah_SummaryDays.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryDays.setForeground(java.awt.Color.white);
-        ah_SummaryDays.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SummaryDays.setText("M/T/W/Th/F/S/Su");
-        ah_SummaryPanel.add(ah_SummaryDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 165, 175, 30));
-
-        ah_SummaryText6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryText6.setForeground(java.awt.Color.white);
-        ah_SummaryText6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ah_SummaryText6.setText("Days:");
-        ah_SummaryPanel.add(ah_SummaryText6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 165, 75, 30));
-
-        ah_SummaryIncrement.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryIncrement.setForeground(java.awt.Color.white);
-        ah_SummaryIncrement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SummaryIncrement.setText("+1");
-        ah_SummaryPanel.add(ah_SummaryIncrement, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 175, 30));
-
-        ah_SummaryText4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryText4.setForeground(java.awt.Color.white);
-        ah_SummaryText4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ah_SummaryText4.setText("Increment:");
-        ah_SummaryPanel.add(ah_SummaryText4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 105, 75, 30));
-
-        ah_SummaryText5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryText5.setForeground(java.awt.Color.white);
-        ah_SummaryText5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ah_SummaryText5.setText("Goal:");
-        ah_SummaryPanel.add(ah_SummaryText5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 75, 30));
-
-        ah_SummaryGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryGoal.setForeground(java.awt.Color.white);
-        ah_SummaryGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SummaryGoal.setText("9999");
-        ah_SummaryPanel.add(ah_SummaryGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 135, 175, 30));
-
-        ah_SummaryText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryText2.setForeground(java.awt.Color.white);
-        ah_SummaryText2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        ah_SummaryText2.setText("Color:");
-        ah_SummaryPanel.add(ah_SummaryText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 75, 30));
-
-        ah_SummaryColor.setBackground(java.awt.Color.white);
-        ah_SummaryColor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ah_SummaryColor.setForeground(java.awt.Color.white);
-        ah_SummaryColor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SummaryColor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_SummaryColor.setOpaque(true);
-        ah_SummaryPanel.add(ah_SummaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 45, 175, 30));
-
-        addHabit.add(ah_SummaryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 270, 210));
-
-        ah_SaveButton.setBackground(new java.awt.Color(128, 161, 98));
-        ah_SaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        ah_SaveButton.setForeground(java.awt.Color.white);
-        ah_SaveButton.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        ah_SaveButton.setText("Save Habit");
-        ah_SaveButton.setToolTipText("");
-        ah_SaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ah_SaveButton.setOpaque(true);
-        ah_SaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ah_SaveButtonMouseClicked(evt);
-            }
-        });
-        addHabit.add(ah_SaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 370, 450, 40));
-
-        ah_CardPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_CardPanel.setOpaque(false);
-        ah_CardPanel.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 0, 0));
-        addHabit.add(ah_CardPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 200, 200));
-
-        getContentPane().add(addHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         keyboard.setBackground(new java.awt.Color(156, 183, 133));
         keyboard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
