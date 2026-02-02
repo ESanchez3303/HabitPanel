@@ -57,10 +57,10 @@ public class GUI_Window extends javax.swing.JFrame {
     
     
     // CHANGING VARIABLES: ========================================
+    private ScreensaverManager screensaver = new ScreensaverManager();  // Holds the instance of the object that manages the screensaver
     private JTextField keyboardTarget = null;    // Holds where we are typing into 
     private JPanel screenSaver_again = null;     // Holds the settings panel for foward refrence
     private JPanel navSelectorAgain = null;      // Holds the navigation panel for foward refrence
-    private ScreensaverManager screensaver = new ScreensaverManager();  // Holds the instance of the object that manages the screensaver
     private int awayFromScreenCounter = 0;       // Keeps count from 0- AWAY_FROM_SCREEN_TIME
     private boolean awayIsOn = true;             // User can set this up through the settings to turn it off 
     private LocalDate todaysDate;                // Saving todays date so that we know when it changed
@@ -253,7 +253,10 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         // Painting the program
-        paintColors();         
+        paintColors();      
+        
+        // Move the navigation selector to the correct position
+        moveNavSelector(homeButton);
         
         // Switching to start in home frame
         switchFrame(home);         // Switching to the starting frame (home)
@@ -3110,6 +3113,11 @@ public class GUI_Window extends javax.swing.JFrame {
     // =================================================================================================================================
     // ================== [SWITCH FRAMES FUNCTION ] ===============================================================================
     // =================================================================================================================================
+    // Gets called everytime we need to switch frames:
+    //  -> Hides all tabs that are able to be shown
+    //  -> Handles timing and other functions that are done when switching from specific frames
+    //  -> Calls specific-to-frame functions to set up those functions
+    //  -> Shows the frame that was targeted
     private void switchFrame(JPanel target){
         // Hidding all other frames (and keyboard)
         keyboard.setVisible(false);
@@ -3130,7 +3138,6 @@ public class GUI_Window extends javax.swing.JFrame {
         
         // Frames specific instructions for setting up
         if(target == home){
-            moveNavSelector(homeButton); // Moving the navSelector to the correct position
             refreshHomeData();                   // Reloads data of habit cards using the two arrays we have of them
             
             h_scrollPane.getVerticalScrollBar().setValue(0); // Moving the scroll value to zero
@@ -3153,7 +3160,6 @@ public class GUI_Window extends javax.swing.JFrame {
             h_savingFilesText.setVisible(false);
         }
         else if(target == settings){
-            moveNavSelector(settingsButton); // Moving the navSelector to the correct position
             s_colorsPanel.setVisible(true);                // Showing the color panel
             s_customScreensaverPanel.setVisible(true);     // Showing the custom name panel
             s_connectionPanel.setVisible(true);            // Showing the connection panel
@@ -3177,15 +3183,12 @@ public class GUI_Window extends javax.swing.JFrame {
             }
         }
         else if(target == progress){
-            moveNavSelector(progressButton); // Moving the navSelector to the correct position
             setUpProgressScreen();
         }
         else if(target == addHabit){
-            moveNavSelector(addHabitButton); // Moving the navSelector to the correct position
             ah_ResetButtonMouseClicked(null); // Reset the addhabit panel
         }
         else if(target == editHabit){
-            moveNavSelector(editHabitButton); // Moving the navSelector to the correct position
             eh_resetPanel();
         }
         else if(target == screensaverPanel){
@@ -3221,6 +3224,7 @@ public class GUI_Window extends javax.swing.JFrame {
         }
     });
     
+    // "Public" reset-away-from-screen time function that can be called from inside the habitcard classes
     public void reseAwaytAway(){
         awayFromScreenCounter = 0; // This should alone "reset" the timer to start from the beginning of the counting
     }
@@ -4097,6 +4101,7 @@ public class GUI_Window extends javax.swing.JFrame {
 
     });
     
+    // Function to call when a side navigation button is clicked to move the "navigation selector" down/up to the correct position
     private void moveNavSelector(JPanel target){
         if(navSelectorTimer.isRunning())
             navSelectorTimer.stop();
@@ -4105,12 +4110,13 @@ public class GUI_Window extends javax.swing.JFrame {
         navSelectorTimer.start();
     }
     
+    // Functions that get called when the navigation buttons are clicked -> Switches the frame & moves the navigation selector
+    private void settingsButtonClicked() {switchFrame(settings);  moveNavSelector(settingsButton);}
+    private void addHabitButtonClicked() {switchFrame(addHabit);  moveNavSelector(addHabitButton);}
+    private void homeButtonClicked()     {switchFrame(home);      moveNavSelector(homeButton);}
+    private void editHabitButtonClicked(){switchFrame(editHabit); moveNavSelector(editHabitButton);}
+    private void progressButtonClicked() {switchFrame(progress);  moveNavSelector(progressButton);}
     
-    private void settingsButtonClicked(){switchFrame(settings);}
-    private void addHabitButtonClicked(){switchFrame(addHabit);}
-    private void homeButtonClicked(){switchFrame(home);}
-    private void editHabitButtonClicked(){switchFrame(editHabit);}
-    private void progressButtonClicked(){switchFrame(progress);}
     
     
     // =================================================================================================================================
@@ -4857,7 +4863,7 @@ public class GUI_Window extends javax.swing.JFrame {
     private String savedWeek = "";
     private String savedName = "";
     
-    
+    // === Functions for before the habit is chosen (setting up the view) ===
     private void makeEditHabitCard(String habitName, Color habitColor, int buttonW, int buttonH, int roundness, boolean isQuantityCard, double goal){
         // Making new button with custom painting
         JPanel newPanel = new JPanel(){                              

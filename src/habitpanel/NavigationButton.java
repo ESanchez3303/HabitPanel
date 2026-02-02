@@ -6,6 +6,12 @@ import java.awt.geom.Path2D;
 import javax.swing.JPanel;
 import java.awt.BasicStroke;
 
+/*
+    Creates custom emblems for the side navigation buttons
+     -> Settings, Add, Home, Edit, Progress 
+    
+    I tried using photos, but it never looked good quality enough 
+*/
 
 public class NavigationButton extends JPanel{
     public enum Type { SETTINGS, ADD, HOME, EDIT, PROGRESS }
