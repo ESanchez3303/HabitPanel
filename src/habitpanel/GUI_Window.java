@@ -164,10 +164,6 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_chooseHabitPanel.add(eh_scrollDownPanel);
         
         
-        // Setting up the add habit panel
-        ah_NamePanel.setBorder(new RoundedBorder(Color.BLACK, 1, 20));
-        
-        
         // Setting up the screensaver
         screensaver.setUp(this, screensaverPanel); 
         
@@ -670,7 +666,7 @@ public class GUI_Window extends javax.swing.JFrame {
         addHabit.add(ah_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
 
         ah_NamePanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_NamePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_NamePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED)));
         ah_NamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ah_TopPanelText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -741,7 +737,7 @@ public class GUI_Window extends javax.swing.JFrame {
         );
         ah_ColorDisplayLayout.setVerticalGroup(
             ah_ColorDisplayLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 26, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
 
         ah_NamePanel.add(ah_ColorDisplay, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 70, 140, 30));
@@ -749,14 +745,14 @@ public class GUI_Window extends javax.swing.JFrame {
         addHabit.add(ah_NamePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 110, 390, 190));
 
         ah_DaysPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_DaysPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_DaysPanel.setBorder(ah_NamePanel.getBorder());
         ah_DaysPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ah_DaysText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_DaysText.setForeground(java.awt.Color.white);
         ah_DaysText.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_DaysText.setText("Choose The Days For This Habit");
-        ah_DaysPanel.add(ah_DaysText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 450, 40));
+        ah_DaysPanel.add(ah_DaysText, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 3, 450, 35));
 
         ah_SaveDaysButton.setBackground(new java.awt.Color(128, 161, 98));
         ah_SaveDaysButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -768,7 +764,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 ah_SaveDaysButtonMouseClicked(evt);
             }
         });
-        ah_DaysPanel.add(ah_SaveDaysButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 170, 400, 30));
+        ah_DaysPanel.add(ah_SaveDaysButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 163, 400, 30));
 
         ah_Sunday.setBackground(new java.awt.Color(128, 161, 98));
         ah_Sunday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -829,7 +825,7 @@ public class GUI_Window extends javax.swing.JFrame {
         addHabit.add(ah_DaysPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 160, 450, 210));
 
         ah_QuantityPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_QuantityPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_QuantityPanel.setBorder(ah_NamePanel.getBorder());
         ah_QuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ah_QuantityPanelText.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -881,7 +877,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 ah_QuantitySaveButtonMouseClicked(evt);
             }
         });
-        ah_QuantityPanel.add(ah_QuantitySaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 440, 50));
+        ah_QuantityPanel.add(ah_QuantitySaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 140, 430, 50));
 
         ah_QuantityGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_QuantityGoal.setForeground(java.awt.Color.white);
@@ -928,74 +924,74 @@ public class GUI_Window extends javax.swing.JFrame {
         addHabit.add(ah_ResetButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 270, 40));
 
         ah_SummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
-        ah_SummaryPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ah_SummaryPanel.setBorder(ah_NamePanel.getBorder());
         ah_SummaryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         ah_SummaryName.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryName.setForeground(java.awt.Color.white);
         ah_SummaryName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_SummaryName.setText("ppppppppppppppppk");
-        ah_SummaryPanel.add(ah_SummaryName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 175, 30));
+        ah_SummaryPanel.add(ah_SummaryName, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 170, 30));
 
         ah_SummaryText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryText1.setForeground(java.awt.Color.white);
         ah_SummaryText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ah_SummaryText1.setText("Name:");
-        ah_SummaryPanel.add(ah_SummaryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 75, 30));
+        ah_SummaryPanel.add(ah_SummaryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 10, 73, 30));
 
         ah_SummaryText3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryText3.setForeground(java.awt.Color.white);
         ah_SummaryText3.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ah_SummaryText3.setText("Quantity:");
-        ah_SummaryPanel.add(ah_SummaryText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 75, 75, 30));
+        ah_SummaryPanel.add(ah_SummaryText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 75, 73, 30));
 
         ah_SummaryQuantity.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryQuantity.setForeground(java.awt.Color.white);
         ah_SummaryQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_SummaryQuantity.setText("Yes/No");
-        ah_SummaryPanel.add(ah_SummaryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 75, 175, 30));
+        ah_SummaryPanel.add(ah_SummaryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 75, 170, 30));
 
         ah_SummaryDays.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryDays.setForeground(java.awt.Color.white);
         ah_SummaryDays.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_SummaryDays.setText("M/T/W/Th/F/S/Su");
-        ah_SummaryPanel.add(ah_SummaryDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 165, 175, 30));
+        ah_SummaryPanel.add(ah_SummaryDays, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 165, 170, 30));
 
         ah_SummaryText6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryText6.setForeground(java.awt.Color.white);
         ah_SummaryText6.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ah_SummaryText6.setText("Days:");
-        ah_SummaryPanel.add(ah_SummaryText6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 165, 75, 30));
+        ah_SummaryPanel.add(ah_SummaryText6, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 165, 73, 30));
 
         ah_SummaryIncrement.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryIncrement.setForeground(java.awt.Color.white);
         ah_SummaryIncrement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_SummaryIncrement.setText("+1");
-        ah_SummaryPanel.add(ah_SummaryIncrement, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 175, 30));
+        ah_SummaryPanel.add(ah_SummaryIncrement, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 105, 170, 30));
 
         ah_SummaryText4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryText4.setForeground(java.awt.Color.white);
         ah_SummaryText4.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ah_SummaryText4.setText("Increment:");
-        ah_SummaryPanel.add(ah_SummaryText4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 105, 75, 30));
+        ah_SummaryPanel.add(ah_SummaryText4, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 105, 73, 30));
 
         ah_SummaryText5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryText5.setForeground(java.awt.Color.white);
         ah_SummaryText5.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ah_SummaryText5.setText("Goal:");
-        ah_SummaryPanel.add(ah_SummaryText5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 135, 75, 30));
+        ah_SummaryPanel.add(ah_SummaryText5, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 135, 73, 30));
 
         ah_SummaryGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryGoal.setForeground(java.awt.Color.white);
         ah_SummaryGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_SummaryGoal.setText("9999");
-        ah_SummaryPanel.add(ah_SummaryGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 135, 175, 30));
+        ah_SummaryPanel.add(ah_SummaryGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 135, 170, 30));
 
         ah_SummaryText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ah_SummaryText2.setForeground(java.awt.Color.white);
         ah_SummaryText2.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
         ah_SummaryText2.setText("Color:");
-        ah_SummaryPanel.add(ah_SummaryText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 45, 75, 30));
+        ah_SummaryPanel.add(ah_SummaryText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(12, 45, 73, 30));
 
         ah_SummaryColor.setBackground(java.awt.Color.white);
         ah_SummaryColor.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -1003,7 +999,7 @@ public class GUI_Window extends javax.swing.JFrame {
         ah_SummaryColor.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         ah_SummaryColor.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
         ah_SummaryColor.setOpaque(true);
-        ah_SummaryPanel.add(ah_SummaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 45, 175, 30));
+        ah_SummaryPanel.add(ah_SummaryColor, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 45, 170, 30));
 
         addHabit.add(ah_SummaryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 160, 270, 210));
 
@@ -2720,7 +2716,7 @@ public class GUI_Window extends javax.swing.JFrame {
         getContentPane().add(home, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         keyboard.setBackground(new java.awt.Color(156, 183, 133));
-        keyboard.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        keyboard.setBorder(ah_NamePanel.getBorder());
         keyboard.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         key1.setBackground(new java.awt.Color(128, 161, 98));
@@ -2734,7 +2730,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 60, 60));
+        keyboard.add(key1, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 15, 60, 60));
 
         key2.setBackground(new java.awt.Color(128, 161, 98));
         key2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2747,7 +2743,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 10, 60, 60));
+        keyboard.add(key2, new org.netbeans.lib.awtextra.AbsoluteConstraints(85, 15, 60, 60));
 
         key3.setBackground(new java.awt.Color(128, 161, 98));
         key3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2760,7 +2756,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key3, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 60, 60));
+        keyboard.add(key3, new org.netbeans.lib.awtextra.AbsoluteConstraints(155, 15, 60, 60));
 
         key4.setBackground(new java.awt.Color(128, 161, 98));
         key4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2773,7 +2769,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 10, 60, 60));
+        keyboard.add(key4, new org.netbeans.lib.awtextra.AbsoluteConstraints(225, 15, 60, 60));
 
         key5.setBackground(new java.awt.Color(128, 161, 98));
         key5.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2786,7 +2782,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 10, 60, 60));
+        keyboard.add(key5, new org.netbeans.lib.awtextra.AbsoluteConstraints(295, 15, 60, 60));
 
         key6.setBackground(new java.awt.Color(128, 161, 98));
         key6.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2799,7 +2795,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key6, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 10, 60, 60));
+        keyboard.add(key6, new org.netbeans.lib.awtextra.AbsoluteConstraints(365, 15, 60, 60));
 
         key7.setBackground(new java.awt.Color(128, 161, 98));
         key7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2812,7 +2808,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key7, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 10, 60, 60));
+        keyboard.add(key7, new org.netbeans.lib.awtextra.AbsoluteConstraints(435, 15, 60, 60));
 
         key8.setBackground(new java.awt.Color(128, 161, 98));
         key8.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2825,7 +2821,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key8, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 10, 60, 60));
+        keyboard.add(key8, new org.netbeans.lib.awtextra.AbsoluteConstraints(505, 15, 60, 60));
 
         key9.setBackground(new java.awt.Color(128, 161, 98));
         key9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2838,7 +2834,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key9, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 10, 60, 60));
+        keyboard.add(key9, new org.netbeans.lib.awtextra.AbsoluteConstraints(575, 15, 60, 60));
 
         key10.setBackground(new java.awt.Color(128, 161, 98));
         key10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2851,7 +2847,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key10, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 10, 60, 60));
+        keyboard.add(key10, new org.netbeans.lib.awtextra.AbsoluteConstraints(645, 15, 60, 60));
 
         key11.setBackground(new java.awt.Color(128, 161, 98));
         key11.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2864,7 +2860,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 60, 60));
+        keyboard.add(key11, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 85, 60, 60));
 
         key12.setBackground(new java.awt.Color(128, 161, 98));
         key12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2877,7 +2873,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 80, 60, 60));
+        keyboard.add(key12, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 85, 60, 60));
 
         key13.setBackground(new java.awt.Color(128, 161, 98));
         key13.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2890,7 +2886,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 80, 60, 60));
+        keyboard.add(key13, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 85, 60, 60));
 
         key14.setBackground(new java.awt.Color(128, 161, 98));
         key14.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2903,7 +2899,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 80, 60, 60));
+        keyboard.add(key14, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 85, 60, 60));
 
         key15.setBackground(new java.awt.Color(128, 161, 98));
         key15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2916,7 +2912,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 60, 60));
+        keyboard.add(key15, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 85, 60, 60));
 
         key16.setBackground(new java.awt.Color(128, 161, 98));
         key16.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2929,7 +2925,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key16, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 80, 60, 60));
+        keyboard.add(key16, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 85, 60, 60));
 
         key17.setBackground(new java.awt.Color(128, 161, 98));
         key17.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2942,7 +2938,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 80, 60, 60));
+        keyboard.add(key17, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 85, 60, 60));
 
         key18.setBackground(new java.awt.Color(128, 161, 98));
         key18.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2955,7 +2951,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key18, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 80, 60, 60));
+        keyboard.add(key18, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 85, 60, 60));
 
         key19.setBackground(new java.awt.Color(128, 161, 98));
         key19.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2968,7 +2964,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key19, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 80, 60, 60));
+        keyboard.add(key19, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 85, 60, 60));
 
         key20.setBackground(new java.awt.Color(128, 161, 98));
         key20.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2981,7 +2977,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key20, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 60, 60));
+        keyboard.add(key20, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 155, 60, 60));
 
         key21.setBackground(new java.awt.Color(128, 161, 98));
         key21.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -2995,7 +2991,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key21, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 150, 60, 60));
+        keyboard.add(key21, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 155, 60, 60));
 
         key22.setBackground(new java.awt.Color(128, 161, 98));
         key22.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -3008,7 +3004,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 150, 60, 60));
+        keyboard.add(key22, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 155, 60, 60));
 
         key23.setBackground(new java.awt.Color(128, 161, 98));
         key23.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -3021,7 +3017,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 150, 60, 60));
+        keyboard.add(key23, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 155, 60, 60));
 
         key24.setBackground(new java.awt.Color(128, 161, 98));
         key24.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -3034,7 +3030,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key24, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 150, 60, 60));
+        keyboard.add(key24, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 155, 60, 60));
 
         key25.setBackground(new java.awt.Color(128, 161, 98));
         key25.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -3047,7 +3043,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 150, 60, 60));
+        keyboard.add(key25, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 155, 60, 60));
 
         key26.setBackground(new java.awt.Color(128, 161, 98));
         key26.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -3060,7 +3056,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key26, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 60, 60));
+        keyboard.add(key26, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 155, 60, 60));
 
         key27.setBackground(new java.awt.Color(128, 161, 98));
         key27.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -3073,7 +3069,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key27, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 150, 100, 60));
+        keyboard.add(key27, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 155, 100, 60));
 
         key28.setBackground(new java.awt.Color(128, 161, 98));
         key28.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -3086,9 +3082,9 @@ public class GUI_Window extends javax.swing.JFrame {
                 keyboardKeyClicked(evt);
             }
         });
-        keyboard.add(key28, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 150, 100, 60));
+        keyboard.add(key28, new org.netbeans.lib.awtextra.AbsoluteConstraints(15, 155, 95, 60));
 
-        getContentPane().add(keyboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -330, 730, 220));
+        getContentPane().add(keyboard, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, -330, 725, 230));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
