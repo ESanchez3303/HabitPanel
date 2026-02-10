@@ -1,0 +1,13 @@
+name=GYM
+color=0,153,153
+type=yesno
+days=1111111
+
+2026-02-09=true
+2026-02-08=false
+2026-02-07=false
+2026-02-06=false
+2026-02-05=false
+2026-02-04=false
+2026-02-03=false
+2026-02-02=false

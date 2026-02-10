@@ -1,0 +1,6 @@
+name=READ
+color=0,255,204
+type=yesno
+days=1111100
+
+2026-02-09=false

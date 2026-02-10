@@ -1,7 +1,0 @@
-name=Y
-color=255,102,102
-type=quantity
-days=0000010
-increment=0.1
-goal=0.3
-

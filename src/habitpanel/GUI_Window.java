@@ -4791,6 +4791,7 @@ public class GUI_Window extends javax.swing.JFrame {
         // Everything should be approved up to here and locked in, so we can add the example panel to the list and refrsh home
         
         // The card is a YESNO card, then grab the card
+        
         if(ah_SummaryQuantity.getText().equals("No")){
             HabitCard_YesNo newCard = (HabitCard_YesNo) ah_CardPanel.getComponent(0);
             if(newCard != null){
@@ -4829,7 +4830,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "ERROR: Could not create card");
         }
         
-        switchFrame(home);
+        homeButtonClicked(); // Switching frame to home and moving navigation bar (Calling this is only needed when changing views out too)
     }//GEN-LAST:event_ah_SaveButtonMouseClicked
 
     // =================================================================================================================================
