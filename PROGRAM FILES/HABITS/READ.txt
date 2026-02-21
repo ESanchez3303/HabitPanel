@@ -2,5 +2,6 @@ name=READ
 color=0,255,204
 type=yesno
 days=1111100
+lastmodified=2026-02-21T11:57:32.964966200
 
 2026-02-09=false

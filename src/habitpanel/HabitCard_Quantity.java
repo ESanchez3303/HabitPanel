@@ -3,9 +3,9 @@ import java.awt.*;
 import javax.swing.JOptionPane;
 import javax.swing.Timer;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
-
 
 class QuantityEntry {
     private boolean completed;
@@ -33,6 +33,9 @@ class QuantityEntry {
 
 
 public class HabitCard_Quantity extends javax.swing.JPanel {
+    
+    // IMPORTANT FOR COMPARING WITH PHONE: ===============================================================
+    private LocalDateTime lastModified = null;
     // Private Variables: ================================================================================
     private final int MAX_LENGTH = 17;
     private double quantity = 0; // This is what this card takes care of (not a boolean)
@@ -146,7 +149,8 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         double quantityInput, double goalInput, double incrementInput, String weekInput) {
         initComponents();
         
-        
+        // Setting up last modified
+        lastModified = LocalDateTime.now();
         
         // Double checking that name is not too long
         if(habitNameInput.length() > MAX_LENGTH){
@@ -313,6 +317,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         
         animatePress(false); // do the animation, inside the animation it will handle if it will bounce or stay down
         
+        // Updates that the habit completion has been modified
+        lastModified = LocalDateTime.now();
+        
         // This does the repainting of the brim
         this.repaint();
     }
@@ -335,6 +342,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         completionMap.put(LocalDate.now(), new QuantityEntry(quantity, goal));  
         
         animatePress(false); // do the animation, inside the animation it will handle if it will bounce or stay down
+        
+        // Updates that the habit completion has been modified
+        lastModified = LocalDateTime.now();
         
         // This does the repainting of the brim
         this.repaint();
@@ -507,7 +517,9 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return completionMap;
     }
     
-    
+    public LocalDateTime getLastModified(){
+        return lastModified;
+    }
     
     // -- SET FUNCTIONS --
     public void setHabitName(String newHabitName){
@@ -544,7 +556,6 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         this.repaint();                                 // Repaint so that it can get painted the way its suppose to be with new quantity
     }
     
-    
     public void addDateEntry(LocalDate date, double quantityReached, double targetGoal){
         completionMap.put(date, new QuantityEntry(quantityReached, targetGoal));
     }
@@ -570,12 +581,13 @@ public class HabitCard_Quantity extends javax.swing.JPanel {
         return completionMap.size();
     }
     
-    
     public void removeDateEntry(LocalDate targetDate){
         completionMap.remove(targetDate);
     }
     
-    
+    public void setLastModified(LocalDateTime inputLastModified) {
+        lastModified = inputLastModified;
+    }
     
     
     

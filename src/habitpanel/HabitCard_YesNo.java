@@ -6,10 +6,12 @@ import javax.swing.Timer;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
+import java.time.LocalDateTime;
  
 
 public class HabitCard_YesNo extends javax.swing.JPanel {
-    
+    // IMPORTANT FOR COMPARING WITH PHONE: ===============================================================
+    private LocalDateTime lastModified = null;
     // Private Variables: ================================================================================
     private int MAX_LENGTH = 0;
     private boolean isComplete = false;
@@ -95,6 +97,9 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
     //  CONSTRUCTOR:       ===============================================================================
     public HabitCard_YesNo(GUI_Window guiInput, String habitNameInput, Color habitColorInput, boolean completed, String weekInput) {
         initComponents();
+        
+        // Setting up last modified
+        lastModified = LocalDateTime.now();
         
         // Setting the parent gui so that we can use its methods later
         mainGUI = guiInput;
@@ -226,6 +231,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         // Changing the completion status in the map
         completionMap.put(LocalDate.now(), isComplete);
         
+        
+        // Updates that the habit completion has been modified
+        lastModified = LocalDateTime.now();
+        
         // Repaiting the whole panel which should call the paintComponent, i hopeeeee
         this.repaint();
     }//GEN-LAST:event_habitNameMouseClicked
@@ -311,6 +320,10 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         return completionMap.get(targetDay);
     }
     
+    public LocalDateTime getLastModified(){
+        return lastModified;
+    }
+    
     // Set Functions:
     public void setComplete(boolean state){
         isComplete = state;
@@ -323,8 +336,6 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         
         this.repaint();
     }
-    
-    
             
     public void setHabitName(String newName){
         habitName.setText(newName);
@@ -371,10 +382,13 @@ public class HabitCard_YesNo extends javax.swing.JPanel {
         return completionMap.size();
     }
     
-     public void removeDateEntry(LocalDate targetDate){
+    public void removeDateEntry(LocalDate targetDate){
         completionMap.remove(targetDate);
     }
     
+    public void setLastModified(LocalDateTime inputLastModified) {
+        lastModified = inputLastModified;
+    }
     
     // ===================================================================================================
     

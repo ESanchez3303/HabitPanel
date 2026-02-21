@@ -22,10 +22,8 @@ import java.util.Locale;
 import java.time.LocalDateTime;
 import java.time.LocalDate;
 import java.time.YearMonth;
-import java.time.DayOfWeek;
-import java.time.temporal.TemporalAdjusters;
 import java.time.DateTimeException;
-import java.util.HashMap;
+import java.time.format.DateTimeParseException;
 
 // NOTE TO SELF: 1040 x 600 is the screen size
 
@@ -77,6 +75,8 @@ public class GUI_Window extends javax.swing.JFrame {
     // ====================================================================
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(GUI_Window.class.getName());
+    
+    
 
     // Constructor of the frame
     public GUI_Window() {
@@ -244,8 +244,11 @@ public class GUI_Window extends javax.swing.JFrame {
         // Setting up nav selector again for the "illegal foward refrence"
         navSelectorAgain = navSelector;
         
+        // DBEUG:
+        
         // Setting up todays date for the first time
-        todaysDate = LocalDate.now();
+        //todaysDate = LocalDate.now();
+        todaysDate = LocalDateTime.now().toLocalDate();
         
         
         // Painting the program
@@ -283,6 +286,112 @@ public class GUI_Window extends javax.swing.JFrame {
         editHabitButton = new javax.swing.JPanel();
         progressButton = new javax.swing.JPanel();
         navSelector = new javax.swing.JPanel();
+        editHabit = new javax.swing.JPanel();
+        eh_title = new javax.swing.JLabel();
+        eh_noHabitsPanel = new javax.swing.JLabel();
+        eh_editHistoryPanel = new javax.swing.JPanel();
+        eh_editHistoryAddPanel = new javax.swing.JPanel();
+        eh_editHistoryAddSaveButton = new javax.swing.JButton();
+        eh_editHistoryAddCancelButton = new javax.swing.JButton();
+        eh_editHistoryAddYear = new javax.swing.JSpinner();
+        eh_editHistoryAddDay = new javax.swing.JSpinner();
+        eh_editHistoryAddMonth = new javax.swing.JSpinner();
+        eh_editHistoryAddText1 = new javax.swing.JLabel();
+        eh_editHistoryAddYesNoPanel = new javax.swing.JPanel();
+        eh_editHistoryAddText2 = new javax.swing.JLabel();
+        eh_editHistoryAddCompleteButton = new javax.swing.JToggleButton();
+        eh_editHistoryAddNotCompleteButton = new javax.swing.JToggleButton();
+        eh_editHistoryAddQuantityPanel = new javax.swing.JPanel();
+        eh_editHistoryAddText3 = new javax.swing.JLabel();
+        eh_editHistoryAddText4 = new javax.swing.JLabel();
+        eh_editHistoryAddCurrentGoal = new javax.swing.JLabel();
+        eh_editHistoryAddReached = new javax.swing.JLabel();
+        eh_editHistoryAddGoal = new javax.swing.JLabel();
+        eh_editHistoryAddGoalIncreaseButton = new javax.swing.JButton();
+        eh_editHistoryAddReachedDecreaseButton = new javax.swing.JButton();
+        eh_editHistoryAddGoalDecreaseButton = new javax.swing.JButton();
+        eh_editHistoryAddReachedIncreaseButton = new javax.swing.JButton();
+        eh_editHistoryAddIncrement = new javax.swing.JLabel();
+        eh_editHistoryAddDateEntryLabels = new javax.swing.JLabel();
+        eh_editHistoryAddDateWarning = new javax.swing.JLabel();
+        ehist_historyScrollPane = new javax.swing.JScrollPane();
+        eh_historyTable = new javax.swing.JTable();
+        eh_editHistoryDeletePanel = new javax.swing.JPanel();
+        eh_editHistoryDeleteConfirmButton = new javax.swing.JButton();
+        eh_editHistoryDeleteCanceButton = new javax.swing.JButton();
+        eh_editHistoryDeleteDate = new javax.swing.JLabel();
+        eh_editHistoryDeleteText1 = new javax.swing.JLabel();
+        eh_editHistoryYesNoPanel = new javax.swing.JPanel();
+        eh_editHistoryNotCompleteButton = new javax.swing.JToggleButton();
+        eh_editHistoryCompleteButton = new javax.swing.JToggleButton();
+        eh_editHistoryQuantityPanel = new javax.swing.JPanel();
+        eh_editHIstoryIncreaseButton = new javax.swing.JButton();
+        eh_editHistorydDecreaseButton = new javax.swing.JButton();
+        eh_editHistoryQuantity = new javax.swing.JLabel();
+        eh_text3 = new javax.swing.JLabel();
+        eh_editHistoryHabitName = new javax.swing.JLabel();
+        eh_editHistoryText1 = new javax.swing.JLabel();
+        eh_editHistoryScrollUpButton = new javax.swing.JButton();
+        eh_editHistoryScrollDownButton = new javax.swing.JButton();
+        eh_editHistoryBackButton = new javax.swing.JButton();
+        eh_editHistoryDeleteButton = new javax.swing.JButton();
+        eh_editHistoryAddButton = new javax.swing.JButton();
+        eh_editHabitPanel = new javax.swing.JPanel();
+        eh_editHabitText1 = new javax.swing.JLabel();
+        eh_editHabitSummaryPanel = new javax.swing.JPanel();
+        eh_editHabitText2 = new javax.swing.JLabel();
+        eh_editHabitText3 = new javax.swing.JLabel();
+        eh_editHabitText4 = new javax.swing.JLabel();
+        eh_editHabitText5 = new javax.swing.JLabel();
+        eh_editHabitText6 = new javax.swing.JLabel();
+        eh_name = new javax.swing.JLabel();
+        eh_color = new javax.swing.JLabel();
+        eh_goal = new javax.swing.JLabel();
+        eh_increment = new javax.swing.JLabel();
+        eh_days = new javax.swing.JLabel();
+        eh_editNameButton = new javax.swing.JButton();
+        eh_editColorButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalButton = new javax.swing.JButton();
+        eh_editDaysButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalPanel = new javax.swing.JPanel();
+        eh_IncrementPointOne = new javax.swing.JToggleButton();
+        eh_IncrementPointFive = new javax.swing.JToggleButton();
+        eh_IncrementOne = new javax.swing.JToggleButton();
+        eh_quantityIncrease = new javax.swing.JButton();
+        eh_quantityDecrease = new javax.swing.JButton();
+        eh_editIncrementAndGoalSaveButton = new javax.swing.JButton();
+        eh_editIncrementAndGoalText1 = new javax.swing.JLabel();
+        eh_editIncrementAndGoalGoal = new javax.swing.JLabel();
+        eh_editIncrementAndGoalText2 = new javax.swing.JLabel();
+        eh_editIncrementAndGoalCancelButton = new javax.swing.JButton();
+        eh_editNamePanel = new javax.swing.JPanel();
+        eh_editNameCancelButton = new javax.swing.JButton();
+        eh_editNameSaveButton = new javax.swing.JButton();
+        eh_nameInput = new javax.swing.JTextField();
+        eh_bottomButtonsPanel = new javax.swing.JPanel();
+        eh_backButton = new javax.swing.JButton();
+        eh_deleteHabitButton = new javax.swing.JButton();
+        eh_editHistoryButton = new javax.swing.JButton();
+        eh_deletePanel = new javax.swing.JPanel();
+        eh_deleteConfirmButton = new javax.swing.JButton();
+        eh_deleteCancelButton = new javax.swing.JButton();
+        eh_deleteText1 = new javax.swing.JLabel();
+        eh_editDaysPanel = new javax.swing.JPanel();
+        eh_Monday = new javax.swing.JToggleButton();
+        eh_Tuesday = new javax.swing.JToggleButton();
+        eh_Wednesday = new javax.swing.JToggleButton();
+        eh_Thursday = new javax.swing.JToggleButton();
+        eh_Friday = new javax.swing.JToggleButton();
+        eh_Saturday = new javax.swing.JToggleButton();
+        eh_Sunday = new javax.swing.JToggleButton();
+        eh_editDaysSaveButton = new javax.swing.JButton();
+        eh_editDaysCancelButton = new javax.swing.JButton();
+        jSeparator1 = new javax.swing.JSeparator();
+        eh_chooseHabitPanel = new javax.swing.JPanel();
+        eh_scrollDownPanel = new javax.swing.JPanel();
+        eh_scrollUpPanel = new javax.swing.JPanel();
+        eh_scrollPane = new javax.swing.JScrollPane();
+        eh_chooseHabitDisplay = new javax.swing.JPanel();
         addHabit = new javax.swing.JPanel();
         ah_title = new javax.swing.JLabel();
         ah_NamePanel = new javax.swing.JPanel();
@@ -399,112 +508,6 @@ public class GUI_Window extends javax.swing.JFrame {
         skylinePanel1 = new javax.swing.JLabel();
         skylinePanel2 = new javax.swing.JLabel();
         skylinePanel3 = new javax.swing.JLabel();
-        editHabit = new javax.swing.JPanel();
-        eh_title = new javax.swing.JLabel();
-        eh_noHabitsPanel = new javax.swing.JLabel();
-        eh_editHistoryPanel = new javax.swing.JPanel();
-        eh_editHistoryAddPanel = new javax.swing.JPanel();
-        eh_editHistoryAddSaveButton = new javax.swing.JButton();
-        eh_editHistoryAddCancelButton = new javax.swing.JButton();
-        eh_editHistoryAddYear = new javax.swing.JSpinner();
-        eh_editHistoryAddDay = new javax.swing.JSpinner();
-        eh_editHistoryAddMonth = new javax.swing.JSpinner();
-        eh_editHistoryAddText1 = new javax.swing.JLabel();
-        eh_editHistoryAddYesNoPanel = new javax.swing.JPanel();
-        eh_editHistoryAddText2 = new javax.swing.JLabel();
-        eh_editHistoryAddCompleteButton = new javax.swing.JToggleButton();
-        eh_editHistoryAddNotCompleteButton = new javax.swing.JToggleButton();
-        eh_editHistoryAddQuantityPanel = new javax.swing.JPanel();
-        eh_editHistoryAddText3 = new javax.swing.JLabel();
-        eh_editHistoryAddText4 = new javax.swing.JLabel();
-        eh_editHistoryAddCurrentGoal = new javax.swing.JLabel();
-        eh_editHistoryAddReached = new javax.swing.JLabel();
-        eh_editHistoryAddGoal = new javax.swing.JLabel();
-        eh_editHistoryAddGoalIncreaseButton = new javax.swing.JButton();
-        eh_editHistoryAddReachedDecreaseButton = new javax.swing.JButton();
-        eh_editHistoryAddGoalDecreaseButton = new javax.swing.JButton();
-        eh_editHistoryAddReachedIncreaseButton = new javax.swing.JButton();
-        eh_editHistoryAddIncrement = new javax.swing.JLabel();
-        eh_editHistoryAddDateEntryLabels = new javax.swing.JLabel();
-        eh_editHistoryAddDateWarning = new javax.swing.JLabel();
-        ehist_historyScrollPane = new javax.swing.JScrollPane();
-        eh_historyTable = new javax.swing.JTable();
-        eh_editHistoryDeletePanel = new javax.swing.JPanel();
-        eh_editHistoryDeleteConfirmButton = new javax.swing.JButton();
-        eh_editHistoryDeleteCanceButton = new javax.swing.JButton();
-        eh_editHistoryDeleteDate = new javax.swing.JLabel();
-        eh_editHistoryDeleteText1 = new javax.swing.JLabel();
-        eh_editHistoryYesNoPanel = new javax.swing.JPanel();
-        eh_editHistoryNotCompleteButton = new javax.swing.JToggleButton();
-        eh_editHistoryCompleteButton = new javax.swing.JToggleButton();
-        eh_editHistoryQuantityPanel = new javax.swing.JPanel();
-        eh_editHIstoryIncreaseButton = new javax.swing.JButton();
-        eh_editHistorydDecreaseButton = new javax.swing.JButton();
-        eh_editHistoryQuantity = new javax.swing.JLabel();
-        eh_text3 = new javax.swing.JLabel();
-        eh_editHistoryHabitName = new javax.swing.JLabel();
-        eh_editHistoryText1 = new javax.swing.JLabel();
-        eh_editHistoryScrollUpButton = new javax.swing.JButton();
-        eh_editHistoryScrollDownButton = new javax.swing.JButton();
-        eh_editHistoryBackButton = new javax.swing.JButton();
-        eh_editHistoryDeleteButton = new javax.swing.JButton();
-        eh_editHistoryAddButton = new javax.swing.JButton();
-        eh_editHabitPanel = new javax.swing.JPanel();
-        eh_editHabitText1 = new javax.swing.JLabel();
-        eh_editHabitSummaryPanel = new javax.swing.JPanel();
-        eh_editHabitText2 = new javax.swing.JLabel();
-        eh_editHabitText3 = new javax.swing.JLabel();
-        eh_editHabitText4 = new javax.swing.JLabel();
-        eh_editHabitText5 = new javax.swing.JLabel();
-        eh_editHabitText6 = new javax.swing.JLabel();
-        eh_name = new javax.swing.JLabel();
-        eh_color = new javax.swing.JLabel();
-        eh_goal = new javax.swing.JLabel();
-        eh_increment = new javax.swing.JLabel();
-        eh_days = new javax.swing.JLabel();
-        eh_editNameButton = new javax.swing.JButton();
-        eh_editColorButton = new javax.swing.JButton();
-        eh_editIncrementAndGoalButton = new javax.swing.JButton();
-        eh_editDaysButton = new javax.swing.JButton();
-        eh_editIncrementAndGoalPanel = new javax.swing.JPanel();
-        eh_IncrementPointOne = new javax.swing.JToggleButton();
-        eh_IncrementPointFive = new javax.swing.JToggleButton();
-        eh_IncrementOne = new javax.swing.JToggleButton();
-        eh_quantityIncrease = new javax.swing.JButton();
-        eh_quantityDecrease = new javax.swing.JButton();
-        eh_editIncrementAndGoalSaveButton = new javax.swing.JButton();
-        eh_editIncrementAndGoalText1 = new javax.swing.JLabel();
-        eh_editIncrementAndGoalGoal = new javax.swing.JLabel();
-        eh_editIncrementAndGoalText2 = new javax.swing.JLabel();
-        eh_editIncrementAndGoalCancelButton = new javax.swing.JButton();
-        eh_editNamePanel = new javax.swing.JPanel();
-        eh_editNameCancelButton = new javax.swing.JButton();
-        eh_editNameSaveButton = new javax.swing.JButton();
-        eh_nameInput = new javax.swing.JTextField();
-        eh_bottomButtonsPanel = new javax.swing.JPanel();
-        eh_cancelChangesButton = new javax.swing.JButton();
-        eh_deleteHabitButton = new javax.swing.JButton();
-        eh_editHistoryButton = new javax.swing.JButton();
-        eh_deletePanel = new javax.swing.JPanel();
-        eh_deleteConfirmButton = new javax.swing.JButton();
-        eh_deleteCancelButton = new javax.swing.JButton();
-        eh_deleteText1 = new javax.swing.JLabel();
-        eh_editDaysPanel = new javax.swing.JPanel();
-        eh_Monday = new javax.swing.JToggleButton();
-        eh_Tuesday = new javax.swing.JToggleButton();
-        eh_Wednesday = new javax.swing.JToggleButton();
-        eh_Thursday = new javax.swing.JToggleButton();
-        eh_Friday = new javax.swing.JToggleButton();
-        eh_Saturday = new javax.swing.JToggleButton();
-        eh_Sunday = new javax.swing.JToggleButton();
-        eh_editDaysSaveButton = new javax.swing.JButton();
-        eh_editDaysCancelButton = new javax.swing.JButton();
-        jSeparator1 = new javax.swing.JSeparator();
-        eh_chooseHabitPanel = new javax.swing.JPanel();
-        eh_scrollDownPanel = new javax.swing.JPanel();
-        eh_scrollUpPanel = new javax.swing.JPanel();
-        eh_scrollPane = new javax.swing.JScrollPane();
-        eh_chooseHabitDisplay = new javax.swing.JPanel();
         home = new javax.swing.JPanel();
         h_scrollUpPanel = new javax.swing.JPanel();
         h_scrollDownPanel = new javax.swing.JPanel();
@@ -652,6 +655,917 @@ public class GUI_Window extends javax.swing.JFrame {
         navSelector.setBounds(3, 3, 63, 115);
 
         getContentPane().add(navigationPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 70, 600));
+
+        editHabit.setBackground(new java.awt.Color(181, 181, 181));
+        editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_title.setBackground(new java.awt.Color(156, 183, 133));
+        eh_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_title.setForeground(java.awt.Color.white);
+        eh_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_title.setText("Edit Habit");
+        eh_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
+        eh_title.setOpaque(true);
+        editHabit.add(eh_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
+
+        eh_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_noHabitsPanel.setText("Add Habits To Unlock This Section");
+        eh_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_noHabitsPanel.setOpaque(true);
+        editHabit.add(eh_noHabitsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 200, 400, 200));
+
+        eh_editHistoryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryAddPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryAddSaveButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddSaveButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddSaveButton.setText("Save");
+        eh_editHistoryAddSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryAddPanel.add(eh_editHistoryAddSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 200, 250, 70));
+
+        eh_editHistoryAddCancelButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddCancelButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddCancelButton.setText("Cancel");
+        eh_editHistoryAddCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryAddPanel.add(eh_editHistoryAddCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 250, 70));
+
+        eh_editHistoryAddYear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddPanel.add(eh_editHistoryAddYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 110, 40));
+
+        eh_editHistoryAddDay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddPanel.add(eh_editHistoryAddDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 80, 40));
+
+        eh_editHistoryAddMonth.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddPanel.add(eh_editHistoryAddMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 80, 40));
+
+        eh_editHistoryAddText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddText1.setForeground(java.awt.Color.white);
+        eh_editHistoryAddText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHistoryAddText1.setText("Date Of Entry:");
+        eh_editHistoryAddPanel.add(eh_editHistoryAddText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 140, 40));
+
+        eh_editHistoryAddYesNoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryAddText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddText2.setForeground(java.awt.Color.white);
+        eh_editHistoryAddText2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHistoryAddText2.setText("Completed:");
+        eh_editHistoryAddYesNoPanel.add(eh_editHistoryAddText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 140, 40));
+
+        eh_editHistoryAddCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_editHistoryAddCompleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddCompleteButton.setText("Completed");
+        eh_editHistoryAddCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddYesNoPanel.add(eh_editHistoryAddCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 140, 40));
+
+        eh_editHistoryAddNotCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddNotCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_editHistoryAddNotCompleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddNotCompleteButton.setText("Not Completed");
+        eh_editHistoryAddNotCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddYesNoPanel.add(eh_editHistoryAddNotCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, 40));
+
+        eh_editHistoryAddPanel.add(eh_editHistoryAddYesNoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 80, 620, 110));
+
+        eh_editHistoryAddQuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryAddText3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddText3.setForeground(java.awt.Color.white);
+        eh_editHistoryAddText3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddText3.setText("Reached:");
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 180, 30));
+
+        eh_editHistoryAddText4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddText4.setForeground(java.awt.Color.white);
+        eh_editHistoryAddText4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddText4.setText("Goal:");
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddText4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 180, 30));
+
+        eh_editHistoryAddCurrentGoal.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        eh_editHistoryAddCurrentGoal.setForeground(java.awt.Color.white);
+        eh_editHistoryAddCurrentGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddCurrentGoal.setText("Current: <number>");
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddCurrentGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 180, 30));
+
+        eh_editHistoryAddReached.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddReached.setForeground(java.awt.Color.white);
+        eh_editHistoryAddReached.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddReached.setText("<999>");
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddReached, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 35, 80, 40));
+
+        eh_editHistoryAddGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddGoal.setForeground(java.awt.Color.white);
+        eh_editHistoryAddGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddGoal.setText("<999>");
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, 80, 40));
+
+        eh_editHistoryAddGoalIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddGoalIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryAddGoalIncreaseButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddGoalIncreaseButton.setText("+");
+        eh_editHistoryAddGoalIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddGoalIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddGoalIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 35, 50, 40));
+
+        eh_editHistoryAddReachedDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddReachedDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddReachedDecreaseButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddReachedDecreaseButton.setText("-");
+        eh_editHistoryAddReachedDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddReachedDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddReachedDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 35, 50, 40));
+
+        eh_editHistoryAddGoalDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddGoalDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddGoalDecreaseButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddGoalDecreaseButton.setText("-");
+        eh_editHistoryAddGoalDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddGoalDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddGoalDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 35, 50, 40));
+
+        eh_editHistoryAddReachedIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddReachedIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryAddReachedIncreaseButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddReachedIncreaseButton.setText("+");
+        eh_editHistoryAddReachedIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddReachedIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddReachedIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 35, 50, 40));
+
+        eh_editHistoryAddIncrement.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
+        eh_editHistoryAddIncrement.setForeground(java.awt.Color.white);
+        eh_editHistoryAddIncrement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddIncrement.setText("Increment: <+1.0>");
+        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddIncrement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 180, 30));
+
+        eh_editHistoryAddPanel.add(eh_editHistoryAddQuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 80, 620, 110));
+
+        eh_editHistoryAddDateEntryLabels.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddDateEntryLabels.setForeground(java.awt.Color.white);
+        eh_editHistoryAddDateEntryLabels.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        eh_editHistoryAddDateEntryLabels.setText("    Month               Day                   Year        ");
+        eh_editHistoryAddPanel.add(eh_editHistoryAddDateEntryLabels, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 290, 20));
+
+        eh_editHistoryAddDateWarning.setForeground(java.awt.Color.white);
+        eh_editHistoryAddDateWarning.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryAddDateWarning.setText("Entry cannot be: For today, for a future day, or an already entered date");
+        eh_editHistoryAddPanel.add(eh_editHistoryAddDateWarning, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 273, 620, 25));
+
+        eh_editHistoryPanel.add(eh_editHistoryAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 630, 300));
+
+        ehist_historyScrollPane.setBackground(new java.awt.Color(156, 183, 133));
+        ehist_historyScrollPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        ehist_historyScrollPane.setForeground(new java.awt.Color(156, 183, 133));
+
+        eh_historyTable.setBackground(new java.awt.Color(156, 183, 133));
+        eh_historyTable.setForeground(java.awt.Color.white);
+        eh_historyTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Date", "Title 2", "Title 3", "Title 4"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false
+            };
+
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        eh_historyTable.setFocusable(false);
+        ehist_historyScrollPane.setViewportView(eh_historyTable);
+        if (eh_historyTable.getColumnModel().getColumnCount() > 0) {
+            eh_historyTable.getColumnModel().getColumn(0).setResizable(false);
+            eh_historyTable.getColumnModel().getColumn(1).setResizable(false);
+            eh_historyTable.getColumnModel().getColumn(2).setResizable(false);
+            eh_historyTable.getColumnModel().getColumn(3).setResizable(false);
+        }
+
+        eh_editHistoryPanel.add(ehist_historyScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 630, 350));
+
+        eh_editHistoryDeletePanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryDeletePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryDeletePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryDeleteConfirmButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryDeleteConfirmButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryDeleteConfirmButton.setForeground(java.awt.Color.white);
+        eh_editHistoryDeleteConfirmButton.setText("Confirm Delete");
+        eh_editHistoryDeleteConfirmButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryDeleteConfirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryDeleteConfirmButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 250, 70));
+
+        eh_editHistoryDeleteCanceButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryDeleteCanceButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryDeleteCanceButton.setForeground(java.awt.Color.white);
+        eh_editHistoryDeleteCanceButton.setText("Cancel");
+        eh_editHistoryDeleteCanceButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryDeleteCanceButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryDeleteCanceButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteCanceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 250, 70));
+
+        eh_editHistoryDeleteDate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHistoryDeleteDate.setForeground(java.awt.Color.white);
+        eh_editHistoryDeleteDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryDeleteDate.setText("<date>");
+        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 630, 70));
+
+        eh_editHistoryDeleteText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHistoryDeleteText1.setForeground(java.awt.Color.white);
+        eh_editHistoryDeleteText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryDeleteText1.setText("Are you sure you want to delete this entry?");
+        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 630, 60));
+
+        eh_editHistoryPanel.add(eh_editHistoryDeletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 630, 300));
+
+        eh_editHistoryYesNoPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryYesNoPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryYesNoPanel.setForeground(java.awt.Color.white);
+        eh_editHistoryYesNoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHistoryNotCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryNotCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryNotCompleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryNotCompleteButton.setText("Not Completed");
+        eh_editHistoryNotCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryNotCompleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_completedNotCompletedButtonClicked(evt);
+            }
+        });
+        eh_editHistoryYesNoPanel.add(eh_editHistoryNotCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 310, 80));
+
+        eh_editHistoryCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryCompleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryCompleteButton.setText("Completed");
+        eh_editHistoryCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryCompleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_completedNotCompletedButtonClicked(evt);
+            }
+        });
+        eh_editHistoryYesNoPanel.add(eh_editHistoryCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 80));
+
+        eh_editHistoryPanel.add(eh_editHistoryYesNoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 660, 110));
+
+        eh_editHistoryQuantityPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryQuantityPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryQuantityPanel.setForeground(java.awt.Color.white);
+        eh_editHistoryQuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editHIstoryIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHIstoryIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHIstoryIncreaseButton.setForeground(java.awt.Color.white);
+        eh_editHIstoryIncreaseButton.setText("+");
+        eh_editHIstoryIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHIstoryIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_increaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryQuantityPanel.add(eh_editHIstoryIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 150, 70));
+
+        eh_editHistorydDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistorydDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHistorydDecreaseButton.setForeground(java.awt.Color.white);
+        eh_editHistorydDecreaseButton.setText("-");
+        eh_editHistorydDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistorydDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                ehist_increaseDecreaseButtonClicked(evt);
+            }
+        });
+        eh_editHistoryQuantityPanel.add(eh_editHistorydDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 150, 70));
+
+        eh_editHistoryQuantity.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHistoryQuantity.setForeground(java.awt.Color.white);
+        eh_editHistoryQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHistoryQuantity.setText("9999");
+        eh_editHistoryQuantityPanel.add(eh_editHistoryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 220, 60));
+
+        eh_text3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_text3.setForeground(java.awt.Color.white);
+        eh_text3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_text3.setText("Quantity Reached");
+        eh_editHistoryQuantityPanel.add(eh_text3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 220, -1));
+
+        eh_editHistoryPanel.add(eh_editHistoryQuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 660, 110));
+
+        eh_editHistoryHabitName.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryHabitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryHabitName.setForeground(java.awt.Color.white);
+        eh_editHistoryHabitName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        eh_editHistoryHabitName.setText("<habit name>");
+        eh_editHistoryPanel.add(eh_editHistoryHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 270, 50));
+
+        eh_editHistoryText1.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryText1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryText1.setForeground(java.awt.Color.white);
+        eh_editHistoryText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+        eh_editHistoryText1.setText("                                   Loaded Entries for:");
+        eh_editHistoryText1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryText1.setOpaque(true);
+        eh_editHistoryPanel.add(eh_editHistoryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 630, 50));
+
+        eh_editHistoryScrollUpButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryScrollUpButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryScrollUpButton.setForeground(java.awt.Color.white);
+        eh_editHistoryScrollUpButton.setText("^");
+        eh_editHistoryScrollUpButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryScrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryScrollButtonClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryScrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 200));
+
+        eh_editHistoryScrollDownButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryScrollDownButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryScrollDownButton.setForeground(java.awt.Color.white);
+        eh_editHistoryScrollDownButton.setText("V");
+        eh_editHistoryScrollDownButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryScrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryScrollButtonClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryScrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 200, 30, 200));
+
+        eh_editHistoryBackButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryBackButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryBackButton.setForeground(java.awt.Color.white);
+        eh_editHistoryBackButton.setText("Back");
+        eh_editHistoryBackButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryBackButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryBackButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 100, 60));
+
+        eh_editHistoryDeleteButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryDeleteButton.setForeground(java.awt.Color.white);
+        eh_editHistoryDeleteButton.setText("Delete Entry");
+        eh_editHistoryDeleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryDeleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryDeleteButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 60));
+
+        eh_editHistoryAddButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHistoryAddButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editHistoryAddButton.setForeground(java.awt.Color.white);
+        eh_editHistoryAddButton.setText("Add Entry");
+        eh_editHistoryAddButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryAddButtonMouseClicked(evt);
+            }
+        });
+        eh_editHistoryPanel.add(eh_editHistoryAddButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 100, 60));
+
+        editHabit.add(eh_editHistoryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 950, 520));
+
+        eh_editHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHabitPanel.setLayout(null);
+
+        eh_editHabitText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editHabitText1.setForeground(java.awt.Color.white);
+        eh_editHabitText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editHabitText1.setText("Saved Details");
+        eh_editHabitText1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editHabitText1.setOpaque(true);
+        eh_editHabitPanel.add(eh_editHabitText1);
+        eh_editHabitText1.setBounds(150, 30, 630, 40);
+
+        eh_editHabitSummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editHabitSummaryPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editHabitSummaryPanel.setLayout(null);
+
+        eh_editHabitText2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHabitText2.setForeground(java.awt.Color.white);
+        eh_editHabitText2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHabitText2.setText("Name:");
+        eh_editHabitSummaryPanel.add(eh_editHabitText2);
+        eh_editHabitText2.setBounds(40, 20, 120, 40);
+
+        eh_editHabitText3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHabitText3.setForeground(java.awt.Color.white);
+        eh_editHabitText3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHabitText3.setText("Color:");
+        eh_editHabitSummaryPanel.add(eh_editHabitText3);
+        eh_editHabitText3.setBounds(40, 70, 120, 40);
+
+        eh_editHabitText4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHabitText4.setForeground(java.awt.Color.white);
+        eh_editHabitText4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHabitText4.setText("Goal:");
+        eh_editHabitSummaryPanel.add(eh_editHabitText4);
+        eh_editHabitText4.setBounds(40, 220, 120, 40);
+
+        eh_editHabitText5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHabitText5.setForeground(java.awt.Color.white);
+        eh_editHabitText5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHabitText5.setText("Increment:");
+        eh_editHabitSummaryPanel.add(eh_editHabitText5);
+        eh_editHabitText5.setBounds(40, 170, 120, 40);
+
+        eh_editHabitText6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHabitText6.setForeground(java.awt.Color.white);
+        eh_editHabitText6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        eh_editHabitText6.setText("Days:");
+        eh_editHabitSummaryPanel.add(eh_editHabitText6);
+        eh_editHabitText6.setBounds(40, 120, 120, 40);
+
+        eh_name.setBackground(java.awt.Color.black);
+        eh_name.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        eh_name.setForeground(java.awt.Color.white);
+        eh_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_name.setText("< target habit name >");
+        eh_editHabitSummaryPanel.add(eh_name);
+        eh_name.setBounds(170, 20, 240, 40);
+
+        eh_color.setBackground(new java.awt.Color(255, 153, 102));
+        eh_color.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
+        eh_color.setForeground(java.awt.Color.white);
+        eh_color.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_color.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        eh_color.setOpaque(true);
+        eh_editHabitSummaryPanel.add(eh_color);
+        eh_color.setBounds(190, 75, 200, 30);
+
+        eh_goal.setBackground(java.awt.Color.black);
+        eh_goal.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        eh_goal.setForeground(java.awt.Color.white);
+        eh_goal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_goal.setText("< target goal >");
+        eh_editHabitSummaryPanel.add(eh_goal);
+        eh_goal.setBounds(170, 220, 240, 40);
+
+        eh_increment.setBackground(java.awt.Color.black);
+        eh_increment.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        eh_increment.setForeground(java.awt.Color.white);
+        eh_increment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_increment.setText("< target increment >");
+        eh_editHabitSummaryPanel.add(eh_increment);
+        eh_increment.setBounds(170, 170, 240, 40);
+
+        eh_days.setBackground(java.awt.Color.black);
+        eh_days.setFont(new java.awt.Font("Segoe UI", 0, 17)); // NOI18N
+        eh_days.setForeground(java.awt.Color.white);
+        eh_days.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_days.setText("< target days >");
+        eh_editHabitSummaryPanel.add(eh_days);
+        eh_days.setBounds(170, 120, 240, 40);
+
+        eh_editNameButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_editNameButton.setText("Edit");
+        eh_editNameButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editNameButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitSummaryPanel.add(eh_editNameButton);
+        eh_editNameButton.setBounds(410, 25, 170, 30);
+
+        eh_editColorButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_editColorButton.setText("Edit");
+        eh_editColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editColorButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitSummaryPanel.add(eh_editColorButton);
+        eh_editColorButton.setBounds(410, 75, 170, 30);
+
+        eh_editIncrementAndGoalButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_editIncrementAndGoalButton.setText("Edit");
+        eh_editIncrementAndGoalButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitSummaryPanel.add(eh_editIncrementAndGoalButton);
+        eh_editIncrementAndGoalButton.setBounds(410, 175, 170, 80);
+
+        eh_editDaysButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_editDaysButton.setText("Edit");
+        eh_editDaysButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editDaysButtonMouseClicked(evt);
+            }
+        });
+        eh_editHabitSummaryPanel.add(eh_editDaysButton);
+        eh_editDaysButton.setBounds(410, 125, 170, 30);
+
+        eh_editHabitPanel.add(eh_editHabitSummaryPanel);
+        eh_editHabitSummaryPanel.setBounds(150, 80, 630, 280);
+
+        eh_editIncrementAndGoalPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editIncrementAndGoalPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editIncrementAndGoalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementPointOne.setForeground(java.awt.Color.white);
+        eh_IncrementPointOne.setText("+0.1");
+        eh_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, 40));
+
+        eh_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementPointFive.setForeground(java.awt.Color.white);
+        eh_IncrementPointFive.setText("+0.5");
+        eh_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 40));
+
+        eh_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
+        eh_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        eh_IncrementOne.setForeground(java.awt.Color.white);
+        eh_IncrementOne.setText("+1");
+        eh_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalPanel.add(eh_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 40));
+
+        eh_quantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
+        eh_quantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_quantityIncrease.setForeground(java.awt.Color.white);
+        eh_quantityIncrease.setText("+");
+        eh_quantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_quantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_quantityDecreasedIncreasedButtonClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_quantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 80, 60));
+
+        eh_quantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
+        eh_quantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_quantityDecrease.setForeground(java.awt.Color.white);
+        eh_quantityDecrease.setText("-");
+        eh_quantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_quantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_quantityDecreasedIncreasedButtonClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_quantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 80, 60));
+
+        eh_editIncrementAndGoalSaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editIncrementAndGoalSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editIncrementAndGoalSaveButton.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalSaveButton.setText("Save");
+        eh_editIncrementAndGoalSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
+
+        eh_editIncrementAndGoalText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalText1.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalText1.setText("Increment:");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 400, 60));
+
+        eh_editIncrementAndGoalGoal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalGoal.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalGoal.setText("0.0");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 60));
+
+        eh_editIncrementAndGoalText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        eh_editIncrementAndGoalText2.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_editIncrementAndGoalText2.setText("Goal:");
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 400, 60));
+
+        eh_editIncrementAndGoalCancelButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editIncrementAndGoalCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editIncrementAndGoalCancelButton.setForeground(java.awt.Color.white);
+        eh_editIncrementAndGoalCancelButton.setText("Cancel/Reset");
+        eh_editIncrementAndGoalCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editIncrementAndGoalCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editIncrementAndGoalCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
+
+        eh_editHabitPanel.add(eh_editIncrementAndGoalPanel);
+        eh_editIncrementAndGoalPanel.setBounds(150, 80, 630, 380);
+
+        eh_editNamePanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editNamePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_editNameCancelButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editNameCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editNameCancelButton.setForeground(java.awt.Color.white);
+        eh_editNameCancelButton.setText("Cancel/Reset");
+        eh_editNameCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editNameCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editNameCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editNamePanel.add(eh_editNameCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 70));
+
+        eh_editNameSaveButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editNameSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_editNameSaveButton.setForeground(java.awt.Color.white);
+        eh_editNameSaveButton.setText("Save");
+        eh_editNameSaveButton.setToolTipText("");
+        eh_editNameSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editNameSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editNameSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editNamePanel.add(eh_editNameSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 270, 70));
+
+        eh_nameInput.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_nameInput.setForeground(new java.awt.Color(255, 255, 255));
+        eh_nameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
+        eh_nameInput.setText("< Enter Name Section >");
+        eh_editNamePanel.add(eh_nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 440, 50));
+
+        eh_editHabitPanel.add(eh_editNamePanel);
+        eh_editNamePanel.setBounds(150, 80, 630, 230);
+
+        eh_bottomButtonsPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_bottomButtonsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_backButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_backButton.setForeground(java.awt.Color.white);
+        eh_backButton.setText("Back");
+        eh_backButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_backButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_backButtonMouseClicked(evt);
+            }
+        });
+        eh_bottomButtonsPanel.add(eh_backButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 180, 70));
+
+        eh_deleteHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_deleteHabitButton.setForeground(java.awt.Color.white);
+        eh_deleteHabitButton.setText("Delete Habit");
+        eh_deleteHabitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_deleteHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_deleteHabitButtonMouseClicked(evt);
+            }
+        });
+        eh_bottomButtonsPanel.add(eh_deleteHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 180, 70));
+
+        eh_editHistoryButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editHistoryButton.setForeground(java.awt.Color.white);
+        eh_editHistoryButton.setText("Edit History");
+        eh_editHistoryButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editHistoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editHistoryButtonMouseClicked(evt);
+            }
+        });
+        eh_bottomButtonsPanel.add(eh_editHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 180, 70));
+
+        eh_editHabitPanel.add(eh_bottomButtonsPanel);
+        eh_bottomButtonsPanel.setBounds(150, 370, 630, 90);
+
+        eh_deletePanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_deletePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_deletePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_deleteConfirmButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_deleteConfirmButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_deleteConfirmButton.setForeground(new java.awt.Color(255, 255, 255));
+        eh_deleteConfirmButton.setText("Confirm Delete");
+        eh_deleteConfirmButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_deleteConfirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_deleteConfirmButtonMouseClicked(evt);
+            }
+        });
+        eh_deletePanel.add(eh_deleteConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 300, 70));
+
+        eh_deleteCancelButton.setBackground(new java.awt.Color(156, 183, 133));
+        eh_deleteCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_deleteCancelButton.setForeground(new java.awt.Color(255, 255, 255));
+        eh_deleteCancelButton.setText("Cancel");
+        eh_deleteCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_deleteCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_deleteCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_deletePanel.add(eh_deleteCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 300, 70));
+
+        eh_deleteText1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
+        eh_deleteText1.setForeground(java.awt.Color.white);
+        eh_deleteText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        eh_deleteText1.setText("Are you sure you want to delete this habit?");
+        eh_deletePanel.add(eh_deleteText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 270));
+
+        eh_editHabitPanel.add(eh_deletePanel);
+        eh_deletePanel.setBounds(150, 80, 630, 380);
+
+        eh_editDaysPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_editDaysPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
+        eh_editDaysPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        eh_Monday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Monday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Monday.setForeground(java.awt.Color.white);
+        eh_Monday.setText("Monday");
+        eh_Monday.setToolTipText("");
+        eh_Monday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Monday, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 140, 70));
+
+        eh_Tuesday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Tuesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Tuesday.setForeground(java.awt.Color.white);
+        eh_Tuesday.setText("Tuesday");
+        eh_Tuesday.setToolTipText("");
+        eh_Tuesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Tuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 140, 70));
+
+        eh_Wednesday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Wednesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Wednesday.setForeground(java.awt.Color.white);
+        eh_Wednesday.setText("Wednesday");
+        eh_Wednesday.setToolTipText("");
+        eh_Wednesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Wednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 140, 70));
+
+        eh_Thursday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Thursday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Thursday.setForeground(java.awt.Color.white);
+        eh_Thursday.setText("Thursday");
+        eh_Thursday.setToolTipText("");
+        eh_Thursday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Thursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 140, 70));
+
+        eh_Friday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Friday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Friday.setForeground(java.awt.Color.white);
+        eh_Friday.setText("Friday");
+        eh_Friday.setToolTipText("");
+        eh_Friday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Friday, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 140, 70));
+
+        eh_Saturday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Saturday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Saturday.setForeground(java.awt.Color.white);
+        eh_Saturday.setText("Saturday");
+        eh_Saturday.setToolTipText("");
+        eh_Saturday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Saturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 140, 70));
+
+        eh_Sunday.setBackground(new java.awt.Color(128, 161, 98));
+        eh_Sunday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        eh_Sunday.setForeground(java.awt.Color.white);
+        eh_Sunday.setText("Sunday");
+        eh_Sunday.setToolTipText("");
+        eh_Sunday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysPanel.add(eh_Sunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 140, 70));
+
+        eh_editDaysSaveButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editDaysSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editDaysSaveButton.setForeground(java.awt.Color.white);
+        eh_editDaysSaveButton.setText("Save");
+        eh_editDaysSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editDaysSaveButtonMouseClicked(evt);
+            }
+        });
+        eh_editDaysPanel.add(eh_editDaysSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
+
+        eh_editDaysCancelButton.setBackground(new java.awt.Color(128, 161, 98));
+        eh_editDaysCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        eh_editDaysCancelButton.setForeground(java.awt.Color.white);
+        eh_editDaysCancelButton.setText("Cancel/Reset");
+        eh_editDaysCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
+        eh_editDaysCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                eh_editDaysCancelButtonMouseClicked(evt);
+            }
+        });
+        eh_editDaysPanel.add(eh_editDaysCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
+        eh_editDaysPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 570, 20));
+
+        eh_editHabitPanel.add(eh_editDaysPanel);
+        eh_editDaysPanel.setBounds(150, 80, 630, 380);
+
+        editHabit.add(eh_editHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 950, 490));
+
+        eh_chooseHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
+        eh_chooseHabitPanel.setLayout(null);
+
+        javax.swing.GroupLayout eh_scrollDownPanelLayout = new javax.swing.GroupLayout(eh_scrollDownPanel);
+        eh_scrollDownPanel.setLayout(eh_scrollDownPanelLayout);
+        eh_scrollDownPanelLayout.setHorizontalGroup(
+            eh_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+        );
+        eh_scrollDownPanelLayout.setVerticalGroup(
+            eh_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        eh_chooseHabitPanel.add(eh_scrollDownPanel);
+        eh_scrollDownPanel.setBounds(40, 430, 850, 40);
+
+        javax.swing.GroupLayout eh_scrollUpPanelLayout = new javax.swing.GroupLayout(eh_scrollUpPanel);
+        eh_scrollUpPanel.setLayout(eh_scrollUpPanelLayout);
+        eh_scrollUpPanelLayout.setHorizontalGroup(
+            eh_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 850, Short.MAX_VALUE)
+        );
+        eh_scrollUpPanelLayout.setVerticalGroup(
+            eh_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        eh_chooseHabitPanel.add(eh_scrollUpPanel);
+        eh_scrollUpPanel.setBounds(40, 20, 850, 40);
+
+        eh_scrollPane.setBackground(new java.awt.Color(156, 183, 133));
+        eh_scrollPane.setBorder(null);
+        eh_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+        eh_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
+        eh_scrollPane.setWheelScrollingEnabled(false);
+
+        eh_chooseHabitDisplay.setBackground(new java.awt.Color(156, 183, 133));
+        eh_chooseHabitDisplay.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
+        eh_scrollPane.setViewportView(eh_chooseHabitDisplay);
+
+        eh_chooseHabitPanel.add(eh_scrollPane);
+        eh_scrollPane.setBounds(40, 80, 850, 330);
+
+        editHabit.add(eh_chooseHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
+
+        getContentPane().add(editHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
 
         addHabit.setBackground(new java.awt.Color(181, 181, 181));
         addHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1722,917 +2636,6 @@ public class GUI_Window extends javax.swing.JFrame {
 
         getContentPane().add(screensaverPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1040, 600));
 
-        editHabit.setBackground(new java.awt.Color(181, 181, 181));
-        editHabit.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_title.setBackground(new java.awt.Color(156, 183, 133));
-        eh_title.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_title.setForeground(java.awt.Color.white);
-        eh_title.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_title.setText("Edit Habit");
-        eh_title.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(), javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED)));
-        eh_title.setOpaque(true);
-        editHabit.add(eh_title, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 950, 50));
-
-        eh_noHabitsPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_noHabitsPanel.setText("Add Habits To Unlock This Section");
-        eh_noHabitsPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_noHabitsPanel.setOpaque(true);
-        editHabit.add(eh_noHabitsPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(285, 200, 400, 200));
-
-        eh_editHistoryPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHistoryAddPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHistoryAddSaveButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddSaveButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddSaveButton.setText("Save");
-        eh_editHistoryAddSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddSaveButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryAddPanel.add(eh_editHistoryAddSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 200, 250, 70));
-
-        eh_editHistoryAddCancelButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddCancelButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddCancelButton.setText("Cancel");
-        eh_editHistoryAddCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryAddPanel.add(eh_editHistoryAddCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 250, 70));
-
-        eh_editHistoryAddYear.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddPanel.add(eh_editHistoryAddYear, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 30, 110, 40));
-
-        eh_editHistoryAddDay.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddPanel.add(eh_editHistoryAddDay, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, 80, 40));
-
-        eh_editHistoryAddMonth.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddPanel.add(eh_editHistoryAddMonth, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 80, 40));
-
-        eh_editHistoryAddText1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddText1.setForeground(java.awt.Color.white);
-        eh_editHistoryAddText1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHistoryAddText1.setText("Date Of Entry:");
-        eh_editHistoryAddPanel.add(eh_editHistoryAddText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 140, 40));
-
-        eh_editHistoryAddYesNoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHistoryAddText2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddText2.setForeground(java.awt.Color.white);
-        eh_editHistoryAddText2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHistoryAddText2.setText("Completed:");
-        eh_editHistoryAddYesNoPanel.add(eh_editHistoryAddText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 40, 140, 40));
-
-        eh_editHistoryAddCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_editHistoryAddCompleteButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddCompleteButton.setText("Completed");
-        eh_editHistoryAddCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddYesNoPanel.add(eh_editHistoryAddCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 40, 140, 40));
-
-        eh_editHistoryAddNotCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddNotCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_editHistoryAddNotCompleteButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddNotCompleteButton.setText("Not Completed");
-        eh_editHistoryAddNotCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddYesNoPanel.add(eh_editHistoryAddNotCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 140, 40));
-
-        eh_editHistoryAddPanel.add(eh_editHistoryAddYesNoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 80, 620, 110));
-
-        eh_editHistoryAddQuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHistoryAddText3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddText3.setForeground(java.awt.Color.white);
-        eh_editHistoryAddText3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddText3.setText("Reached:");
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddText3, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 0, 180, 30));
-
-        eh_editHistoryAddText4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddText4.setForeground(java.awt.Color.white);
-        eh_editHistoryAddText4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddText4.setText("Goal:");
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddText4, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 0, 180, 30));
-
-        eh_editHistoryAddCurrentGoal.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        eh_editHistoryAddCurrentGoal.setForeground(java.awt.Color.white);
-        eh_editHistoryAddCurrentGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddCurrentGoal.setText("Current: <number>");
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddCurrentGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 80, 180, 30));
-
-        eh_editHistoryAddReached.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddReached.setForeground(java.awt.Color.white);
-        eh_editHistoryAddReached.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddReached.setText("<999>");
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddReached, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 35, 80, 40));
-
-        eh_editHistoryAddGoal.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddGoal.setForeground(java.awt.Color.white);
-        eh_editHistoryAddGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddGoal.setText("<999>");
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 35, 80, 40));
-
-        eh_editHistoryAddGoalIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddGoalIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryAddGoalIncreaseButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddGoalIncreaseButton.setText("+");
-        eh_editHistoryAddGoalIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddGoalIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
-            }
-        });
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddGoalIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 35, 50, 40));
-
-        eh_editHistoryAddReachedDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddReachedDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddReachedDecreaseButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddReachedDecreaseButton.setText("-");
-        eh_editHistoryAddReachedDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddReachedDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
-            }
-        });
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddReachedDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 35, 50, 40));
-
-        eh_editHistoryAddGoalDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddGoalDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddGoalDecreaseButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddGoalDecreaseButton.setText("-");
-        eh_editHistoryAddGoalDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddGoalDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
-            }
-        });
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddGoalDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 35, 50, 40));
-
-        eh_editHistoryAddReachedIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddReachedIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryAddReachedIncreaseButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddReachedIncreaseButton.setText("+");
-        eh_editHistoryAddReachedIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddReachedIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddIncreaseDecreaseButtonClicked(evt);
-            }
-        });
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddReachedIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 35, 50, 40));
-
-        eh_editHistoryAddIncrement.setFont(new java.awt.Font("Segoe UI", 2, 14)); // NOI18N
-        eh_editHistoryAddIncrement.setForeground(java.awt.Color.white);
-        eh_editHistoryAddIncrement.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddIncrement.setText("Increment: <+1.0>");
-        eh_editHistoryAddQuantityPanel.add(eh_editHistoryAddIncrement, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 180, 30));
-
-        eh_editHistoryAddPanel.add(eh_editHistoryAddQuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 80, 620, 110));
-
-        eh_editHistoryAddDateEntryLabels.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddDateEntryLabels.setForeground(java.awt.Color.white);
-        eh_editHistoryAddDateEntryLabels.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        eh_editHistoryAddDateEntryLabels.setText("    Month               Day                   Year        ");
-        eh_editHistoryAddPanel.add(eh_editHistoryAddDateEntryLabels, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 10, 290, 20));
-
-        eh_editHistoryAddDateWarning.setForeground(java.awt.Color.white);
-        eh_editHistoryAddDateWarning.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryAddDateWarning.setText("Entry cannot be: For today, for a future day, or an already entered date");
-        eh_editHistoryAddPanel.add(eh_editHistoryAddDateWarning, new org.netbeans.lib.awtextra.AbsoluteConstraints(5, 273, 620, 25));
-
-        eh_editHistoryPanel.add(eh_editHistoryAddPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 630, 300));
-
-        ehist_historyScrollPane.setBackground(new java.awt.Color(156, 183, 133));
-        ehist_historyScrollPane.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        ehist_historyScrollPane.setForeground(new java.awt.Color(156, 183, 133));
-
-        eh_historyTable.setBackground(new java.awt.Color(156, 183, 133));
-        eh_historyTable.setForeground(java.awt.Color.white);
-        eh_historyTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Date", "Title 2", "Title 3", "Title 4"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.String.class, java.lang.Object.class, java.lang.Object.class, java.lang.Object.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        eh_historyTable.setFocusable(false);
-        ehist_historyScrollPane.setViewportView(eh_historyTable);
-        if (eh_historyTable.getColumnModel().getColumnCount() > 0) {
-            eh_historyTable.getColumnModel().getColumn(0).setResizable(false);
-            eh_historyTable.getColumnModel().getColumn(1).setResizable(false);
-            eh_historyTable.getColumnModel().getColumn(2).setResizable(false);
-            eh_historyTable.getColumnModel().getColumn(3).setResizable(false);
-        }
-
-        eh_editHistoryPanel.add(ehist_historyScrollPane, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 50, 630, 350));
-
-        eh_editHistoryDeletePanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryDeletePanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryDeletePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHistoryDeleteConfirmButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryDeleteConfirmButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryDeleteConfirmButton.setForeground(java.awt.Color.white);
-        eh_editHistoryDeleteConfirmButton.setText("Confirm Delete");
-        eh_editHistoryDeleteConfirmButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryDeleteConfirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryDeleteConfirmButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 190, 250, 70));
-
-        eh_editHistoryDeleteCanceButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryDeleteCanceButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryDeleteCanceButton.setForeground(java.awt.Color.white);
-        eh_editHistoryDeleteCanceButton.setText("Cancel");
-        eh_editHistoryDeleteCanceButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryDeleteCanceButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryDeleteCanceButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteCanceButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 190, 250, 70));
-
-        eh_editHistoryDeleteDate.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editHistoryDeleteDate.setForeground(java.awt.Color.white);
-        eh_editHistoryDeleteDate.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryDeleteDate.setText("<date>");
-        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 630, 70));
-
-        eh_editHistoryDeleteText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editHistoryDeleteText1.setForeground(java.awt.Color.white);
-        eh_editHistoryDeleteText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryDeleteText1.setText("Are you sure you want to delete this entry?");
-        eh_editHistoryDeletePanel.add(eh_editHistoryDeleteText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, 630, 60));
-
-        eh_editHistoryPanel.add(eh_editHistoryDeletePanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 100, 630, 300));
-
-        eh_editHistoryYesNoPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryYesNoPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryYesNoPanel.setForeground(java.awt.Color.white);
-        eh_editHistoryYesNoPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHistoryNotCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryNotCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryNotCompleteButton.setForeground(java.awt.Color.white);
-        eh_editHistoryNotCompleteButton.setText("Not Completed");
-        eh_editHistoryNotCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryNotCompleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_completedNotCompletedButtonClicked(evt);
-            }
-        });
-        eh_editHistoryYesNoPanel.add(eh_editHistoryNotCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 20, 310, 80));
-
-        eh_editHistoryCompleteButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryCompleteButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryCompleteButton.setForeground(java.awt.Color.white);
-        eh_editHistoryCompleteButton.setText("Completed");
-        eh_editHistoryCompleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryCompleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_completedNotCompletedButtonClicked(evt);
-            }
-        });
-        eh_editHistoryYesNoPanel.add(eh_editHistoryCompleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 20, 300, 80));
-
-        eh_editHistoryPanel.add(eh_editHistoryYesNoPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 660, 110));
-
-        eh_editHistoryQuantityPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryQuantityPanel.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryQuantityPanel.setForeground(java.awt.Color.white);
-        eh_editHistoryQuantityPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editHIstoryIncreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHIstoryIncreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editHIstoryIncreaseButton.setForeground(java.awt.Color.white);
-        eh_editHIstoryIncreaseButton.setText("+");
-        eh_editHIstoryIncreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHIstoryIncreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_increaseDecreaseButtonClicked(evt);
-            }
-        });
-        eh_editHistoryQuantityPanel.add(eh_editHIstoryIncreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 150, 70));
-
-        eh_editHistorydDecreaseButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistorydDecreaseButton.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editHistorydDecreaseButton.setForeground(java.awt.Color.white);
-        eh_editHistorydDecreaseButton.setText("-");
-        eh_editHistorydDecreaseButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistorydDecreaseButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                ehist_increaseDecreaseButtonClicked(evt);
-            }
-        });
-        eh_editHistoryQuantityPanel.add(eh_editHistorydDecreaseButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 30, 150, 70));
-
-        eh_editHistoryQuantity.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editHistoryQuantity.setForeground(java.awt.Color.white);
-        eh_editHistoryQuantity.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHistoryQuantity.setText("9999");
-        eh_editHistoryQuantityPanel.add(eh_editHistoryQuantity, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 40, 220, 60));
-
-        eh_text3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_text3.setForeground(java.awt.Color.white);
-        eh_text3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_text3.setText("Quantity Reached");
-        eh_editHistoryQuantityPanel.add(eh_text3, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 220, -1));
-
-        eh_editHistoryPanel.add(eh_editHistoryQuantityPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 400, 660, 110));
-
-        eh_editHistoryHabitName.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryHabitName.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryHabitName.setForeground(java.awt.Color.white);
-        eh_editHistoryHabitName.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        eh_editHistoryHabitName.setText("<habit name>");
-        eh_editHistoryPanel.add(eh_editHistoryHabitName, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 0, 270, 50));
-
-        eh_editHistoryText1.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryText1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryText1.setForeground(java.awt.Color.white);
-        eh_editHistoryText1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        eh_editHistoryText1.setText("                                   Loaded Entries for:");
-        eh_editHistoryText1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryText1.setOpaque(true);
-        eh_editHistoryPanel.add(eh_editHistoryText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 0, 630, 50));
-
-        eh_editHistoryScrollUpButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryScrollUpButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryScrollUpButton.setForeground(java.awt.Color.white);
-        eh_editHistoryScrollUpButton.setText("^");
-        eh_editHistoryScrollUpButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryScrollUpButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryScrollButtonClicked(evt);
-            }
-        });
-        eh_editHistoryPanel.add(eh_editHistoryScrollUpButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 0, 30, 200));
-
-        eh_editHistoryScrollDownButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryScrollDownButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryScrollDownButton.setForeground(java.awt.Color.white);
-        eh_editHistoryScrollDownButton.setText("V");
-        eh_editHistoryScrollDownButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryScrollDownButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryScrollButtonClicked(evt);
-            }
-        });
-        eh_editHistoryPanel.add(eh_editHistoryScrollDownButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(770, 200, 30, 200));
-
-        eh_editHistoryBackButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryBackButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryBackButton.setForeground(java.awt.Color.white);
-        eh_editHistoryBackButton.setText("Back");
-        eh_editHistoryBackButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryBackButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryBackButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryPanel.add(eh_editHistoryBackButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 0, 100, 60));
-
-        eh_editHistoryDeleteButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryDeleteButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryDeleteButton.setForeground(java.awt.Color.white);
-        eh_editHistoryDeleteButton.setText("Delete Entry");
-        eh_editHistoryDeleteButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryDeleteButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryDeleteButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryPanel.add(eh_editHistoryDeleteButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 160, 100, 60));
-
-        eh_editHistoryAddButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHistoryAddButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editHistoryAddButton.setForeground(java.awt.Color.white);
-        eh_editHistoryAddButton.setText("Add Entry");
-        eh_editHistoryAddButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryAddButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryAddButtonMouseClicked(evt);
-            }
-        });
-        eh_editHistoryPanel.add(eh_editHistoryAddButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 100, 60));
-
-        editHabit.add(eh_editHistoryPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 950, 520));
-
-        eh_editHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHabitPanel.setLayout(null);
-
-        eh_editHabitText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editHabitText1.setForeground(java.awt.Color.white);
-        eh_editHabitText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editHabitText1.setText("Saved Details");
-        eh_editHabitText1.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editHabitText1.setOpaque(true);
-        eh_editHabitPanel.add(eh_editHabitText1);
-        eh_editHabitText1.setBounds(150, 30, 630, 40);
-
-        eh_editHabitSummaryPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editHabitSummaryPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editHabitSummaryPanel.setLayout(null);
-
-        eh_editHabitText2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHabitText2.setForeground(java.awt.Color.white);
-        eh_editHabitText2.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHabitText2.setText("Name:");
-        eh_editHabitSummaryPanel.add(eh_editHabitText2);
-        eh_editHabitText2.setBounds(40, 20, 120, 40);
-
-        eh_editHabitText3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHabitText3.setForeground(java.awt.Color.white);
-        eh_editHabitText3.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHabitText3.setText("Color:");
-        eh_editHabitSummaryPanel.add(eh_editHabitText3);
-        eh_editHabitText3.setBounds(40, 70, 120, 40);
-
-        eh_editHabitText4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHabitText4.setForeground(java.awt.Color.white);
-        eh_editHabitText4.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHabitText4.setText("Goal:");
-        eh_editHabitSummaryPanel.add(eh_editHabitText4);
-        eh_editHabitText4.setBounds(40, 220, 120, 40);
-
-        eh_editHabitText5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHabitText5.setForeground(java.awt.Color.white);
-        eh_editHabitText5.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHabitText5.setText("Increment:");
-        eh_editHabitSummaryPanel.add(eh_editHabitText5);
-        eh_editHabitText5.setBounds(40, 170, 120, 40);
-
-        eh_editHabitText6.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHabitText6.setForeground(java.awt.Color.white);
-        eh_editHabitText6.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        eh_editHabitText6.setText("Days:");
-        eh_editHabitSummaryPanel.add(eh_editHabitText6);
-        eh_editHabitText6.setBounds(40, 120, 120, 40);
-
-        eh_name.setBackground(java.awt.Color.black);
-        eh_name.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        eh_name.setForeground(java.awt.Color.white);
-        eh_name.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_name.setText("< target habit name >");
-        eh_editHabitSummaryPanel.add(eh_name);
-        eh_name.setBounds(170, 20, 240, 40);
-
-        eh_color.setBackground(new java.awt.Color(255, 153, 102));
-        eh_color.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        eh_color.setForeground(java.awt.Color.white);
-        eh_color.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_color.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        eh_color.setOpaque(true);
-        eh_editHabitSummaryPanel.add(eh_color);
-        eh_color.setBounds(190, 75, 200, 30);
-
-        eh_goal.setBackground(java.awt.Color.black);
-        eh_goal.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        eh_goal.setForeground(java.awt.Color.white);
-        eh_goal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_goal.setText("< target goal >");
-        eh_editHabitSummaryPanel.add(eh_goal);
-        eh_goal.setBounds(170, 220, 240, 40);
-
-        eh_increment.setBackground(java.awt.Color.black);
-        eh_increment.setFont(new java.awt.Font("Segoe UI", 2, 18)); // NOI18N
-        eh_increment.setForeground(java.awt.Color.white);
-        eh_increment.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_increment.setText("< target increment >");
-        eh_editHabitSummaryPanel.add(eh_increment);
-        eh_increment.setBounds(170, 170, 240, 40);
-
-        eh_days.setBackground(java.awt.Color.black);
-        eh_days.setFont(new java.awt.Font("Segoe UI", 2, 17)); // NOI18N
-        eh_days.setForeground(java.awt.Color.white);
-        eh_days.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_days.setText("< target days >");
-        eh_editHabitSummaryPanel.add(eh_days);
-        eh_days.setBounds(170, 120, 240, 40);
-
-        eh_editNameButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_editNameButton.setText("Edit");
-        eh_editNameButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editNameButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editNameButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitSummaryPanel.add(eh_editNameButton);
-        eh_editNameButton.setBounds(410, 25, 170, 30);
-
-        eh_editColorButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_editColorButton.setText("Edit");
-        eh_editColorButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editColorButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editColorButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitSummaryPanel.add(eh_editColorButton);
-        eh_editColorButton.setBounds(410, 75, 170, 30);
-
-        eh_editIncrementAndGoalButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_editIncrementAndGoalButton.setText("Edit");
-        eh_editIncrementAndGoalButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editIncrementAndGoalButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitSummaryPanel.add(eh_editIncrementAndGoalButton);
-        eh_editIncrementAndGoalButton.setBounds(410, 175, 170, 80);
-
-        eh_editDaysButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_editDaysButton.setText("Edit");
-        eh_editDaysButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editDaysButtonMouseClicked(evt);
-            }
-        });
-        eh_editHabitSummaryPanel.add(eh_editDaysButton);
-        eh_editDaysButton.setBounds(410, 125, 170, 30);
-
-        eh_editHabitPanel.add(eh_editHabitSummaryPanel);
-        eh_editHabitSummaryPanel.setBounds(150, 80, 630, 280);
-
-        eh_editIncrementAndGoalPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editIncrementAndGoalPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editIncrementAndGoalPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_IncrementPointOne.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementPointOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementPointOne.setForeground(java.awt.Color.white);
-        eh_IncrementPointOne.setText("+0.1");
-        eh_IncrementPointOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementPointOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 120, 40));
-
-        eh_IncrementPointFive.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementPointFive.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementPointFive.setForeground(java.awt.Color.white);
-        eh_IncrementPointFive.setText("+0.5");
-        eh_IncrementPointFive.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementPointFive, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 70, 120, 40));
-
-        eh_IncrementOne.setBackground(new java.awt.Color(128, 161, 98));
-        eh_IncrementOne.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        eh_IncrementOne.setForeground(java.awt.Color.white);
-        eh_IncrementOne.setText("+1");
-        eh_IncrementOne.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalPanel.add(eh_IncrementOne, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 70, 120, 40));
-
-        eh_quantityIncrease.setBackground(new java.awt.Color(128, 161, 98));
-        eh_quantityIncrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_quantityIncrease.setForeground(java.awt.Color.white);
-        eh_quantityIncrease.setText("+");
-        eh_quantityIncrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_quantityIncrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_quantityDecreasedIncreasedButtonClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_quantityIncrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 180, 80, 60));
-
-        eh_quantityDecrease.setBackground(new java.awt.Color(128, 161, 98));
-        eh_quantityDecrease.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_quantityDecrease.setForeground(java.awt.Color.white);
-        eh_quantityDecrease.setText("-");
-        eh_quantityDecrease.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_quantityDecrease.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_quantityDecreasedIncreasedButtonClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_quantityDecrease, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 180, 80, 60));
-
-        eh_editIncrementAndGoalSaveButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editIncrementAndGoalSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editIncrementAndGoalSaveButton.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalSaveButton.setText("Save");
-        eh_editIncrementAndGoalSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editIncrementAndGoalSaveButtonMouseClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
-
-        eh_editIncrementAndGoalText1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalText1.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalText1.setText("Increment:");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, 400, 60));
-
-        eh_editIncrementAndGoalGoal.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalGoal.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalGoal.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalGoal.setText("0.0");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalGoal, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 180, 120, 60));
-
-        eh_editIncrementAndGoalText2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        eh_editIncrementAndGoalText2.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalText2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_editIncrementAndGoalText2.setText("Goal:");
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalText2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 120, 400, 60));
-
-        eh_editIncrementAndGoalCancelButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editIncrementAndGoalCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editIncrementAndGoalCancelButton.setForeground(java.awt.Color.white);
-        eh_editIncrementAndGoalCancelButton.setText("Cancel/Reset");
-        eh_editIncrementAndGoalCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editIncrementAndGoalCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editIncrementAndGoalCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editIncrementAndGoalPanel.add(eh_editIncrementAndGoalCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
-
-        eh_editHabitPanel.add(eh_editIncrementAndGoalPanel);
-        eh_editIncrementAndGoalPanel.setBounds(150, 80, 630, 380);
-
-        eh_editNamePanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editNamePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editNamePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_editNameCancelButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editNameCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editNameCancelButton.setForeground(java.awt.Color.white);
-        eh_editNameCancelButton.setText("Cancel/Reset");
-        eh_editNameCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editNameCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editNameCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editNamePanel.add(eh_editNameCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 90, 270, 70));
-
-        eh_editNameSaveButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editNameSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_editNameSaveButton.setForeground(java.awt.Color.white);
-        eh_editNameSaveButton.setText("Save");
-        eh_editNameSaveButton.setToolTipText("");
-        eh_editNameSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editNameSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editNameSaveButtonMouseClicked(evt);
-            }
-        });
-        eh_editNamePanel.add(eh_editNameSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 90, 270, 70));
-
-        eh_nameInput.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_nameInput.setForeground(new java.awt.Color(255, 255, 255));
-        eh_nameInput.setHorizontalAlignment(javax.swing.JTextField.CENTER);
-        eh_nameInput.setText("< Enter Name Section >");
-        eh_editNamePanel.add(eh_nameInput, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 440, 50));
-
-        eh_editHabitPanel.add(eh_editNamePanel);
-        eh_editNamePanel.setBounds(150, 80, 630, 230);
-
-        eh_bottomButtonsPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_bottomButtonsPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_cancelChangesButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_cancelChangesButton.setForeground(java.awt.Color.white);
-        eh_cancelChangesButton.setText("Back");
-        eh_cancelChangesButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_cancelChangesButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_cancelChangesButtonMouseClicked(evt);
-            }
-        });
-        eh_bottomButtonsPanel.add(eh_cancelChangesButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 180, 70));
-
-        eh_deleteHabitButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_deleteHabitButton.setForeground(java.awt.Color.white);
-        eh_deleteHabitButton.setText("Delete Habit");
-        eh_deleteHabitButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_deleteHabitButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_deleteHabitButtonMouseClicked(evt);
-            }
-        });
-        eh_bottomButtonsPanel.add(eh_deleteHabitButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 180, 70));
-
-        eh_editHistoryButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editHistoryButton.setForeground(java.awt.Color.white);
-        eh_editHistoryButton.setText("Edit History");
-        eh_editHistoryButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editHistoryButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editHistoryButtonMouseClicked(evt);
-            }
-        });
-        eh_bottomButtonsPanel.add(eh_editHistoryButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 10, 180, 70));
-
-        eh_editHabitPanel.add(eh_bottomButtonsPanel);
-        eh_bottomButtonsPanel.setBounds(150, 370, 630, 90);
-
-        eh_deletePanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_deletePanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_deletePanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_deleteConfirmButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_deleteConfirmButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_deleteConfirmButton.setForeground(new java.awt.Color(255, 255, 255));
-        eh_deleteConfirmButton.setText("Confirm Delete");
-        eh_deleteConfirmButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_deleteConfirmButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_deleteConfirmButtonMouseClicked(evt);
-            }
-        });
-        eh_deletePanel.add(eh_deleteConfirmButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 290, 300, 70));
-
-        eh_deleteCancelButton.setBackground(new java.awt.Color(156, 183, 133));
-        eh_deleteCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_deleteCancelButton.setForeground(new java.awt.Color(255, 255, 255));
-        eh_deleteCancelButton.setText("Cancel");
-        eh_deleteCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_deleteCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_deleteCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_deletePanel.add(eh_deleteCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 290, 300, 70));
-
-        eh_deleteText1.setFont(new java.awt.Font("Segoe UI", 3, 24)); // NOI18N
-        eh_deleteText1.setForeground(java.awt.Color.white);
-        eh_deleteText1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        eh_deleteText1.setText("Are you sure you want to delete this habit?");
-        eh_deletePanel.add(eh_deleteText1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 630, 270));
-
-        eh_editHabitPanel.add(eh_deletePanel);
-        eh_deletePanel.setBounds(150, 80, 630, 380);
-
-        eh_editDaysPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_editDaysPanel.setBorder(javax.swing.BorderFactory.createCompoundBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.LOWERED)));
-        eh_editDaysPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        eh_Monday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Monday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Monday.setForeground(java.awt.Color.white);
-        eh_Monday.setText("Monday");
-        eh_Monday.setToolTipText("");
-        eh_Monday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Monday, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 140, 70));
-
-        eh_Tuesday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Tuesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Tuesday.setForeground(java.awt.Color.white);
-        eh_Tuesday.setText("Tuesday");
-        eh_Tuesday.setToolTipText("");
-        eh_Tuesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Tuesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 30, 140, 70));
-
-        eh_Wednesday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Wednesday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Wednesday.setForeground(java.awt.Color.white);
-        eh_Wednesday.setText("Wednesday");
-        eh_Wednesday.setToolTipText("");
-        eh_Wednesday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Wednesday, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 30, 140, 70));
-
-        eh_Thursday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Thursday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Thursday.setForeground(java.awt.Color.white);
-        eh_Thursday.setText("Thursday");
-        eh_Thursday.setToolTipText("");
-        eh_Thursday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Thursday, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 140, 70));
-
-        eh_Friday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Friday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Friday.setForeground(java.awt.Color.white);
-        eh_Friday.setText("Friday");
-        eh_Friday.setToolTipText("");
-        eh_Friday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Friday, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, 140, 70));
-
-        eh_Saturday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Saturday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Saturday.setForeground(java.awt.Color.white);
-        eh_Saturday.setText("Saturday");
-        eh_Saturday.setToolTipText("");
-        eh_Saturday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Saturday, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 140, 70));
-
-        eh_Sunday.setBackground(new java.awt.Color(128, 161, 98));
-        eh_Sunday.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        eh_Sunday.setForeground(java.awt.Color.white);
-        eh_Sunday.setText("Sunday");
-        eh_Sunday.setToolTipText("");
-        eh_Sunday.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysPanel.add(eh_Sunday, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 110, 140, 70));
-
-        eh_editDaysSaveButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editDaysSaveButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editDaysSaveButton.setForeground(java.awt.Color.white);
-        eh_editDaysSaveButton.setText("Save");
-        eh_editDaysSaveButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysSaveButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editDaysSaveButtonMouseClicked(evt);
-            }
-        });
-        eh_editDaysPanel.add(eh_editDaysSaveButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 270, 80));
-
-        eh_editDaysCancelButton.setBackground(new java.awt.Color(128, 161, 98));
-        eh_editDaysCancelButton.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        eh_editDaysCancelButton.setForeground(java.awt.Color.white);
-        eh_editDaysCancelButton.setText("Cancel/Reset");
-        eh_editDaysCancelButton.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
-        eh_editDaysCancelButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                eh_editDaysCancelButtonMouseClicked(evt);
-            }
-        });
-        eh_editDaysPanel.add(eh_editDaysCancelButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 270, 270, 80));
-        eh_editDaysPanel.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 220, 570, 20));
-
-        eh_editHabitPanel.add(eh_editDaysPanel);
-        eh_editDaysPanel.setBounds(150, 80, 630, 380);
-
-        editHabit.add(eh_editHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 950, 490));
-
-        eh_chooseHabitPanel.setBackground(new java.awt.Color(156, 183, 133));
-        eh_chooseHabitPanel.setLayout(null);
-
-        javax.swing.GroupLayout eh_scrollDownPanelLayout = new javax.swing.GroupLayout(eh_scrollDownPanel);
-        eh_scrollDownPanel.setLayout(eh_scrollDownPanelLayout);
-        eh_scrollDownPanelLayout.setHorizontalGroup(
-            eh_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
-        );
-        eh_scrollDownPanelLayout.setVerticalGroup(
-            eh_scrollDownPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        eh_chooseHabitPanel.add(eh_scrollDownPanel);
-        eh_scrollDownPanel.setBounds(40, 430, 850, 40);
-
-        javax.swing.GroupLayout eh_scrollUpPanelLayout = new javax.swing.GroupLayout(eh_scrollUpPanel);
-        eh_scrollUpPanel.setLayout(eh_scrollUpPanelLayout);
-        eh_scrollUpPanelLayout.setHorizontalGroup(
-            eh_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 850, Short.MAX_VALUE)
-        );
-        eh_scrollUpPanelLayout.setVerticalGroup(
-            eh_scrollUpPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 40, Short.MAX_VALUE)
-        );
-
-        eh_chooseHabitPanel.add(eh_scrollUpPanel);
-        eh_scrollUpPanel.setBounds(40, 20, 850, 40);
-
-        eh_scrollPane.setBackground(new java.awt.Color(156, 183, 133));
-        eh_scrollPane.setBorder(null);
-        eh_scrollPane.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        eh_scrollPane.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER);
-        eh_scrollPane.setWheelScrollingEnabled(false);
-
-        eh_chooseHabitDisplay.setBackground(new java.awt.Color(156, 183, 133));
-        eh_chooseHabitDisplay.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.CENTER, 10, 10));
-        eh_scrollPane.setViewportView(eh_chooseHabitDisplay);
-
-        eh_chooseHabitPanel.add(eh_scrollPane);
-        eh_scrollPane.setBounds(40, 80, 850, 330);
-
-        editHabit.add(eh_chooseHabitPanel, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 80, 910, 490));
-
-        getContentPane().add(editHabit, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 0, 970, 600));
-
         home.setBackground(new java.awt.Color(204, 204, 204));
         home.setMaximumSize(new java.awt.Dimension(1040, 600));
         home.setMinimumSize(new java.awt.Dimension(1040, 600));
@@ -3243,6 +3246,9 @@ public class GUI_Window extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_s_turnOffAwayFromScreenButtonMouseClicked
     
+    
+    
+
     // Checking every 5 seconds for a time update
     private final Timer dateTimeClock = new Timer(5000,e->{
         updateDateAndTime();
@@ -3265,11 +3271,11 @@ public class GUI_Window extends javax.swing.JFrame {
         
         
         // Checking if the date has changed, if so lock in data for yesterday and refresh home screen
-        LocalDate newTodaysDate = LocalDate.now();
+        LocalDate newTodaysDate = now.toLocalDate();
         if(!newTodaysDate.equals(todaysDate)){
             saveAllHabits();   // Saving one more time all data
             refreshHomeData(); // Refreshing home screen
-            todaysDate = LocalDate.now(); // Pushing foward to actual today
+            todaysDate = newTodaysDate; // Pushing foward to actual today
         }
         
         // Checking if we are ready to save the habits to the disk (every 60 seconds) (no reason to update while screensaver is active)
@@ -3286,7 +3292,7 @@ public class GUI_Window extends javax.swing.JFrame {
   
     
     // =================================================================================================================================
-    // ================== [ LOADING    FUNCTIONS ] =====================================================================================
+    // ================== [ LOADING FUNCTIONS ] ========================================================================================
     // =================================================================================================================================
     
     // HELPER FUNCTION : Checks if it is a number
@@ -3436,6 +3442,7 @@ public class GUI_Window extends javax.swing.JFrame {
             double goal = 0;
             HabitCard_Quantity loadingQuantityCard = null;
             HabitCard_YesNo loadingYesNoCard = null;
+            LocalDateTime lastModifiedTemp = LocalDateTime.now();
             
             
             try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
@@ -3487,6 +3494,7 @@ public class GUI_Window extends javax.swing.JFrame {
                                 }
                                 
                             }
+                            
                             case "type" -> habitType = value;
                             
                             case "days" -> {
@@ -3504,6 +3512,22 @@ public class GUI_Window extends javax.swing.JFrame {
                             case "goal" -> {
                                 try { goal = Double.parseDouble(value); } 
                                 catch (NumberFormatException e) { goal = 1; }
+                            }
+                            
+                            case "lastmodified" -> {
+                                try {
+                                    LocalDateTime parsed = LocalDateTime.parse(value);
+                                    if (habitType.equalsIgnoreCase("quantity") && loadingQuantityCard != null) {
+                                        loadingQuantityCard.setLastModified(parsed);
+                                    } else if (habitType.equalsIgnoreCase("yesno") && loadingYesNoCard != null) {
+                                        loadingYesNoCard.setLastModified(parsed);
+                                    } else {
+                                        // Store temporarily to set after object creation
+                                        lastModifiedTemp = parsed;
+                                    }
+                                } catch (DateTimeParseException e) {
+                                    // Keep default (now)
+                                }
                             }
                         }
 
@@ -3553,9 +3577,11 @@ public class GUI_Window extends javax.swing.JFrame {
                 if(!readingDates){
                     if (habitType.equalsIgnoreCase("quantity")) {
                         loadingQuantityCard = new HabitCard_Quantity( this, habitName, habitColor, 0, goal, increment, habitDays);
+                        loadingQuantityCard.setLastModified(lastModifiedTemp);
                         allQuantityCards.add(loadingQuantityCard);
                     } else if(habitType.equalsIgnoreCase("yesno")){
                         loadingYesNoCard = new HabitCard_YesNo(this, habitName, habitColor, false, habitDays);
+                        loadingYesNoCard.setLastModified(lastModifiedTemp);
                         allYesNoCards.add(loadingYesNoCard);
                     }
                 }
@@ -3624,7 +3650,7 @@ public class GUI_Window extends javax.swing.JFrame {
             
             // EDIT HABIT
             eh_editNameButton, eh_editColorButton, eh_editIncrementAndGoalButton,
-            eh_editDaysButton, eh_editNameCancelButton, eh_editNameSaveButton, eh_deleteHabitButton, eh_cancelChangesButton,
+            eh_editDaysButton, eh_editNameCancelButton, eh_editNameSaveButton, eh_deleteHabitButton, eh_backButton,
             eh_editDaysCancelButton, eh_editDaysSaveButton, eh_quantityDecrease, eh_quantityIncrease, eh_editIncrementAndGoalCancelButton, eh_editIncrementAndGoalSaveButton,
             eh_deleteConfirmButton, eh_deleteCancelButton, eh_editHistoryButton, eh_editHistoryBackButton, eh_editHistoryScrollDownButton, eh_editHistoryScrollUpButton, 
             eh_editHistoryDeleteConfirmButton, eh_editHistoryDeleteCanceButton, eh_editHistoryAddSaveButton, eh_editHistoryAddCancelButton, 
@@ -3848,6 +3874,9 @@ public class GUI_Window extends javax.swing.JFrame {
                 writer.write("days=" + target.getWeek());
                 writer.newLine();
                 
+                writer.write("lastmodified=" + target.getLastModified().toString());
+                writer.newLine();
+                
                 writer.write("type=quantity");
                 writer.newLine();
                 
@@ -3856,6 +3885,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 
                 writer.write("goal=" + target.getGoal());
                 writer.newLine();
+                
                 
                 // Blank line separates metadata from entries
                 writer.newLine();
@@ -3901,6 +3931,9 @@ public class GUI_Window extends javax.swing.JFrame {
                 writer.write("days=" + target.getWeek());
                 writer.newLine();
                 
+                writer.write("lastmodified=" + target.getLastModified().toString());
+                writer.newLine();
+                
                 writer.write("type=yesno");
                 writer.newLine();
                 
@@ -3943,6 +3976,9 @@ public class GUI_Window extends javax.swing.JFrame {
 
             writer.write("days=" + target.getWeek());
             writer.newLine();
+            
+            writer.write("lastmodified=" + target.getLastModified().toString());
+            writer.newLine();
 
             writer.write("increment=" + target.getIncrement());
             writer.newLine();
@@ -3983,6 +4019,9 @@ public class GUI_Window extends javax.swing.JFrame {
                 writer.newLine();
 
                 writer.write("days=" + target.getWeek());
+                writer.newLine();
+                
+                writer.write("lastmodified=" + target.getLastModified().toString());
                 writer.newLine();
 
                 // Blank line separates metadata from entries
@@ -4227,8 +4266,6 @@ public class GUI_Window extends javax.swing.JFrame {
     }
     
     private void refreshHomeData(){
-        // Updating date and time before
-        updateDateAndTime();
         
         // Getting the weekday so that we can compare to the cards date later
         String todaysWeekDay = getWeekday();
@@ -4245,6 +4282,8 @@ public class GUI_Window extends javax.swing.JFrame {
                 h_habitPanel.add(currCard);
                 if(!currCard.hasDateEntry(LocalDate.now())){   // Adding an entry for today if it does not already have one 
                     currCard.addDateEntry(LocalDate.now(), 0.0, currCard.getGoal()); // Adding date entry for today
+                    // Update last modified before saving
+                    targetQuantityCard.setLastModified(LocalDateTime.now());
                     saveQuantityHabitFile(currCard);                                 // Saving file in the disk since we are creating a new one
                 }
                 else                                          // If there is already an entry for today, then we need to update the cache
@@ -5178,9 +5217,9 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_resetPanel();
     }//GEN-LAST:event_eh_deleteConfirmButtonMouseClicked
     
-    private void eh_cancelChangesButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_cancelChangesButtonMouseClicked
+    private void eh_backButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_backButtonMouseClicked
         eh_resetPanel();
-    }//GEN-LAST:event_eh_cancelChangesButtonMouseClicked
+    }//GEN-LAST:event_eh_backButtonMouseClicked
 
     private void eh_editNameButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_eh_editNameButtonMouseClicked
         keyboard.setLocation(190,330);
@@ -5234,6 +5273,7 @@ public class GUI_Window extends javax.swing.JFrame {
         if(targetQuantityCard != null){
             targetQuantityCard.setHabitName(eh_name.getText());                 // Setting the text on the summary 
             if(!savedName.equals(targetQuantityCard.getHabitName())){           // If name does not equal to the saved name
+                targetQuantityCard.setLastModified(LocalDateTime.now());        // Update last modified before saving
                 renameHabitFile(savedName, targetQuantityCard.getHabitName());  // Renaming the file
                 savedName = eh_name.getText();                                  // Updating saved name
             }
@@ -5241,6 +5281,7 @@ public class GUI_Window extends javax.swing.JFrame {
         else{
             targetYesNoCard.setHabitName(eh_name.getText());                    // Setting the text on the summary
             if(!savedName.equals(targetYesNoCard.getHabitName())){
+                targetYesNoCard.setLastModified(LocalDateTime.now());           // Update last modified before saving
                 renameHabitFile(savedName, targetYesNoCard.getHabitName());     // Renaming file if the name changed
                 savedName = eh_name.getText();                                  // Updating saved name
             }
@@ -5268,10 +5309,12 @@ public class GUI_Window extends javax.swing.JFrame {
             // Saving into memory and disk
             if(targetQuantityCard != null){
                 targetQuantityCard.setHabitColor(chosenColor);
+                targetQuantityCard.setLastModified(LocalDateTime.now()); // Update last modified before saving
                 saveQuantityHabitFile(targetQuantityCard);
             }
             else{
                 targetYesNoCard.setHabitColor(chosenColor);
+                targetYesNoCard.setLastModified(LocalDateTime.now()); // Update last modified before saving
                 saveYesNoHabitFile(targetYesNoCard);
             }
         }
@@ -5351,10 +5394,12 @@ public class GUI_Window extends javax.swing.JFrame {
         // Saving into memory and disk
         if(targetQuantityCard != null){
             targetQuantityCard.setWeek(savedWeek); 
+            targetQuantityCard.setLastModified(LocalDateTime.now()); // Update last modified before saving
             saveQuantityHabitFile(targetQuantityCard);
         }
         else{
             targetYesNoCard.setWeek(savedWeek);
+            targetYesNoCard.setLastModified(LocalDateTime.now()); // Update last modified before saving
             saveYesNoHabitFile(targetYesNoCard);
         }
         
@@ -5437,6 +5482,9 @@ public class GUI_Window extends javax.swing.JFrame {
         targetQuantityCard.setIncrement(newIncrement);
         targetQuantityCard.setGoal(newGoal);
         
+        
+        // Update last modified before saving
+        targetQuantityCard.setLastModified(LocalDateTime.now());
         
         // Saving into disk
         saveQuantityHabitFile(targetQuantityCard);
@@ -5683,6 +5731,9 @@ public class GUI_Window extends javax.swing.JFrame {
         
         eh_historyTable.setValueAt((newValue == 1), row, 1);                                    // Change the value in the table
         criticalSection = false;
+        
+        // Updating that we have changed something
+        habitSelected.setLastModified(LocalDateTime.now());
     }//GEN-LAST:event_ehist_completedNotCompletedButtonClicked
 
     
@@ -5738,6 +5789,9 @@ public class GUI_Window extends javax.swing.JFrame {
         eh_historyTable.setValueAt((newCompletedValue == 1), row, 3);
         
         criticalSection = false;
+        
+        // Updating that we have changed something
+        habitSelected.setLastModified(LocalDateTime.now());
     }//GEN-LAST:event_ehist_increaseDecreaseButtonClicked
 
     
@@ -5783,6 +5837,9 @@ public class GUI_Window extends javax.swing.JFrame {
             // -- REMOVE FROM MEMORY --
             targetQuantityCard.removeDateEntry((LocalDate) eh_historyTable.getValueAt(eh_historyTable.getSelectedRow(), 0));
             
+            // Update last modified before saving
+            targetQuantityCard.setLastModified(LocalDateTime.now());
+            
             // -- REMOVE FROM FILES (SAVE FILE) -- 
             saveQuantityHabitFile(targetQuantityCard);
             
@@ -5794,6 +5851,9 @@ public class GUI_Window extends javax.swing.JFrame {
         else{
             // -- REMOVE FROM MEMORY --
             targetYesNoCard.removeDateEntry((LocalDate) eh_historyTable.getValueAt(eh_historyTable.getSelectedRow(), 0));
+            
+            // Update last modified before saving
+            targetYesNoCard.setLastModified(LocalDateTime.now());
             
             // -- REMOVE FROM FILES (SAVE FILE) -- 
             saveYesNoHabitFile(targetYesNoCard);
@@ -5927,6 +5987,9 @@ public class GUI_Window extends javax.swing.JFrame {
             // -- SAVE TO MEMORY --
             targetQuantityCard.addDateEntry(newDate, newReached, newGoal);
             
+            // Update last modified before saving
+            targetQuantityCard.setLastModified(LocalDateTime.now());
+            
             // -- SAVE TO DISK --
             saveQuantityHabitFile(targetQuantityCard);
         }
@@ -5948,6 +6011,9 @@ public class GUI_Window extends javax.swing.JFrame {
             // -- SAVE TO MEMORY --
             boolean newIsCompleted = eh_editHistoryAddCompleteButton.isSelected();
             targetYesNoCard.addDateEntry(newDate, newIsCompleted);
+            
+            // Update last modified before saving
+            targetYesNoCard.setLastModified(LocalDateTime.now());
             
             // -- SAVE TO DISK --
             saveYesNoHabitFile(targetYesNoCard);
@@ -6530,8 +6596,8 @@ public class GUI_Window extends javax.swing.JFrame {
     private javax.swing.JToggleButton eh_Thursday;
     private javax.swing.JToggleButton eh_Tuesday;
     private javax.swing.JToggleButton eh_Wednesday;
+    private javax.swing.JButton eh_backButton;
     private javax.swing.JPanel eh_bottomButtonsPanel;
-    private javax.swing.JButton eh_cancelChangesButton;
     private javax.swing.JPanel eh_chooseHabitDisplay;
     private javax.swing.JPanel eh_chooseHabitPanel;
     private javax.swing.JLabel eh_color;
