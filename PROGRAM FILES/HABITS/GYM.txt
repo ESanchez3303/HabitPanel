@@ -2,7 +2,7 @@ name=GYM
 color=0,153,153
 type=yesno
 days=1111111
-lastmodified=2026-02-26T11:15:47.407871100
+lastmodified=2026-02-26T15:42:55.163883700
 
 2026-02-26=false
 2026-02-09=true

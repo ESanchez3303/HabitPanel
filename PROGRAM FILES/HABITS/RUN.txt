@@ -2,7 +2,7 @@ name=RUN
 color=255,102,102
 type=quantity
 days=1111111
-lastmodified=2026-02-26T11:15:47.400864100
+lastmodified=2026-02-26T15:42:55.174930400
 increment=1.0
 goal=2.0
 
