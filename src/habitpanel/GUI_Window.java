@@ -4282,8 +4282,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 h_habitPanel.add(currCard);
                 if(!currCard.hasDateEntry(LocalDate.now())){   // Adding an entry for today if it does not already have one 
                     currCard.addDateEntry(LocalDate.now(), 0.0, currCard.getGoal()); // Adding date entry for today
-                    // Update last modified before saving
-                    targetQuantityCard.setLastModified(LocalDateTime.now());
+                    currCard.setLastModified(LocalDateTime.now());                   // Updating that we have made a change
                     saveQuantityHabitFile(currCard);                                 // Saving file in the disk since we are creating a new one
                 }
                 else                                          // If there is already an entry for today, then we need to update the cache
@@ -4298,6 +4297,7 @@ public class GUI_Window extends javax.swing.JFrame {
                 h_habitPanel.add(currCard);
                 if(!currCard.hasDateEntry(LocalDate.now())){   // Adding an entry for today if it does not already have one 
                     currCard.addDateEntry(LocalDate.now(), false); // Adding date entry for today
+                    currCard.setLastModified(LocalDateTime.now()); // Updating that we have made a change
                     saveYesNoHabitFile(currCard);                  // Saving file in the disk since we are creating a new one
                 }
                 else                                          // If there is already an entry for today, then we need to update the cache for it
