@@ -6138,7 +6138,7 @@ public class GUI_Window extends javax.swing.JFrame {
         
 
         // -- Set up Table -- 
-        String[] columns = {"Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"};
+        String[] columns = {"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
         DefaultTableModel model = new DefaultTableModel(columns, 0) {
             @Override public boolean isCellEditable(int row, int column) { return false; }
         };
@@ -6148,7 +6148,7 @@ public class GUI_Window extends javax.swing.JFrame {
         int daysInMonth = yearMonth.lengthOfMonth();
 
         
-        int startColumn = firstOfMonth.getDayOfWeek().getValue() % 7;
+        int startColumn = (firstOfMonth.getDayOfWeek().getValue() + 6) % 7;
 
         int day = 1;
         while (day <= daysInMonth) {
